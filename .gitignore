@@ -1,0 +1,28 @@
+*.sqlite
+*.clover
+*.cache
+*.gitignore.*
+
+# composer
+/vendor/
+/composer.lock
+
+# phpunit, phpstan
+.phpunit.result.cache
+phpstan.neon
+.phpunit.cache/test-results
+
+# coverage, tests & others
+build/
+*.phar
+Dev/large.votes
+test.php
+*.temp
+
+# IDE
+*.idea
+*.code-workspace
+.vscode
+
+# Sys
+.DS_Store

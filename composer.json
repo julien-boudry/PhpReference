@@ -1,0 +1,31 @@
+{
+    "name": "julien-boudry/php-reference",
+    "type": "library",
+    "require": {
+        "roave/better-reflection": "^6.57"
+    },
+    "require-dev": {
+        "pestphp/pest": "^3.8",
+        "laravel/prompts": "^0.3.5",
+        "symfony/console": "^7.2",
+        "laravel/pint": "^1.22",
+        "phpstan/phpstan": "^2.1"
+    },
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "JulienBoudry\\PhpReference\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Julien Boudry",
+            "email": "julien.boudry@gmail.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
