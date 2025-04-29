@@ -2,14 +2,16 @@
     "name": "julien-boudry/php-reference",
     "type": "library",
     "require": {
-        "roave/better-reflection": "^6.57"
+        "roave/better-reflection": "^6.57",
+        "haydenpierce/class-finder": "^0.5.3"
     },
     "require-dev": {
         "pestphp/pest": "^3.8",
         "laravel/prompts": "^0.3.5",
         "symfony/console": "^7.2",
         "laravel/pint": "^1.22",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "julien-boudry/condorcet": "dev-master"
     },
     "license": "BSD-3-Clause",
     "autoload": {
