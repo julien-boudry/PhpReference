@@ -3,11 +3,14 @@
 namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
-use Roave\BetterReflection\Reflection\ReflectionClass;
+use phpDocumentor\Reflection\DocBlockFactory;
+use phpDocumentor\Reflection\DocBlockFactoryInterface;
+use ReflectionClass;
+use ReflectionMethod;
 
 class CodeIndex
 {
-    /** @var string[] */
+    /** @var array<string, ClassWrapper */
     public readonly array $classList;
 
     public function __construct()
@@ -18,10 +21,23 @@ class CodeIndex
         $classList = [];
 
         foreach ($classPathList as $classPath) {
-            var_dump($classPath);
-            $classList[$classPath] = ReflectionClass::createFromName($classPath);
+            // $astLocator = (new BetterReflection())->astLocator();
+            // $reflector = new DefaultReflector(new ComposerSourceLocator($classLoader, $astLocator));
+            // $classList[$classPath] = $reflector->reflectClass($classPath);
+
+            $classList[$classPath] = new ClassWrapper($classPath);
         }
 
         $this->classList = $classList;
+    }
+
+    /**
+     * @return array<string, ReflectionClass>
+     */
+    public function getPublicClasses(): array
+    {
+        return array_filter($this->classList, function (ClassWrapper $class): bool {
+            return $class->classWillBePublic;
+        });
     }
 }
