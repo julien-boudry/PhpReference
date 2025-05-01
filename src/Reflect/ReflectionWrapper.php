@@ -2,7 +2,6 @@
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Util;
 use phpDocumentor\Reflection\DocBlock;
 use ReflectionClass;
@@ -39,7 +38,7 @@ abstract class ReflectionWrapper
     public readonly bool $hasApiTag;
     public readonly bool $hasInternalTag;
 
-    protected function __construct(public readonly ReflectionClass|ReflectionProperty|ReflectionMethod|ReflectionFunction $reflection)
+    public function __construct(public readonly ReflectionClass|ReflectionProperty|ReflectionMethod|ReflectionFunction $reflection)
     {
          // Docblock
          $docComment = $this->reflection->getDocComment();
@@ -57,5 +56,10 @@ abstract class ReflectionWrapper
         } else {
             $this->hasInternalTag = false;
         }
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->docBlock?->getDescription()->render();
     }
 }

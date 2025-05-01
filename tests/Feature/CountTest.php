@@ -43,3 +43,28 @@ it('has methods', function (): void {
         expect($method->classWrapper->willBeInPublicApi)->toBeTrue();
     }
 });
+
+it('has properties', function (): void {
+    $codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
+
+    expect($codeIndex->classList)->toHaveKey(Election::class);
+
+    $electionClass = $codeIndex->classList[Election::class];
+    expect($electionClass->willBeInPublicApi)->toBeTrue();
+
+    $allApiProperties = count($electionClass->getAllApiProperties());
+    $allUserDefinedProperties = count($electionClass->getAllProperties());
+    $allUserDefinedPropertiesWithoutPrivateProtected = count($electionClass->getAllProperties(protected: false, private: false));
+
+    expect($allUserDefinedProperties)->toBeGreaterThan($allUserDefinedPropertiesWithoutPrivateProtected);
+
+    expect($allApiProperties)->toBeLessThan($allUserDefinedProperties);
+    expect($allApiProperties)->toBeLessThan($allUserDefinedPropertiesWithoutPrivateProtected);
+
+    foreach ($electionClass->getAllApiProperties() as $property) {
+        expect($property->hasApiTag)->toBeTrue();
+        expect($property->hasInternalTag)->toBeFalse();
+        expect($property->willBeInPublicApi)->toBeTrue();
+        expect($property->classWrapper->willBeInPublicApi)->toBeTrue();
+    }
+});

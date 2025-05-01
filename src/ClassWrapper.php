@@ -7,7 +7,6 @@ use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
-use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
@@ -57,7 +56,7 @@ class ClassWrapper extends ReflectionWrapper
             callback: function (MethodWrapper|PropertyWrapper $reflectionWrapper) use ($public, $protected, $private, $static) {
                 $reflection = $reflectionWrapper->reflection;
 
-                if ($reflection instanceof ReflectionFunctionAbstract && !$reflection->isUserDefined()) {
+                if (!$reflection->isUserDefined()) {
                     return false;
                 }
 
