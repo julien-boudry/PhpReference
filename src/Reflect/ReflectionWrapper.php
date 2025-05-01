@@ -5,6 +5,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 use JulienBoudry\PhpReference\Util;
 use phpDocumentor\Reflection\DocBlock;
 use ReflectionClass;
+use ReflectionClassConstant;
 use ReflectionFunction;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -24,6 +25,8 @@ abstract class ReflectionWrapper
                 $wrappers[] = new MethodWrapper($reflector, $classWrapper);
             } elseif ($reflector instanceof ReflectionProperty) {
                 $wrappers[] = new PropertyWrapper($reflector, $classWrapper);
+            } elseif ($reflector instanceof ReflectionClassConstant) {
+                $wrappers[] = new ClassConstantWrapper($reflector, $classWrapper);
             } elseif ($reflector instanceof ReflectionFunction) {
                 $wrappers[] = new FunctionWrapper($reflector);
             }

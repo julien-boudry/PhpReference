@@ -22,12 +22,16 @@ class ClassWrapper extends ReflectionWrapper
     /** @var array<PropertyWrapper> */
     public readonly array $properties;
 
+    /** @var array<ClassConstantWrapper> */
+    public readonly array $constants;
+
     public function __construct(public readonly string $classPath)
     {
         parent::__construct(new ReflectionClass($classPath));
 
         $this->methods = ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
         $this->properties = ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
+        $this->constants = ReflectionWrapper::toWrapper($this->reflection->getConstants(), $this);
 
         // Class Will Be Public
         if ($this->hasInternalTag) {
@@ -54,7 +58,7 @@ class ClassWrapper extends ReflectionWrapper
     {
         return array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper $reflectionWrapper) use ($public, $protected, $private, $static) {
+            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static) {
                 $reflection = $reflectionWrapper->reflection;
 
                 if ($reflection instanceof ReflectionFunctionAbstract && !$reflection->isUserDefined()) {
@@ -83,6 +87,20 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
+     * @return array<MethodWrapper>
+     */
+    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
+    {
+        return $this->filterReflection(
+            list: $this->methods,
+            public: $public,
+            protected: $protected,
+            private: $private,
+            static: $static
+        );
+    }
+
+    /**
      * @return array<PropertyWrapper>
      */
     public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
@@ -97,16 +115,15 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<MethodWrapper>
+     * @return array<ClassConstantWrapper>
      */
-    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
+    public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true): array
     {
         return $this->filterReflection(
-            list: $this->methods,
+            list: $this->constants,
             public: $public,
             protected: $protected,
-            private: $private,
-            static: $static
+            private: $private
         );
     }
 
@@ -141,5 +158,13 @@ class ClassWrapper extends ReflectionWrapper
     public function getAllApiProperties(bool $static = true): array
     {
         return $this->filterApiReflection($this->getAllProperties(static: $static, protected: false, private: false));
+    }
+
+    /**
+     * @return array<ClassConstantWrapper>
+     */
+    public function getAllApiConstants(): array
+    {
+        return $this->filterApiReflection($this->getAllConstants(protected: false, private: false));
     }
 }

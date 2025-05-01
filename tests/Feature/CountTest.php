@@ -53,15 +53,40 @@ it('has properties', function (): void {
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
     $allApiProperties = count($electionClass->getAllApiProperties());
-    $allUserDefinedProperties = count($electionClass->getAllProperties());
-    $allUserDefinedPropertiesWithoutPrivateProtected = count($electionClass->getAllProperties(protected: false, private: false));
+    $allProperties = count($electionClass->getAllProperties());
+    $allPropertiesWithoutPrivateProtected = count($electionClass->getAllProperties(protected: false, private: false));
 
-    expect($allUserDefinedProperties)->toBeGreaterThan($allUserDefinedPropertiesWithoutPrivateProtected);
+    expect($allProperties)->toBeGreaterThan($allPropertiesWithoutPrivateProtected);
 
-    expect($allApiProperties)->toBeLessThan($allUserDefinedProperties);
-    expect($allApiProperties)->toBeLessThan($allUserDefinedPropertiesWithoutPrivateProtected);
+    expect($allApiProperties)->toBeLessThan($allProperties);
+    expect($allApiProperties)->toBeLessThan($allPropertiesWithoutPrivateProtected);
 
     foreach ($electionClass->getAllApiProperties() as $property) {
+        expect($property->hasApiTag)->toBeTrue();
+        expect($property->hasInternalTag)->toBeFalse();
+        expect($property->willBeInPublicApi)->toBeTrue();
+        expect($property->classWrapper->willBeInPublicApi)->toBeTrue();
+    }
+});
+
+it('has constants', function (): void {
+    $codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
+
+    expect($codeIndex->classList)->toHaveKey(Election::class);
+
+    $electionClass = $codeIndex->classList[Election::class];
+    expect($electionClass->willBeInPublicApi)->toBeTrue();
+
+    $allApiConstants = count($electionClass->getAllApiConstants());
+    $allConstants = count($electionClass->getAllConstants());
+    $allConstantsWithoutPrivateProtected = count($electionClass->getAllConstants(protected: false, private: false));
+
+    expect($allConstants)->toBeGreaterThan($allConstantsWithoutPrivateProtected);
+
+    expect($allApiConstants)->toBeLessThan($allConstants);
+    expect($allApiConstants)->toBeLessThan($allConstantsWithoutPrivateProtected);
+
+    foreach ($electionClass->getAllApiConstants() as $property) {
         expect($property->hasApiTag)->toBeTrue();
         expect($property->hasInternalTag)->toBeFalse();
         expect($property->willBeInPublicApi)->toBeTrue();
