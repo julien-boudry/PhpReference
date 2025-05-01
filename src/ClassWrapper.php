@@ -13,7 +13,7 @@ use ReflectionProperty;
 
 class ClassWrapper extends ReflectionWrapper
 {
-    public readonly bool $classWillBePublic;
+    public readonly bool $willBeInPublicApi;
 
     /** @var array<MethodWrapper> */
     public readonly array $methods;
@@ -30,19 +30,19 @@ class ClassWrapper extends ReflectionWrapper
 
         // Class Will Be Public
         if ($this->hasInternalTag) {
-            $this->classWillBePublic = false;
+            $this->willBeInPublicApi = false;
         } elseif ($this->hasApiTag) {
-            $this->classWillBePublic = true;
+            $this->willBeInPublicApi = true;
         } else {
             foreach ($this->getAllUserDefinedMethods(protected: false, private: false) as $method) {
                 if ($method->hasApiTag) {
-                    $this->classWillBePublic = true;
+                    $this->willBeInPublicApi = true;
                     break;
                 }
             }
 
             // TODO : property, const
-            $this->classWillBePublic ??= false;
+            $this->willBeInPublicApi ??= false;
         }
     }
 
@@ -114,14 +114,14 @@ class ClassWrapper extends ReflectionWrapper
      */
     protected function filterApiReflection(array $list): array
     {
-        if ($this->classWillBePublic === false) {
+        if ($this->willBeInPublicApi === false) {
             return [];
         }
 
         return array_filter(
             array: $list,
-            callback: function (MethodWrapper $reflectionWrapper) {
-                return $reflectionWrapper->willBePublic;
+            callback: function (MethodWrapper|PropertyWrapper $reflectionWrapper) {
+                return $reflectionWrapper->willBeInPublicApi;
             }
         );
     }
@@ -131,7 +131,7 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllApiMethods(bool $static = true): array
     {
-        return $this->getAllUserDefinedMethods(protected: false, private: false, static: $static);
+        return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, protected: false, private: false));
     }
 
     /**
@@ -139,6 +139,6 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllApiProperties(bool $static = true): array
     {
-        return $this->getAllUserDefinedProperties(protected: false, private: false, static: $static);
+        return $this->filterApiReflection($this->getAllUserDefinedProperties(static: $static, protected: false, private: false));
     }
 }

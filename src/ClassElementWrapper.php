@@ -22,12 +22,12 @@ abstract class ClassElementWrapper extends ReflectionWrapper
         get => $this->classReference->get();
     }
 
-    public bool $willBePublic {
-        get => $this->hasApiTag && !$this->hasInternalTag && $classWrapper->classWillBePublic;
+    public bool $willBeInPublicApi {
+        get => $this->hasApiTag && !$this->hasInternalTag && $this->classWrapper && $this->classWrapper->willBeInPublicApi;
     }
 
     public function __construct(
-        public readonly ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass,
+        ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass,
         ClassWrapper $classWrapper
     )
     {

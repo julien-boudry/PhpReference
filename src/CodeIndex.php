@@ -32,12 +32,12 @@ class CodeIndex
     }
 
     /**
-     * @return array<string, ReflectionClass>
+     * @return array<string, ClassWrapper>
      */
     public function getPublicClasses(): array
     {
         return array_filter($this->classList, function (ClassWrapper $class): bool {
-            return $class->classWillBePublic;
+            return $class->willBeInPublicApi;
         });
     }
 }
