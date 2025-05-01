@@ -20,6 +20,11 @@
             "JulienBoudry\\PhpReference\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "JulienBoudry\\PhpReference\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Julien Boudry",
