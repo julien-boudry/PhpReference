@@ -11,44 +11,22 @@ use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
 
-class ClassWrapper
+class ClassWrapper extends ReflectionWrapper
 {
-    public readonly ReflectionClass $reflectionClass;
-    public readonly ?DocBlock $docBlock;
-
-    public readonly bool $hasApiTag;
-    public readonly bool $hasInternalTag;
-
     public readonly bool $classWillBePublic;
 
-    /** @var array<ReflectionMethod> */
+    /** @var array<MethodWrapper> */
     public readonly array $methods;
 
-    /** @var array<ReflectionProperties> */
+    /** @var array<PropertyWrapper> */
     public readonly array $properties;
 
     public function __construct(public readonly string $classPath)
     {
-        $this->reflectionClass = new ReflectionClass($classPath);
-        $this->methods = $this->reflectionClass->getMethods();
-        $this->properties = $this->reflectionClass->getProperties();
+        parent::__construct(new ReflectionClass($classPath));
 
-         // Docblock
-        $docComment = $this->reflectionClass->getDocComment();
-        $this->docBlock = !empty($docComment) ? Util::getDocBlocFactory()->create($docComment) : null;
-
-        // Class docBlock visibility
-        if ($this->docBlock !== null && $this->docBlock->hasTag('api')) {
-            $this->hasApiTag = true;
-        } else {
-            $this->hasApiTag = false;
-        }
-
-        if ($this->docBlock !== null && $this->docBlock->hasTag('internal')) {
-            $this->hasInternalTag = true;
-        } else {
-            $this->hasInternalTag = false;
-        }
+        $this->methods = ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
+        $this->properties = ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
 
         // Class Will Be Public
         if ($this->hasInternalTag) {
@@ -57,32 +35,27 @@ class ClassWrapper
             $this->classWillBePublic = true;
         } else {
             foreach ($this->getAllUserDefinedMethods(protected: false, private: false) as $method) {
-                $docBlockMethod = $method->getDocComment();
-
-                if (!empty($docBlockMethod)) {
-                    $docBlockMethod = Util::getDocBlocFactory()->create($docBlockMethod);
-
-                    if ($docBlockMethod->hasTag('api')) {
-                        $this->classWillBePublic = true;
-                        break;
-                    }
+                if ($method->hasApiTag) {
+                    $this->classWillBePublic = true;
+                    break;
                 }
             }
 
             // TODO : property, const
-
             $this->classWillBePublic ??= false;
         }
     }
 
     /**
-     * @return array<ReflectionMethod|ReflectionProperty>
+     * @return array<MethodWrapper|PropertyWrapper>
      */
     protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
     {
         return array_filter(
-            array: $this->methods,
-            callback: function (ReflectionMethod|ReflectionProperty $reflection) use ($public, $protected, $private, $static) {
+            array: $list,
+            callback: function (MethodWrapper|PropertyWrapper $reflectionWrapper) use ($public, $protected, $private, $static) {
+                $reflection = $reflectionWrapper->reflection;
+
                 if (!$reflection->isUserDefined()) {
                     return false;
                 }
@@ -109,7 +82,7 @@ class ClassWrapper
     }
 
     /**
-     * @return array<ReflectionProperty>
+     * @return array<PropertyWrapper>
      */
     public function getAllUserDefinedProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
     {
@@ -123,7 +96,7 @@ class ClassWrapper
     }
 
     /**
-     * @return array<ReflectionMethod>
+     * @return array<MethodWrapper>
      */
     public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
     {
@@ -137,7 +110,7 @@ class ClassWrapper
     }
 
     /**
-     * @return array<ReflectionMethod|ReflectionProperty>
+     * @return array<MethodWrapperr|PropertiesWrapper>
      */
     protected function filterApiReflection(array $list): array
     {
@@ -147,24 +120,14 @@ class ClassWrapper
 
         return array_filter(
             array: $list,
-            callback: function (ReflectionMethod|ReflectionProperty $reflection) {
-                $docBlockMethod = $reflection->getDocComment();
-
-                if (!empty($docBlockMethod)) {
-                    $docBlockMethod = Util::getDocBlocFactory()->create($docBlockMethod);
-
-                    if ($docBlockMethod->hasTag('api')) {
-                        return true;
-                    }
-                }
-
-                return false;
+            callback: function (MethodWrapper $reflectionWrapper) {
+                return $reflectionWrapper->willBePublic;
             }
         );
     }
 
     /**
-     * @return array<ReflectionMethod>
+     * @return array<MethodWrapper>
      */
     public function getAllApiMethods(bool $static = true): array
     {
@@ -172,7 +135,7 @@ class ClassWrapper
     }
 
     /**
-     * @return array<ReflectionProperty>
+     * @return array<PropertyWrapper>
      */
     public function getAllApiProperties(bool $static = true): array
     {
