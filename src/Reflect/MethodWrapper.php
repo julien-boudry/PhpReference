@@ -14,7 +14,7 @@ use ReflectionProperty;
 class MethodWrapper extends ClassElementWrapper
 {
     public function __construct(
-        public readonly ReflectionMethod $reflectionMethod,
+        ReflectionMethod $reflectionMethod,
         ClassWrapper $classWrapper
     )
     {

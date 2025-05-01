@@ -15,7 +15,7 @@ use ReflectionProperty;
 class ClassConstantWrapper extends ClassElementWrapper
 {
     public function __construct(
-        public readonly ReflectionClassConstant $reflectionClassConstant,
+        ReflectionClassConstant $reflectionClassConstant,
         ClassWrapper $classWrapper
     )
     {

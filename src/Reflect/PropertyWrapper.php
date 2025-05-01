@@ -14,7 +14,7 @@ use ReflectionProperty;
 class PropertyWrapper extends ClassElementWrapper
 {
     public function __construct(
-        public readonly ReflectionProperty $reflectionProperty,
+        ReflectionProperty $reflectionProperty,
         ClassWrapper $classWrapper
     )
     {
