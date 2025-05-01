@@ -7,6 +7,7 @@ use phpDocumentor\Reflection\DocBlock;
 use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunction;
+use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionProperty;
 
@@ -41,7 +42,7 @@ abstract class ReflectionWrapper
     public readonly bool $hasApiTag;
     public readonly bool $hasInternalTag;
 
-    public function __construct(public readonly ReflectionClass|ReflectionProperty|ReflectionMethod|ReflectionFunction $reflection)
+    public function __construct(public readonly ReflectionClass|ReflectionProperty|ReflectionFunctionAbstract|ReflectionClassConstant $reflection)
     {
          // Docblock
          $docComment = $this->reflection->getDocComment();

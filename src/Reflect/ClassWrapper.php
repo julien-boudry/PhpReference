@@ -7,6 +7,7 @@ use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
+use ReflectionClassConstant;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionProperties;
@@ -31,7 +32,7 @@ class ClassWrapper extends ReflectionWrapper
 
         $this->methods = ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
         $this->properties = ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
-        $this->constants = ReflectionWrapper::toWrapper($this->reflection->getConstants(), $this);
+        $this->constants = ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this);
 
         // Class Will Be Public
         if ($this->hasInternalTag) {
@@ -77,7 +78,7 @@ class ClassWrapper extends ReflectionWrapper
                     return false;
                 }
 
-                if ($reflection->isStatic() && !$static) {
+                if (!($reflection instanceof ReflectionClassConstant) && $reflection->isStatic() && !$static) {
                     return false;
                 }
 
@@ -138,7 +139,7 @@ class ClassWrapper extends ReflectionWrapper
 
         return array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper $reflectionWrapper) {
+            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) {
                 return $reflectionWrapper->willBeInPublicApi;
             }
         );

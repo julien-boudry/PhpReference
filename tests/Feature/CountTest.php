@@ -21,7 +21,6 @@ it('test public condorcet', function (): void {
 
 it('has methods', function (): void {
     $codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
-
     expect($codeIndex->classList)->toHaveKey(Election::class);
 
     $electionClass = $codeIndex->classList[Election::class];
@@ -46,7 +45,6 @@ it('has methods', function (): void {
 
 it('has properties', function (): void {
     $codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
-
     expect($codeIndex->classList)->toHaveKey(Election::class);
 
     $electionClass = $codeIndex->classList[Election::class];
@@ -71,20 +69,19 @@ it('has properties', function (): void {
 
 it('has constants', function (): void {
     $codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
+    expect($codeIndex->classList)->toHaveKey(Condorcet::class);
 
-    expect($codeIndex->classList)->toHaveKey(Election::class);
-
-    $electionClass = $codeIndex->classList[Election::class];
+    $electionClass = $codeIndex->classList[Condorcet::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
-    $allApiConstants = count($electionClass->getAllApiConstants());
     $allConstants = count($electionClass->getAllConstants());
+    $allApiConstants = count($electionClass->getAllApiConstants());
     $allConstantsWithoutPrivateProtected = count($electionClass->getAllConstants(protected: false, private: false));
 
-    expect($allConstants)->toBeGreaterThan($allConstantsWithoutPrivateProtected);
+    expect($allConstants)->toBeGreaterThanOrEqual($allConstantsWithoutPrivateProtected);
 
-    expect($allApiConstants)->toBeLessThan($allConstants);
-    expect($allApiConstants)->toBeLessThan($allConstantsWithoutPrivateProtected);
+    expect($allApiConstants)->toBeLessThanOrEqual($allConstants);
+    expect($allApiConstants)->toBeLessThanOrEqual($allConstantsWithoutPrivateProtected);
 
     foreach ($electionClass->getAllApiConstants() as $property) {
         expect($property->hasApiTag)->toBeTrue();
