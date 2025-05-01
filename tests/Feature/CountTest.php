@@ -2,7 +2,7 @@
 
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
-use JulienBoudry\PhpReference\CodeIndex;
+use JulienBoudry\PhpReference\Reflect\CodeIndex;
 
 it('test public condorcet', function (): void {
     $codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
