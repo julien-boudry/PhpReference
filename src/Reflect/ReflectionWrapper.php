@@ -22,15 +22,13 @@ abstract class ReflectionWrapper
         $wrappers = [];
 
         foreach ($reflectors as $reflector) {
-            if ($reflector instanceof ReflectionMethod) {
-                $wrappers[] = new MethodWrapper($reflector, $classWrapper);
-            } elseif ($reflector instanceof ReflectionProperty) {
-                $wrappers[] = new PropertyWrapper($reflector, $classWrapper);
-            } elseif ($reflector instanceof ReflectionClassConstant) {
-                $wrappers[] = new ClassConstantWrapper($reflector, $classWrapper);
-            } elseif ($reflector instanceof ReflectionFunction) {
-                $wrappers[] = new FunctionWrapper($reflector);
-            }
+            $wrappers[$reflector->getName()] = match (true) {
+                $reflector instanceof ReflectionMethod => new MethodWrapper($reflector, $classWrapper),
+                $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper),
+                $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper),
+                $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector),
+                default => throw new \LogicException('Unsupported reflector type: ' . get_class($reflector)),
+            };
         }
 
         return $wrappers;

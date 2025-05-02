@@ -17,22 +17,24 @@ class ClassWrapper extends ReflectionWrapper
 {
     public readonly bool $willBeInPublicApi;
 
-    /** @var array<MethodWrapper> */
-    public readonly array $methods;
+    /** @var array<string, MethodWrapper> */
+    public array $methods {
+        get => ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
+    }
 
-    /** @var array<PropertyWrapper> */
-    public readonly array $properties;
+    /** @var array<string, PropertyWrapper> */
+    public array $properties {
+        get => ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
+    }
 
-    /** @var array<ClassConstantWrapper> */
-    public readonly array $constants;
+    /** @var array<string, ClassConstantWrapper> */
+    public array $constants {
+        get => ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this);
+    }
 
     public function __construct(public readonly string $classPath)
     {
         parent::__construct(new ReflectionClass($classPath));
-
-        $this->methods = ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
-        $this->properties = ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
-        $this->constants = ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this);
 
         // Class Will Be Public
         if ($this->hasInternalTag) {
@@ -53,13 +55,13 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<MethodWrapper|PropertyWrapper>
+     * @return array<string, MethodWrapper|PropertyWrapper>
      */
-    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
+    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
     {
         return array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static) {
+            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic) {
                 $reflection = $reflectionWrapper->reflection;
 
                 if ($reflection instanceof ReflectionFunctionAbstract && !$reflection->isUserDefined()) {
@@ -82,41 +84,47 @@ class ClassWrapper extends ReflectionWrapper
                     return false;
                 }
 
+                if (!($reflection instanceof ReflectionClassConstant) && !$reflection->isStatic() && !$nonStatic) {
+                    return false;
+                }
+
                 return true;
             }
         );
     }
 
     /**
-     * @return array<MethodWrapper>
+     * @return array<string, MethodWrapper>
      */
-    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
+    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
     {
         return $this->filterReflection(
             list: $this->methods,
             public: $public,
             protected: $protected,
             private: $private,
-            static: $static
+            static: $static,
+            nonStatic: $nonStatic,
         );
     }
 
     /**
-     * @return array<PropertyWrapper>
+     * @return array<string, PropertyWrapper>
      */
-    public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true): array
+    public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
     {
         return $this->filterReflection(
             list: $this->properties,
             public: $public,
             protected: $protected,
             private: $private,
-            static: $static
+            static: $static,
+            nonStatic: $nonStatic,
         );
     }
 
     /**
-     * @return array<ClassConstantWrapper>
+     * @return array<string, ClassConstantWrapper>
      */
     public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true): array
     {
@@ -129,7 +137,7 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<MethodWrapperr|PropertiesWrapper>
+     * @return array<string, MethodWrapperr|PropertiesWrapper>
      */
     protected function filterApiReflection(array $list): array
     {
@@ -146,23 +154,23 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<MethodWrapper>
+     * @return array<string,MethodWrapper>
      */
-    public function getAllApiMethods(bool $static = true): array
+    public function getAllApiMethods(bool $static = true, bool $nonStatic = true): array
     {
-        return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, protected: false, private: false));
+        return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, nonStatic: $nonStatic, protected: false, private: false));
     }
 
     /**
-     * @return array<PropertyWrapper>
+     * @return array<string, PropertyWrapper>
      */
-    public function getAllApiProperties(bool $static = true): array
+    public function getAllApiProperties(bool $static = true, bool $nonStatic = true): array
     {
-        return $this->filterApiReflection($this->getAllProperties(static: $static, protected: false, private: false));
+        return $this->filterApiReflection($this->getAllProperties(static: $static, nonStatic: $nonStatic, protected: false, private: false));
     }
 
     /**
-     * @return array<ClassConstantWrapper>
+     * @return array<string, ClassConstantWrapper>
      */
     public function getAllApiConstants(): array
     {
