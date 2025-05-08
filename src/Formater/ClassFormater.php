@@ -7,16 +7,16 @@ use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Reflect\MethodWrapper;
 use JulienBoudry\PhpReference\Reflect\PropertyWrapper;
 
-class ClassPublicApiSummaryFormater
+class ClassFormater
 {
     /** @var array<string, ClassConstantWrapper> */
     public array $constEntries {
-        get => $this->class->getAllApiConstants();
+        get => $this->class->getAllConstants();
     }
 
     /** @var array<string, PropertyWrapper> */
     public array $staticPropertiesEntries {
-        get => $this->class->getAllApiProperties(static: true, nonStatic: false);
+        get => $this->class->getAllProperties(static: true, nonStatic: false);
     }
 
     /** @var array<string, MethodWrapper> */
@@ -26,12 +26,12 @@ class ClassPublicApiSummaryFormater
 
     /** @var array<string, PropertyWrapper> */
     public array $PropertiesEntries {
-        get => $this->class->getAllApiProperties(static: false);
+        get => $this->class->getAllProperties(static: false);
     }
 
     /** @var array<string, MethodWrapper> */
     public array $MethodsEntries {
-        get => $this->class->getAllApiMethods(static: false);
+        get => $this->class->getAllUserDefinedMethods(static: false);
     }
 
     /** @var array<string, array<string, ?string>> */

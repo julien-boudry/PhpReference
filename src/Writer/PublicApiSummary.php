@@ -2,7 +2,7 @@
 
 namespace JulienBoudry\PhpReference\Writer;
 
-use JulienBoudry\PhpReference\Formater\ClassPublicApiSummaryFormater;
+use JulienBoudry\PhpReference\Formater\ClassFormater;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
 use SplFileObject;
 
@@ -14,7 +14,7 @@ class PublicApiSummary
             $r = [];
 
             foreach ($this->codeIndex->getPublicClasses() as $className => $class) {
-                $r[$className] = new ClassPublicApiSummaryFormater($class);
+                $r[$className] = new ClassFormater($class);
             }
 
             return $r;
