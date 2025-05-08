@@ -69,6 +69,11 @@ class ClassFormater
         $this->makeIndexMethods();
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->class->getDescription();
+    }
+
     private function makeIndexApiConstants(): void
     {
         foreach ($this->constEntries as $name => $constant) {

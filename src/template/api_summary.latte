@@ -1,0 +1,13 @@
+# API Reference
+
+{foreach $classes as $className => $class}
+## {$className}
+
+{$class->getDescription()}
+
+### Methods:
+{foreach $class->getAllApiMethods(static: false) as $method}
+- `{$method->name}()`: {$method->getDescription()}
+{/foreach}
+
+{/foreach}

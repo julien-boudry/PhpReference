@@ -2,12 +2,11 @@
 
 use CondorcetPHP\Condorcet\Condorcet;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
-use JulienBoudry\PhpReference\Writer\PublicApiSummary;
+use JulienBoudry\PhpReference\Writer\PublicApiSummaryWriter;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $codeIndex = new CodeIndex(Condorcet::class);
 
-$publicApiSummary = new PublicApiSummary($codeIndex);
+$publicApiSummaryWriter = new PublicApiSummaryWriter($codeIndex);
 
-var_dump($publicApiSummary->classformaters);

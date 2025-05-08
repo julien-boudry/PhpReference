@@ -4,11 +4,18 @@ namespace JulienBoudry\PhpReference\Writer;
 
 use JulienBoudry\PhpReference\Formater\ClassFormater;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use Latte\ContentType;
+use Latte\Engine;
 use SplFileObject;
 
-class PublicApiSummary
+class PublicApiSummaryWriter extends AbstractWriter
 {
-    /** @var array<string, ClassPublicApiFormater> */
+    public function write(): void
+    {
+        var_dump($this->getBuildIndex());
+    }
+
+    /** @var array<string, ClassFormater> */
     public array $classformaters {
         get {
             $r = [];
@@ -21,21 +28,14 @@ class PublicApiSummary
         }
     }
 
-    public function __construct(public readonly CodeIndex $codeIndex) {}
-
     public function getBuildIndex() : string
     {
-        // TODO
-
-        return '';
-    }
-
-    public function writeTo(SplFileObject $file): void
-    {
-        if (!$file->isWritable()) {
-            throw new \RuntimeException("The file '{$file->getPathname()}' is not writable");
-        }
-
-        $file->fwrite($this->getBuildIndex());
+        // Utiliser Latte pour générer du Markdown
+        return $this->latte->renderToString(
+            name: AbstractWriter::TEMPLATE_DIR . '/api_summary.latte',
+            params : [
+                'classes' => $this->codeIndex->getPublicClasses(),
+            ],
+        );
     }
 }
