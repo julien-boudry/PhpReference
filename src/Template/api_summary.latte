@@ -3,13 +3,14 @@
 # API Reference Index
 
 {foreach $classes as $className => $class}
-    ## {$className}
 
-    {if $description = $class->getDescription()}
-    ### Description
-    {$description}
-    {/if}
+## {$className}
 
-    {include classIndex, $class}
+{if $description = $class->getDescription()}
+### Description
+{$description}
+{/if}
+
+{include classIndex, $class}
 
 {/foreach}
