@@ -32,13 +32,6 @@ abstract class AbstractWriter
 
     abstract function makeContent(): string;
 
-    public function getBuildIndex() : string
-    {
-        // TODO
-
-        return '';
-    }
-
     protected function write(): void
     {
         // Vérifier si le répertoire de sortie existe, sinon le créer
