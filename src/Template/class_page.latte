@@ -1,0 +1,12 @@
+{templateType JulienBoudry\PhpReference\Template\Input\ClassPageInput}
+{import 'classIndex.latte'}
+# API Reference Index
+
+## {$class->name}
+
+{if $description = $class->getDescription()}
+### Description
+{$description}
+{/if}
+
+{include classIndex, $class}

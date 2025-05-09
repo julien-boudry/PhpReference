@@ -2,13 +2,10 @@
 
 namespace JulienBoudry\PhpReference\Writer;
 
-use JulienBoudry\PhpReference\Reflect\CodeIndex;
 use Latte\ContentType;
 use Latte\Engine;
-use SplFileObject;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Local\LocalFilesystemAdapter;
-use League\Flysystem\UnableToWriteFile;
 
 abstract class AbstractWriter
 {
@@ -23,7 +20,7 @@ abstract class AbstractWriter
 
     public readonly string $content;
 
-    public function __construct(public readonly CodeIndex $codeIndex) {
+    public function __construct() {
         // Initialiser Flysystem
         self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::OUTPUT_DIR));
 

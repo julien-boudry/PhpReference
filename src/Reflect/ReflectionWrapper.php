@@ -60,6 +60,10 @@ abstract class ReflectionWrapper
         }
     }
 
+    public ?string $name {
+        get => $this->reflection->name ?? null;
+    }
+
     public function getDescription(): ?string
     {
         return $this->docBlock?->getDescription()->render();
