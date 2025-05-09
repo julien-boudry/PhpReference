@@ -6,19 +6,27 @@ use JulienBoudry\PhpReference\Reflect\CodeIndex;
 use Latte\ContentType;
 use Latte\Engine;
 use SplFileObject;
+use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\UnableToWriteFile;
 
 abstract class AbstractWriter
 {
     public const TEMPLATE_DIR = __DIR__ . '/../Template';
     public const OUTPUT_DIR = __DIR__ . '/../../output';
 
-    public string $writePath = self::OUTPUT_DIR . '/';
+    protected static Filesystem $filesystem;
+
+    public string $writePath = '/';
 
     protected Engine $latte;
 
     public readonly string $content;
 
     public function __construct(public readonly CodeIndex $codeIndex) {
+        // Initialiser Flysystem
+        self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::OUTPUT_DIR));
+
         // Initialiser Latte
         $this->latte = new Engine;
         $this->latte->setStrictParsing()->setStrictTypes()->setTempDirectory(sys_get_temp_dir());
@@ -34,17 +42,11 @@ abstract class AbstractWriter
 
     protected function write(): void
     {
-        // Vérifier si le répertoire de sortie existe, sinon le créer
-        if (!is_dir(self::OUTPUT_DIR)) {
-            mkdir(self::OUTPUT_DIR, 0755, true);
+        try {
+            // Écrire le contenu dans le fichier
+            self::$filesystem->write($this->writePath, $this->content);
+        } catch (UnableToWriteFile $e) {
+            throw new \RuntimeException("Impossible d'écrire dans le fichier '{$this->writePath}': " . $e->getMessage());
         }
-
-        $file = new SplFileObject($this->writePath, 'w+');
-
-        if (!$file->isWritable()) {
-            throw new \RuntimeException("The file '{$file->getPathname()}' is not writable");
-        }
-
-        $file->fwrite($this->content);
     }
 }

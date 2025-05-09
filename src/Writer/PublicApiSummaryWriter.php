@@ -11,7 +11,7 @@ use SplFileObject;
 
 class PublicApiSummaryWriter extends AbstractWriter
 {
-    public string $writePath = self::OUTPUT_DIR . '/readme.md';
+    public string $writePath = '/readme.md';
 
     public function makeContent(): string
     {
