@@ -11,9 +11,11 @@ use SplFileObject;
 
 class PublicApiSummaryWriter extends AbstractWriter
 {
-    public function write(): void
+    public const string WRITE_PATH = parent::WRITE_PATH . 'readme.md';
+
+    public function makeContent(): string
     {
-        var_dump($this->getBuildIndex());
+        return $this->getBuildIndex();
     }
 
     /** @var array<string, ClassFormater> */

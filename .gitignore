@@ -3,6 +3,7 @@
 *.cache
 *.gitignore.*
 
+output/
 outputTest/*
 
 # composer
