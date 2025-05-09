@@ -1,0 +1,15 @@
+{templateType JulienBoudry\PhpReference\Template\Input\ApiSummaryInput}
+{import 'classIndex.latte'}
+# API Reference Index
+
+{foreach $classes as $className => $class}
+    ## {$className}
+
+    {if $description = $class->getDescription()}
+    ### Description
+    {$description}
+    {/if}
+
+    {include classIndex, $class}
+
+{/foreach}

@@ -9,7 +9,7 @@ use SplFileObject;
 
 abstract class AbstractWriter
 {
-    public const TEMPLATE_DIR = __DIR__ . '/../template';
+    public const TEMPLATE_DIR = __DIR__ . '/../Template';
 
     protected Engine $latte;
 

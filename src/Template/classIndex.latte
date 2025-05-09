@@ -1,0 +1,26 @@
+{define classIndex, $class}
+    {foreach $class->getAllConstants() as $entry}
+    {first} ### Public Constants: {/first}
+    - {$entry->name}
+    {/foreach}
+
+    {foreach $class->getAllProperties(static: true, nonStatic: false) as $entry}
+    {first} ### Public Static Properties: {/first}
+    - {$entry->name}
+    {/foreach}
+
+    {foreach $class->getAllApiMethods(static: true, nonStatic: false) as $entry}
+    {first} ### Public Static Methods: {/first}
+    - {$entry->name}
+    {/foreach}
+
+    {foreach $class->getAllProperties(static: false) as $entry}
+    {first} ### Public Properties: {/first}
+    - {$entry->name}
+    {/foreach}
+
+    {foreach $class->getAllApiMethods(static: false) as $entry}
+    {first} ### Public Methods: {/first}
+    - {$entry->name}
+    {/foreach}
+{/define}

@@ -4,6 +4,7 @@ namespace JulienBoudry\PhpReference\Writer;
 
 use JulienBoudry\PhpReference\Formater\ClassFormater;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use JulienBoudry\PhpReference\Template\Input\ApiSummaryInput;
 use Latte\ContentType;
 use Latte\Engine;
 use SplFileObject;
@@ -33,9 +34,7 @@ class PublicApiSummaryWriter extends AbstractWriter
         // Utiliser Latte pour générer du Markdown
         return $this->latte->renderToString(
             name: AbstractWriter::TEMPLATE_DIR . '/api_summary.latte',
-            params : [
-                'classes' => $this->codeIndex->getPublicClasses(),
-            ],
+            params : new ApiSummaryInput(classes: $this->codeIndex->getPublicClasses()),
         );
     }
 }
