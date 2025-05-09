@@ -12,7 +12,7 @@ abstract class AbstractWriter
     public const TEMPLATE_DIR = __DIR__ . '/../Template';
     public const OUTPUT_DIR = __DIR__ . '/../../output';
 
-    public const string WRITE_PATH = self::OUTPUT_DIR . '/';
+    public string $writePath = self::OUTPUT_DIR . '/';
 
     protected Engine $latte;
 
@@ -39,7 +39,7 @@ abstract class AbstractWriter
             mkdir(self::OUTPUT_DIR, 0755, true);
         }
 
-        $file = new SplFileObject(static::WRITE_PATH, 'w+');
+        $file = new SplFileObject($this->writePath, 'w+');
 
         if (!$file->isWritable()) {
             throw new \RuntimeException("The file '{$file->getPathname()}' is not writable");
