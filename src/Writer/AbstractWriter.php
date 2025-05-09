@@ -19,7 +19,7 @@ abstract class AbstractWriter
 
     public string $writePath = '/';
 
-    protected Engine $latte;
+    protected static Engine $latte;
 
     public readonly string $content;
 
@@ -28,13 +28,14 @@ abstract class AbstractWriter
         self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::OUTPUT_DIR));
 
         // Initialiser Latte
-        $this->latte = new Engine;
-        $this->latte->setStrictParsing()->setStrictTypes()->setTempDirectory(sys_get_temp_dir());
-        $this->latte->setContentType(ContentType::Text); // Désactiver l'échappement pour Markdown
+        self::$latte ??= new Engine;
+        self::$latte->setStrictParsing()->setStrictTypes()->setTempDirectory(sys_get_temp_dir());
+        self::$latte->setContentType(ContentType::Text); // Désactiver l'échappement pour Markdown
 
-
+        // Make Content
         $this->content = $this->makeContent();
 
+        // Write Content
         $this->write();
     }
 
@@ -42,11 +43,6 @@ abstract class AbstractWriter
 
     protected function write(): void
     {
-        try {
-            // Écrire le contenu dans le fichier
-            self::$filesystem->write($this->writePath, $this->content);
-        } catch (UnableToWriteFile $e) {
-            throw new \RuntimeException("Impossible d'écrire dans le fichier '{$this->writePath}': " . $e->getMessage());
-        }
+        self::$filesystem->write($this->writePath, $this->content);
     }
 }
