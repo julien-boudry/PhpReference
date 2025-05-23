@@ -13,6 +13,12 @@ use ReflectionProperty;
 
 class PropertyWrapper extends ClassElementWrapper
 {
+    public ReflectionProperty $reflection {
+        get {
+            return $this->reflector; // @phpstan-ignore return.type
+        }
+    }
+
     public function __construct(
         ReflectionProperty $reflectionProperty,
         ClassWrapper $classWrapper

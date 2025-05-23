@@ -14,6 +14,12 @@ use ReflectionProperty;
 
 class ClassConstantWrapper extends ClassElementWrapper
 {
+    public ReflectionClassConstant $reflection {
+        get {
+            return $this->reflector; // @phpstan-ignore return.type
+        }
+    }
+
     public function __construct(
         ReflectionClassConstant $reflectionClassConstant,
         ClassWrapper $classWrapper

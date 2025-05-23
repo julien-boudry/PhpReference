@@ -20,19 +20,6 @@ class PublicApiSummaryWriter extends AbstractWriter
         return $this->getBuildIndex();
     }
 
-    /** @var array<string, ClassFormater> */
-    public array $classformaters {
-        get {
-            $r = [];
-
-            foreach ($this->codeIndex->getPublicClasses() as $className => $class) {
-                $r[$className] = new ClassFormater($class);
-            }
-
-            return $r;
-        }
-    }
-
     public function getBuildIndex() : string
     {
         return self::$latte->renderToString(

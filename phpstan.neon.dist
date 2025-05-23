@@ -8,6 +8,7 @@ parameters:
         - identifier: return.phpDocType
         - identifier: missingType.iterableValue
         - identifier: argument.type
+        - identifier: missingType.generics
         - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
         - '#Access to an uninitialized readonly property#'
         - '#Variable \$.* might not be defined.#'

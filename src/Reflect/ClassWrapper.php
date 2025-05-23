@@ -12,6 +12,7 @@ use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
+use Reflector;
 
 class ClassWrapper extends ReflectionWrapper
 {
@@ -19,17 +20,25 @@ class ClassWrapper extends ReflectionWrapper
 
     /** @var array<string, MethodWrapper> */
     public array $methods {
-        get => ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
+        get => ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this); // @phpstan-ignore return.type
     }
 
-    /** @var array<string, PropertyWrapper> */
+    /**
+     * @var array<string, PropertyWrapper>
+     */
     public array $properties {
-        get => ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
+        get => ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this); // @phpstan-ignore return.type
     }
 
     /** @var array<string, ClassConstantWrapper> */
     public array $constants {
-        get => ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this);
+        get => ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this); // @phpstan-ignore return.type
+    }
+
+    public ReflectionClass $reflection {
+        get {
+            return $this->reflector; // @phpstan-ignore return.type
+        }
     }
 
     public function __construct(public readonly string $classPath)
@@ -55,7 +64,7 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<string, MethodWrapper|PropertyWrapper>
+     * @return array<string, ClassElementWrapper>
      */
     protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
     {
@@ -98,6 +107,7 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
     {
+        // @phpstan-ignore return.type
         return $this->filterReflection(
             list: $this->methods,
             public: $public,
@@ -113,6 +123,7 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
     {
+        // @phpstan-ignore return.type
         return $this->filterReflection(
             list: $this->properties,
             public: $public,
@@ -128,6 +139,7 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true): array
     {
+        // @phpstan-ignore return.type
         return $this->filterReflection(
             list: $this->constants,
             public: $public,
@@ -137,7 +149,7 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<string, MethodWrapperr|PropertiesWrapper>
+     * @return array<string, MethodWrapper|PropertyWrapper>
      */
     protected function filterApiReflection(array $list): array
     {
@@ -154,10 +166,11 @@ class ClassWrapper extends ReflectionWrapper
     }
 
     /**
-     * @return array<string,MethodWrapper>
+     * @return array<string, MethodWrapper>
      */
     public function getAllApiMethods(bool $static = true, bool $nonStatic = true): array
     {
+        // @phpstan-ignore return.type
         return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, nonStatic: $nonStatic, protected: false, private: false));
     }
 
@@ -166,6 +179,7 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllApiProperties(bool $static = true, bool $nonStatic = true): array
     {
+        // @phpstan-ignore return.type
         return $this->filterApiReflection($this->getAllProperties(static: $static, nonStatic: $nonStatic, protected: false, private: false));
     }
 
@@ -174,6 +188,7 @@ class ClassWrapper extends ReflectionWrapper
      */
     public function getAllApiConstants(): array
     {
+        // @phpstan-ignore return.type
         return $this->filterApiReflection($this->getAllConstants(protected: false, private: false));
     }
 }
