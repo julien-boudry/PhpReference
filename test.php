@@ -2,6 +2,7 @@
 
 use CondorcetPHP\Condorcet\Condorcet;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use JulienBoudry\PhpReference\Writer\ClassPageWriter;
 use JulienBoudry\PhpReference\Writer\MethodPageWriter;
 use JulienBoudry\PhpReference\Writer\PublicApiSummaryWriter;
@@ -9,23 +10,7 @@ use JulienBoudry\PhpReference\Writer\PublicApiSummaryWriter;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // Recursively delete output directory
-$outputPath = __DIR__ . '/output';
-if (is_dir($outputPath)) {
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($outputPath, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::CHILD_FIRST
-    );
-
-    foreach ($iterator as $file) {
-        if ($file->isDir()) {
-            rmdir($file->getRealPath());
-        } else {
-            unlink($file->getRealPath());
-        }
-    }
-
-    rmdir($outputPath);
-}
+AbstractWriter::getFlySystem()->deleteDirectory('/');
 
 $codeIndex = new CodeIndex(Condorcet::class);
 

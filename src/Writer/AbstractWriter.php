@@ -20,9 +20,14 @@ abstract class AbstractWriter
 
     public readonly string $content;
 
+    public static function getFlySystem(): Filesystem
+    {
+        return self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::OUTPUT_DIR));
+    }
+
     public function __construct() {
         // Initialiser Flysystem
-        self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::OUTPUT_DIR));
+        self::getFlySystem();
 
         // Initialiser Latte
         self::$latte ??= new Engine;
@@ -40,6 +45,6 @@ abstract class AbstractWriter
 
     protected function write(): void
     {
-        self::$filesystem->write($this->writePath, $this->content);
+        self::getFlySystem()->write($this->writePath, $this->content);
     }
 }
