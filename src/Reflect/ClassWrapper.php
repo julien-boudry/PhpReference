@@ -14,7 +14,7 @@ use ReflectionProperties;
 use ReflectionProperty;
 use Reflector;
 
-class ClassWrapper extends ReflectionWrapper
+class ClassWrapper extends ReflectionWrapper implements WritableInterface
 {
     public readonly bool $willBeInPublicApi;
 
@@ -69,6 +69,16 @@ class ClassWrapper extends ReflectionWrapper
             // TODO : property, const
             $this->willBeInPublicApi ??= false;
         }
+    }
+
+    public function getPageDirectory(): string
+    {
+        return parent::getPageDirectory() . "/{$this->name}";
+    }
+
+    public function getPagePath(): string
+    {
+        return $this->getPageDirectory() . "/class_{$this->shortName}.md";
     }
 
     /**

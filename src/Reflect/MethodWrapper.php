@@ -11,7 +11,7 @@ use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
 
-class MethodWrapper extends ClassElementWrapper
+class MethodWrapper extends ClassElementWrapper implements WritableInterface
 {
     public ReflectionMethod $reflection {
         get {
@@ -25,5 +25,15 @@ class MethodWrapper extends ClassElementWrapper
     )
     {
         parent::__construct($reflectionMethod, $classWrapper);
+    }
+
+    public function getPageDirectory(): string
+    {
+        return $this->classWrapper->getPageDirectory();
+    }
+
+    public function getPagePath(): string
+    {
+        return $this->getPageDirectory() . "/method_{$this->name}.md";
     }
 }

@@ -71,6 +71,11 @@ abstract class ReflectionWrapper
         get => $this->reflection->name ?? null;
     }
 
+    public function getPageDirectory(): string
+    {
+        return "/ref";
+    }
+
     public function getDescription(): ?string
     {
         return $this->docBlock?->getDescription()->render();
