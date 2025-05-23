@@ -1,0 +1,15 @@
+parameters:
+    level: 7
+    paths:
+        - src
+
+    ignoreErrors:
+        - identifier: assign.readOnlyProperty
+        - identifier: return.phpDocType
+        - identifier: missingType.iterableValue
+        - identifier: argument.type
+        - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
+        - '#Access to an uninitialized readonly property#'
+        - '#Variable \$.* might not be defined.#'
+        - '#Readonly property .* is assigned outside of the constructor.#'
+        - '#Exception::\$message has no type specified.#'

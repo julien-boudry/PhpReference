@@ -10,7 +10,7 @@ use ReflectionMethod;
 
 class CodeIndex
 {
-    /** @var array<string, ClassWrapper */
+    /** @var array<string, ClassWrapper> */
     public readonly array $classList;
 
     public function __construct()
