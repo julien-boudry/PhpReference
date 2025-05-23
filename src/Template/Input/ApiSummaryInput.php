@@ -6,8 +6,19 @@ use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 
 class ApiSummaryInput
 {
+    /** @var array<string, array<ClassWrapper>> */
+    public readonly array $namespaces;
+
     public function __construct(
         /** @var array<ClassWrapper> */
-        public readonly array $classes,
-    ) {}
+        array $classes,
+    ) {
+        $namespaces = [];
+
+        foreach ($classes as $class) {
+            $namespaces[$class->reflection->getNamespaceName()][$class->shortName] = $class;
+        }
+
+        $this->namespaces = $namespaces;
+    }
 }

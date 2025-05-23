@@ -2,15 +2,12 @@
 {import 'classIndex.latte'}
 # API Reference Index
 
+{foreach $namespaces as $namespace => $classes}
+## {$namespace}
+| Class Name | Description |
+| ------------- | ------------- |
 {foreach $classes as $className => $class}
-
-## {$className}
-
-{if $description = $class->getDescription()}
-### Description
-{$description}
-{/if}
-
-{include classIndex, $class}
+| {$class->shortName} | {if $description = $class->getDescription()}{$description}{/if} |
+{/foreach}
 
 {/foreach}

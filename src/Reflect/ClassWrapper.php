@@ -18,6 +18,14 @@ class ClassWrapper extends ReflectionWrapper
 {
     public readonly bool $willBeInPublicApi;
 
+    public string $name {
+        get => $this->reflection->name;
+    }
+
+    public string $shortName {
+        get => $this->reflection->getShortName();
+    }
+
     /** @var array<string, MethodWrapper> */
     public array $methods {
         get => ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this); // @phpstan-ignore return.type
