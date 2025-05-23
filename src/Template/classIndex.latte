@@ -1,28 +1,43 @@
 {define classIndex, $class}
 
 {foreach $class->getAllConstants() as $entry}
-{first}### Public Constants:{/first}
-- {$entry->name}
+{first}### Public Constants:
+| Constant Name | Description |
+| ------------- | ------------- |
+{/first}
+| {$entry->name} | {$entry->getDescription()} |
 {/foreach}
 
 {foreach $class->getAllProperties(static: true, nonStatic: false) as $entry}
-{first}### Public Static Properties:{/first}
-- {$entry->name}
+{first}### Public Static Properties:
+| Properties Name | Description |
+| ------------- | ------------- |
+{/first}
+| ${$entry->name} | {$entry->getDescription()} |
 {/foreach}
 
 {foreach $class->getAllApiMethods(static: true, nonStatic: false) as $entry}
-{first}### Public Static Methods:{/first}
-- {$entry->name}
+{first}### Public Static Methods:
+| Method Name | Description |
+| ------------- | ------------- |
+{/first}
+| {$entry->name}(...) | {$entry->getDescription()} |
 {/foreach}
 
 {foreach $class->getAllProperties(static: false) as $entry}
-{first}### Public Properties:{/first}
-- {$entry->name}
+{first}### Public Properties:
+| Property Name | Description |
+| ------------- | ------------- |
+{/first}
+| {$entry->name} | {$entry->getDescription()} |
 {/foreach}
 
 {foreach $class->getAllApiMethods(static: false) as $entry}
-{first} ### Public Methods:{/first}
-- {$entry->name}
+{first} ### Public Methods:
+| Method Name | Description |
+| ------------- | ------------- |
+{/first}
+| {$entry->name}(...) | {$entry->getDescription()} |
 {/foreach}
 
 {/define}

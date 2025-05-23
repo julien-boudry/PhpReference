@@ -7,7 +7,7 @@
 | Class Name | Description |
 | ------------- | ------------- |
 {foreach $classes as $className => $class}
-| {$class->shortName} | {if $description = $class->getDescription()}{$description}{/if} |
+| {$class->shortName} | {$class->getDescription()} |
 {/foreach}
 
 {/foreach}
