@@ -80,4 +80,13 @@ abstract class ReflectionWrapper
     {
         return $this->docBlock?->getDescription()->render();
     }
+
+    public function getPageUrl(): string
+    {
+        if ($this instanceof WritableInterface) {
+            return str_replace('\\', '/', mb_substr($this->getPagePath(), 1));
+        }
+
+        throw new \LogicException('This wrapper does not implement WritableInterface');
+    }
 }

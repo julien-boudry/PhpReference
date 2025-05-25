@@ -6,4 +6,5 @@ interface WritableInterface
 {
     public function getPageDirectory(): string;
     public function getPagePath(): string;
+    public function getPageUrl(): string;
 }

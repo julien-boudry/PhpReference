@@ -7,7 +7,7 @@
 | Class Name | Description |
 | ------------- | ------------- |
 {foreach $classes as $className => $class}
-| {$class->shortName} | {$class->getDescription()} |
+| [{$class->shortName}]({$class->getPageUrl()}) | {$class->getDescription()} |
 {/foreach}
 
 {/foreach}
