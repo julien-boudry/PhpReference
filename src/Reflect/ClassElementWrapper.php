@@ -3,9 +3,11 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
+use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionMethod;
@@ -15,6 +17,15 @@ use WeakReference;
 
 abstract class ClassElementWrapper extends ReflectionWrapper
 {
+    protected static function formatDefaultValue(mixed $defaultValue): string
+    {
+        $defaultValue = var_export($defaultValue, true);
+        $defaultValue = str_replace('NULL', 'null', $defaultValue);
+        $defaultValue = str_replace("array (\n)", '[]', $defaultValue);
+
+        return $defaultValue;
+    }
+
     /** @var WeakReference<ClassWrapper> */
     public \WeakReference $classReference;
 
@@ -44,4 +55,14 @@ abstract class ClassElementWrapper extends ReflectionWrapper
     {
         return $this->classWrapper->getPageDirectory();
     }
+
+    public function getModifierNames(): string
+    {
+        if (!method_exists($this->reflection, 'getModifiers')) {
+            throw new LogicException('Method getModifiers() is not available on this reflection class.');
+        }
+
+        return implode(' ', Reflection::getModifierNames($this->reflection->getModifiers()));
+    }
+
 }

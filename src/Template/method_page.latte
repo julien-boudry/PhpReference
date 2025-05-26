@@ -1,7 +1,9 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
 
 # {$method->name}
-
+```php
+{$method->getSignature()}
+```
 {if $description = $method->getDescription()}
 ### Description
 {$description}

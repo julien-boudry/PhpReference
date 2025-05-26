@@ -11,7 +11,7 @@ use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
 
-class PropertyWrapper extends ClassElementWrapper implements WritableInterface
+class PropertyWrapper extends ClassElementWrapper implements WritableInterface, SignatureInterface
 {
     public ReflectionProperty $reflection {
         get {
@@ -37,17 +37,10 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface
 
     public function getSignature(): string
     {
-        $virtual = $this->reflection->isVirtual() ? 'virtual ' : '';
-        $static = $this->reflection->isStatic() ? 'static ' : '';
+        $type = ' ' . ((string) $this->reflection->getType()) . ' ';
 
-        $propertyType = $this->reflection->getType();
+        $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatDefaultValue($this->reflection->getDefaultValue()) : '';
 
-        $type = (string) $propertyType . ' ';
-
-        $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . var_export($this->reflection->getDefaultValue(), true) : '';
-        $defaultValue = str_replace('NULL', 'null', $defaultValue);
-        $defaultValue = str_replace("array (\n)", '[]', $defaultValue);
-
-        return "{$static}{$virtual}{$type}\${$this->name}{$defaultValue}";
+        return "{$this->getModifierNames()}{$type}\${$this->name}{$defaultValue}";
     }
 }
