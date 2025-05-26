@@ -34,4 +34,20 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface
 
         return $this->getPageDirectory() . "/{$static}{$virtual}property_{$this->name}.md";
     }
+
+    public function getSignature(): string
+    {
+        $virtual = $this->reflection->isVirtual() ? 'virtual ' : '';
+        $static = $this->reflection->isStatic() ? 'static ' : '';
+
+        $propertyType = $this->reflection->getType();
+
+        $type = $propertyType?->allowsNull() ? '?' : '';
+        $type .= (string) $propertyType . ' ';
+
+        $defaultValue = $this->reflection->isDefault() ? ' = ' . var_export($this->reflection->getDefaultValue(), true) : '';
+        $defaultValue = str_replace('NULL', 'null', $defaultValue);
+
+        return "{$static}{$virtual}{$type}\${$this->name}{$defaultValue}";
+    }
 }

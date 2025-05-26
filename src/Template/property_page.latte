@@ -1,7 +1,9 @@
 {templateType JulienBoudry\PhpReference\Template\Input\PropertyPageInput}
 
 # {$property->name}
-
+```php
+{$property->getSignature()}
+```
 {if $description = $property->getDescription()}
 ### Description
 {$description}
