@@ -5,6 +5,7 @@ namespace JulienBoudry\PhpReference\Template\Input;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 use JulienBoudry\PhpReference\Reflect\WritableInterface;
+use JulienBoudry\PhpReference\UrlLinker;
 
 abstract class AbstractElementInput
 {
@@ -16,5 +17,9 @@ abstract class AbstractElementInput
 
     public string $pageDirectory {
         get => $this->reflectionWrapper->getPageDirectory();
+    }
+
+    public UrlLinker $urlLinker {
+        get => $this->reflectionWrapper->getUrlLinker();
     }
 }

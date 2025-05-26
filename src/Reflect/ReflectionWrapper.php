@@ -2,6 +2,7 @@
 
 namespace JulienBoudry\PhpReference\Reflect;
 
+use JulienBoudry\PhpReference\UrlLinker;
 use JulienBoudry\PhpReference\Util;
 use phpDocumentor\Reflection\DocBlock;
 use ReflectionClass;
@@ -81,10 +82,10 @@ abstract class ReflectionWrapper
         return $this->docBlock?->getDescription()->render();
     }
 
-    public function getPageUrl(): string
+    public function getUrlLinker(): UrlLinker
     {
         if ($this instanceof WritableInterface) {
-            return str_replace('\\', '/', mb_substr($this->getPagePath(), 1));
+            return new UrlLinker($this);
         }
 
         throw new \LogicException('This wrapper does not implement WritableInterface');

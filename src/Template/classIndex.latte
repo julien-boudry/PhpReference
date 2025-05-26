@@ -21,7 +21,7 @@
 | Method Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getPageUrl()}) | {$entry->getDescription()} |
+| [{$entry->name}(...)]({$entry->getPagePath()}) | {$entry->getDescription()} |
 {/foreach}
 
 {foreach $class->getAllProperties(static: false) as $entry}
@@ -37,7 +37,7 @@
 | Method Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getPageUrl()}) | {$entry->getDescription()} |
+| [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | {$entry->getDescription()} |
 {/foreach}
 
 {/define}

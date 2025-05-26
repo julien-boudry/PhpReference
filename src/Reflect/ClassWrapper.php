@@ -73,7 +73,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface
 
     public function getPageDirectory(): string
     {
-        return parent::getPageDirectory() . "/{$this->name}";
+        return str_replace('\\', '/', parent::getPageDirectory() . "/{$this->name}");
     }
 
     public function getPagePath(): string

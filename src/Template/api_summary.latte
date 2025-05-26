@@ -7,7 +7,7 @@
 | Class Name | Description |
 | ------------- | ------------- |
 {foreach $classes as $className => $class}
-| [{$class->shortName}]({$class->getPageUrl()}) | {$class->getDescription()} |
+| [{$class->shortName}]({str_replace('\\', '/', mb_substr($class->getPagePath(), 1))}) | {$class->getDescription()} |
 {/foreach}
 
 {/foreach}
