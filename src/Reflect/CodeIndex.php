@@ -13,10 +13,12 @@ class CodeIndex
     /** @var array<string, ClassWrapper> */
     public readonly array $classList;
 
-    public function __construct()
+    public function __construct(
+        public readonly string $namespace,
+    )
     {
         // ClassFinder::disablePSR4Vendors(); // Optional; see performance notes below
-        $classPathList = ClassFinder::getClassesInNamespace('CondorcetPHP\Condorcet', ClassFinder::RECURSIVE_MODE);
+        $classPathList = ClassFinder::getClassesInNamespace($this->namespace, ClassFinder::RECURSIVE_MODE);
 
         $classList = [];
 

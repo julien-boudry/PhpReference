@@ -14,7 +14,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Recursively delete output directory
 AbstractWriter::getFlySystem()->deleteDirectory('/');
 
-$codeIndex = new CodeIndex();
+$codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
 
 $publicApiSummaryWriter = new PublicApiSummaryWriter($codeIndex);
 
