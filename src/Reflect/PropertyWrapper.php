@@ -42,11 +42,11 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface
 
         $propertyType = $this->reflection->getType();
 
-        $type = $propertyType?->allowsNull() ? '?' : '';
-        $type .= (string) $propertyType . ' ';
+        $type = (string) $propertyType . ' ';
 
-        $defaultValue = $this->reflection->isDefault() ? ' = ' . var_export($this->reflection->getDefaultValue(), true) : '';
+        $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . var_export($this->reflection->getDefaultValue(), true) : '';
         $defaultValue = str_replace('NULL', 'null', $defaultValue);
+        $defaultValue = str_replace("array (\n)", '[]', $defaultValue);
 
         return "{$static}{$virtual}{$type}\${$this->name}{$defaultValue}";
     }
