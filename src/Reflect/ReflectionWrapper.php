@@ -82,6 +82,33 @@ abstract class ReflectionWrapper
         return $this->docBlock?->getDescription()->render();
     }
 
+    public function getShortDescriptionForTable(): ?string
+    {
+        $description = $this->getDescription();
+
+        if ($description === null) {
+            return null;
+        }
+
+        // Remove line breaks and replace with spaces
+        $description = str_replace(["\r\n", "\r", "\n"], ' ', $description);
+
+        // Remove characters that could break markdown tables
+        $description = str_replace(['|', '`'], '', $description);
+
+        // Remove extra spaces
+        $description = mb_trim($description);
+
+        // Truncate to x characters and add ellipsis if needed
+        $maxLength = 200;
+
+        if (strlen($description) > $maxLength) {
+            $description = mb_substr($description, 0, $maxLength) . '...';
+        }
+
+        return $description;
+    }
+
     public function getUrlLinker(): UrlLinker
     {
         if ($this instanceof WritableInterface) {

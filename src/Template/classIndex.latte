@@ -5,7 +5,7 @@
 | Constant Name | Description |
 | ------------- | ------------- |
 {/first}
-| {$entry->name} | {$entry->getDescription()} |
+| {$entry->name} | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {foreach $class->getAllProperties(static: true, nonStatic: false) as $entry}
@@ -13,7 +13,7 @@
 | Properties Name | Description |
 | ------------- | ------------- |
 {/first}
-| {$entry->name} | {$entry->getDescription()} |
+| {$entry->name} | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {foreach $class->getAllApiMethods(static: true, nonStatic: false) as $entry}
@@ -21,7 +21,7 @@
 | Method Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getPagePath()}) | {$entry->getDescription()} |
+| [{$entry->name}(...)]({$entry->getPagePath()}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {foreach $class->getAllProperties(static: false) as $entry}
@@ -29,7 +29,7 @@
 | Property Name | Description |
 | ------------- | ------------- |
 {/first}
-| {$entry->name} | {$entry->getDescription()} |
+| {$entry->name} | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {foreach $class->getAllApiMethods(static: false) as $entry}
@@ -37,7 +37,7 @@
 | Method Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | {$entry->getDescription()} |
+| [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {/define}
