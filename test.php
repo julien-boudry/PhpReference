@@ -2,9 +2,11 @@
 
 use CondorcetPHP\Condorcet\Condorcet;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use JulienBoudry\PhpReference\Reflect\PropertyWrapper;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use JulienBoudry\PhpReference\Writer\ClassPageWriter;
 use JulienBoudry\PhpReference\Writer\MethodPageWriter;
+use JulienBoudry\PhpReference\Writer\PropertyPageWriter;
 use JulienBoudry\PhpReference\Writer\PublicApiSummaryWriter;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -21,5 +23,9 @@ foreach ($codeIndex->getPublicClasses() as $class) {
 
     foreach ($class->methods as $method) {
         new MethodPageWriter($method);
+    }
+
+    foreach ($class->getAllApiProperties() as $property) {
+        new PropertyPageWriter($property);
     }
 }

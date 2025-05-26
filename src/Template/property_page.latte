@@ -1,0 +1,8 @@
+{templateType JulienBoudry\PhpReference\Template\Input\PropertyPageInput}
+
+# {$property->name}
+
+{if $description = $property->getDescription()}
+### Description
+{$description}
+{/if}

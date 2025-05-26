@@ -11,7 +11,7 @@ use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
 
-class PropertyWrapper extends ClassElementWrapper
+class PropertyWrapper extends ClassElementWrapper implements WritableInterface
 {
     public ReflectionProperty $reflection {
         get {
@@ -25,5 +25,13 @@ class PropertyWrapper extends ClassElementWrapper
     )
     {
         parent::__construct($reflectionProperty, $classWrapper);
+    }
+
+    public function getPagePath(): string
+    {
+        $static = $this->reflection->isStatic() ? 'static_' : '';
+        $virtual = $this->reflection->isVirtual() ? 'virtual_' : '';
+
+        return $this->getPageDirectory() . "/{$static}{$virtual}property_{$this->name}.md";
     }
 }

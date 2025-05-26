@@ -39,4 +39,9 @@ abstract class ClassElementWrapper extends ReflectionWrapper
 
         parent::__construct($reflectorInClass);
     }
+
+    public function getPageDirectory(): string
+    {
+        return $this->classWrapper->getPageDirectory();
+    }
 }

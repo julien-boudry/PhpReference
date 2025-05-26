@@ -8,6 +8,7 @@ use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionParameter;
 use ReflectionProperties;
 use ReflectionProperty;
 
@@ -25,11 +26,6 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface
     )
     {
         parent::__construct($reflectionMethod, $classWrapper);
-    }
-
-    public function getPageDirectory(): string
-    {
-        return $this->classWrapper->getPageDirectory();
     }
 
     public function getPagePath(): string
