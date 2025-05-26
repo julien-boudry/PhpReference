@@ -50,7 +50,7 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
                 $str .= ' ';
                 $str .= $value->isPassedByReference() ? '&' : '';
                 $str .= '$' . $value->getName();
-                $str .= $value->isDefaultValueAvailable() ? ' = ' . self::formatDefaultValue($value->getDefaultValue()) : '';
+                $str .= $value->isDefaultValueAvailable() ? ' = ' . self::formatValue($value->getDefaultValue()) : '';
 
                 ($value->isOptional() && !$option) ? $option = true : null;
                 $i++;

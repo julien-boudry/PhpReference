@@ -2,10 +2,10 @@
 
 {foreach $class->getAllConstants() as $entry}
 {first}### Public Constants:
-| Constant Name | Description |
-| ------------- | ------------- |
+| Constant Name | Signature | Description |
+| ------------- | ------------- | ------------- |
 {/first}
-| {$entry->name} | _{$entry->getShortDescriptionForTable()}_ |
+| {$entry->name} | `{$entry->getSignature()}` | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {foreach $class->getAllProperties(static: true, nonStatic: false) as $entry}

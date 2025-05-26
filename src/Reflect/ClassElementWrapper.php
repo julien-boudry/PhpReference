@@ -17,7 +17,7 @@ use WeakReference;
 
 abstract class ClassElementWrapper extends ReflectionWrapper
 {
-    protected static function formatDefaultValue(mixed $defaultValue): string
+    protected static function formatValue(mixed $defaultValue): string
     {
         $defaultValue = var_export($defaultValue, true);
         $defaultValue = str_replace('NULL', 'null', $defaultValue);

@@ -12,7 +12,7 @@ use ReflectionMethod;
 use ReflectionProperties;
 use ReflectionProperty;
 
-class ClassConstantWrapper extends ClassElementWrapper
+class ClassConstantWrapper extends ClassElementWrapper implements SignatureInterface
 {
     public ReflectionClassConstant $reflection {
         get {
@@ -26,5 +26,13 @@ class ClassConstantWrapper extends ClassElementWrapper
     )
     {
         parent::__construct($reflectionClassConstant, $classWrapper);
+    }
+
+    public function getSignature(): string
+    {
+        $type = $this->reflection->getType() ? ' ' . ((string) $this->reflection->getType()) . ' ' : ' ';
+        $value = self::formatValue($this->reflection->getValue());
+
+        return "{$this->getModifierNames()} const{$type}{$this->name} = {$value}";
     }
 }

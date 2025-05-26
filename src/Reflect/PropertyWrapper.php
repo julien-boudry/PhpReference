@@ -39,7 +39,7 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
     {
         $type = ' ' . ((string) $this->reflection->getType()) . ' ';
 
-        $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatDefaultValue($this->reflection->getDefaultValue()) : '';
+        $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatValue($this->reflection->getDefaultValue()) : '';
 
         return "{$this->getModifierNames()}{$type}\${$this->name}{$defaultValue}";
     }
