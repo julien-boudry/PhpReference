@@ -3,17 +3,17 @@
 
 # {$class->shortName}
 
+> [Read it at the source]({$class->getSourceLink()})
+
 {if $description = $class->getDescription()}
 ## Description
 {$description}
 {/if}
 
 ## Class Elements
-
 {include classIndex, $class}
 
 ## Class Representation
-
 ```php
 {$class->getSignature()}
 ```

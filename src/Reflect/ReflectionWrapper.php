@@ -111,6 +111,24 @@ abstract class ReflectionWrapper
         return $description;
     }
 
+    public function getSourceLink(): ?string
+    {
+        if (    method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false)
+        {
+            throw new LogicException("Method source link is not available on `{$this->name}` or the file does not exist.");
+        }
+
+        if ($this->reflection->getFileName() === false || $this->reflection->getStartLine() === false)
+        {
+            return null;
+        }
+
+        return 'https://github.com/julien-boudry/Condorcet/blob/master/' .
+                substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1) .
+                '#L' . $this->reflection->getStartLine()
+        ;
+    }
+
     public function getUrlLinker(): UrlLinker
     {
         if ($this instanceof WritableInterface) {

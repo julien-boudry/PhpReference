@@ -1,10 +1,15 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
 
 # {$method->name}
+{if $sourceLink = $method->getSourceLink()}
+> [Read it at the source]({$sourceLink})
+{/if}
 ```php
 {$method->getSignature()}
 ```
+
+
 {if $description = $method->getDescription()}
-### Description
+## Description
 {$description}
 {/if}
