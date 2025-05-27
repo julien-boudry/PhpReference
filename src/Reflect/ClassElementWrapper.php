@@ -3,6 +3,7 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Util;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
@@ -19,9 +20,12 @@ abstract class ClassElementWrapper extends ReflectionWrapper
 {
     protected static function formatValue(mixed $defaultValue): string
     {
+        if (is_array($defaultValue)) {
+            return Util::arrayToString($defaultValue);
+        }
+
         $defaultValue = var_export($defaultValue, true);
         $defaultValue = str_replace('NULL', 'null', $defaultValue);
-        $defaultValue = str_replace("array (\n)", '[]', $defaultValue);
 
         return $defaultValue;
     }
