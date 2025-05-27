@@ -12,13 +12,26 @@ use ReflectionClassConstant;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
 use ReflectionMethod;
+use ReflectionParameter;
 use ReflectionProperty;
 use Reflector;
 
 abstract class ReflectionWrapper
 {
+    protected static function formatValue(mixed $defaultValue): string
+    {
+        if (is_array($defaultValue)) {
+            return Util::arrayToString($defaultValue);
+        }
+
+        $defaultValue = var_export($defaultValue, true);
+        $defaultValue = str_replace('NULL', 'null', $defaultValue);
+
+        return $defaultValue;
+    }
+
     /**
-     * @param array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction> $reflectors
+     * @param array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction|ReflectionParameter> $reflectors
      * @return array<ReflectionWrapper>
      */
     public static function toWrapper(array $reflectors, ClassWrapper $classWrapper): array
@@ -29,7 +42,8 @@ abstract class ReflectionWrapper
                 $reflector instanceof ReflectionMethod => new MethodWrapper($reflector, $classWrapper),
                 $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper),
                 $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper),
-                $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
+                $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector),
+                $reflector instanceof ReflectionParameter => new ParameterWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
                 default => throw new \LogicException('Unsupported reflector type: ' . get_class($reflector)),
             };
         }
@@ -44,7 +58,7 @@ abstract class ReflectionWrapper
     public readonly bool $hasInternalTag;
 
     // @phpstan-ignore missingType.generics
-    public ReflectionClass|ReflectionProperty|ReflectionFunctionAbstract|ReflectionClassConstant $reflection {
+    public ReflectionClass|ReflectionProperty|ReflectionFunctionAbstract|ReflectionClassConstant|ReflectionParameter $reflection {
         get {
             return $this->reflector; // @phpstan-ignore return.type
         }
@@ -53,7 +67,7 @@ abstract class ReflectionWrapper
     public function __construct(protected readonly Reflector $reflector)
     {
          // Docblock
-         $docComment = $this->reflection->getDocComment();
+         $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
          $this->docBlock = !empty($docComment) ? Util::getDocBlocFactory()->create($docComment) : null;
 
         // DocBlock visibility

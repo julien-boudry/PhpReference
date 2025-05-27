@@ -18,18 +18,6 @@ use WeakReference;
 
 abstract class ClassElementWrapper extends ReflectionWrapper
 {
-    protected static function formatValue(mixed $defaultValue): string
-    {
-        if (is_array($defaultValue)) {
-            return Util::arrayToString($defaultValue);
-        }
-
-        $defaultValue = var_export($defaultValue, true);
-        $defaultValue = str_replace('NULL', 'null', $defaultValue);
-
-        return $defaultValue;
-    }
-
     /** @var WeakReference<ClassWrapper> */
     public \WeakReference $classReference;
 

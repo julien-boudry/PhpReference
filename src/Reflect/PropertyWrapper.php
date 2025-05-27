@@ -3,6 +3,7 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Reflect\Structure\HasType;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
@@ -13,6 +14,8 @@ use ReflectionProperty;
 
 class PropertyWrapper extends ClassElementWrapper implements WritableInterface, SignatureInterface
 {
+    use HasType;
+
     public ReflectionProperty $reflection {
         get {
             return $this->reflector; // @phpstan-ignore return.type
@@ -37,7 +40,7 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
 
     public function getSignature(): string
     {
-        $type = ' ' . ((string) $this->reflection->getType()) . ' ';
+        $type = ' ' . $this->getType() . ' ';
 
         $setVisibility = '';
 

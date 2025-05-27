@@ -34,6 +34,36 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
         return $this->getPageDirectory() . "/method_{$this->name}.md";
     }
 
+    /**
+     *
+     * @return array<ParameterWrapper>
+     */
+    public function getParameters(): array
+    {
+        return array_map(
+            function (ReflectionParameter $parameter): ParameterWrapper {
+                return new ParameterWrapper($parameter, $this);
+            },
+            $this->reflection->getParameters()
+        );
+    }
+
+    public function hasReturnType(): bool
+    {
+        return $this->reflection->hasReturnType();
+    }
+
+    public function getReturnType(): string
+    {
+        if (!$this->hasReturnType()) {
+            throw new \RuntimeException(
+                'Method ' . $this->reflection->getName() . ' has no return type.'
+            );
+        }
+
+        return (string) $this->reflection->getReturnType();
+    }
+
     public function getSignature(bool $forClassRepresentation = false): string
     {
         $str = '(';
@@ -42,28 +72,22 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
             $option = false;
             $i = 0;
 
-            foreach ($this->reflection->getParameters() as $value) {
-                $str .= ' ';
-                $str .= ($value->isOptional() && !$option) ? '[' : '';
-                $str .= ($i > 0) ? ', ' : '';
-                $str .= (string) $value->getType();
-                $str .= ' ';
-                $str .= $value->isPassedByReference() ? '&' : '';
-                $str .= '$' . $value->getName();
-                $str .= $value->isDefaultValueAvailable() ? ' = ' . self::formatValue($value->getDefaultValue()) : '';
+            foreach ($this->getParameters() as $param) {
+                $str .= $i === 0 ? ' ' : ', ';
+                $str .= ($param->reflection->isOptional() && !$option) ? '[ ' : '';
 
-                ($value->isOptional() && !$option) ? $option = true : null;
+                $str .= $param->getSignature();
+
+                ($param->reflection->isOptional() && !$option) ? $option = true : null;
                 $i++;
             }
 
             if ($option) {
-                $str .= ']';
+                $str .= ' ]';
             }
         }
 
             $str .= ' )';
-
-            $returnType = (string) $this->reflection->getReturnType();
 
             $str = $this->getModifierNames() .
                     ' function ' .
@@ -71,7 +95,7 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
                     (!$forClassRepresentation ? ($this->reflection->isStatic() ? '::' : '->') : '').
                     $this->reflection->name .
                     $str .
-                    ($this->reflection->hasReturnType() ? ': ' . $returnType : '')
+                    ($this->hasReturnType() ? ': ' . $this->getReturnType() : '')
             ;
 
             return $str;

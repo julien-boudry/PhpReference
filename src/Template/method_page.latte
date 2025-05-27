@@ -1,15 +1,39 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
-
+{* *}
 # {$method->name}
 {if $sourceLink = $method->getSourceLink()}
 > [Read it at the source]({$sourceLink})
 {/if}
+
 ```php
 {$method->getSignature()}
 ```
-
-
+{* *}
 {if $description = $method->getDescription()}
+
 ## Description
 {$description}
+{/if}
+{* *}
+{if $parameters = $method->getParameters()}
+
+## Parameters
+{foreach $parameters as $param}
+
+### **{$param->name}:**
+```php
+{$param->getSignature()}
+```
+**Type:** `{$param->getType()}`
+
+Description
+{/foreach}
+{/if}
+{* *}
+{if $method->hasReturnType()}
+
+## Return
+**Type:** {$method->getReturnType()}
+
+Description
 {/if}
