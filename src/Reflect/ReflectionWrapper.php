@@ -31,7 +31,7 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction|ReflectionParameter> $reflectors
+     * @param array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction> $reflectors
      * @return array<ReflectionWrapper>
      */
     public static function toWrapper(array $reflectors, ClassWrapper $classWrapper): array
@@ -42,8 +42,7 @@ abstract class ReflectionWrapper
                 $reflector instanceof ReflectionMethod => new MethodWrapper($reflector, $classWrapper),
                 $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper),
                 $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper),
-                $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector),
-                $reflector instanceof ReflectionParameter => new ParameterWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
+                $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
                 default => throw new \LogicException('Unsupported reflector type: ' . get_class($reflector)),
             };
         }
