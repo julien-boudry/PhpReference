@@ -4,7 +4,9 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\UrlLinker;
 use JulienBoudry\PhpReference\Util;
+use LogicException;
 use phpDocumentor\Reflection\DocBlock;
+use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunction;
@@ -116,5 +118,14 @@ abstract class ReflectionWrapper
         }
 
         throw new \LogicException('This wrapper does not implement WritableInterface');
+    }
+
+    public function getModifierNames(): string
+    {
+        if (!method_exists($this->reflection, 'getModifiers')) {
+            throw new LogicException('Method getModifiers() is not available on this reflection class.');
+        }
+
+        return implode(' ', Reflection::getModifierNames($this->reflection->getModifiers()));
     }
 }

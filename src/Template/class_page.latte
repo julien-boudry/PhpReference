@@ -4,8 +4,16 @@
 # {$class->shortName}
 
 {if $description = $class->getDescription()}
-### Description
+## Description
 {$description}
 {/if}
 
+## Class Hierarchy
+
 {include classIndex, $class}
+
+## Class Representation
+
+```php
+{$class->getSignature()}
+```

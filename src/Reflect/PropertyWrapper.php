@@ -39,8 +39,16 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
     {
         $type = ' ' . ((string) $this->reflection->getType()) . ' ';
 
+        $setVisibility = '';
+
+        if ($this->reflection->isProtectedSet()) {
+            $setVisibility = ' protected(set)';
+        } elseif ($this->reflection->isPrivateSet()) {
+            $setVisibility = ' private(set)';
+        }
+
         $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatValue($this->reflection->getDefaultValue()) : '';
 
-        return "{$this->getModifierNames()}{$type}\${$this->name}{$defaultValue}";
+        return "{$this->getModifierNames()}{$setVisibility}{$type}\${$this->name}{$defaultValue}";
     }
 }

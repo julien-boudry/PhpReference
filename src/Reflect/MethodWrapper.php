@@ -34,7 +34,7 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
         return $this->getPageDirectory() . "/method_{$this->name}.md";
     }
 
-    public function getSignature(): string
+    public function getSignature(bool $forClassRepresentation = false): string
     {
         $str = '(';
 
@@ -66,9 +66,9 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
             $returnType = (string) $this->reflection->getReturnType();
 
             $str = $this->getModifierNames() .
-                    ' ' .
-                    $this->classWrapper->name .
-                    ($this->reflection->isStatic() ? '::' : '->') .
+                    ' function ' .
+                    (!$forClassRepresentation ? $this->classWrapper->name : '') .
+                    (!$forClassRepresentation ? ($this->reflection->isStatic() ? '::' : '->') : '').
                     $this->reflection->name .
                     $str .
                     ($this->reflection->hasReturnType() ? ': ' . $returnType : '')

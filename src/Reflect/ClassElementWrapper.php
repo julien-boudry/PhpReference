@@ -55,14 +55,4 @@ abstract class ClassElementWrapper extends ReflectionWrapper
     {
         return $this->classWrapper->getPageDirectory();
     }
-
-    public function getModifierNames(): string
-    {
-        if (!method_exists($this->reflection, 'getModifiers')) {
-            throw new LogicException('Method getModifiers() is not available on this reflection class.');
-        }
-
-        return implode(' ', Reflection::getModifierNames($this->reflection->getModifiers()));
-    }
-
 }
