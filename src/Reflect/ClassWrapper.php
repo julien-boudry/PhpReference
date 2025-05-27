@@ -249,7 +249,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $props = $onlyPublic ? $this->getAllApiProperties(nonStatic: false) : $this->getAllProperties(nonStatic: false);
 
         if (!empty($props)) {
-            $signature .= "\n\n";
+            $signature .= "\n";
             $signature .= "    // Static Properties\n";
         }
 
@@ -261,7 +261,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $props = $onlyPublic ? $this->getAllApiProperties(static: false) : $this->getAllProperties(static: false);
 
         if (!empty($props)) {
-            $signature .= "\n\n";
+            $signature .= "\n";
             $signature .= "    // Properties\n";
         }
 
@@ -273,7 +273,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $methods = $onlyPublic ? $this->getAllApiMethods(nonStatic: false) : $this->getAllApiMethods(nonStatic: false);
 
         if (!empty($methods)) {
-            $signature .= "\n\n";
+            $signature .= "\n";
             $signature .= "    // Methods\n";
         }
 
@@ -285,7 +285,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $methods = $onlyPublic ? $this->getAllApiMethods(static: false) : $this->getAllApiMethods(static: false);
 
         if (!empty($methods)) {
-            $signature .= "\n\n";
+            $signature .= "\n";
             $signature .= "    // Methods\n";
         }
 
