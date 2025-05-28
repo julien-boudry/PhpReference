@@ -29,10 +29,6 @@ abstract class ClassElementWrapper extends ReflectionWrapper
         get => $this->hasApiTag && !$this->hasInternalTag && $this->classWrapper && $this->classWrapper->willBeInPublicApi;
     }
 
-    public string $name {
-        get => $this->reflection->getName();
-    }
-
     public function __construct(
         ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass,
         ClassWrapper $classWrapper
