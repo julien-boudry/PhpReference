@@ -39,6 +39,11 @@ class ParameterWrapper extends ReflectionWrapper implements SignatureInterface
         $this->parentFunctionReference = WeakReference::create($functionWrapper);
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->parentFunctionWrapper->getDocBlockTagDescription('param', $this->name);
+    }
+
     public function getSignature(): string
     {
         $refl = $this->reflection;

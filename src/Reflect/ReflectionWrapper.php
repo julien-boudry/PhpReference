@@ -6,6 +6,7 @@ use JulienBoudry\PhpReference\UrlLinker;
 use JulienBoudry\PhpReference\Util;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
+use phpDocumentor\Reflection\DocBlock\Tags\Param;
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -97,7 +98,7 @@ abstract class ReflectionWrapper
         return $this->docBlock?->getDescription()->render();
     }
 
-    public function getDocBlockTagDescription(string $tag) : ?string
+    public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null) : ?string
     {
         if ($this->docBlock === null) {
             return null;
@@ -109,8 +110,20 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        /** @var \phpDocumentor\Reflection\DocBlock\Tags\BaseTag */
-        $firstTag = $tagObject[0];
+        if ($variableNameFilter == null) {
+            /** @var \phpDocumentor\Reflection\DocBlock\Tags\BaseTag */
+            $firstTag = $tagObject[0];
+        } else {
+            // Filter tags by variable name if provided
+            $filteredTags = array_filter($tagObject, fn (Param $tag): bool => $tag->getVariableName() === $variableNameFilter);
+
+            if (empty($filteredTags)) {
+                return null;
+            }
+
+            /** @var \phpDocumentor\Reflection\DocBlock\Tags\Param */
+            $firstTag = reset($filteredTags);
+        }
 
         // Return the first tag description or value
         return $firstTag->getDescription()->render();
