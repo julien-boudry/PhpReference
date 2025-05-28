@@ -1,10 +1,10 @@
 {templateType JulienBoudry\PhpReference\Template\Input\PropertyPageInput}
-
+{import 'description.latte'}
+{* *}
 # {$property->name}
 ```php
 {$property->getSignature()}
 ```
-{if $description = $property->getDescription()}
-## Description
-{$description}
-{/if}
+{* *}
+{include description, $property}
+{* *}

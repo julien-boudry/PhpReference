@@ -1,4 +1,5 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
+{import 'description.latte'}
 {import 'return.latte'}
 {import 'throws.latte'}
 {* *}
@@ -11,12 +12,9 @@
 {$method->getSignature()}
 ```
 {* *}
-{if $description = $method->getDescription()}
-
-## Description
-{$description}
-{/if}
+{include description, $method}
 {* *}
+
 {if $parameters = $method->getParameters()}
 
 ## Parameters

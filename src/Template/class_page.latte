@@ -1,14 +1,12 @@
 {templateType JulienBoudry\PhpReference\Template\Input\ClassPageInput}
 {import 'classIndex.latte'}
-
+{import 'description.latte'}
+{* *}
 # {$class->shortName}
-
 > [Read it at the source]({$class->getSourceLink()})
-
-{if $description = $class->getDescription()}
-## Description
-{$description}
-{/if}
+{* *}
+{include description, $class}
+{* *}
 
 ## Class Elements
 {include classIndex, $class}
