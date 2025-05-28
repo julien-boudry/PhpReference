@@ -1,5 +1,6 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
 {import 'description.latte'}
+{import 'params.latte'}
 {import 'return.latte'}
 {import 'throws.latte'}
 {* *}
@@ -14,22 +15,7 @@
 {* *}
 {include description, $method}
 {* *}
-
-{if $parameters = $method->getParameters()}
-
-## Parameters
-{foreach $parameters as $param}
-
-### **{$param->name}:**
-```php
-{$param->getSignature()}
-```
-**Type:** `{$param->getType()}`
-
-{$param->getDescription()}
-
-{/foreach}
-{/if}
+{include params, $method}
 {* *}
 {include return, $method}
 {* *}

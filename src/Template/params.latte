@@ -1,0 +1,17 @@
+{define params, $function}
+{* *}
+{if $parameters = $function->getParameters()}
+
+## Parameters
+{foreach $parameters as $param}
+
+### **{$param->name}:**
+```php
+{$param->getSignature()}
+```
+**Type:** `{$param->getType()}`
+
+{$param->getDescription()}
+{/foreach}
+{/if}
+{/define}
