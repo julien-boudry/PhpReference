@@ -3,6 +3,8 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
+use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
 use JulienBoudry\PhpReference\Reflect\Structure\HasType;
 use phpDocumentor\Reflection\DocBlock;

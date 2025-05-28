@@ -2,6 +2,7 @@
 
 namespace JulienBoudry\PhpReference\Reflect;
 
+use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use JulienBoudry\PhpReference\UrlLinker;
 use JulienBoudry\PhpReference\Util;
 use LogicException;

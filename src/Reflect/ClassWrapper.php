@@ -3,6 +3,8 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
+use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;

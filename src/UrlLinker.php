@@ -3,7 +3,7 @@
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
-use JulienBoudry\PhpReference\Reflect\WritableInterface;
+use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 
 class UrlLinker
 {

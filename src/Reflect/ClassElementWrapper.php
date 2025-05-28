@@ -3,6 +3,7 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Reflect\Capabilities\HasParentInterface;
 use JulienBoudry\PhpReference\Util;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
