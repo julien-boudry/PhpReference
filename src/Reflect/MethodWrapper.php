@@ -3,6 +3,7 @@
 namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Reflect\Structure\HasReturn;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
@@ -15,6 +16,8 @@ use ReflectionProperty;
 
 class MethodWrapper extends ClassElementWrapper implements WritableInterface, SignatureInterface
 {
+    use HasReturn;
+
     public ReflectionMethod $reflection {
         get {
             return $this->reflector; // @phpstan-ignore return.type
@@ -46,22 +49,6 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
             },
             $this->reflection->getParameters()
         );
-    }
-
-    public function hasReturnType(): bool
-    {
-        return $this->reflection->hasReturnType();
-    }
-
-    public function getReturnType(): string
-    {
-        if (!$this->hasReturnType()) {
-            throw new \RuntimeException(
-                'Method ' . $this->reflection->getName() . ' has no return type.'
-            );
-        }
-
-        return (string) $this->reflection->getReturnType();
     }
 
     public function getSignature(bool $forClassRepresentation = false): string

@@ -97,6 +97,25 @@ abstract class ReflectionWrapper
         return $this->docBlock?->getDescription()->render();
     }
 
+    public function getDocBlockTagDescription(string $tag) : ?string
+    {
+        if ($this->docBlock === null) {
+            return null;
+        }
+
+        $tagObject = $this->docBlock->getTagsByName($tag);
+
+        if (empty($tagObject)) {
+            return null;
+        }
+
+        /** @var \phpDocumentor\Reflection\DocBlock\Tags\BaseTag */
+        $firstTag = $tagObject[0];
+
+        // Return the first tag description or value
+        return $firstTag->getDescription()->render();
+    }
+
     public function getShortDescriptionForTable(): ?string
     {
         $description = $this->getDescription();
