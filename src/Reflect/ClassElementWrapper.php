@@ -16,7 +16,7 @@ use ReflectionProperties;
 use ReflectionProperty;
 use WeakReference;
 
-abstract class ClassElementWrapper extends ReflectionWrapper
+abstract class ClassElementWrapper extends ReflectionWrapper implements HasParentInterface
 {
     /** @var WeakReference<ClassWrapper> */
     public \WeakReference $classReference;

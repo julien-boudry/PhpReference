@@ -15,7 +15,7 @@ use ReflectionProperties;
 use ReflectionProperty;
 use WeakReference;
 
-class ParameterWrapper extends ReflectionWrapper implements SignatureInterface
+class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, SignatureInterface
 {
     use HasType;
 
