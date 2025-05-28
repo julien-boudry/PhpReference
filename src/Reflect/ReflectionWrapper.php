@@ -98,32 +98,49 @@ abstract class ReflectionWrapper
         return $this->docBlock?->getDescription()->render();
     }
 
-    public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null) : ?string
+    /**
+     * Get all tags of a specific type from the DocBlock.
+     *
+     * @param string $tag The tag name to filter by (e.g., 'param', 'return').
+     * @param string|null $variableNameFilter Optional variable name to filter by (for 'param' tags).
+     * @return array<\phpDocumentor\Reflection\DocBlock\Tags\BaseTag> Array of tags matching the criteria.
+     *
+     * @param string $tag
+     * @param null|string $variableNameFilter
+     * @return array
+     */
+    public function getDocBlockTags(string $tag, ?string $variableNameFilter = null): ?array
     {
         if ($this->docBlock === null) {
             return null;
         }
 
-        $tagObject = $this->docBlock->getTagsByName($tag);
+        /** @var \phpDocumentor\Reflection\DocBlock\Tags\BaseTag[] */
+        $tagObjects = $this->docBlock->getTagsByName($tag);
 
-        if (empty($tagObject)) {
+        if (empty($tagObjects)) {
             return null;
         }
 
-        if ($variableNameFilter == null) {
-            /** @var \phpDocumentor\Reflection\DocBlock\Tags\BaseTag */
-            $firstTag = $tagObject[0];
+        if ($variableNameFilter === null) {
+            return $tagObjects;
         } else {
-            // Filter tags by variable name if provided
-            $filteredTags = array_filter($tagObject, fn (Param $tag): bool => $tag->getVariableName() === $variableNameFilter);
+            /** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] */
+            $params = array_filter($tagObjects, fn (Param $tag): bool => $tag->getVariableName() === $variableNameFilter);
 
-            if (empty($filteredTags)) {
-                return null;
-            }
-
-            /** @var \phpDocumentor\Reflection\DocBlock\Tags\Param */
-            $firstTag = reset($filteredTags);
+            return $params;
         }
+    }
+
+    public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null) : ?string
+    {
+        $tags = $this->getDocBlockTags($tag, $variableNameFilter);
+
+        if(empty($tags)) {
+            return null;
+        }
+
+        $firstTag = reset($tags);
 
         // Return the first tag description or value
         return $firstTag->getDescription()->render();
