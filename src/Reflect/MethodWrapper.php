@@ -4,6 +4,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
+use JulienBoudry\PhpReference\Reflect\Structure\HasParameters;
 use JulienBoudry\PhpReference\Reflect\Structure\HasReturn;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
@@ -17,6 +18,7 @@ use ReflectionProperty;
 
 class MethodWrapper extends ClassElementWrapper implements WritableInterface, SignatureInterface
 {
+    use HasParameters;
     use HasReturn;
     use CanThrow;
 
@@ -37,20 +39,6 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
     public function getPagePath(): string
     {
         return $this->getPageDirectory() . "/method_{$this->name}.md";
-    }
-
-    /**
-     *
-     * @return array<ParameterWrapper>
-     */
-    public function getParameters(): array
-    {
-        return array_map(
-            function (ReflectionParameter $parameter): ParameterWrapper {
-                return new ParameterWrapper($parameter, $this);
-            },
-            $this->reflection->getParameters()
-        );
     }
 
     public function getSignature(bool $forClassRepresentation = false): string

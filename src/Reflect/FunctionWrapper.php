@@ -4,6 +4,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
+use JulienBoudry\PhpReference\Reflect\Structure\HasParameters;
 use JulienBoudry\PhpReference\Reflect\Structure\HasReturn;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
@@ -16,6 +17,7 @@ use ReflectionProperty;
 
 class FunctionWrapper extends ReflectionWrapper
 {
+    use HasParameters;
     use HasReturn;
     use CanThrow;
 
