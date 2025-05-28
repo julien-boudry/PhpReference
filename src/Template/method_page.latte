@@ -39,3 +39,11 @@
 {$method->getReturnDescription()}
 {* *}
 {/if}
+{* *}
+{if $throws = $method->getThrows()}
+
+## Throws
+{foreach $throws as $throw}
+- **{$throw->getType()}:** {$throw->getDescription()}
+{/foreach}
+{/if}
