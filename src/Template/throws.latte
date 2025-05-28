@@ -1,0 +1,10 @@
+{define throws, $function}
+{* *}
+{if $throws = $function->getThrows()}
+
+## Throws
+{foreach $throws as $throw}
+- **{$throw->getType()}:** {$throw->getDescription()}
+{/foreach}
+{/if}
+{/define}

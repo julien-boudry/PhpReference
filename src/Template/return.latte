@@ -1,0 +1,11 @@
+{define return, $function}
+{* *}
+{if $function->hasReturnType()}
+
+## Return
+**Type:** {$function->getReturnType()}
+
+{$function->getReturnDescription()}
+{* *}
+{/if}
+{/define}

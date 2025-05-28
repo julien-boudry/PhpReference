@@ -1,4 +1,6 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
+{import 'return.latte'}
+{import 'throws.latte'}
 {* *}
 # {$method->name}()
 {if $sourceLink = $method->getSourceLink()}
@@ -31,19 +33,6 @@
 {/foreach}
 {/if}
 {* *}
-{if $method->hasReturnType()}
-
-## Return
-**Type:** {$method->getReturnType()}
-
-{$method->getReturnDescription()}
+{include return, $method}
 {* *}
-{/if}
-{* *}
-{if $throws = $method->getThrows()}
-
-## Throws
-{foreach $throws as $throw}
-- **{$throw->getType()}:** {$throw->getDescription()}
-{/foreach}
-{/if}
+{include throws, $method}
