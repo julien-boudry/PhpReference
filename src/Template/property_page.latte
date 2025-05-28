@@ -9,5 +9,13 @@
 {* *}
 {include description, $property}
 {* *}
+{if $returnDescription = $property->getDocBlockTagDescription('return')}
+
+## Value
+
+{$returnDescription}
+{* *}
+{/if}
+{* *}
 {include throws, $property}
 {* *}
