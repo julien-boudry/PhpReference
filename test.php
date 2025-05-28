@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\Condorcet;
+use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
 use JulienBoudry\PhpReference\Reflect\PropertyWrapper;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
@@ -14,11 +15,11 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Recursively delete output directory
 AbstractWriter::getFlySystem()->deleteDirectory('/');
 
-$codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
+$execution = new Execution(new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName()));
 
-$publicApiSummaryWriter = new PublicApiSummaryWriter($codeIndex);
+$publicApiSummaryWriter = new PublicApiSummaryWriter($execution->codeIndex);
 
-foreach ($codeIndex->getPublicClasses() as $class) {
+foreach ($execution->codeIndex->getPublicClasses() as $class) {
     new ClassPageWriter($class);
 
     foreach ($class->methods as $method) {

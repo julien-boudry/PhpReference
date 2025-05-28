@@ -68,7 +68,7 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
 
             $str = $this->getModifierNames() .
                     ' function ' .
-                    (!$forClassRepresentation ? $this->classWrapper->name : '') .
+                    (!$forClassRepresentation ? $this->parentWrapper->name : '') .
                     (!$forClassRepresentation ? ($this->reflection->isStatic() ? '::' : '->') : '').
                     $this->reflection->name .
                     $str .

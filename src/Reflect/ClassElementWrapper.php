@@ -21,12 +21,12 @@ abstract class ClassElementWrapper extends ReflectionWrapper
     /** @var WeakReference<ClassWrapper> */
     public \WeakReference $classReference;
 
-    public ?ClassWrapper $classWrapper {
+    public ?ClassWrapper $parentWrapper {
         get => $this->classReference->get();
     }
 
     public bool $willBeInPublicApi {
-        get => $this->hasApiTag && !$this->hasInternalTag && $this->classWrapper && $this->classWrapper->willBeInPublicApi;
+        get => $this->hasApiTag && !$this->hasInternalTag && $this->parentWrapper && $this->parentWrapper->willBeInPublicApi;
     }
 
     public function __construct(
@@ -41,6 +41,6 @@ abstract class ClassElementWrapper extends ReflectionWrapper
 
     public function getPageDirectory(): string
     {
-        return $this->classWrapper->getPageDirectory();
+        return $this->parentWrapper->getPageDirectory();
     }
 }

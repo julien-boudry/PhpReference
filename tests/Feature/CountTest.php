@@ -39,7 +39,7 @@ it('has methods', function (): void {
         expect($method->hasApiTag)->toBeTrue();
         expect($method->hasInternalTag)->toBeFalse();
         expect($method->willBeInPublicApi)->toBeTrue();
-        expect($method->classWrapper->willBeInPublicApi)->toBeTrue();
+        expect($method->parentWrapper->willBeInPublicApi)->toBeTrue();
     }
 });
 
@@ -63,7 +63,7 @@ it('has properties', function (): void {
         expect($property->hasApiTag)->toBeTrue();
         expect($property->hasInternalTag)->toBeFalse();
         expect($property->willBeInPublicApi)->toBeTrue();
-        expect($property->classWrapper->willBeInPublicApi)->toBeTrue();
+        expect($property->parentWrapper->willBeInPublicApi)->toBeTrue();
     }
 });
 
@@ -87,6 +87,6 @@ it('has constants', function (): void {
         expect($property->hasApiTag)->toBeTrue();
         expect($property->hasInternalTag)->toBeFalse();
         expect($property->willBeInPublicApi)->toBeTrue();
-        expect($property->classWrapper->willBeInPublicApi)->toBeTrue();
+        expect($property->parentWrapper->willBeInPublicApi)->toBeTrue();
     }
 });

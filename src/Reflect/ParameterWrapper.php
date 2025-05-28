@@ -28,7 +28,7 @@ class ParameterWrapper extends ReflectionWrapper implements SignatureInterface
     /** @var WeakReference<MethodWrapper|FunctionWrapper> */
     protected WeakReference $parentFunctionReference;
 
-    public MethodWrapper|FunctionWrapper|null $parentFunctionWrapper {
+    public MethodWrapper|FunctionWrapper|null $parentWrapper {
         get => $this->parentFunctionReference->get();
     }
 
@@ -41,7 +41,7 @@ class ParameterWrapper extends ReflectionWrapper implements SignatureInterface
 
     public function getDescription(): ?string
     {
-        return $this->parentFunctionWrapper->getDocBlockTagDescription('param', $this->name);
+        return $this->parentWrapper->getDocBlockTagDescription('param', $this->name);
     }
 
     public function getSignature(): string
