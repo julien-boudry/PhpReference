@@ -1,5 +1,6 @@
 {templateType JulienBoudry\PhpReference\Template\Input\PropertyPageInput}
 {import 'description.latte'}
+{import 'throws.latte'}
 {* *}
 # {$property->name}
 ```php
@@ -7,4 +8,6 @@
 ```
 {* *}
 {include description, $property}
+{* *}
+{include throws, $property}
 {* *}
