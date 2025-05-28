@@ -1,8 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace JulienBoudry\PhpReference\Reflect;
+namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;

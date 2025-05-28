@@ -2,7 +2,7 @@
 
 use CondorcetPHP\Condorcet\Condorcet;
 use JulienBoudry\PhpReference\Execution;
-use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Reflect\PropertyWrapper;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use JulienBoudry\PhpReference\Writer\ClassPageWriter;

@@ -2,7 +2,7 @@
 
 namespace JulienBoudry\PhpReference;
 
-use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use JulienBoudry\PhpReference\CodeIndex;
 
 final class Execution
 {

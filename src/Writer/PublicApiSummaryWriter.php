@@ -3,7 +3,7 @@
 namespace JulienBoudry\PhpReference\Writer;
 
 use JulienBoudry\PhpReference\Formater\ClassFormater;
-use JulienBoudry\PhpReference\Reflect\CodeIndex;
+use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Template\Input\ApiSummaryInput;
 use JulienBoudry\PhpReference\Template\Input\ClassPageInput;
 
