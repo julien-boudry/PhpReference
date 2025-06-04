@@ -223,7 +223,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         return $this->filterApiReflection($this->getAllConstants(protected: false, private: false)); // @phpstan-ignore return.type
     }
 
-    public function getSignature(bool $onlyPublic = false): string
+    public function getSignature(bool $onlyApi = false): string
     {
         $signature = '';
 
@@ -242,7 +242,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $signature .= "\n{\n";
 
         // Const
-        $consts = $onlyPublic ? $this->getAllApiConstants() : $this->getAllConstants();
+        $consts = $onlyApi ? $this->getAllApiConstants() : $this->getAllConstants();
 
         if (!empty($consts)) {
             $signature .= "    // Constants\n";
@@ -253,7 +253,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         }
 
         // Static Properties
-        $props = $onlyPublic ? $this->getAllApiProperties(nonStatic: false) : $this->getAllProperties(nonStatic: false);
+        $props = $onlyApi ? $this->getAllApiProperties(nonStatic: false) : $this->getAllProperties(nonStatic: false);
 
         if (!empty($props)) {
             $signature .= "\n";
@@ -265,7 +265,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         }
 
         // Properties
-        $props = $onlyPublic ? $this->getAllApiProperties(static: false) : $this->getAllProperties(static: false);
+        $props = $onlyApi ? $this->getAllApiProperties(static: false) : $this->getAllProperties(static: false);
 
         if (!empty($props)) {
             $signature .= "\n";
@@ -277,7 +277,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         }
 
         // Static Methods
-        $methods = $onlyPublic ? $this->getAllApiMethods(nonStatic: false) : $this->getAllApiMethods(nonStatic: false);
+        $methods = $onlyApi ? $this->getAllApiMethods(nonStatic: false) : $this->getAllUserDefinedMethods();
 
         if (!empty($methods)) {
             $signature .= "\n";
@@ -289,7 +289,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         }
 
         // Methods
-        $methods = $onlyPublic ? $this->getAllApiMethods(static: false) : $this->getAllApiMethods(static: false);
+        $methods = $onlyApi ? $this->getAllApiMethods(static: false) : $this->getAllApiMethods(static: false);
 
         if (!empty($methods)) {
             $signature .= "\n";
