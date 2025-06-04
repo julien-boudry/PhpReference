@@ -10,8 +10,8 @@ use League\Flysystem\Local\LocalFilesystemAdapter;
 abstract class AbstractWriter
 {
     public const TEMPLATE_DIR = __DIR__ . '/../Template';
-    public const OUTPUT_DIR = __DIR__ . '/../../output';
 
+    public static string $outputDir = __DIR__ . '/../../output';
     protected static Filesystem $filesystem;
 
     public string $writePath = '/';
@@ -22,7 +22,7 @@ abstract class AbstractWriter
 
     public static function getFlySystem(): Filesystem
     {
-        return self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::OUTPUT_DIR));
+        return self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::$outputDir));
     }
 
     public function __construct() {

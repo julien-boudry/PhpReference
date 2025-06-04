@@ -53,11 +53,11 @@ class GenerateDocumentationCommand extends Command
                 description: "Don't clean the output directory before generating documentation, append to existing files, overwrite existing files if they exist",
             )
             ->addOption(
-                name: 'output-dir',
+                name: 'output',
                 shortcut: 'o',
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Output directory for generated documentation',
-                default: AbstractWriter::OUTPUT_DIR
+                default: getcwd() . DIRECTORY_SEPARATOR . 'output',
             )
             ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties.');
     }
@@ -67,8 +67,18 @@ class GenerateDocumentationCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
 
         $this->namespace = $input->getArgument('namespace');
-        $this->appendOutput = $input->hasOption('append');
-        $this->outputDir = $input->getOption('output-dir');
+        $this->appendOutput = $input->getOption('append');
+
+        $realOutputPath = realpath($input->getOption('output'));
+
+        if ($realOutputPath === false) {
+            error("Output directory '{$input->getOption('output')}' does not exist.");
+            exit(Command::FAILURE);
+        }
+
+        $this->outputDir = $realOutputPath;
+
+        AbstractWriter::$outputDir = $this->outputDir;
     }
 
     protected function interact(InputInterface $input, OutputInterface $output): void
@@ -81,12 +91,12 @@ class GenerateDocumentationCommand extends Command
             $input->setArgument('namespace', $namespace);
         }
 
-        if (!$input->getOption('output-dir')) {
+        if (!$input->getOption('output')) {
             $outputDir = $this->io->ask(
                 question: 'Please enter the output directory for generated documentation',
-                default: AbstractWriter::OUTPUT_DIR
+                default: $this->outputDir
             );
-            $input->setOption('output-dir', $outputDir);
+            $input->setOption('output', $outputDir);
         }
 
         $this->confirmed = confirm(
