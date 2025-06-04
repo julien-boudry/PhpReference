@@ -25,7 +25,7 @@ class PublicApiSummaryWriter extends AbstractWriter
         return self::$latte->renderToString(
             name: AbstractWriter::TEMPLATE_DIR . '/api_summary.latte',
             params : new ApiSummaryInput(
-                classes: $this->codeIndex->getPublicClasses()
+                classes: $this->codeIndex->getApiClasses()
             ),
         );
     }

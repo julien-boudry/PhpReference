@@ -9,12 +9,12 @@ it('test public condorcet', function (): void {
 
     expect($codeIndex->classList)
         ->toBeGreaterThan(100)
-        ->toBeGreaterThan(count($codeIndex->getPublicClasses()))
+        ->toBeGreaterThan(count($codeIndex->getApiClasses()))
     ;
 
-    expect(count($codeIndex->getPublicClasses()))->toBeGreaterThan(0);
+    expect(count($codeIndex->getApiClasses()))->toBeGreaterThan(0);
 
-    foreach ($codeIndex->getPublicClasses() as $class) {
+    foreach ($codeIndex->getApiClasses() as $class) {
         expect($class->willBeInPublicApi)->toBeTrue();
     }
 });

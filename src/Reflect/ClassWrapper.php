@@ -17,6 +17,7 @@ use Reflector;
 class ClassWrapper extends ReflectionWrapper implements WritableInterface, SignatureInterface
 {
     public readonly bool $willBeInPublicApi;
+    public readonly bool $hasPublicElements;
 
     public string $name {
         get => $this->reflection->name;
@@ -53,7 +54,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     {
         parent::__construct(new ReflectionClass($classPath));
 
-        // Class Will Be Public
+        // Class Will Be In Public Api
         if ($this->hasInternalTag) {
             $this->willBeInPublicApi = false;
         } elseif ($this->hasApiTag) {
@@ -65,6 +66,17 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
             // TODO : property, const
             $this->willBeInPublicApi ??= false;
+        }
+
+        // Class Has Public Element
+        if (
+            !empty($this->getAllUserDefinedMethods(protected: false, private: false)) ||
+            !empty($this->getAllConstants(protected: false, private: false)) ||
+            !empty($this->getAllProperties(protected: false, private: false))
+        ) {
+            $this->hasPublicElements = true;
+        } else {
+            $this->hasPublicElements = false;
         }
     }
 

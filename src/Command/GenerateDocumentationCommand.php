@@ -36,6 +36,7 @@ class GenerateDocumentationCommand extends Command
     protected readonly string $outputDir;
     protected readonly bool $appendOutput;
     protected bool $confirmed = true;
+    protected bool $allPublic = false;
 
     protected function configure(): void
     {
@@ -59,6 +60,14 @@ class GenerateDocumentationCommand extends Command
                 description: 'Output directory for generated documentation',
                 default: getcwd() . DIRECTORY_SEPARATOR . 'output',
             )
+            ->addOption(
+                name: 'all-public',
+                shortcut: 'p',
+                mode: InputOption::VALUE_NONE,
+                description: 'Include all public classes, methods, and properties in the documentation, even those not marked with @api or @internal tags',
+            )
+
+
             ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties.');
     }
 
@@ -68,6 +77,7 @@ class GenerateDocumentationCommand extends Command
 
         $this->namespace = $input->getArgument('namespace');
         $this->appendOutput = $input->getOption('append');
+        $this->allPublic = $input->getOption('all-public');
 
         $realOutputPath = realpath($input->getOption('output'));
 
@@ -124,7 +134,7 @@ class GenerateDocumentationCommand extends Command
             );
 
             $codeIndex = new CodeIndex($this->namespace);
-            $elements = $codeIndex->getPublicClasses();
+            $elements = $this->allPublic ? $codeIndex->getPublicClasses() : $codeIndex->getApiClasses();
 
             $progress->advance();
             $progress->finish();
@@ -169,12 +179,20 @@ class GenerateDocumentationCommand extends Command
                 new ClassPageWriter($class);
 
                 // Generate method pages
-                foreach ($class->methods as $method) {
+                $methods = $this->allPublic ?
+                            $class->getAllUserDefinedMethods(protected: false, private: false) :
+                            $class->getAllApiMethods();
+
+                foreach ($methods as $method) {
                     new MethodPageWriter($method);
                 }
 
                 // Generate property pages
-                foreach ($class->getAllApiProperties() as $property) {
+                $properties = $this->allPublic ?
+                                $class->getAllProperties(protected: false, private: false) :
+                                $class->getAllApiProperties();
+
+                foreach ($properties as $property) {
                     new PropertyPageWriter($property);
                 }
 
