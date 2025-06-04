@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use JulienBoudry\PhpReference\Command\GenerateDocumentationCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('PHP Reference Documentation Generator', '1.0.0');
+
+$generateCommand = new GenerateDocumentationCommand;
+
+$application->add($generateCommand);
+$application->setDefaultCommand($generateCommand->getName(), true);
+
+$application->run();

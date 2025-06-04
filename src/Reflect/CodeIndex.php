@@ -17,16 +17,12 @@ class CodeIndex
         public readonly string $namespace,
     )
     {
-        // ClassFinder::disablePSR4Vendors(); // Optional; see performance notes below
+        // ClassFinder::disablePSR4Vendors();
         $classPathList = ClassFinder::getClassesInNamespace($this->namespace, ClassFinder::RECURSIVE_MODE);
 
         $classList = [];
 
         foreach ($classPathList as $classPath) {
-            // $astLocator = (new BetterReflection())->astLocator();
-            // $reflector = new DefaultReflector(new ComposerSourceLocator($classLoader, $astLocator));
-            // $classList[$classPath] = $reflector->reflectClass($classPath);
-
             $classList[$classPath] = new ClassWrapper($classPath);
         }
 
