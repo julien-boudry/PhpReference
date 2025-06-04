@@ -47,8 +47,10 @@ trait HasType
             $separator ?? '',
             array_map(
                 function (string $type): string {
-                    if (array_key_exists($type, Execution::$instance->codeIndex->classList)) {
-                        $pageDestination = Execution::$instance->codeIndex->classList[$type];
+                    $pureType = str_replace('?', '', $type); // Remove nullable type indicator
+
+                    if (array_key_exists($pureType, Execution::$instance->codeIndex->classList)) {
+                        $pageDestination = Execution::$instance->codeIndex->classList[$pureType];
 
                         $toLink = $this->parentWrapper->getUrlLinker()->to($pageDestination);
                         return "[`$type`]($toLink)";
