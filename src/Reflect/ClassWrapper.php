@@ -59,11 +59,8 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         } elseif ($this->hasApiTag) {
             $this->willBeInPublicApi = true;
         } else {
-            foreach ($this->getAllUserDefinedMethods(protected: false, private: false) as $method) {
-                if ($method->hasApiTag) {
-                    $this->willBeInPublicApi = true;
-                    break;
-                }
+            if (!empty($this->getAllApiMethods()) || !empty($this->getAllApiConstants()) || !empty($this->getAllApiProperties())) {
+                $this->willBeInPublicApi = true;
             }
 
             // TODO : property, const
@@ -180,14 +177,10 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
      */
     protected function filterApiReflection(array $list): array
     {
-        if ($this->willBeInPublicApi === false) {
-            return [];
-        }
-
         return array_filter(
             array: $list,
             callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) {
-                return $reflectionWrapper->willBeInPublicApi;
+                return $reflectionWrapper->hasApiTag;
             }
         );
     }
