@@ -33,11 +33,11 @@ use function Laravel\Prompts\warning;
 class GenerateDocumentationCommand extends Command
 {
     protected readonly SymfonyStyle $io;
-    protected readonly string $namespace;
     protected readonly string $outputDir;
     protected readonly bool $appendOutput;
     protected bool $confirmed = true;
-    protected bool $allPublic = false;
+
+    protected readonly Execution $execution;
 
     protected function configure(): void
     {
@@ -72,14 +72,14 @@ class GenerateDocumentationCommand extends Command
             ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties.');
     }
 
-    protected function initVar(InputInterface $input, OutputInterface $output): void
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
+    }
 
-        $this->namespace = $input->getArgument('namespace');
+    protected function init(InputInterface $input): void
+    {
         $this->appendOutput = $input->getOption('append');
-        $this->allPublic = $input->getOption('all-public');
-
         $realOutputPath = realpath($input->getOption('output'));
 
         if ($realOutputPath === false) {
@@ -88,8 +88,13 @@ class GenerateDocumentationCommand extends Command
         }
 
         $this->outputDir = $realOutputPath;
-
         AbstractWriter::$outputDir = $this->outputDir;
+
+        $this->execution = new Execution(
+            codeIndex: new CodeIndex($input->getArgument('namespace')),
+            outputDir: $this->outputDir,
+            allPublic: $input->getOption('all-public'),
+        );
     }
 
     protected function interact(InputInterface $input, OutputInterface $output): void
@@ -118,7 +123,7 @@ class GenerateDocumentationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->initVar($input, $output);
+        $this->init($input);
 
         if (!$this->confirmed) {
             warning('Operation cancelled by user.');
@@ -134,29 +139,24 @@ class GenerateDocumentationCommand extends Command
                 steps: 1
             );
 
-            $codeIndex = new CodeIndex($this->namespace);
-            Execution::$instance = new Execution($codeIndex);
-
-            $elements = $this->allPublic ? $codeIndex->getPublicClasses() : $codeIndex->getApiClasses();
-
             $progress->advance();
             $progress->finish();
 
-            note(sprintf('Found %d elements to process.', count($elements)));
+            note(sprintf('Found %d elements to process.', count($this->execution->elements)));
         } catch (\Throwable $e) {
-            error("Error while analyzing namespace '{$this->namespace}': " . $e->getMessage());
+            error("Error while analyzing namespace '{$this->execution->codeIndex->namespace}': " . $e->getMessage());
             if ($output->isVerbose()) {
                 $this->io->text($e->getTraceAsString());
             }
             return Command::FAILURE;
         }
 
-        if (empty($elements)) {
-            error("Namespace '{$this->namespace}' does not exist or contains no public classes.");
+        if (empty($this->execution->elements)) {
+            error("Namespace '{$this->execution->codeIndex->namespace}' does not exist or contains no public classes.");
             return Command::FAILURE;
         }
 
-        $this->io->section("Generating documentation for namespace: {$this->namespace}");
+        $this->io->section("Generating documentation for namespace: {$this->execution->codeIndex->namespace}");
 
         // Clean output directory if requested
         if (!$this->appendOutput) {
@@ -171,43 +171,24 @@ class GenerateDocumentationCommand extends Command
             progress(
                 label: 'Generating API summary',
                 steps: 1,
-                callback: fn() => new PublicApiSummaryWriter($codeIndex),
+                callback: fn() => $this->execution->buildIndex(),
             );
 
             // Process each class
-            $progress = progress(label: 'Processing classes', steps: count($elements));
+            $progress = progress(label: 'Processing classes', steps: count($this->execution->elements));
 
-            foreach ($elements as $class) {
-                // Generate class page
-                new ClassPageWriter($class);
-
-                // Generate method pages
-                $methods = $this->allPublic ?
-                            $class->getAllUserDefinedMethods(protected: false, private: false) :
-                            $class->getAllApiMethods();
-
-                foreach ($methods as $method) {
-                    new MethodPageWriter($method);
+            $this->execution->buildPages(
+                afterElementCallback: function () use ($progress): void {
+                    $progress->advance();
                 }
-
-                // Generate property pages
-                $properties = $this->allPublic ?
-                                $class->getAllProperties(protected: false, private: false) :
-                                $class->getAllApiProperties();
-
-                foreach ($properties as $property) {
-                    new PropertyPageWriter($property);
-                }
-
-                $progress->advance();
-            }
+            );
 
             $progress->finish();
 
             $this->io->success([
                 'Documentation generation completed successfully!',
                 "Output directory: {$this->outputDir}",
-                sprintf('Processed %d classes.', count($elements))
+                sprintf('Processed %d classes.', count($this->execution->elements))
             ]);
 
             return Command::SUCCESS;
