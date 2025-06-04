@@ -2,6 +2,7 @@
 
 namespace JulienBoudry\PhpReference\Command;
 
+use JulienBoudry\PhpReference\App;
 use JulienBoudry\PhpReference\Reflect\CodeIndex;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use JulienBoudry\PhpReference\Writer\ClassPageWriter;
@@ -16,11 +17,13 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\note;
 use function Laravel\Prompts\progress;
 use function Laravel\Prompts\spin;
+use function Laravel\Prompts\warning;
 
 #[AsCommand(
     name: 'generate:documentation',
@@ -28,6 +31,12 @@ use function Laravel\Prompts\spin;
 )]
 class GenerateDocumentationCommand extends Command
 {
+    protected readonly SymfonyStyle $io;
+    protected readonly string $namespace;
+    protected readonly string $outputDir;
+    protected readonly bool $appendOutput;
+    protected bool $confirmed = true;
+
     protected function configure(): void
     {
         $this
@@ -38,10 +47,10 @@ class GenerateDocumentationCommand extends Command
                 default: 'CondorcetPHP\\Condorcet',
             )
             ->addOption(
-                name: 'clean',
-                shortcut: 'c',
+                name: 'append',
+                shortcut: 'a',
                 mode: InputOption::VALUE_NONE,
-                description: 'Clean the output directory before generating documentation',
+                description: "Don't clean the output directory before generating documentation, append to existing files, overwrite existing files if they exist",
             )
             ->addOption(
                 name: 'output-dir',
@@ -53,15 +62,49 @@ class GenerateDocumentationCommand extends Command
             ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties.');
     }
 
+    protected function initVar(InputInterface $input, OutputInterface $output): void
+    {
+        $this->io = new SymfonyStyle($input, $output);
+
+        $this->namespace = $input->getArgument('namespace');
+        $this->appendOutput = $input->hasOption('append');
+        $this->outputDir = $input->getOption('output-dir');
+    }
+
+    protected function interact(InputInterface $input, OutputInterface $output): void
+    {
+        if (!$input->getArgument('namespace')) {
+            $namespace = $this->io->ask(
+                question: 'Please enter the namespace to generate documentation for',
+                default: 'CondorcetPHP\\Condorcet'
+            );
+            $input->setArgument('namespace', $namespace);
+        }
+
+        if (!$input->getOption('output-dir')) {
+            $outputDir = $this->io->ask(
+                question: 'Please enter the output directory for generated documentation',
+                default: AbstractWriter::OUTPUT_DIR
+            );
+            $input->setOption('output-dir', $outputDir);
+        }
+
+        $this->confirmed = confirm(
+            label: 'Output directory will be erased first, are you sure to continue?',
+            default: true,
+        );
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $this->initVar($input, $output);
 
-        $namespace = $input->getArgument('namespace');
-        $cleanOutput = $input->getOption('clean');
-        $outputDir = $input->getOption('output-dir');
+        if (!$this->confirmed) {
+            warning('Operation cancelled by user.');
+            return Command::INVALID;
+        }
 
-        $io->title('PHP Reference Documentation Generator');
+        $this->io->title(App::getFullName());
 
         // Validate the namespace exists by checking if there are any classes in it
         try {
@@ -70,7 +113,7 @@ class GenerateDocumentationCommand extends Command
                 steps: 1
             );
 
-            $codeIndex = new CodeIndex($namespace);
+            $codeIndex = new CodeIndex($this->namespace);
             $elements = $codeIndex->getPublicClasses();
 
             $progress->advance();
@@ -78,22 +121,22 @@ class GenerateDocumentationCommand extends Command
 
             note(sprintf('Found %d elements to process.', count($elements)));
         } catch (\Throwable $e) {
-            error("Error while analyzing namespace '{$namespace}': " . $e->getMessage());
+            error("Error while analyzing namespace '{$this->namespace}': " . $e->getMessage());
             if ($output->isVerbose()) {
-                $io->text($e->getTraceAsString());
+                $this->io->text($e->getTraceAsString());
             }
             return Command::FAILURE;
         }
 
         if (empty($elements)) {
-            error("Namespace '{$namespace}' does not exist or contains no public classes.");
+            error("Namespace '{$this->namespace}' does not exist or contains no public classes.");
             return Command::FAILURE;
         }
 
-        $io->section("Generating documentation for namespace: {$namespace}");
+        $this->io->section("Generating documentation for namespace: {$this->namespace}");
 
         // Clean output directory if requested
-        if ($cleanOutput) {
+        if (!$this->appendOutput) {
             progress(label: 'Cleaning output directory', steps: 1, callback: function(): string {
                 AbstractWriter::getFlySystem()->deleteDirectory('/');
                 return 'Output directory cleaned successfully.';
@@ -130,22 +173,22 @@ class GenerateDocumentationCommand extends Command
 
             $progress->finish();
 
-            $io->success([
+            $this->io->success([
                 'Documentation generation completed successfully!',
-                "Output directory: {$outputDir}",
+                "Output directory: {$this->outputDir}",
                 sprintf('Processed %d classes.', count($elements))
             ]);
 
             return Command::SUCCESS;
 
         } catch (\Exception $e) {
-            $io->error([
+            $this->io->error([
                 'An error occurred during documentation generation:',
                 $e->getMessage()
             ]);
 
             if ($output->isVerbose()) {
-                $io->text($e->getTraceAsString());
+                $this->io->text($e->getTraceAsString());
             }
 
             return Command::FAILURE;

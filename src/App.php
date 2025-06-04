@@ -3,6 +3,7 @@
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Command\GenerateDocumentationCommand;
+use Symfony\Component\Console\Application;
 
 abstract class App
 {
@@ -16,12 +17,12 @@ abstract class App
 
     public static function runApplication(): void
     {
-        $application = new \Symfony\Component\Console\Application(
+        $application = new Application(
             name : self::NAME,
             version: self::VERSION,
         );
 
-        $generateCommand = new GenerateDocumentationCommand();
+        $generateCommand = new GenerateDocumentationCommand;
 
         $application->add($generateCommand);
         $application->setDefaultCommand($generateCommand->getName(), true);
