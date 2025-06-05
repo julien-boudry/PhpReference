@@ -39,14 +39,4 @@ class CodeIndex
             return $class->willBeInPublicApi;
         });
     }
-
-    /**
-     * @return array<string, ClassWrapper>
-     */
-    public function getPublicClasses(): array
-    {
-        return array_filter($this->classList, function (ClassWrapper $class): bool {
-            return $class->hasPublicElements;
-        });
-    }
 }
