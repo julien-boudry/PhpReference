@@ -2,19 +2,11 @@
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunctionAbstract;
-use ReflectionMethod;
-use ReflectionProperties;
-use ReflectionProperty;
-use Reflector;
 
 class ClassWrapper extends ReflectionWrapper implements WritableInterface, SignatureInterface
 {
@@ -47,11 +39,6 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         get {
             return $this->reflector; // @phpstan-ignore return.type
         }
-    }
-
-    public function __construct(public readonly string $classPath)
-    {
-        parent::__construct(new ReflectionClass($classPath));
     }
 
     public function getPageDirectory(): string
@@ -195,23 +182,57 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         return $this->filterApiReflection($this->getAllConstants(protected: false, private: false)); // @phpstan-ignore return.type
     }
 
+    public function isUserDefined(): bool
+    {
+        return $this->reflection->isUserDefined();
+    }
+
     public function getSignature(bool $onlyApi = false): string
     {
         $signature = '';
 
         // Head
-        $type = $this->reflection->isInterface() ? 'interface' : ($this->reflection->isTrait() ? 'trait' : 'class');
+        $type = match (true) {
+            $this->reflection->isInterface() => 'interface',
+            $this->reflection->isTrait() => 'trait',
+            $this->reflection->isEnum() => 'enum',
+            default => 'class',
+        };
 
+
+
+        $headModifiers = $this->getModifierNames();
+
+        if ($type !== 'class') {
+            $headModifiers = str_replace('final', '', $headModifiers);
+        }
+
+        $head = "{$headModifiers} {$type} {$this->name}" . $this->getHeritageHeadSignature();
+        $head = mb_trim($head);
+
+        $signature = $head;
+        $signature .= "\n{\n";
+
+        $signature .= $this->getInsideClassSignature($onlyApi);
+
+        // Close
+        return $signature . "\n}";;
+    }
+
+    protected function getHeritageHeadSignature(): string
+    {
         $parentClass = $this->reflection->getParentClass();
         $extends = $parentClass ? ' extends ' . $parentClass->getName() : '';
 
         $interfacesNames = $this->reflection->getInterfaceNames();
         $implements = $interfacesNames ? ' implements ' . implode(', ', $interfacesNames) : '';
 
-        $head = "{$this->getModifierNames()} {$type} {$this->name}{$extends}{$implements}";
+        return "{$extends}{$implements}";
+    }
 
-        $signature = $head;
-        $signature .= "\n{\n";
+    protected function getInsideClassSignature(bool $onlyApi): string
+    {
+        $signature = '';
 
         // Const
         $consts = $onlyApi ? $this->getAllApiConstants() : $this->getAllConstants();
@@ -272,7 +293,6 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             $signature .= '    ' . $method->getSignature(forClassRepresentation: true) . ";\n";
         }
 
-        // Close
-        return $signature . "\n}";;
+        return $signature;
     }
 }

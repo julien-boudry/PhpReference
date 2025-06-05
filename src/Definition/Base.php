@@ -17,7 +17,7 @@ abstract class Base
             return false;
         }
 
-        if ($reflectionWrapper instanceof MethodWrapper || $reflectionWrapper instanceof FunctionWrapper) {
+        if ($reflectionWrapper instanceof ClassWrapper || $reflectionWrapper instanceof MethodWrapper || $reflectionWrapper instanceof FunctionWrapper) {
             if (!$reflectionWrapper->isUserDefined()) {
                 return false;
             }

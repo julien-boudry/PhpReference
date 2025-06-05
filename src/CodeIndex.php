@@ -4,9 +4,11 @@ namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
+use JulienBoudry\PhpReference\Reflect\EnumWrapper;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
+use ReflectionEnum;
 use ReflectionMethod;
 
 class CodeIndex
@@ -18,13 +20,19 @@ class CodeIndex
         public readonly string $namespace,
     )
     {
-        // ClassFinder::disablePSR4Vendors();
         $classPathList = ClassFinder::getClassesInNamespace($this->namespace, ClassFinder::RECURSIVE_MODE);
 
         $classList = [];
 
         foreach ($classPathList as $classPath) {
-            $classList[$classPath] = new ClassWrapper($classPath);
+            $reflection = new ReflectionClass($classPath);
+
+            if ($reflection->isEnum()) {
+                $reflection = new ReflectionEnum($classPath);
+                $classList[$classPath] = new EnumWrapper($reflection);
+            } else {
+                $classList[$classPath] = new ClassWrapper($reflection);
+            }
         }
 
         $this->classList = $classList;
