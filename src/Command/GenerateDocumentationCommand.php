@@ -6,7 +6,6 @@ use JulienBoudry\PhpReference\App;
 use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Config;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
-use JulienBoudry\PhpReference\Definition\HasTagApi;
 use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -58,10 +57,9 @@ class GenerateDocumentationCommand extends Command
                 description: 'Output directory for generated documentation (overrides config file)',
             )
             ->addOption(
-                name: 'all-public',
-                shortcut: 'p',
-                mode: InputOption::VALUE_NONE,
-                description: 'Include all public classes, methods, and properties in the documentation, even those not marked with @api tags (overrides config file)',
+                name: 'api',
+                mode: InputOption::VALUE_REQUIRED,
+                description: sprintf('API definition to use (overrides config file)'),
             )
             ->addOption(
                 name: 'config',
@@ -78,22 +76,21 @@ class GenerateDocumentationCommand extends Command
         $this->io = new SymfonyStyle($input, $output);
 
         // Load configuration
-        $configPath = $input->getOption('config');
-        $this->config = new Config($configPath);
+        $this->config = new Config($input->getOption('config'));
 
         // Merge CLI arguments with config, CLI takes priority
         $this->config->mergeWithCliArgs([
             'namespace' => $input->getArgument('namespace'),
             'output' => $input->getOption('output'),
             'append' => $input->getOption('append'),
-            'all-public' => $input->getOption('all-public'),
+            'api' => $input->getOption('api'),
         ]);
     }
 
-    protected function init(InputInterface $input): void
+    protected function init(): void
     {
-        $this->appendOutput = $this->config->get('append', false);
-        $outputPath = $this->config->get('output', getcwd() . DIRECTORY_SEPARATOR . 'output');
+        $this->appendOutput = $this->config->get(key: 'append', default: false);
+        $outputPath = $this->config->get(key: 'output', default: getcwd() . DIRECTORY_SEPARATOR . 'output');
         $realOutputPath = realpath($outputPath);
 
         if ($realOutputPath === false) {
@@ -107,7 +104,7 @@ class GenerateDocumentationCommand extends Command
         $this->execution = new Execution(
             codeIndex: new CodeIndex($this->config->get('namespace')),
             outputDir: $this->outputDir,
-            publicApiDefinition: $this->config->get('all-public', false) ? new IsPubliclyAccessible : new HasTagApi,
+            publicApiDefinition: $this->config->getApiDefinition(default: new IsPubliclyAccessible),
         );
     }
 
@@ -138,7 +135,7 @@ class GenerateDocumentationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->init($input);
+        $this->init();
 
         if (!$this->confirmed) {
             warning('Operation cancelled by user.');

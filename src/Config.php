@@ -2,6 +2,10 @@
 
 namespace JulienBoudry\PhpReference;
 
+use JulienBoudry\PhpReference\Definition\HasTagApi;
+use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
+use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
+
 class Config
 {
     private array $config = [];
@@ -49,6 +53,8 @@ class Config
 
     /**
      * Merge configuration with CLI arguments, giving priority to CLI
+     *
+     * @param array<string|null> $cliArgs Associative array of CLI arguments
      */
     public function mergeWithCliArgs(array $cliArgs): void
     {
@@ -57,5 +63,27 @@ class Config
                 $this->set($key, $value);
             }
         }
+    }
+
+    /**
+     * Get the API definition, resolving from string if necessary
+     */
+    public function getApiDefinition(?PublicApiDefinitionInterface $default = null): ?PublicApiDefinitionInterface
+    {
+        $apiConfig = $this->get('api', $default);
+
+        if ($apiConfig instanceof PublicApiDefinitionInterface) {
+            return $apiConfig;
+        }
+
+        if (is_string($apiConfig) && !empty($apiConfig)) {
+            return match (mb_strtolower($apiConfig)) {
+                mb_strtolower('IsPubliblyAccessible') => new IsPubliclyAccessible,
+                mb_strtolower('HasTagApi') => new HasTagApi,
+                default => throw new \InvalidArgumentException("Unknown API definition '{$apiConfig}'"),
+            };
+        }
+
+        return null;
     }
 }

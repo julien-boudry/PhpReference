@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use JulienBoudry\PhpReference\Definition\HasTagApi;
+
 /**
  * Configuration file for PhpReference
  *
@@ -10,6 +12,7 @@
  * - php bin/php-reference generate:documentation (uses all config values)
  * - php bin/php-reference generate:documentation MyNamespace (overrides namespace)
  * - php bin/php-reference generate:documentation --output=/custom/path (overrides output)
+ * - php bin/php-reference generate:documentation --api=public (overrides API definition)
  */
 
 return [
@@ -25,8 +28,9 @@ return [
     // Can be overridden with: --append or -a
     'append' => false,
 
-    // Include all public classes, methods, and properties in the documentation,
-    // even those not marked with @api tags
-    // Can be overridden with: --all-public or -p
-    'all-public' => false,
+    // API definition to determine which elements should be included in documentation
+    // Can be an instance of PublicApiDefinitionInterface or will be resolved from string via CLI
+    // Available CLI values: 'api' (default), 'public'
+    // Can be overridden with: --api=public or --api=api
+    'api' => new HasTagApi(),
 ];
