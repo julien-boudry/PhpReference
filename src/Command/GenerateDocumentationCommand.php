@@ -5,7 +5,7 @@ namespace JulienBoudry\PhpReference\Command;
 use JulienBoudry\PhpReference\App;
 use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
-use JulienBoudry\PhpReference\Definition\TagApi;
+use JulienBoudry\PhpReference\Definition\HasTagApi;
 use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -89,7 +89,7 @@ class GenerateDocumentationCommand extends Command
         $this->execution = new Execution(
             codeIndex: new CodeIndex($input->getArgument('namespace')),
             outputDir: $this->outputDir,
-            publicApiDefinition: $input->getOption('all-public') ? new IsPubliclyAccessible : new TagApi,
+            publicApiDefinition: $input->getOption('all-public') ? new IsPubliclyAccessible : new HasTagApi,
         );
     }
 

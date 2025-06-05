@@ -3,12 +3,12 @@
 use CondorcetPHP\Condorcet\Condorcet;
 use CondorcetPHP\Condorcet\Election;
 use JulienBoudry\PhpReference\CodeIndex;
-use JulienBoudry\PhpReference\Definition\TagApi;
+use JulienBoudry\PhpReference\Definition\HasTagApi;
 use JulienBoudry\PhpReference\Execution;
 
 beforeEach(function (): void {
     $this->codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
-    $this->execution = new Execution($this->codeIndex, '', new TagApi);
+    $this->execution = new Execution($this->codeIndex, '', new HasTagApi);
 });
 
 it('test public condorcet', function (): void {

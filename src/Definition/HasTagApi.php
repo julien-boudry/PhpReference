@@ -9,7 +9,7 @@ use JulienBoudry\PhpReference\Reflect\MethodWrapper;
 use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 use ReflectionFunctionAbstract;
 
-class TagApi extends Base implements PublicApiDefinitionInterface
+class HasTagApi extends Base implements PublicApiDefinitionInterface
 {
     public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool
     {
