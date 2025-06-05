@@ -4,6 +4,7 @@ namespace JulienBoudry\PhpReference\Command;
 
 use JulienBoudry\PhpReference\App;
 use JulienBoudry\PhpReference\CodeIndex;
+use JulienBoudry\PhpReference\Config;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 use JulienBoudry\PhpReference\Definition\HasTagApi;
 use JulienBoudry\PhpReference\Execution;
@@ -32,6 +33,7 @@ class GenerateDocumentationCommand extends Command
     protected readonly string $outputDir;
     protected readonly bool $appendOutput;
     protected bool $confirmed = true;
+    protected Config $config;
 
     protected readonly Execution $execution;
 
@@ -41,45 +43,61 @@ class GenerateDocumentationCommand extends Command
             ->addArgument(
                 name: 'namespace',
                 mode: InputArgument::OPTIONAL,
-                description: 'The namespace to generate documentation for',
-                default: 'CondorcetPHP\\Condorcet',
+                description: 'The namespace to generate documentation for (overrides config file)',
             )
             ->addOption(
                 name: 'append',
                 shortcut: 'a',
                 mode: InputOption::VALUE_NONE,
-                description: "Don't clean the output directory before generating documentation, append to existing files, overwrite existing files if they exist",
+                description: "Don't clean the output directory before generating documentation, append to existing files, overwrite existing files if they exist (overrides config file)",
             )
             ->addOption(
                 name: 'output',
                 shortcut: 'o',
                 mode: InputOption::VALUE_OPTIONAL,
-                description: 'Output directory for generated documentation',
-                default: getcwd() . DIRECTORY_SEPARATOR . 'output',
+                description: 'Output directory for generated documentation (overrides config file)',
             )
             ->addOption(
                 name: 'all-public',
                 shortcut: 'p',
                 mode: InputOption::VALUE_NONE,
-                description: 'Include all public classes, methods, and properties in the documentation, even those not marked with @api or @internal tags',
+                description: 'Include all public classes, methods, and properties in the documentation, even those not marked with @api tags (overrides config file)',
             )
-
-
-            ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties.');
+            ->addOption(
+                name: 'config',
+                shortcut: 'c',
+                mode: InputOption::VALUE_OPTIONAL,
+                description: 'Path to configuration file',
+                default: getcwd() . DIRECTORY_SEPARATOR . 'reference.php',
+            )
+            ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
+
+        // Load configuration
+        $configPath = $input->getOption('config');
+        $this->config = new Config($configPath);
+
+        // Merge CLI arguments with config, CLI takes priority
+        $this->config->mergeWithCliArgs([
+            'namespace' => $input->getArgument('namespace'),
+            'output' => $input->getOption('output'),
+            'append' => $input->getOption('append'),
+            'all-public' => $input->getOption('all-public'),
+        ]);
     }
 
     protected function init(InputInterface $input): void
     {
-        $this->appendOutput = $input->getOption('append');
-        $realOutputPath = realpath($input->getOption('output'));
+        $this->appendOutput = $this->config->get('append', false);
+        $outputPath = $this->config->get('output', getcwd() . DIRECTORY_SEPARATOR . 'output');
+        $realOutputPath = realpath($outputPath);
 
         if ($realOutputPath === false) {
-            error("Output directory '{$input->getOption('output')}' does not exist.");
+            error("Output directory '{$outputPath}' does not exist.");
             exit(Command::FAILURE);
         }
 
@@ -87,28 +105,29 @@ class GenerateDocumentationCommand extends Command
         AbstractWriter::$outputDir = $this->outputDir;
 
         $this->execution = new Execution(
-            codeIndex: new CodeIndex($input->getArgument('namespace')),
+            codeIndex: new CodeIndex($this->config->get('namespace')),
             outputDir: $this->outputDir,
-            publicApiDefinition: $input->getOption('all-public') ? new IsPubliclyAccessible : new HasTagApi,
+            publicApiDefinition: $this->config->get('all-public', false) ? new IsPubliclyAccessible : new HasTagApi,
         );
     }
 
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
-        if (!$input->getArgument('namespace')) {
+        $currentNamespace = $this->config->get('namespace');
+        if (!$currentNamespace) {
             $namespace = $this->io->ask(
                 question: 'Please enter the namespace to generate documentation for',
-                default: 'CondorcetPHP\\Condorcet'
             );
-            $input->setArgument('namespace', $namespace);
+            $this->config->set('namespace', $namespace);
         }
 
-        if (!$input->getOption('output')) {
+        $currentOutput = $this->config->get('output');
+        if (!$currentOutput) {
             $outputDir = $this->io->ask(
                 question: 'Please enter the output directory for generated documentation',
-                default: $this->outputDir
+                default: getcwd() . DIRECTORY_SEPARATOR . 'output'
             );
-            $input->setOption('output', $outputDir);
+            $this->config->set('output', $outputDir);
         }
 
         $this->confirmed = confirm(
