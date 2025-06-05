@@ -22,9 +22,7 @@ class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, 
     use HasType;
 
     public ReflectionParameter $reflection {
-        get {
-            return $this->reflector; // @phpstan-ignore return.type
-        }
+        get => $this->reflector; // @phpstan-ignore return.type
     }
 
     /** @var WeakReference<MethodWrapper|FunctionWrapper> */

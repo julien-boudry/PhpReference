@@ -6,8 +6,7 @@ use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
-use JulienBoudry\PhpReference\Reflect\Structure\HasParameters;
-use JulienBoudry\PhpReference\Reflect\Structure\HasReturn;
+use JulienBoudry\PhpReference\Reflect\Structure\IsFunction;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
@@ -20,8 +19,7 @@ use ReflectionProperty;
 
 class MethodWrapper extends ClassElementWrapper implements WritableInterface, SignatureInterface
 {
-    use HasParameters;
-    use HasReturn;
+    use IsFunction;
     use CanThrow;
 
     public ReflectionMethod $reflection {

@@ -26,8 +26,8 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
         get => $this->classReference->get();
     }
 
-    public bool $willBeInPublicApi {
-        get => $this->hasApiTag && !$this->hasInternalTag && $this->parentWrapper && $this->parentWrapper->willBeInPublicApi;
+    public ReflectionProperty|ReflectionMethod|ReflectionClassConstant $reflection {
+        get => $this->reflector; // @phpstan-ignore return.type
     }
 
     public function __construct(
@@ -43,5 +43,9 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
     public function getPageDirectory(): string
     {
         return $this->parentWrapper->getPageDirectory();
+    }
+
+    public function isPublic(): bool {
+        return $this->reflection->isPublic();
     }
 }

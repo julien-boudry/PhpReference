@@ -18,7 +18,6 @@ use Reflector;
 
 class ClassWrapper extends ReflectionWrapper implements WritableInterface, SignatureInterface
 {
-    public readonly bool $willBeInPublicApi;
     public readonly bool $hasPublicElements;
 
     public string $name {
@@ -55,20 +54,6 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     public function __construct(public readonly string $classPath)
     {
         parent::__construct(new ReflectionClass($classPath));
-
-        // Class Will Be In Public Api
-        if ($this->hasInternalTag) {
-            $this->willBeInPublicApi = false;
-        } elseif ($this->hasApiTag) {
-            $this->willBeInPublicApi = true;
-        } else {
-            if (!empty($this->getAllApiMethods()) || !empty($this->getAllApiConstants()) || !empty($this->getAllApiProperties())) {
-                $this->willBeInPublicApi = true;
-            }
-
-            // TODO : property, const
-            $this->willBeInPublicApi ??= false;
-        }
 
         // Class Has Public Element
         if (
@@ -187,14 +172,14 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     }
 
     /**
-     * @return array<string, MethodWrapper|PropertyWrapper>
+     * @return array<string, ClassElementWrapper>
      */
     protected function filterApiReflection(array $list): array
     {
         return array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) {
-                return $reflectionWrapper->hasApiTag;
+            callback: function (ClassElementWrapper $reflectionWrapper): bool {
+                return $reflectionWrapper->willBeInPublicApi;
             }
         );
     }

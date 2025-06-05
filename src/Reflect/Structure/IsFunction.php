@@ -2,12 +2,34 @@
 
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
+use JulienBoudry\PhpReference\Reflect\ParameterWrapper;
+use ReflectionParameter;
+
 /**
  * @mixin \JulienBoudry\PhpReference\Reflect\FunctionWrapper
  * @mixin \JulienBoudry\PhpReference\Reflect\MethodWrapper
  */
-trait HasReturn
+trait IsFunction
 {
+    public function isUserDefined(): bool
+    {
+        return $this->reflection->isUserDefined();
+    }
+
+    /**
+     *
+     * @return array<ParameterWrapper>
+     */
+    public function getParameters(): array
+    {
+        return array_map(
+            function (ReflectionParameter $parameter): ParameterWrapper {
+                return new ParameterWrapper($parameter, $this);
+            },
+            $this->reflection->getParameters()
+        );
+    }
+
     public function hasReturnType(): bool
     {
         return $this->reflection->hasReturnType();

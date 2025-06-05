@@ -6,5 +6,5 @@ use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 
 interface PublicApiDefinitionInterface
 {
-    public function isPartOfPublicApi(ReflectionWrapper $reflection): bool;
+    public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool;
 }

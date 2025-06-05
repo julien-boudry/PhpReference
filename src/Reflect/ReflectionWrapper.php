@@ -2,6 +2,7 @@
 
 namespace JulienBoudry\PhpReference\Reflect;
 
+use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use JulienBoudry\PhpReference\UrlLinker;
 use JulienBoudry\PhpReference\Util;
@@ -57,6 +58,10 @@ abstract class ReflectionWrapper
 
     public readonly bool $hasApiTag;
     public readonly bool $hasInternalTag;
+
+    public bool $willBeInPublicApi {
+        get => Execution::$instance->publicApiDefinition->isPartOfPublicApi($this);
+    }
 
     // @phpstan-ignore missingType.generics
     public ReflectionClass|ReflectionProperty|ReflectionFunctionAbstract|ReflectionClassConstant|ReflectionParameter $reflection {

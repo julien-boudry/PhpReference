@@ -4,12 +4,10 @@ namespace JulienBoudry\PhpReference\Command;
 
 use JulienBoudry\PhpReference\App;
 use JulienBoudry\PhpReference\CodeIndex;
+use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
+use JulienBoudry\PhpReference\Definition\TagApi;
 use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
-use JulienBoudry\PhpReference\Writer\ClassPageWriter;
-use JulienBoudry\PhpReference\Writer\MethodPageWriter;
-use JulienBoudry\PhpReference\Writer\PropertyPageWriter;
-use JulienBoudry\PhpReference\Writer\PublicApiSummaryWriter;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,10 +18,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\error;
-use function Laravel\Prompts\info;
 use function Laravel\Prompts\note;
 use function Laravel\Prompts\progress;
-use function Laravel\Prompts\spin;
 use function Laravel\Prompts\warning;
 
 #[AsCommand(
@@ -93,7 +89,7 @@ class GenerateDocumentationCommand extends Command
         $this->execution = new Execution(
             codeIndex: new CodeIndex($input->getArgument('namespace')),
             outputDir: $this->outputDir,
-            allPublic: $input->getOption('all-public'),
+            publicApiDefinition: $input->getOption('all-public') ? new IsPubliclyAccessible : new TagApi,
         );
     }
 
