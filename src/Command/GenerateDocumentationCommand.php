@@ -138,7 +138,7 @@ class GenerateDocumentationCommand extends Command
             $progress->advance();
             $progress->finish();
 
-            note(sprintf('Found %d elements to process.', count($this->execution->elements)));
+            note(sprintf('Found %d elements to process.', count($this->execution->mainPhpNodes)));
         } catch (\Throwable $e) {
             error("Error while analyzing namespace '{$this->execution->codeIndex->namespace}': " . $e->getMessage());
             if ($output->isVerbose()) {
@@ -147,7 +147,7 @@ class GenerateDocumentationCommand extends Command
             return Command::FAILURE;
         }
 
-        if (empty($this->execution->elements)) {
+        if (empty($this->execution->mainPhpNodes)) {
             error("Namespace '{$this->execution->codeIndex->namespace}' does not exist or contains no public classes.");
             return Command::FAILURE;
         }
@@ -171,7 +171,7 @@ class GenerateDocumentationCommand extends Command
             );
 
             // Process each class
-            $progress = progress(label: 'Processing classes', steps: count($this->execution->elements));
+            $progress = progress(label: 'Processing classes', steps: count($this->execution->mainPhpNodes));
 
             $this->execution->buildPages(
                 afterElementCallback: function () use ($progress): void {
@@ -184,7 +184,7 @@ class GenerateDocumentationCommand extends Command
             $this->io->success([
                 'Documentation generation completed successfully!',
                 "Output directory: {$this->outputDir}",
-                sprintf('Processed %d classes.', count($this->execution->elements))
+                sprintf('Processed %d classes.', count($this->execution->mainPhpNodes))
             ]);
 
             return Command::SUCCESS;

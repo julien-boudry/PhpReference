@@ -18,8 +18,6 @@ use Reflector;
 
 class ClassWrapper extends ReflectionWrapper implements WritableInterface, SignatureInterface
 {
-    public readonly bool $hasPublicElements;
-
     public string $name {
         get => $this->reflection->name;
     }
@@ -54,17 +52,6 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     public function __construct(public readonly string $classPath)
     {
         parent::__construct(new ReflectionClass($classPath));
-
-        // Class Has Public Element
-        if (
-            !empty($this->getAllUserDefinedMethods(protected: false, private: false)) ||
-            !empty($this->getAllConstants(protected: false, private: false)) ||
-            !empty($this->getAllProperties(protected: false, private: false))
-        ) {
-            $this->hasPublicElements = true;
-        } else {
-            $this->hasPublicElements = false;
-        }
     }
 
     public function getPageDirectory(): string

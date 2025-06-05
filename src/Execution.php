@@ -15,7 +15,7 @@ final class Execution
     public static self $instance;
 
     /** @var ClassWrapper[] */
-    public readonly array $elements;
+    public readonly array $mainPhpNodes;
 
     public function __construct (
         public readonly CodeIndex $codeIndex,
@@ -23,7 +23,7 @@ final class Execution
         public readonly PublicApiDefinitionInterface $publicApiDefinition,
     ) {
         self::$instance = $this;
-        $this->elements = $codeIndex->getApiClasses();
+        $this->mainPhpNodes = $codeIndex->getApiClasses();
     }
 
     public function buildIndex(): static
@@ -36,7 +36,7 @@ final class Execution
 
     public function buildPages(?callable $afterElementCallback = null): static
     {
-        foreach ($this->elements as $class) {
+        foreach ($this->mainPhpNodes as $class) {
             // Generate class page
             new ClassPageWriter($class);
 
