@@ -173,7 +173,16 @@ class GenerateDocumentationCommand extends Command
         // Clean output directory if requested
         if (!$this->appendOutput) {
             progress(label: 'Cleaning output directory', steps: 1, callback: function(): string {
-                AbstractWriter::getFlySystem()->deleteDirectory('/');
+                $filesystem = AbstractWriter::getFlySystem();
+
+                foreach ($filesystem->listContents('/', false) as $item) {
+                    if ($item->isDir()) {
+                        $filesystem->deleteDirectory($item->path());
+                    } else {
+                        $filesystem->delete($item->path());
+                    }
+                }
+
                 return 'Output directory cleaned successfully.';
             });
         }
