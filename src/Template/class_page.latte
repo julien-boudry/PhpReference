@@ -2,16 +2,16 @@
 {import 'classIndex.latte'}
 {import 'description.latte'}
 {* *}
-# {$class->shortName}
+# {$type} {$class->shortName}
 > [Read it at the source]({$class->getSourceLink()})
 {* *}
 {include description, $class}
 {* *}
 
-## {$type} Elements
+## Elements
 {include classIndex, $class}
 
-## {$type} Representation
+## Representation
 ```php
 {$class->getSignature(onlyApi: true)}
 ```
