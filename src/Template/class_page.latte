@@ -1,9 +1,10 @@
 {templateType JulienBoudry\PhpReference\Template\Input\ClassPageInput}
+{import 'readItAtSource.latte'}
 {import 'classIndex.latte'}
 {import 'description.latte'}
 {* *}
 # {$type} {$class->shortName}
-> [Read it at the source]({$class->getSourceLink()})
+{include readItAtSource, $class}
 {* *}
 {include description, $class}
 {* *}

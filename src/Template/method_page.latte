@@ -1,13 +1,12 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
+{import 'readItAtSource.latte'}
 {import 'description.latte'}
 {import 'params.latte'}
 {import 'return.latte'}
 {import 'throws.latte'}
 {* *}
 # Method {$method->name}()
-{if $sourceLink = $method->getSourceLink()}
-> [Read it at the source]({$sourceLink})
-{/if}
+{include readItAtSource, $method}
 
 ```php
 {$method->getSignature()}

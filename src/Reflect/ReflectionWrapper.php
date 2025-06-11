@@ -181,7 +181,7 @@ abstract class ReflectionWrapper
 
     public function getSourceLink(): ?string
     {
-        if (    method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false)
+        if (method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false)
         {
             throw new LogicException("Method source link is not available on `{$this->name}` or the file does not exist.");
         }
