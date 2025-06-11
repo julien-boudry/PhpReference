@@ -10,6 +10,8 @@ use ReflectionFunctionAbstract;
 
 class ClassWrapper extends ReflectionWrapper implements WritableInterface, SignatureInterface
 {
+    public const string TYPE = 'class';
+
     public string $name {
         get => $this->reflection->name;
     }
@@ -48,7 +50,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
     public function getPagePath(): string
     {
-        return $this->getPageDirectory() . "/class_{$this->shortName}.md";
+        return $this->getPageDirectory() . '/' . static::TYPE . "_{$this->shortName}.md";
     }
 
     /**

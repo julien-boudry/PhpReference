@@ -4,10 +4,21 @@
 
 {foreach $namespaces as $namespace => $classes}
 ## {$namespace}
+{* *}
+{foreach $classes['class'] as $class}
+{first}
 | Class Name | Description |
 | ------------- | ------------- |
-{foreach $classes as $className => $class}
+{/first}
 | [{$class->shortName}]({str_replace('\\', '/', mb_substr($class->getPagePath(), 1))}) | _{$class->getShortDescriptionForTable()}_ |
+{/foreach}
+
+{foreach $classes['enum'] as $enum}
+{first}
+| Enum Name | Description |
+| ------------- | ------------- |
+{/first}
+| [{$enum->shortName}]({str_replace('\\', '/', mb_substr($enum->getPagePath(), 1))}) | _{$enum->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {/foreach}

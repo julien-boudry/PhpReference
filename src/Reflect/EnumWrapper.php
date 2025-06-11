@@ -9,6 +9,8 @@ use ReflectionEnumUnitCase;
 
 class EnumWrapper extends ClassWrapper
 {
+    public const string TYPE = 'enum';
+
     public ReflectionEnum $reflection {
         get {
             return $this->reflector; // @phpstan-ignore return.type
