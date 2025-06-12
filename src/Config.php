@@ -78,7 +78,7 @@ class Config
 
         if (is_string($apiConfig) && !empty($apiConfig)) {
             return match (mb_strtolower($apiConfig)) {
-                mb_strtolower('IsPubliblyAccessible') => new IsPubliclyAccessible,
+                mb_strtolower('IsPubliclyAccessible') => new IsPubliclyAccessible,
                 mb_strtolower('HasTagApi') => new HasTagApi,
                 default => throw new \InvalidArgumentException("Unknown API definition '{$apiConfig}'"),
             };
