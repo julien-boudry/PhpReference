@@ -21,10 +21,6 @@ class HasTagApi extends Base implements PublicApiDefinitionInterface
             if (!$reflectionWrapper->isPublic()) {
                 return false;
             }
-
-            if ($reflectionWrapper->parentWrapper->hasInternalTag) {
-                return false;
-            }
         }
 
         if ($reflectionWrapper instanceof ClassWrapper) {

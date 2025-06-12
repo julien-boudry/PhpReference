@@ -23,6 +23,10 @@ abstract class Base
             }
         }
 
+        if ($reflectionWrapper instanceof ClassElementWrapper && $reflectionWrapper->parentWrapper->hasInternalTag) {
+            return false;
+        }
+
         return true;
     }
 }

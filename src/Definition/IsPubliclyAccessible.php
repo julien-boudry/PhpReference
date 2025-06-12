@@ -18,10 +18,6 @@ class IsPubliclyAccessible extends Base implements PublicApiDefinitionInterface
                 return false;
             }
 
-            if ($reflectionWrapper->parentWrapper->hasInternalTag) {
-                return false;
-            }
-
             return true;
         }
 
