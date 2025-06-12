@@ -38,6 +38,11 @@ class CodeIndex
         $this->classList = $classList;
     }
 
+    public function getClassWrapper(string $className): ?ClassWrapper
+    {
+        return $this->classList[$className] ?? null;
+    }
+
     /**
      * @return array<string, ClassWrapper>
      */

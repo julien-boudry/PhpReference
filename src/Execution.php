@@ -5,6 +5,7 @@ namespace JulienBoudry\PhpReference;
 use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
+use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use JulienBoudry\PhpReference\Writer\ClassPageWriter;
 use JulienBoudry\PhpReference\Writer\MethodPageWriter;
 use JulienBoudry\PhpReference\Writer\PropertyPageWriter;
@@ -16,6 +17,9 @@ final class Execution
 
     /** @var ClassWrapper[] */
     public readonly array $mainPhpNodes;
+
+    /* @var array<string> */
+    public private(set) array $writedPages = [];
 
     public function __construct (
         public readonly CodeIndex $codeIndex,
@@ -38,17 +42,17 @@ final class Execution
     {
         foreach ($this->mainPhpNodes as $class) {
             // Generate class page
-            new ClassPageWriter($class);
+            $this->writePage(new ClassPageWriter($class));
 
             // Generate method pages
 
             foreach ($class->getAllApiMethods() as $method) {
-                new MethodPageWriter($method);
+                $this->writePage(new MethodPageWriter($method));
             }
 
             // Generate property pages
             foreach ($class->getAllApiProperties() as $property) {
-                new PropertyPageWriter($property);
+                $this->writePage(new PropertyPageWriter($property));
             }
 
             if ($afterElementCallback) {
@@ -57,5 +61,14 @@ final class Execution
         }
 
         return $this;
+    }
+
+    protected function writePage(AbstractWriter $writer): void
+    {
+        $writePath = $writer->writePath;
+
+        if (!in_array($writePath, $this->writedPages, true)) {
+            $this->writedPages[] = $writer->write();
+        }
     }
 }

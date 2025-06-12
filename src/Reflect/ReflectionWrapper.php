@@ -41,10 +41,14 @@ abstract class ReflectionWrapper
     {
         $wrappers = [];
         foreach ($reflectors as $reflector) {
+            if(method_exists($reflector, 'getDeclaringClass')) {
+                $declaringClass = Execution::$instance->codeIndex->getClassWrapper($reflector->getDeclaringClass()->name);
+            }
+
             $wrappers[$reflector->getName()] = match (true) {
-                $reflector instanceof ReflectionMethod => new MethodWrapper($reflector, $classWrapper),
-                $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper),
-                $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper),
+                $reflector instanceof ReflectionMethod => new MethodWrapper($reflector, $classWrapper, $declaringClass),
+                $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper, $declaringClass),
+                $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper, $declaringClass),
                 $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
                 default => throw new \LogicException('Unsupported reflector type: ' . get_class($reflector)),
             };

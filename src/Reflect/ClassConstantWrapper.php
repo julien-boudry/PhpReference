@@ -21,14 +21,6 @@ class ClassConstantWrapper extends ClassElementWrapper implements SignatureInter
         }
     }
 
-    public function __construct(
-        ReflectionClassConstant $reflectionClassConstant,
-        ClassWrapper $classWrapper
-    )
-    {
-        parent::__construct($reflectionClassConstant, $classWrapper);
-    }
-
     public function getSignature(): string
     {
         $type = $this->reflection->getType() ? ' ' . ((string) $this->reflection->getType()) . ' ' : ' ';

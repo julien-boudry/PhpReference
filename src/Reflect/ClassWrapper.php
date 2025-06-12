@@ -56,11 +56,11 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, ClassElementWrapper>
      */
-    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
+    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
     {
         $filtered = array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic) {
+            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic, $nonLocal): bool {
                 $reflection = $reflectionWrapper->reflection;
 
                 if ($reflection instanceof ReflectionFunctionAbstract && !$reflection->isUserDefined()) {
@@ -87,6 +87,10 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
                     return false;
                 }
 
+                if (!$nonLocal && !$reflectionWrapper->isLocalTo($this)) {
+                    return false;
+                }
+
                 return true;
             }
         );
@@ -104,7 +108,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, MethodWrapper>
      */
-    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
+    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
     {
         // @phpstan-ignore return.type
         return $this->filterReflection(
@@ -114,13 +118,14 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             private: $private,
             static: $static,
             nonStatic: $nonStatic,
+            nonLocal: $nonLocal,
         );
     }
 
     /**
      * @return array<string, PropertyWrapper>
      */
-    public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true): array
+    public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
     {
         // @phpstan-ignore return.type
         return $this->filterReflection(
@@ -130,20 +135,23 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             private: $private,
             static: $static,
             nonStatic: $nonStatic,
+            nonLocal: $nonLocal,
         );
     }
 
     /**
      * @return array<string, ClassConstantWrapper>
      */
-    public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true): array
+    public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true, bool $nonLocal = true): array
     {
         // @phpstan-ignore return.type
         return $this->filterReflection(
             list: $this->constants,
             public: $public,
             protected: $protected,
-            private: $private
+            private: $private,
+            nonLocal: $nonLocal,
+
         );
     }
 
@@ -163,25 +171,25 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, MethodWrapper>
      */
-    public function getAllApiMethods(bool $static = true, bool $nonStatic = true): array
+    public function getAllApiMethods(bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
     {
-        return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, nonStatic: $nonStatic, protected: false, private: false)); // @phpstan-ignore return.type
+        return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, nonStatic: $nonStatic, protected: false, private: false, nonLocal: $nonLocal)); // @phpstan-ignore return.type
     }
 
     /**
      * @return array<string, PropertyWrapper>
      */
-    public function getAllApiProperties(bool $static = true, bool $nonStatic = true): array
+    public function getAllApiProperties(bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
     {
-        return $this->filterApiReflection($this->getAllProperties(static: $static, nonStatic: $nonStatic, protected: false, private: false)); // @phpstan-ignore return.type
+        return $this->filterApiReflection($this->getAllProperties(static: $static, nonStatic: $nonStatic, protected: false, private: false, nonLocal: $nonLocal)); // @phpstan-ignore return.type
     }
 
     /**
      * @return array<string, ClassConstantWrapper>
      */
-    public function getAllApiConstants(): array
+    public function getAllApiConstants(bool $nonLocal = true): array
     {
-        return $this->filterApiReflection($this->getAllConstants(protected: false, private: false)); // @phpstan-ignore return.type
+        return $this->filterApiReflection($this->getAllConstants(protected: false, private: false, nonLocal: $nonLocal)); // @phpstan-ignore return.type
     }
 
     public function isUserDefined(): bool

@@ -14,7 +14,7 @@ abstract class AbstractWriter
     public static string $outputDir = __DIR__ . '/../../output';
     protected static Filesystem $filesystem;
 
-    public string $writePath = '/';
+    public protected(set) string $writePath = '/';
 
     protected static Engine $latte;
 
@@ -36,15 +36,14 @@ abstract class AbstractWriter
 
         // Make Content
         $this->content = $this->makeContent();
-
-        // Write Content
-        $this->write();
     }
 
     abstract function makeContent(): string;
 
-    protected function write(): void
+    public function write(): string
     {
         self::getFlySystem()->write($this->writePath, $this->content);
+
+        return $this->writePath;
     }
 }

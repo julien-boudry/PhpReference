@@ -20,10 +20,27 @@ use WeakReference;
 abstract class ClassElementWrapper extends ReflectionWrapper implements HasParentInterface
 {
     /** @var WeakReference<ClassWrapper> */
-    public \WeakReference $classReference;
+    public readonly WeakReference $classReference;
+
+    /** @var ?WeakReference<ClassWrapper> */
+    public readonly ?WeakReference $declaringClassReference;
 
     public ?ClassWrapper $parentWrapper {
         get => $this->classReference->get();
+    }
+
+    public ?ClassWrapper $declaringClass {
+        get => $this->declaringClassReference ? $this->declaringClassReference->get() : null;
+    }
+
+    public ?ClassWrapper $inDocParentWrapper {
+        get {
+            if ($this->declaringClass === null || !$this->declaringClass->willBeInPublicApi) {
+                return $this->parentWrapper;
+            }
+
+            return $this->declaringClass;
+        }
     }
 
     public ReflectionProperty|ReflectionMethod|ReflectionClassConstant $reflection {
@@ -32,20 +49,28 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
 
     public function __construct(
         ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass,
-        ClassWrapper $classWrapper
+        ClassWrapper $classWrapper,
+        ?ClassWrapper $declaringClass
     )
     {
         $this->classReference = WeakReference::create($classWrapper);
+
+        $this->declaringClassReference = $declaringClass ? WeakReference::create($declaringClass) : null;
 
         parent::__construct($reflectorInClass);
     }
 
     public function getPageDirectory(): string
     {
-        return $this->parentWrapper->getPageDirectory();
+        return $this->inDocParentWrapper->getPageDirectory();
     }
 
     public function isPublic(): bool {
         return $this->reflection->isPublic();
+    }
+
+    public function isLocalTo(ClassWrapper $classWrapper): bool
+    {
+        return $this->reflection->getDeclaringClass()->name === $classWrapper->name;
     }
 }

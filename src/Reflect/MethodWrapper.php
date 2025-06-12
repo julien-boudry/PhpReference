@@ -28,14 +28,6 @@ class MethodWrapper extends ClassElementWrapper implements WritableInterface, Si
         }
     }
 
-    public function __construct(
-        ReflectionMethod $reflectionMethod,
-        ClassWrapper $classWrapper
-    )
-    {
-        parent::__construct($reflectionMethod, $classWrapper);
-    }
-
     public function getPagePath(): string
     {
         return $this->getPageDirectory() . "/method_{$this->name}.md";

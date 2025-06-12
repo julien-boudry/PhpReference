@@ -26,14 +26,6 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
         }
     }
 
-    public function __construct(
-        ReflectionProperty $reflectionProperty,
-        ClassWrapper $classWrapper
-    )
-    {
-        parent::__construct($reflectionProperty, $classWrapper);
-    }
-
     public function getPagePath(): string
     {
         $static = $this->reflection->isStatic() ? 'static_' : '';
