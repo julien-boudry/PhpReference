@@ -8,6 +8,8 @@ use JulienBoudry\PhpReference\Config;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
+use SebastianBergmann\Timer\ResourceUsageFormatter;
+use SebastianBergmann\Timer\Timer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -18,6 +20,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function Laravel\Prompts\confirm;
 use function Laravel\Prompts\error;
+use function Laravel\Prompts\info;
 use function Laravel\Prompts\note;
 use function Laravel\Prompts\progress;
 use function Laravel\Prompts\warning;
@@ -135,6 +138,9 @@ class GenerateDocumentationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $timer = new Timer;
+        $timer->start();
+
         $this->init();
 
         if (!$this->confirmed) {
@@ -211,6 +217,8 @@ class GenerateDocumentationCommand extends Command
                 "Output directory: {$this->outputDir}",
                 sprintf('Processed %d classes.', count($this->execution->mainPhpNodes))
             ]);
+
+            info(new ResourceUsageFormatter()->resourceUsage($timer->stop()));
 
             return Command::SUCCESS;
 
