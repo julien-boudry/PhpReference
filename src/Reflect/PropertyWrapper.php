@@ -34,7 +34,7 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
         return $this->getPageDirectory() . "/{$static}{$virtual}property_{$this->name}.md";
     }
 
-    public function getSignature(): string
+    public function getSignature(bool $withClassName = false): string
     {
         $type = ' ' . $this->getType() . ' ';
 
@@ -48,6 +48,14 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
 
         $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatValue($this->reflection->getDefaultValue()) : '';
 
-        return "{$this->getModifierNames()}{$setVisibility}{$type}\${$this->name}{$defaultValue}";
+        $name = $this->name;
+
+        if ($withClassName) {
+            $name = $this->inDocParentWrapper->shortName . ($type === 'static' ? '::$' : '->') . $name;
+        } else {
+            $name = '$' . $name;
+        }
+
+        return "{$this->getModifierNames()}{$setVisibility}{$type}{$name}{$defaultValue}";
     }
 }

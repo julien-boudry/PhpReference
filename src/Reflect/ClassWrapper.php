@@ -56,11 +56,11 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, ClassElementWrapper>
      */
-    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
+    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
     {
         $filtered = array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic, $nonLocal): bool {
+            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic, $local, $nonLocal): bool {
                 $reflection = $reflectionWrapper->reflection;
 
                 if ($reflection instanceof ReflectionFunctionAbstract && !$reflection->isUserDefined()) {
@@ -91,6 +91,10 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
                     return false;
                 }
 
+                if (!$local && $reflectionWrapper->isLocalTo($this)) {
+                    return false;
+                }
+
                 return true;
             }
         );
@@ -108,7 +112,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, MethodWrapper>
      */
-    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
+    public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
     {
         // @phpstan-ignore return.type
         return $this->filterReflection(
@@ -118,6 +122,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             private: $private,
             static: $static,
             nonStatic: $nonStatic,
+            local: $local,
             nonLocal: $nonLocal,
         );
     }
@@ -125,7 +130,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, PropertyWrapper>
      */
-    public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
+    public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
     {
         // @phpstan-ignore return.type
         return $this->filterReflection(
@@ -135,6 +140,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             private: $private,
             static: $static,
             nonStatic: $nonStatic,
+            local: $local,
             nonLocal: $nonLocal,
         );
     }
@@ -142,7 +148,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, ClassConstantWrapper>
      */
-    public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true, bool $nonLocal = true): array
+    public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true, bool $local = true, bool $nonLocal = true): array
     {
         // @phpstan-ignore return.type
         return $this->filterReflection(
@@ -150,6 +156,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             public: $public,
             protected: $protected,
             private: $private,
+            local: $local,
             nonLocal: $nonLocal,
 
         );
@@ -171,25 +178,48 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     /**
      * @return array<string, MethodWrapper>
      */
-    public function getAllApiMethods(bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
+    public function getAllApiMethods(bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
     {
-        return $this->filterApiReflection($this->getAllUserDefinedMethods(static: $static, nonStatic: $nonStatic, protected: false, private: false, nonLocal: $nonLocal)); // @phpstan-ignore return.type
+        // @phpstan-ignore return.type
+        return $this->filterApiReflection($this->getAllUserDefinedMethods(
+            static: $static,
+            nonStatic: $nonStatic,
+            protected: false,
+            private: false,
+            local: $local,
+            nonLocal: $nonLocal
+        ));
     }
+
 
     /**
      * @return array<string, PropertyWrapper>
      */
-    public function getAllApiProperties(bool $static = true, bool $nonStatic = true, bool $nonLocal = true): array
+    public function getAllApiProperties(bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
     {
-        return $this->filterApiReflection($this->getAllProperties(static: $static, nonStatic: $nonStatic, protected: false, private: false, nonLocal: $nonLocal)); // @phpstan-ignore return.type
+         // @phpstan-ignore return.type
+        return $this->filterApiReflection($this->getAllProperties(
+            static: $static,
+            nonStatic: $nonStatic,
+            protected: false,
+            private: false,
+            local: $local,
+            nonLocal: $nonLocal
+        ));
     }
 
     /**
      * @return array<string, ClassConstantWrapper>
      */
-    public function getAllApiConstants(bool $nonLocal = true): array
+    public function getAllApiConstants(bool $local = true, bool $nonLocal = true): array
     {
-        return $this->filterApiReflection($this->getAllConstants(protected: false, private: false, nonLocal: $nonLocal)); // @phpstan-ignore return.type
+         // @phpstan-ignore return.type
+        return $this->filterApiReflection($this->getAllConstants(
+            protected: false,
+            private: false,
+            local: $local,
+            nonLocal: $nonLocal
+        ));
     }
 
     public function isUserDefined(): bool
@@ -245,63 +275,107 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $signature = '';
 
         // Const
-        $consts = $onlyApi ? $this->getAllApiConstants() : $this->getAllConstants();
+        $localConsts = $onlyApi ? $this->getAllApiConstants(nonLocal: false) : $this->getAllConstants(nonLocal: false);
 
-        if (!empty($consts)) {
+        if (!empty($localConsts)) {
             $signature .= "    // Constants\n";
         }
 
-        foreach ($consts as $constant) {
-            $signature .= '    ' . $constant->getSignature() . ";\n";
+        foreach ($localConsts as $constant) {
+            $signature .= '    ' . $constant->getSignature(withClassName: false) . ";\n";
+        }
+
+        $inheritedConsts = $onlyApi ? $this->getAllApiConstants(local: false) : $this->getAllConstants(local: false);
+
+        if (!empty($inheritedConsts)) {
+            $signature .= "    // Inherited Constants\n";
+        }
+
+        foreach ($inheritedConsts as $constant) {
+            $signature .= '    ' . $constant->getSignature(withClassName: true) . ";\n";
         }
 
         // Static Properties
-        $props = $onlyApi ? $this->getAllApiProperties(nonStatic: false) : $this->getAllProperties(nonStatic: false);
+        $localProperties = $onlyApi ? $this->getAllApiProperties(nonStatic: false, nonLocal: false) : $this->getAllProperties(nonStatic: false, nonLocal: false);
 
-        if (!empty($props)) {
+        if (!empty($localProperties)) {
             $signature .= "\n";
             $signature .= "    // Static Properties\n";
         }
 
-        foreach ($props as $property) {
-            $signature .= '    ' . $property->getSignature() . ";\n";
+        foreach ($localProperties as $property) {
+            $signature .= '    ' . $property->getSignature(withClassName: false) . ";\n";
+        }
+
+        $inheritedProperties = $onlyApi ? $this->getAllApiProperties(nonStatic: false, local: false) : $this->getAllProperties(nonStatic: false, local: false);
+
+        if (!empty($inheritedProperties)) {
+            $signature .= "\n";
+            $signature .= "    // Static Inherited Properties\n";
+        }
+
+        foreach ($inheritedProperties as $property) {
+            $signature .= '    ' . $property->getSignature(withClassName: true) . ";\n";
         }
 
         // Properties
-        $props = $onlyApi ? $this->getAllApiProperties(static: false) : $this->getAllProperties(static: false);
+        $localProperties = $onlyApi ? $this->getAllApiProperties(static: false, nonLocal: false) : $this->getAllProperties(static: false, nonLocal: false);
 
-        if (!empty($props)) {
+        if (!empty($localProperties)) {
             $signature .= "\n";
             $signature .= "    // Properties\n";
         }
 
-        foreach ($props as $property) {
-            $signature .= '    ' . $property->getSignature() . ";\n";
+        foreach ($localProperties as $property) {
+            $signature .= '    ' . $property->getSignature(withClassName: false) . ";\n";
+        }
+
+        $inheritedProperties = $onlyApi ? $this->getAllApiProperties(static: false, local: false) : $this->getAllProperties(static: false, local: false);
+
+        if (!empty($inheritedProperties)) {
+            $signature .= "\n";
+            $signature .= "    // Inherited Properties\n";
+        }
+
+        foreach ($inheritedProperties as $property) {
+            $signature .= '    ' . $property->getSignature(withClassName: true) . ";\n";
         }
 
         // Static Methods
-        $methods = $onlyApi ? $this->getAllApiMethods(nonStatic: false) : $this->getAllUserDefinedMethods();
+        $localMethods = $onlyApi ? $this->getAllApiMethods(nonStatic: false) : $this->getAllUserDefinedMethods();
 
-        if (!empty($methods)) {
+        if (!empty($localMethods)) {
             $signature .= "\n";
             $signature .= "    // Methods\n";
         }
 
-        foreach ($methods as $method) {
-            $signature .= '    ' . $method->getSignature(forClassRepresentation: true) . ";\n";
+        foreach ($localMethods as $method) {
+            $signature .= '    ' . $method->getSignature(withClassName: true) . ";\n";
         }
 
         // Methods
-        $methods = $onlyApi ? $this->getAllApiMethods(static: false) : $this->getAllApiMethods(static: false);
+        $localMethods = $onlyApi ? $this->getAllApiMethods(static: false, nonLocal: false) : $this->getAllApiMethods(static: false, nonLocal: false);
 
-        if (!empty($methods)) {
+        if (!empty($localMethods)) {
             $signature .= "\n";
             $signature .= "    // Methods\n";
         }
 
-        foreach ($methods as $method) {
-            $signature .= '    ' . $method->getSignature(forClassRepresentation: true) . ";\n";
+        foreach ($localMethods as $method) {
+            $signature .= '    ' . $method->getSignature(withClassName: true) . ";\n";
         }
+
+        $inheritedMethods = $onlyApi ? $this->getAllApiMethods(static: false, local: false) : $this->getAllApiMethods(static: true, local: false);
+
+        if (!empty($inheritedMethods)) {
+            $signature .= "\n";
+            $signature .= "    // Inherited Methods\n";
+        }
+
+        foreach ($inheritedMethods as $method) {
+            $signature .= '    ' . $method->getSignature(withClassName: false) . ";\n";
+        }
+
 
         return $signature;
     }

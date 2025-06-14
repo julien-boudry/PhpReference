@@ -21,11 +21,17 @@ class ClassConstantWrapper extends ClassElementWrapper implements SignatureInter
         }
     }
 
-    public function getSignature(): string
+    public function getSignature(bool $withClassName = false): string
     {
         $type = $this->reflection->getType() ? ' ' . ((string) $this->reflection->getType()) . ' ' : ' ';
         $value = self::formatValue($this->reflection->getValue());
 
-        return "{$this->getModifierNames()} const{$type}{$this->name} = {$value}";
+        $name = $this->name;
+
+        if ($withClassName) {
+            $name = $this->inDocParentWrapper->shortName . '::' . $name;
+        }
+
+        return "{$this->getModifierNames()} const{$type}{$name} = {$value}";
     }
 }
