@@ -54,7 +54,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     }
 
     /**
-     * @param array<MethodWrapper|PropertyWrapper|ClassConstantWrapper> $list
+     * @param array<ClassElementWrapper> $list
      * @return array<string, ClassElementWrapper>
      */
     protected function filterReflection(
@@ -70,7 +70,7 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     {
         $filtered = array_filter(
             array: $list,
-            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic, $local, $nonLocal): bool {
+            callback: function (ClassElementWrapper $reflectionWrapper) use ($public, $protected, $private, $static, $nonStatic, $local, $nonLocal): bool {
                 $reflection = $reflectionWrapper->reflection;
 
                 if ($reflection instanceof ReflectionFunctionAbstract && !$reflection->isUserDefined()) {
