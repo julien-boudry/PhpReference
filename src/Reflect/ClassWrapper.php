@@ -54,9 +54,19 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
     }
 
     /**
+     * @param array<MethodWrapper|PropertyWrapper|ClassConstantWrapper> $list
      * @return array<string, ClassElementWrapper>
      */
-    protected function filterReflection(array $list, bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
+    protected function filterReflection(
+        array $list,
+        bool $public = true,
+        bool $protected = true,
+        bool $private = true,
+        bool $static = true,
+        bool $nonStatic = true,
+        bool $local = true,
+        bool $nonLocal = true
+    ): array
     {
         $filtered = array_filter(
             array: $list,
@@ -102,6 +112,16 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         uasort(
             array: $filtered,
             callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $a, MethodWrapper|PropertyWrapper|ClassConstantWrapper $b) {
+                if ($a instanceof PropertyWrapper && $b instanceof PropertyWrapper) {
+                    if ($a->isVirtual() && !$b->isVirtual()) {
+                        return 1; // Virtual properties go last
+                    }
+
+                    if (!$a->isVirtual() && $b->isVirtual()) {
+                        return -1; // Non-virtual properties go first
+                    }
+                }
+
                 return strcasecmp($a->name, $b->name);
             }
         );

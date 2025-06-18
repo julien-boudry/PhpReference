@@ -29,9 +29,14 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
     public function getPagePath(): string
     {
         $static = $this->reflection->isStatic() ? 'static_' : '';
-        $virtual = $this->reflection->isVirtual() ? 'virtual_' : '';
+        $virtual = $this->isVirtual() ? 'virtual_' : '';
 
         return $this->getPageDirectory() . "/{$static}{$virtual}property_{$this->name}.md";
+    }
+
+    public function isVirtual(): bool
+    {
+        return $this->reflection->isVirtual();
     }
 
     public function getSignature(bool $withClassName = false): string
