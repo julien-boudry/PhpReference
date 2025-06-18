@@ -111,7 +111,22 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
         uasort(
             array: $filtered,
-            callback: function (MethodWrapper|PropertyWrapper|ClassConstantWrapper $a, MethodWrapper|PropertyWrapper|ClassConstantWrapper $b) {
+            callback: function (ClassElementWrapper $a, ClassElementWrapper $b) {
+                // First sort by visibility: public, protected, private
+                $visibilityOrder = function (ClassElementWrapper $element): int {
+                    if ($element->reflection->isPublic()) return 1;
+                    if ($element->reflection->isProtected()) return 2;
+                    if ($element->reflection->isPrivate()) return 3;
+                    return 4;
+                };
+
+                $aVisibility = $visibilityOrder($a);
+                $bVisibility = $visibilityOrder($b);
+
+                if ($aVisibility !== $bVisibility) {
+                    return $aVisibility <=> $bVisibility;
+                }
+
                 if ($a instanceof PropertyWrapper && $b instanceof PropertyWrapper) {
                     if ($a->isVirtual() && !$b->isVirtual()) {
                         return 1; // Virtual properties go last
@@ -178,7 +193,6 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             private: $private,
             local: $local,
             nonLocal: $nonLocal,
-
         );
     }
 
@@ -258,8 +272,6 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
             $this->reflection->isEnum() => 'enum',
             default => 'class',
         };
-
-
 
         $headModifiers = $this->getModifierNames();
 
