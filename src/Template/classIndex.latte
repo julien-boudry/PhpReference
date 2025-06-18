@@ -10,7 +10,10 @@
 | {$entry->name} | `{$entry->getSignature()}` | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 {* *}
-{foreach $class->getAllProperties(static: true, nonStatic: false) as $entry}
+{* *}
+{* *}
+{* *}
+{foreach $class->getAllApiProperties(static: true, nonStatic: false) as $entry}
 {first}
 
 ### Public Static Properties
@@ -19,6 +22,9 @@
 {/first}
 | [{$entry->name}(...)]({$entry->getPagePath()}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
+{* *}
+{* *}
+{* *}
 {* *}
 {foreach $class->getAllApiMethods(static: true, nonStatic: false) as $entry}
 {first}
@@ -30,7 +36,10 @@
 | [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 {* *}
-{foreach $class->getAllProperties(static: false) as $entry}
+{* *}
+{* *}
+{* *}
+{foreach $class->getAllApiProperties(static: false) as $entry}
 {first}
 
 ### Public Properties
@@ -39,6 +48,9 @@
 {/first}
 | [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
+{* *}
+{* *}
+{* *}
 {* *}
 {foreach $class->getAllApiMethods(static: false) as $entry}
 {first}
