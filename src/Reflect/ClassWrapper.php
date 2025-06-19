@@ -12,6 +12,8 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 {
     public const string TYPE = 'class';
 
+    protected const string TAB = '    ';
+
     public string $name {
         get => $this->reflection->name;
     }
@@ -310,21 +312,21 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
         $localConsts = $onlyApi ? $this->getAllApiConstants(nonLocal: false) : $this->getAllConstants(nonLocal: false);
 
         if (!empty($localConsts)) {
-            $signature .= "    // Constants\n";
+            $signature .= self::TAB . "// Constants\n";
         }
 
         foreach ($localConsts as $constant) {
-            $signature .= '    ' . $constant->getSignature(withClassName: false) . ";\n";
+            $signature .= self::TAB . $constant->getSignature(withClassName: false) . ";\n";
         }
 
         $inheritedConsts = $onlyApi ? $this->getAllApiConstants(local: false) : $this->getAllConstants(local: false);
 
         if (!empty($inheritedConsts)) {
-            $signature .= "    // Inherited Constants\n";
+            $signature .= self::TAB . "// Inherited Constants\n";
         }
 
         foreach ($inheritedConsts as $constant) {
-            $signature .= '    ' . $constant->getSignature(withClassName: true) . ";\n";
+            $signature .= self::TAB . $constant->getSignature(withClassName: true) . ";\n";
         }
 
         // Static Properties
@@ -332,22 +334,22 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
         if (!empty($localProperties)) {
             $signature .= "\n";
-            $signature .= "    // Static Properties\n";
+            $signature .= self::TAB . "// Static Properties\n";
         }
 
         foreach ($localProperties as $property) {
-            $signature .= '    ' . $property->getSignature(withClassName: false) . ";\n";
+            $signature .= self::TAB . $property->getSignature(withClassName: false) . ";\n";
         }
 
         $inheritedProperties = $onlyApi ? $this->getAllApiProperties(nonStatic: false, local: false) : $this->getAllProperties(nonStatic: false, local: false);
 
         if (!empty($inheritedProperties)) {
             $signature .= "\n";
-            $signature .= "    // Static Inherited Properties\n";
+            $signature .= self::TAB . "// Static Inherited Properties\n";
         }
 
         foreach ($inheritedProperties as $property) {
-            $signature .= '    ' . $property->getSignature(withClassName: true) . ";\n";
+            $signature .= self::TAB . $property->getSignature(withClassName: true) . ";\n";
         }
 
         // Properties
@@ -355,22 +357,22 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
         if (!empty($localProperties)) {
             $signature .= "\n";
-            $signature .= "    // Properties\n";
+            $signature .= self::TAB . "// Properties\n";
         }
 
         foreach ($localProperties as $property) {
-            $signature .= '    ' . $property->getSignature(withClassName: false) . ";\n";
+            $signature .= self::TAB . $property->getSignature(withClassName: false) . ";\n";
         }
 
         $inheritedProperties = $onlyApi ? $this->getAllApiProperties(static: false, local: false) : $this->getAllProperties(static: false, local: false);
 
         if (!empty($inheritedProperties)) {
             $signature .= "\n";
-            $signature .= "    // Inherited Properties\n";
+            $signature .= self::TAB . "// Inherited Properties\n";
         }
 
         foreach ($inheritedProperties as $property) {
-            $signature .= '    ' . $property->getSignature(withClassName: true) . ";\n";
+            $signature .= self::TAB . $property->getSignature(withClassName: true) . ";\n";
         }
 
         // Static Methods
@@ -378,11 +380,11 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
         if (!empty($localMethods)) {
             $signature .= "\n";
-            $signature .= "    // Methods\n";
+            $signature .= self::TAB . "// Methods\n";
         }
 
         foreach ($localMethods as $method) {
-            $signature .= '    ' . $method->getSignature(withClassName: true) . ";\n";
+            $signature .= self::TAB . $method->getSignature(withClassName: true) . ";\n";
         }
 
         // Methods
@@ -390,22 +392,22 @@ class ClassWrapper extends ReflectionWrapper implements WritableInterface, Signa
 
         if (!empty($localMethods)) {
             $signature .= "\n";
-            $signature .= "    // Methods\n";
+            $signature .= self::TAB . "// Methods\n";
         }
 
         foreach ($localMethods as $method) {
-            $signature .= '    ' . $method->getSignature(withClassName: true) . ";\n";
+            $signature .= self::TAB . $method->getSignature(withClassName: true) . ";\n";
         }
 
         $inheritedMethods = $onlyApi ? $this->getAllApiMethods(static: false, local: false) : $this->getAllApiMethods(static: true, local: false);
 
         if (!empty($inheritedMethods)) {
             $signature .= "\n";
-            $signature .= "    // Inherited Methods\n";
+            $signature .= self::TAB . "// Inherited Methods\n";
         }
 
         foreach ($inheritedMethods as $method) {
-            $signature .= '    ' . $method->getSignature(withClassName: false) . ";\n";
+            $signature .= self::TAB . $method->getSignature(withClassName: false) . ";\n";
         }
 
 
