@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
@@ -8,6 +10,7 @@ use Symfony\Component\Console\Application;
 abstract class App
 {
     public const string VERSION = '1.0.0';
+
     public const string NAME = 'PHP Reference Documentation Generator';
 
     public static function getFullName(): string

@@ -1,15 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Reflect\EnumWrapper;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlockFactoryInterface;
 use ReflectionClass;
 use ReflectionEnum;
-use ReflectionMethod;
 
 class CodeIndex
 {
@@ -18,8 +17,7 @@ class CodeIndex
 
     public function __construct(
         public readonly string $namespace,
-    )
-    {
+    ) {
         $classPathList = ClassFinder::getClassesInNamespace($this->namespace, ClassFinder::RECURSIVE_MODE);
 
         $classList = [];

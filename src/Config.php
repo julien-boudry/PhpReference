@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
@@ -12,7 +14,7 @@ class Config
 
     public function __construct(?string $configPath = null)
     {
-        $configPath = $configPath ?? getcwd() . DIRECTORY_SEPARATOR . 'reference.php';
+        $configPath = $configPath ?? getcwd().DIRECTORY_SEPARATOR.'reference.php';
 
         if (file_exists($configPath)) {
             $this->config = require $configPath;
@@ -54,7 +56,7 @@ class Config
     /**
      * Merge configuration with CLI arguments, giving priority to CLI
      *
-     * @param array<string|null> $cliArgs Associative array of CLI arguments
+     * @param  array<string|null>  $cliArgs  Associative array of CLI arguments
      */
     public function mergeWithCliArgs(array $cliArgs): void
     {
@@ -76,7 +78,7 @@ class Config
             return $apiConfig;
         }
 
-        if (is_string($apiConfig) && !empty($apiConfig)) {
+        if (is_string($apiConfig) && ! empty($apiConfig)) {
             return match (mb_strtolower($apiConfig)) {
                 mb_strtolower('IsPubliclyAccessible') => new IsPubliclyAccessible,
                 mb_strtolower('HasTagApi') => new HasTagApi,

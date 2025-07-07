@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
@@ -17,7 +19,6 @@ trait IsFunction
     }
 
     /**
-     *
      * @return array<ParameterWrapper>
      */
     public function getParameters(): array
@@ -37,9 +38,9 @@ trait IsFunction
 
     public function getReturnType(): string
     {
-        if (!$this->hasReturnType()) {
+        if (! $this->hasReturnType()) {
             throw new \RuntimeException(
-                'Method ' . $this->reflection->getName() . ' has no return type.'
+                'Method '.$this->reflection->getName().' has no return type.'
             );
         }
 

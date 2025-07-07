@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
@@ -53,6 +55,7 @@ trait HasType
                         $pageDestination = Execution::$instance->codeIndex->classList[$pureType];
 
                         $toLink = $this->parentWrapper->getUrlLinker()->to($pageDestination);
+
                         return "[`$type`]($toLink)";
                     }
 

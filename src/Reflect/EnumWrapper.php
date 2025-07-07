@@ -1,11 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-
 use ReflectionEnum;
 use ReflectionEnumBackedCase;
-use ReflectionEnumUnitCase;
 
 class EnumWrapper extends ClassWrapper
 {
@@ -24,8 +24,8 @@ class EnumWrapper extends ClassWrapper
 
     public function getBackedType(): string
     {
-        if (!$this->isBacked()) {
-            throw new \LogicException("This enum is not backed, so it has no backing type.");
+        if (! $this->isBacked()) {
+            throw new \LogicException('This enum is not backed, so it has no backing type.');
         }
 
         $type = $this->reflection->getBackingType();
@@ -35,9 +35,9 @@ class EnumWrapper extends ClassWrapper
 
     protected function getHeritageHeadSignature(): string
     {
-        $backed = $this->isBacked() ? ': ' . $this->getBackedType() : '';
+        $backed = $this->isBacked() ? ': '.$this->getBackedType() : '';
 
-        return $backed . parent::getHeritageHeadSignature();
+        return $backed.parent::getHeritageHeadSignature();
     }
 
     protected function getInsideClassSignature(bool $onlyApi): string
@@ -47,18 +47,18 @@ class EnumWrapper extends ClassWrapper
         $casesSignatures = '';
 
         foreach ($this->reflection->getCases() as $case) {
-            $casesSignatures .= '    case ' . $case->getName();
+            $casesSignatures .= '    case '.$case->getName();
 
             if ($case instanceof ReflectionEnumBackedCase) {
                 $backingValue = $case->getBackingValue();
-                $backingValue = is_string($backingValue) ? '"' . $backingValue . '"' : (string) $backingValue;
+                $backingValue = is_string($backingValue) ? '"'.$backingValue.'"' : (string) $backingValue;
 
-                $casesSignatures .=  " = " . $backingValue;
+                $casesSignatures .= ' = '.$backingValue;
             }
 
             $casesSignatures .= ";\n";
         }
 
-        return $casesSignatures . $signature;
+        return $casesSignatures.$signature;
     }
 }

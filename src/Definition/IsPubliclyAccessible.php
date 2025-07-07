@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Definition;
 
@@ -9,12 +11,12 @@ class IsPubliclyAccessible extends Base implements PublicApiDefinitionInterface
 {
     public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool
     {
-        if (!$this->baseExclusion($reflectionWrapper)) {
+        if (! $this->baseExclusion($reflectionWrapper)) {
             return false;
         }
 
         if ($reflectionWrapper instanceof ClassElementWrapper) {
-            if (!$reflectionWrapper->isPublic()) {
+            if (! $reflectionWrapper->isPublic()) {
                 return false;
             }
 

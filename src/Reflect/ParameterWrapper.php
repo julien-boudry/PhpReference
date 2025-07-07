@@ -1,20 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Capabilities\HasParentInterface;
 use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
 use JulienBoudry\PhpReference\Reflect\Structure\HasType;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlockFactoryInterface;
-use Reflection;
-use ReflectionClass;
-use ReflectionMethod;
 use ReflectionParameter;
-use ReflectionProperties;
-use ReflectionProperty;
 use WeakReference;
 
 class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, SignatureInterface
@@ -51,8 +44,8 @@ class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, 
         $str = (string) $refl->getType();
         $str .= ' ';
         $str .= $refl->isPassedByReference() ? '&' : '';
-        $str .= '$' . $this->name;
-        $str .= $refl->isDefaultValueAvailable() ? ' = ' . self::formatValue($refl->getDefaultValue()) : '';
+        $str .= '$'.$this->name;
+        $str .= $refl->isDefaultValueAvailable() ? ' = '.self::formatValue($refl->getDefaultValue()) : '';
 
         return $str;
     }

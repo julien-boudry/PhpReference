@@ -1,17 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Writer;
 
-use JulienBoudry\PhpReference\Formater\ClassFormater;
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Reflect\MethodWrapper;
-use JulienBoudry\PhpReference\Template\Input\ApiSummaryInput;
-use JulienBoudry\PhpReference\Template\Input\ClassPageInput;
 use JulienBoudry\PhpReference\Template\Input\MethodPageInput;
 
 class MethodPageWriter extends AbstractWriter
 {
-    public function __construct (public readonly MethodWrapper $method) {
+    public function __construct(public readonly MethodWrapper $method)
+    {
         $this->writePath = $method->getPagePath();
 
         parent::__construct();
@@ -20,7 +19,7 @@ class MethodPageWriter extends AbstractWriter
     public function makeContent(): string
     {
         return self::$latte->renderToString(
-            name: AbstractWriter::TEMPLATE_DIR . '/method_page.latte',
+            name: AbstractWriter::TEMPLATE_DIR.'/method_page.latte',
             params : new MethodPageInput(
                 method: $this->method
             ),

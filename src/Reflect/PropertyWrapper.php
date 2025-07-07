@@ -1,24 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
 use JulienBoudry\PhpReference\Reflect\Structure\HasType;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlockFactoryInterface;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionProperties;
 use ReflectionProperty;
 
-class PropertyWrapper extends ClassElementWrapper implements WritableInterface, SignatureInterface
+class PropertyWrapper extends ClassElementWrapper implements SignatureInterface, WritableInterface
 {
-    use HasType;
     use CanThrow;
+    use HasType;
 
     public ReflectionProperty $reflection {
         get {
@@ -31,7 +26,7 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
         $static = $this->reflection->isStatic() ? 'static_' : '';
         $virtual = $this->isVirtual() ? 'virtual_' : '';
 
-        return $this->getPageDirectory() . "/{$static}{$virtual}property_{$this->name}.md";
+        return $this->getPageDirectory()."/{$static}{$virtual}property_{$this->name}.md";
     }
 
     public function isVirtual(): bool
@@ -41,7 +36,7 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
 
     public function getSignature(bool $withClassName = false): string
     {
-        $type = ' ' . $this->getType() . ' ';
+        $type = ' '.$this->getType().' ';
 
         $setVisibility = '';
 
@@ -51,14 +46,14 @@ class PropertyWrapper extends ClassElementWrapper implements WritableInterface, 
             $setVisibility = ' private(set)';
         }
 
-        $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatValue($this->reflection->getDefaultValue()) : '';
+        $defaultValue = $this->reflection->hasDefaultValue() ? ' = '.self::formatValue($this->reflection->getDefaultValue()) : '';
 
         $name = $this->name;
 
         if ($withClassName) {
-            $name = $this->inDocParentWrapper->shortName . ($type === 'static' ? '::$' : '->') . $name;
+            $name = $this->inDocParentWrapper->shortName.($type === 'static' ? '::$' : '->').$name;
         } else {
-            $name = '$' . $name;
+            $name = '$'.$name;
         }
 
         return "{$this->getModifierNames()}{$setVisibility}{$type}{$name}{$defaultValue}";

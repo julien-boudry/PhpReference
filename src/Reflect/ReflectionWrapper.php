@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
@@ -34,14 +36,14 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction> $reflectors
+     * @param  array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction>  $reflectors
      * @return array<ReflectionWrapper>
      */
     public static function toWrapper(array $reflectors, ClassWrapper $classWrapper): array
     {
         $wrappers = [];
         foreach ($reflectors as $reflector) {
-            if(method_exists($reflector, 'getDeclaringClass')) {
+            if (method_exists($reflector, 'getDeclaringClass')) {
                 $declaringClass = Execution::$instance->codeIndex->getClassWrapper($reflector->getDeclaringClass()->name);
             }
 
@@ -50,17 +52,17 @@ abstract class ReflectionWrapper
                 $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper, $declaringClass),
                 $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper, $declaringClass),
                 $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
-                default => throw new \LogicException('Unsupported reflector type: ' . get_class($reflector)),
+                default => throw new \LogicException('Unsupported reflector type: '.get_class($reflector)),
             };
         }
 
         return $wrappers;
     }
 
-
     public readonly ?DocBlock $docBlock;
 
     public readonly bool $hasApiTag;
+
     public readonly bool $hasInternalTag;
 
     public bool $willBeInPublicApi {
@@ -76,9 +78,9 @@ abstract class ReflectionWrapper
 
     public function __construct(protected readonly Reflector $reflector)
     {
-         // Docblock
-         $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
-         $this->docBlock = !empty($docComment) ? Util::getDocBlocFactory()->create($docComment) : null;
+        // Docblock
+        $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
+        $this->docBlock = ! empty($docComment) ? Util::getDocBlocFactory()->create($docComment) : null;
 
         // DocBlock visibility
         if ($this->docBlock !== null && $this->docBlock->hasTag('api')) {
@@ -100,7 +102,7 @@ abstract class ReflectionWrapper
 
     public function getPageDirectory(): string
     {
-        return "/ref";
+        return '/ref';
     }
 
     public function getDescription(): ?string
@@ -111,13 +113,9 @@ abstract class ReflectionWrapper
     /**
      * Get all tags of a specific type from the DocBlock.
      *
-     * @param string $tag The tag name to filter by (e.g., 'param', 'return').
-     * @param string|null $variableNameFilter Optional variable name to filter by (for 'param' tags).
+     * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
+     * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
      * @return array<\phpDocumentor\Reflection\DocBlock\Tags\BaseTag> Array of tags matching the criteria.
-     *
-     * @param string $tag
-     * @param null|string $variableNameFilter
-     * @return array
      */
     public function getDocBlockTags(string $tag, ?string $variableNameFilter = null): ?array
     {
@@ -142,11 +140,11 @@ abstract class ReflectionWrapper
         }
     }
 
-    public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null) : ?string
+    public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
     {
         $tags = $this->getDocBlockTags($tag, $variableNameFilter);
 
-        if(empty($tags)) {
+        if (empty($tags)) {
             return null;
         }
 
@@ -177,7 +175,7 @@ abstract class ReflectionWrapper
         $maxLength = 200;
 
         if (strlen($description) > $maxLength) {
-            $description = mb_substr($description, 0, $maxLength) . '...';
+            $description = mb_substr($description, 0, $maxLength).'...';
         }
 
         return $description;
@@ -185,20 +183,17 @@ abstract class ReflectionWrapper
 
     public function getSourceLink(): ?string
     {
-        if (method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false)
-        {
+        if (method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false) {
             throw new LogicException("Method source link is not available on `{$this->name}` or the file does not exist.");
         }
 
-        if ($this->reflection->getFileName() === false || $this->reflection->getStartLine() === false)
-        {
+        if ($this->reflection->getFileName() === false || $this->reflection->getStartLine() === false) {
             return null;
         }
 
-        return 'https://github.com/julien-boudry/Condorcet/blob/master/' .
-                substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1) .
-                '#L' . $this->reflection->getStartLine()
-        ;
+        return 'https://github.com/julien-boudry/Condorcet/blob/master/'.
+                substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1).
+                '#L'.$this->reflection->getStartLine();
     }
 
     public function getUrlLinker(): UrlLinker
@@ -212,7 +207,7 @@ abstract class ReflectionWrapper
 
     public function getModifierNames(): string
     {
-        if (!method_exists($this->reflection, 'getModifiers')) {
+        if (! method_exists($this->reflection, 'getModifiers')) {
             throw new LogicException('Method getModifiers() is not available on this reflection class.');
         }
 

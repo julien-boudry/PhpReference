@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Template\Input;
 
@@ -16,7 +18,7 @@ class ApiSummaryInput
         $namespaces = [];
 
         foreach ($classes as $class) {
-            if (!isset($namespaces[$class->reflection->getNamespaceName()])) {
+            if (! isset($namespaces[$class->reflection->getNamespaceName()])) {
                 $namespaces[$class->reflection->getNamespaceName()] = ['class' => [], 'enum' => [], 'trait' => []];
             }
 

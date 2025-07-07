@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Command;
 
@@ -32,9 +34,13 @@ use function Laravel\Prompts\warning;
 class GenerateDocumentationCommand extends Command
 {
     protected readonly SymfonyStyle $io;
+
     protected readonly string $outputDir;
+
     protected readonly bool $appendOutput;
+
     protected bool $confirmed = true;
+
     protected Config $config;
 
     protected readonly Execution $execution;
@@ -69,7 +75,7 @@ class GenerateDocumentationCommand extends Command
                 shortcut: 'c',
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Path to configuration file',
-                default: getcwd() . DIRECTORY_SEPARATOR . 'reference.php',
+                default: getcwd().DIRECTORY_SEPARATOR.'reference.php',
             )
             ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.');
     }
@@ -93,7 +99,7 @@ class GenerateDocumentationCommand extends Command
     protected function init(): void
     {
         $this->appendOutput = $this->config->get(key: 'append', default: false);
-        $outputPath = $this->config->get(key: 'output', default: getcwd() . DIRECTORY_SEPARATOR . 'output');
+        $outputPath = $this->config->get(key: 'output', default: getcwd().DIRECTORY_SEPARATOR.'output');
         $realOutputPath = realpath($outputPath);
 
         if ($realOutputPath === false) {
@@ -114,7 +120,7 @@ class GenerateDocumentationCommand extends Command
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $currentNamespace = $this->config->get('namespace');
-        if (!$currentNamespace) {
+        if (! $currentNamespace) {
             $namespace = $this->io->ask(
                 question: 'Please enter the namespace to generate documentation for',
             );
@@ -122,10 +128,10 @@ class GenerateDocumentationCommand extends Command
         }
 
         $currentOutput = $this->config->get('output');
-        if (!$currentOutput) {
+        if (! $currentOutput) {
             $outputDir = $this->io->ask(
                 question: 'Please enter the output directory for generated documentation',
-                default: getcwd() . DIRECTORY_SEPARATOR . 'output'
+                default: getcwd().DIRECTORY_SEPARATOR.'output'
             );
             $this->config->set('output', $outputDir);
         }
@@ -143,8 +149,9 @@ class GenerateDocumentationCommand extends Command
 
         $this->init();
 
-        if (!$this->confirmed) {
+        if (! $this->confirmed) {
             warning('Operation cancelled by user.');
+
             return Command::INVALID;
         }
 
@@ -162,23 +169,25 @@ class GenerateDocumentationCommand extends Command
 
             note(sprintf('Found %d elements to process.', count($this->execution->mainPhpNodes)));
         } catch (\Throwable $e) {
-            error("Error while analyzing namespace '{$this->execution->codeIndex->namespace}': " . $e->getMessage());
+            error("Error while analyzing namespace '{$this->execution->codeIndex->namespace}': ".$e->getMessage());
             if ($output->isVerbose()) {
                 $this->io->text($e->getTraceAsString());
             }
+
             return Command::FAILURE;
         }
 
         if (empty($this->execution->mainPhpNodes)) {
             error("Namespace '{$this->execution->codeIndex->namespace}' does not exist or contains no public classes.");
+
             return Command::FAILURE;
         }
 
         $this->io->section("Generating documentation for namespace: {$this->execution->codeIndex->namespace}");
 
         // Clean output directory if requested
-        if (!$this->appendOutput) {
-            progress(label: 'Cleaning output directory', steps: 1, callback: function(): string {
+        if (! $this->appendOutput) {
+            progress(label: 'Cleaning output directory', steps: 1, callback: function (): string {
                 $filesystem = AbstractWriter::getFlySystem();
 
                 foreach ($filesystem->listContents('/', false) as $item) {
@@ -198,7 +207,7 @@ class GenerateDocumentationCommand extends Command
             progress(
                 label: 'Generating API summary',
                 steps: 1,
-                callback: fn() => $this->execution->buildIndex(),
+                callback: fn () => $this->execution->buildIndex(),
             );
 
             // Process each class
@@ -215,7 +224,7 @@ class GenerateDocumentationCommand extends Command
             $this->io->success([
                 'Documentation generation completed successfully!',
                 "Output directory: {$this->outputDir}",
-                sprintf('Processed %d classes.', count($this->execution->mainPhpNodes))
+                sprintf('Processed %d classes.', count($this->execution->mainPhpNodes)),
             ]);
 
             info(new ResourceUsageFormatter()->resourceUsage($timer->stop()));
@@ -225,7 +234,7 @@ class GenerateDocumentationCommand extends Command
         } catch (\Exception $e) {
             $this->io->error([
                 'An error occurred during documentation generation:',
-                $e->getMessage()
+                $e->getMessage(),
             ]);
 
             if ($output->isVerbose()) {

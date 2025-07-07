@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
+use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 
 class UrlLinker
 {

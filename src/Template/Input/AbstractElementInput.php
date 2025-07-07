@@ -1,15 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Template\Input;
 
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
+use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 use JulienBoudry\PhpReference\UrlLinker;
 
 abstract class AbstractElementInput
 {
-    protected readonly WritableInterface & ReflectionWrapper $reflectionWrapper;
+    protected readonly WritableInterface&ReflectionWrapper $reflectionWrapper;
 
     public string $pagePath {
         get => $this->reflectionWrapper->getPagePath();

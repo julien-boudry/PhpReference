@@ -1,19 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\Capabilities\HasParentInterface;
-use JulienBoudry\PhpReference\Util;
-use LogicException;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlockFactoryInterface;
-use Reflection;
-use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionMethod;
-use ReflectionProperties;
 use ReflectionProperty;
 use WeakReference;
 
@@ -35,7 +28,7 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
 
     public ?ClassWrapper $inDocParentWrapper {
         get {
-            if ($this->declaringClass === null || !$this->declaringClass->willBeInPublicApi) {
+            if ($this->declaringClass === null || ! $this->declaringClass->willBeInPublicApi) {
                 return $this->parentWrapper;
             }
 
@@ -51,8 +44,7 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
         ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass,
         ClassWrapper $classWrapper,
         ?ClassWrapper $declaringClass
-    )
-    {
+    ) {
         $this->classReference = WeakReference::create($classWrapper);
 
         $this->declaringClassReference = $declaringClass ? WeakReference::create($declaringClass) : null;
@@ -65,7 +57,8 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
         return $this->inDocParentWrapper->getPageDirectory();
     }
 
-    public function isPublic(): bool {
+    public function isPublic(): bool
+    {
         return $this->reflection->isPublic();
     }
 

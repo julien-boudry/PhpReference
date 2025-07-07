@@ -1,17 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Writer;
 
-use JulienBoudry\PhpReference\Formater\ClassFormater;
 use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Template\Input\ApiSummaryInput;
-use JulienBoudry\PhpReference\Template\Input\ClassPageInput;
 
 class PublicApiSummaryWriter extends AbstractWriter
 {
     public string $writePath = '/readme.md';
 
-    public function __construct (public readonly CodeIndex $codeIndex) {
+    public function __construct(public readonly CodeIndex $codeIndex)
+    {
         parent::__construct();
     }
 
@@ -20,10 +21,10 @@ class PublicApiSummaryWriter extends AbstractWriter
         return $this->getBuildIndex();
     }
 
-    public function getBuildIndex() : string
+    public function getBuildIndex(): string
     {
         return self::$latte->renderToString(
-            name: AbstractWriter::TEMPLATE_DIR . '/api_summary.latte',
+            name: AbstractWriter::TEMPLATE_DIR.'/api_summary.latte',
             params : new ApiSummaryInput(
                 classes: $this->codeIndex->getApiClasses()
             ),

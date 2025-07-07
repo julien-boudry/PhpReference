@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
-use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
@@ -21,7 +22,7 @@ final class Execution
     /* @var array<string> */
     public private(set) array $writedPages = [];
 
-    public function __construct (
+    public function __construct(
         public readonly CodeIndex $codeIndex,
         public readonly string $outputDir,
         public readonly PublicApiDefinitionInterface $publicApiDefinition,
@@ -67,7 +68,7 @@ final class Execution
     {
         $writePath = $writer->writePath;
 
-        if (!in_array($writePath, $this->writedPages, true)) {
+        if (! in_array($writePath, $this->writedPages, true)) {
             $this->writedPages[] = $writer->write();
         }
     }

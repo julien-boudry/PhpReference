@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use JulienBoudry\PhpReference\Definition\HasTagApi;
 
@@ -22,7 +24,7 @@ return [
 
     // Output directory for generated documentation
     // Can be overridden with: --output=/path/to/output or -o /path/to/output
-    'output' => getcwd() . DIRECTORY_SEPARATOR . 'output',
+    'output' => getcwd().DIRECTORY_SEPARATOR.'output',
 
     // Don't clean the output directory before generating documentation
     // Can be overridden with: --append or -a
@@ -32,5 +34,5 @@ return [
     // Can be an instance of PublicApiDefinitionInterface or will be resolved from string via CLI
     // Available CLI values: 'api' (default), 'public'
     // Can be overridden with: --api=public or --api=api
-    'api' => new HasTagApi(),
+    'api' => new HasTagApi,
 ];

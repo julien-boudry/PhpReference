@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Definition;
 
@@ -7,7 +9,6 @@ use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Reflect\FunctionWrapper;
 use JulienBoudry\PhpReference\Reflect\MethodWrapper;
 use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
-use ReflectionFunctionAbstract;
 
 abstract class Base
 {
@@ -18,7 +19,7 @@ abstract class Base
         }
 
         if ($reflectionWrapper instanceof ClassWrapper || $reflectionWrapper instanceof MethodWrapper || $reflectionWrapper instanceof FunctionWrapper) {
-            if (!$reflectionWrapper->isUserDefined()) {
+            if (! $reflectionWrapper->isUserDefined()) {
                 return false;
             }
         }

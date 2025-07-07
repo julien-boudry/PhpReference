@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Writer;
 
@@ -9,9 +11,10 @@ use League\Flysystem\Local\LocalFilesystemAdapter;
 
 abstract class AbstractWriter
 {
-    public const TEMPLATE_DIR = __DIR__ . '/../Template';
+    public const TEMPLATE_DIR = __DIR__.'/../Template';
 
-    public static string $outputDir = __DIR__ . '/../../output';
+    public static string $outputDir = __DIR__.'/../../output';
+
     protected static Filesystem $filesystem;
 
     public protected(set) string $writePath = '/';
@@ -25,7 +28,8 @@ abstract class AbstractWriter
         return self::$filesystem ??= new Filesystem(new LocalFilesystemAdapter(self::$outputDir));
     }
 
-    public function __construct() {
+    public function __construct()
+    {
         // Initialiser Flysystem
         self::getFlySystem();
 
@@ -38,7 +42,7 @@ abstract class AbstractWriter
         $this->content = $this->makeContent();
     }
 
-    abstract function makeContent(): string;
+    abstract public function makeContent(): string;
 
     public function write(): string
     {
