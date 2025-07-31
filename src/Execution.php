@@ -30,7 +30,7 @@ final class Execution
     public function buildIndex(): static
     {
         // Generate index page
-        new PublicApiSummaryWriter($this->codeIndex);
+        $this->writePage(new PublicApiSummaryWriter($this->codeIndex));
 
         return $this;
     }
