@@ -1,0 +1,10 @@
+{define related, $reflection}
+{* *}
+{if $seeTags = $reflection->getSeeTags()}
+
+## Related
+{foreach $seeTags as $tag}
+- **{$tag->getReference()}**{if $tag->getDescription()} _{$tag->getDescription()}_{/if}
+{/foreach}
+{/if}
+{/define}

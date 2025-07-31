@@ -8,6 +8,8 @@ use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
+use phpDocumentor\Reflection\DocBlock\Tag;
+use phpDocumentor\Reflection\DocBlock\Tags\InvalidTag;
 use phpDocumentor\Reflection\DocBlock\Tags\Param;
 use Reflection;
 use ReflectionClass;
@@ -114,7 +116,7 @@ abstract class ReflectionWrapper
      * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
      * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
      *
-     * @return array<DocBlock\Tags\BaseTag> Array of tags matching the criteria.
+     * @return ?array<DocBlock\Tags\BaseTag> Array of tags matching the criteria.
      */
     public function getDocBlockTags(string $tag, ?string $variableNameFilter = null): ?array
     {
@@ -122,8 +124,12 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        /** @var DocBlock\Tags\BaseTag[] */
+        /** @var DocBlock\Tag[] */
         $tagObjects = $this->docBlock->getTagsByName($tag);
+
+        // Filtrer les objets par type si spécifié
+        /** @var DocBlock\Tags\BaseTag[] */
+        $tagObjects = array_filter($tagObjects, fn(Tag $tagObject): bool => !($tagObject instanceof InvalidTag));
 
         if (empty($tagObjects)) {
             return null;
@@ -135,6 +141,17 @@ abstract class ReflectionWrapper
             /** @var Param[] */
             return array_filter($tagObjects, fn(Param $tag): bool => $tag->getVariableName() === $variableNameFilter);
         }
+    }
+
+    /**
+     * @return ?array<DocBlock\Tags\See>
+     */
+    public function getSeeTags(): ?array
+    {
+        /** @var ?DocBlock\Tags\See[] */
+        $seeTags = $this->getDocBlockTags('see');
+
+        return $seeTags;
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string

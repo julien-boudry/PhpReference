@@ -4,6 +4,7 @@
 {import 'params.latte'}
 {import 'return.latte'}
 {import 'throws.latte'}
+{import 'related.latte'}
 {* *}
 # Method {$method->name}()
 {include readItAtSource, $method}
@@ -19,3 +20,5 @@
 {include return, $method}
 {* *}
 {include throws, $method}
+{* *}
+{include related, $method}

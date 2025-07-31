@@ -10,8 +10,12 @@ namespace JulienBoudry\PhpReference\Reflect\Structure;
  */
 trait CanThrow
 {
+    /**
+     * @return ?\phpDocumentor\Reflection\DocBlock\Tags\Throws[]
+     */
     public function getThrows(): ?array
     {
+        /** @var ?\phpDocumentor\Reflection\DocBlock\Tags\Throws[] */
         $throws = $this->getDocBlockTags('throws');
         if ($throws === null) {
             return null;

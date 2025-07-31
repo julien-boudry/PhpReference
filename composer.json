@@ -13,7 +13,7 @@
     "require-dev": {
         "pestphp/pest": "^3.8",
         "phpstan/phpstan": "^2.1",
-        "julien-boudry/condorcet": "^5.0",
+        "julien-boudry/condorcet": "dev-dev-5.0",
         "friendsofphp/php-cs-fixer": "^3.85"
     },
     "bin": [
