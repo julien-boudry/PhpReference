@@ -9,8 +9,7 @@ use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tag;
-use phpDocumentor\Reflection\DocBlock\Tags\InvalidTag;
-use phpDocumentor\Reflection\DocBlock\Tags\Param;
+use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -80,7 +79,7 @@ abstract class ReflectionWrapper
     {
         // Docblock
         $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
-        $this->docBlock = ! empty($docComment) ? Util::getDocBlocFactory()->create($docComment) : null;
+        $this->docBlock = ! empty($docComment) ? Util::getDocBlocFactory()->create($docComment, Util::getDocBlocContextFactory()->createFromReflector($reflector)) : null;
 
         // DocBlock visibility
         if ($this->docBlock !== null && $this->docBlock->hasTag('api')) {
@@ -124,7 +123,7 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        /** @var DocBlock\Tag[] */
+        /** @var Tag[] */
         $tagObjects = $this->docBlock->getTagsByName($tag);
 
         // Filtrer les objets par type si spécifié
@@ -149,9 +148,7 @@ abstract class ReflectionWrapper
     public function getSeeTags(): ?array
     {
         /** @var ?DocBlock\Tags\See[] */
-        $seeTags = $this->getDocBlockTags('see');
-
-        return $seeTags;
+        return $this->getDocBlockTags('see');
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string

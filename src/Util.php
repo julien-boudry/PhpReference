@@ -5,16 +5,25 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use phpDocumentor\Reflection\{DocBlockFactory, DocBlockFactoryInterface};
+use phpDocumentor\Reflection\Types\ContextFactory;
 
 class Util
 {
     protected static DocBlockFactoryInterface $docBlockFactory;
+    protected static ContextFactory $docBlockContextFactory;
 
     public static function getDocBlocFactory(): DocBlockFactoryInterface
     {
         self::$docBlockFactory ??= DocBlockFactory::createInstance();
 
         return self::$docBlockFactory;
+    }
+
+    public static function getDocBlocContextFactory(): ContextFactory
+    {
+        self::$docBlockContextFactory ??= new ContextFactory;
+
+        return self::$docBlockContextFactory;
     }
 
     public static function arrayToString(array $array, int $depth = 0): string
