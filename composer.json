@@ -12,9 +12,9 @@
     },
     "require-dev": {
         "pestphp/pest": "^3.8",
-        "laravel/pint": "^1.22",
         "phpstan/phpstan": "^2.1",
-        "julien-boudry/condorcet": "^5.0"
+        "julien-boudry/condorcet": "^5.0",
+        "friendsofphp/php-cs-fixer": "^3.85"
     },
     "bin": [
         "bin/php-reference"
@@ -44,7 +44,8 @@
     "scripts": {
         "test": "pest",
         "document": "php Dev/update-documentation.php",
-        "pintify": "pint",
+        "lint": "php-cs-fixer fix",
+        "pintify": "@lint",
         "phpstan": "phpstan analyse --no-interaction",
         "rector": "rector process --dry-run"
     },
