@@ -40,7 +40,7 @@ trait IsFunction
     {
         if (! $this->hasReturnType()) {
             throw new \RuntimeException(
-                'Method '.$this->reflection->getName().' has no return type.'
+                'Method ' . $this->reflection->getName() . ' has no return type.'
             );
         }
 

@@ -35,9 +35,9 @@ class EnumWrapper extends ClassWrapper
 
     protected function getHeritageHeadSignature(): string
     {
-        $backed = $this->isBacked() ? ': '.$this->getBackedType() : '';
+        $backed = $this->isBacked() ? ': ' . $this->getBackedType() : '';
 
-        return $backed.parent::getHeritageHeadSignature();
+        return $backed . parent::getHeritageHeadSignature();
     }
 
     protected function getInsideClassSignature(bool $onlyApi): string
@@ -47,18 +47,18 @@ class EnumWrapper extends ClassWrapper
         $casesSignatures = '';
 
         foreach ($this->reflection->getCases() as $case) {
-            $casesSignatures .= '    case '.$case->getName();
+            $casesSignatures .= '    case ' . $case->getName();
 
             if ($case instanceof ReflectionEnumBackedCase) {
                 $backingValue = $case->getBackingValue();
-                $backingValue = is_string($backingValue) ? '"'.$backingValue.'"' : (string) $backingValue;
+                $backingValue = \is_string($backingValue) ? '"' . $backingValue . '"' : (string) $backingValue;
 
-                $casesSignatures .= ' = '.$backingValue;
+                $casesSignatures .= ' = ' . $backingValue;
             }
 
             $casesSignatures .= ";\n";
         }
 
-        return $casesSignatures.$signature;
+        return $casesSignatures . $signature;
     }
 }

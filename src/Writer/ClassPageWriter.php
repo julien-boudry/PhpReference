@@ -19,7 +19,7 @@ class ClassPageWriter extends AbstractWriter
     public function makeContent(): string
     {
         return self::$latte->renderToString(
-            name: AbstractWriter::TEMPLATE_DIR.'/class_page.latte',
+            name: AbstractWriter::TEMPLATE_DIR . '/class_page.latte',
             params : new ClassPageInput(
                 class: $this->class
             ),

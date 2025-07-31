@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
-use JulienBoudry\PhpReference\Definition\HasTagApi;
-use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
-use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
+use JulienBoudry\PhpReference\Definition\{HasTagApi, IsPubliclyAccessible, PublicApiDefinitionInterface};
 
 class Config
 {
@@ -14,7 +12,7 @@ class Config
 
     public function __construct(?string $configPath = null)
     {
-        $configPath = $configPath ?? getcwd().DIRECTORY_SEPARATOR.'reference.php';
+        $configPath = $configPath ?? getcwd() . \DIRECTORY_SEPARATOR . 'reference.php';
 
         if (file_exists($configPath)) {
             $this->config = require $configPath;
@@ -22,7 +20,7 @@ class Config
     }
 
     /**
-     * Get a configuration value with optional default
+     * Get a configuration value with optional default.
      */
     public function get(string $key, mixed $default = null): mixed
     {
@@ -30,7 +28,7 @@ class Config
     }
 
     /**
-     * Set a configuration value (for CLI overrides)
+     * Set a configuration value (for CLI overrides).
      */
     public function set(string $key, mixed $value): void
     {
@@ -38,15 +36,15 @@ class Config
     }
 
     /**
-     * Check if a configuration key exists
+     * Check if a configuration key exists.
      */
     public function has(string $key): bool
     {
-        return array_key_exists($key, $this->config);
+        return \array_key_exists($key, $this->config);
     }
 
     /**
-     * Get all configuration as array
+     * Get all configuration as array.
      */
     public function all(): array
     {
@@ -54,7 +52,7 @@ class Config
     }
 
     /**
-     * Merge configuration with CLI arguments, giving priority to CLI
+     * Merge configuration with CLI arguments, giving priority to CLI.
      *
      * @param  array<string|null>  $cliArgs  Associative array of CLI arguments
      */
@@ -68,7 +66,7 @@ class Config
     }
 
     /**
-     * Get the API definition, resolving from string if necessary
+     * Get the API definition, resolving from string if necessary.
      */
     public function getApiDefinition(?PublicApiDefinitionInterface $default = null): ?PublicApiDefinitionInterface
     {
@@ -78,7 +76,7 @@ class Config
             return $apiConfig;
         }
 
-        if (is_string($apiConfig) && ! empty($apiConfig)) {
+        if (\is_string($apiConfig) && ! empty($apiConfig)) {
             return match (mb_strtolower($apiConfig)) {
                 mb_strtolower('IsPubliclyAccessible') => new IsPubliclyAccessible,
                 mb_strtolower('HasTagApi') => new HasTagApi,

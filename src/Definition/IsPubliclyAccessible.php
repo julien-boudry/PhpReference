@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Definition;
 
-use JulienBoudry\PhpReference\Reflect\ClassElementWrapper;
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ReflectionWrapper};
 
 class IsPubliclyAccessible extends Base implements PublicApiDefinitionInterface
 {

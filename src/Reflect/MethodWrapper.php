@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
-use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
-use JulienBoudry\PhpReference\Reflect\Structure\IsFunction;
+use JulienBoudry\PhpReference\Reflect\Structure\{CanThrow, IsFunction};
+use JulienBoudry\PhpReference\Reflect\Capabilities\{SignatureInterface, WritableInterface};
 use ReflectionMethod;
 
 class MethodWrapper extends ClassElementWrapper implements SignatureInterface, WritableInterface
@@ -23,7 +21,7 @@ class MethodWrapper extends ClassElementWrapper implements SignatureInterface, W
 
     public function getPagePath(): string
     {
-        return $this->getPageDirectory()."/method_{$this->name}.md";
+        return $this->getPageDirectory() . "/method_{$this->name}.md";
     }
 
     public function getSignature(bool $withClassName = false): string
@@ -51,14 +49,12 @@ class MethodWrapper extends ClassElementWrapper implements SignatureInterface, W
 
         $str .= ' )';
 
-        $str = $this->getModifierNames().
-                ' function '.
-                (! $withClassName ? $this->inDocParentWrapper->shortName : '').
-                (! $withClassName ? ($this->reflection->isStatic() ? '::' : '->') : '').
-                $this->reflection->name.
-                $str.
-                ($this->hasReturnType() ? ': '.$this->getReturnType() : '');
-
-        return $str;
+        return $this->getModifierNames() .
+                ' function ' .
+                (! $withClassName ? $this->inDocParentWrapper->shortName : '') .
+                (! $withClassName ? ($this->reflection->isStatic() ? '::' : '->') : '') .
+                $this->reflection->name .
+                $str .
+                ($this->hasReturnType() ? ': ' . $this->getReturnType() : '');
     }
 }

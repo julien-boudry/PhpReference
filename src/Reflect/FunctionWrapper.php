@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use JulienBoudry\PhpReference\Reflect\Structure\CanThrow;
-use JulienBoudry\PhpReference\Reflect\Structure\IsFunction;
+use JulienBoudry\PhpReference\Reflect\Structure\{CanThrow, IsFunction};
 use ReflectionFunction;
 
 class FunctionWrapper extends ReflectionWrapper

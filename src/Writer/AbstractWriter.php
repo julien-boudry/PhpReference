@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Writer;
 
-use Latte\ContentType;
-use Latte\Engine;
+use Latte\{ContentType, Engine};
 use League\Flysystem\Filesystem;
 use League\Flysystem\Local\LocalFilesystemAdapter;
 
 abstract class AbstractWriter
 {
-    public const TEMPLATE_DIR = __DIR__.'/../Template';
+    public const TEMPLATE_DIR = __DIR__ . '/../Template';
 
-    public static string $outputDir = __DIR__.'/../../output';
+    public static string $outputDir = __DIR__ . '/../../output';
 
     protected static Filesystem $filesystem;
 

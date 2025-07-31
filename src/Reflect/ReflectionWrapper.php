@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use JulienBoudry\PhpReference\Execution;
+use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use JulienBoudry\PhpReference\UrlLinker;
-use JulienBoudry\PhpReference\Util;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tags\Param;
@@ -25,18 +23,18 @@ abstract class ReflectionWrapper
 {
     protected static function formatValue(mixed $defaultValue): string
     {
-        if (is_array($defaultValue)) {
+        if (\is_array($defaultValue)) {
             return Util::arrayToString($defaultValue);
         }
 
         $defaultValue = var_export($defaultValue, true);
-        $defaultValue = str_replace('NULL', 'null', $defaultValue);
 
-        return $defaultValue;
+        return str_replace('NULL', 'null', $defaultValue);
     }
 
     /**
      * @param  array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction>  $reflectors
+     *
      * @return array<ReflectionWrapper>
      */
     public static function toWrapper(array $reflectors, ClassWrapper $classWrapper): array
@@ -52,7 +50,7 @@ abstract class ReflectionWrapper
                 $reflector instanceof ReflectionProperty => new PropertyWrapper($reflector, $classWrapper, $declaringClass),
                 $reflector instanceof ReflectionClassConstant => new ClassConstantWrapper($reflector, $classWrapper, $declaringClass),
                 $reflector instanceof ReflectionFunction => new FunctionWrapper($reflector), // @phpstan-ignore instanceof.alwaysTrue
-                default => throw new \LogicException('Unsupported reflector type: '.get_class($reflector)),
+                default => throw new LogicException('Unsupported reflector type: ' . $reflector::class),
             };
         }
 
@@ -115,7 +113,8 @@ abstract class ReflectionWrapper
      *
      * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
      * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
-     * @return array<\phpDocumentor\Reflection\DocBlock\Tags\BaseTag> Array of tags matching the criteria.
+     *
+     * @return array<DocBlock\Tags\BaseTag> Array of tags matching the criteria.
      */
     public function getDocBlockTags(string $tag, ?string $variableNameFilter = null): ?array
     {
@@ -123,7 +122,7 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        /** @var \phpDocumentor\Reflection\DocBlock\Tags\BaseTag[] */
+        /** @var DocBlock\Tags\BaseTag[] */
         $tagObjects = $this->docBlock->getTagsByName($tag);
 
         if (empty($tagObjects)) {
@@ -133,10 +132,8 @@ abstract class ReflectionWrapper
         if ($variableNameFilter === null) {
             return $tagObjects;
         } else {
-            /** @var \phpDocumentor\Reflection\DocBlock\Tags\Param[] */
-            $params = array_filter($tagObjects, fn (Param $tag): bool => $tag->getVariableName() === $variableNameFilter);
-
-            return $params;
+            /** @var Param[] */
+            return array_filter($tagObjects, fn(Param $tag): bool => $tag->getVariableName() === $variableNameFilter);
         }
     }
 
@@ -174,8 +171,8 @@ abstract class ReflectionWrapper
         // Truncate to x characters and add ellipsis if needed
         $maxLength = 200;
 
-        if (strlen($description) > $maxLength) {
-            $description = mb_substr($description, 0, $maxLength).'...';
+        if (\strlen($description) > $maxLength) {
+            $description = mb_substr($description, 0, $maxLength) . '...';
         }
 
         return $description;
@@ -191,9 +188,9 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        return 'https://github.com/julien-boudry/Condorcet/blob/master/'.
-                substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1).
-                '#L'.$this->reflection->getStartLine();
+        return 'https://github.com/julien-boudry/Condorcet/blob/master/' .
+                substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1) .
+                '#L' . $this->reflection->getStartLine();
     }
 
     public function getUrlLinker(): UrlLinker
@@ -202,7 +199,7 @@ abstract class ReflectionWrapper
             return new UrlLinker($this);
         }
 
-        throw new \LogicException('This wrapper does not implement WritableInterface');
+        throw new LogicException('This wrapper does not implement WritableInterface');
     }
 
     public function getModifierNames(): string

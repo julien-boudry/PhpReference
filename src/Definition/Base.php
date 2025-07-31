@@ -1,14 +1,8 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Definition;
 
-use JulienBoudry\PhpReference\Reflect\ClassElementWrapper;
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Reflect\FunctionWrapper;
-use JulienBoudry\PhpReference\Reflect\MethodWrapper;
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, FunctionWrapper, MethodWrapper, ReflectionWrapper};
 
 abstract class Base
 {

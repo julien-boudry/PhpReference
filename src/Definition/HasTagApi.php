@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Definition;
 
-use JulienBoudry\PhpReference\Reflect\ClassElementWrapper;
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, ReflectionWrapper};
 
 class HasTagApi extends Base implements PublicApiDefinitionInterface
 {

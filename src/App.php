@@ -15,7 +15,7 @@ abstract class App
 
     public static function getFullName(): string
     {
-        return sprintf('%s v%s', self::NAME, self::VERSION);
+        return \sprintf('%s v%s', self::NAME, self::VERSION);
     }
 
     public static function runApplication(): void

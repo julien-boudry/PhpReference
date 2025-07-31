@@ -51,15 +51,15 @@ trait HasType
                 function (string $type): string {
                     $pureType = str_replace('?', '', $type); // Remove nullable type indicator
 
-                    if (array_key_exists($pureType, Execution::$instance->codeIndex->classList)) {
+                    if (\array_key_exists($pureType, Execution::$instance->codeIndex->classList)) {
                         $pageDestination = Execution::$instance->codeIndex->classList[$pureType];
 
                         $toLink = $this->parentWrapper->getUrlLinker()->to($pageDestination);
 
-                        return "[`$type`]($toLink)";
+                        return "[`{$type}`]({$toLink})";
                     }
 
-                    return "`$type`";
+                    return "`{$type}`";
                 },
                 $types
             )

@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
-use CondorcetPHP\Condorcet\Condorcet;
-use CondorcetPHP\Condorcet\Election;
-use JulienBoudry\PhpReference\CodeIndex;
+use CondorcetPHP\Condorcet\{Condorcet, Election};
+use JulienBoudry\PhpReference\{CodeIndex, Execution};
 use JulienBoudry\PhpReference\Definition\HasTagApi;
-use JulienBoudry\PhpReference\Execution;
 
 beforeEach(function (): void {
     $this->codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
@@ -14,9 +12,9 @@ beforeEach(function (): void {
 it('test public condorcet', function (): void {
     expect($this->codeIndex->classList)
         ->toBeGreaterThan(100)
-        ->toBeGreaterThan(count($this->codeIndex->getApiClasses()));
+        ->toBeGreaterThan(\count($this->codeIndex->getApiClasses()));
 
-    expect(count($this->codeIndex->getApiClasses()))->toBeGreaterThan(0);
+    expect(\count($this->codeIndex->getApiClasses()))->toBeGreaterThan(0);
 
     foreach ($this->codeIndex->getApiClasses() as $class) {
         expect($class->willBeInPublicApi)->toBeTrue();
@@ -29,9 +27,9 @@ it('has methods', function (): void {
     $electionClass = $this->codeIndex->classList[Election::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
-    $allApiMethods = count($electionClass->getAllApiMethods());
-    $allUserDefinedMethods = count($electionClass->getAllUserDefinedMethods());
-    $allUserDefinedMethodsWithoutPrivateProtected = count($electionClass->getAllUserDefinedMethods(protected: false, private: false));
+    $allApiMethods = \count($electionClass->getAllApiMethods());
+    $allUserDefinedMethods = \count($electionClass->getAllUserDefinedMethods());
+    $allUserDefinedMethodsWithoutPrivateProtected = \count($electionClass->getAllUserDefinedMethods(protected: false, private: false));
 
     expect($allUserDefinedMethods)->toBeGreaterThan($allUserDefinedMethodsWithoutPrivateProtected);
 
@@ -52,9 +50,9 @@ it('has properties', function (): void {
     $electionClass = $this->codeIndex->classList[Election::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
-    $allApiProperties = count($electionClass->getAllApiProperties());
-    $allProperties = count($electionClass->getAllProperties());
-    $allPropertiesWithoutPrivateProtected = count($electionClass->getAllProperties(protected: false, private: false));
+    $allApiProperties = \count($electionClass->getAllApiProperties());
+    $allProperties = \count($electionClass->getAllProperties());
+    $allPropertiesWithoutPrivateProtected = \count($electionClass->getAllProperties(protected: false, private: false));
 
     expect($allProperties)->toBeGreaterThan($allPropertiesWithoutPrivateProtected);
 
@@ -75,9 +73,9 @@ it('has constants', function (): void {
     $electionClass = $this->codeIndex->classList[Condorcet::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
-    $allConstants = count($electionClass->getAllConstants());
-    $allApiConstants = count($electionClass->getAllApiConstants());
-    $allConstantsWithoutPrivateProtected = count($electionClass->getAllConstants(protected: false, private: false));
+    $allConstants = \count($electionClass->getAllConstants());
+    $allApiConstants = \count($electionClass->getAllApiConstants());
+    $allConstantsWithoutPrivateProtected = \count($electionClass->getAllConstants(protected: false, private: false));
 
     expect($allConstants)->toBeGreaterThanOrEqual($allConstantsWithoutPrivateProtected);
 

@@ -6,11 +6,7 @@ namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Writer\AbstractWriter;
-use JulienBoudry\PhpReference\Writer\ClassPageWriter;
-use JulienBoudry\PhpReference\Writer\MethodPageWriter;
-use JulienBoudry\PhpReference\Writer\PropertyPageWriter;
-use JulienBoudry\PhpReference\Writer\PublicApiSummaryWriter;
+use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, PropertyPageWriter, PublicApiSummaryWriter};
 
 final class Execution
 {
@@ -68,7 +64,7 @@ final class Execution
     {
         $writePath = $writer->writePath;
 
-        if (! in_array($writePath, $this->writedPages, true)) {
+        if (! \in_array($writePath, $this->writedPages, true)) {
             $this->writedPages[] = $writer->write();
         }
     }

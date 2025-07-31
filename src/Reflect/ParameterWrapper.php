@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use JulienBoudry\PhpReference\Reflect\Capabilities\HasParentInterface;
-use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
+use JulienBoudry\PhpReference\Reflect\Capabilities\{HasParentInterface, SignatureInterface};
 use JulienBoudry\PhpReference\Reflect\Structure\HasType;
 use ReflectionParameter;
 use WeakReference;
@@ -44,8 +43,8 @@ class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, 
         $str = (string) $refl->getType();
         $str .= ' ';
         $str .= $refl->isPassedByReference() ? '&' : '';
-        $str .= '$'.$this->name;
-        $str .= $refl->isDefaultValueAvailable() ? ' = '.self::formatValue($refl->getDefaultValue()) : '';
+        $str .= '$' . $this->name;
+        $str .= $refl->isDefaultValueAvailable() ? ' = ' . self::formatValue($refl->getDefaultValue()) : '';
 
         return $str;
     }

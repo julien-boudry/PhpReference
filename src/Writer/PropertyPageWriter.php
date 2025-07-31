@@ -19,7 +19,7 @@ class PropertyPageWriter extends AbstractWriter
     public function makeContent(): string
     {
         return self::$latte->renderToString(
-            name: AbstractWriter::TEMPLATE_DIR.'/property_page.latte',
+            name: AbstractWriter::TEMPLATE_DIR . '/property_page.latte',
             params : new PropertyPageInput(
                 property: $this->property
             ),

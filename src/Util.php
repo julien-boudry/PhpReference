@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\DocBlockFactoryInterface;
+use phpDocumentor\Reflection\{DocBlockFactory, DocBlockFactoryInterface};
 
 class Util
 {
@@ -27,7 +26,7 @@ class Util
         $result = '[';
 
         // Vérifier si c'est un array indexé qui commence à 0
-        $isIndexed = array_keys($array) === range(0, count($array) - 1);
+        $isIndexed = array_keys($array) === range(0, \count($array) - 1);
 
         // last key
         $lastKey = array_key_last($array);
@@ -35,20 +34,20 @@ class Util
         foreach ($array as $key => $value) {
             // N'afficher la clé que si ce n'est pas un array indexé commençant à 0
             if (! $isIndexed) {
-                if (is_string($key)) {
+                if (\is_string($key)) {
                     $result .= "'{$key}' => ";
                 } else {
                     $result .= "{$key} => ";
                 }
             }
 
-            if (is_array($value)) {
+            if (\is_array($value)) {
                 $result .= self::arrayToString($value, $depth + 1);
-            } elseif (is_string($value)) {
+            } elseif (\is_string($value)) {
                 $result .= "'{$value}'";
-            } elseif (is_null($value)) {
+            } elseif ($value === null) {
                 $result .= 'null';
-            } elseif (is_bool($value)) {
+            } elseif (\is_bool($value)) {
                 $result .= $value ? 'true' : 'false';
             } else {
                 $result .= $value;

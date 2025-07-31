@@ -1,31 +1,18 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Command;
 
-use JulienBoudry\PhpReference\App;
-use JulienBoudry\PhpReference\CodeIndex;
-use JulienBoudry\PhpReference\Config;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
-use JulienBoudry\PhpReference\Execution;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
-use SebastianBergmann\Timer\ResourceUsageFormatter;
-use SebastianBergmann\Timer\Timer;
+use SebastianBergmann\Timer\{ResourceUsageFormatter, Timer};
+use JulienBoudry\PhpReference\{App, CodeIndex, Config, Execution};
+use Symfony\Component\Console\Input\{InputArgument, InputInterface, InputOption};
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\error;
-use function Laravel\Prompts\info;
-use function Laravel\Prompts\note;
-use function Laravel\Prompts\progress;
-use function Laravel\Prompts\warning;
+use function Laravel\Prompts\{confirm, error, info, note, progress, warning};
 
 #[AsCommand(
     name: 'generate:documentation',
@@ -68,14 +55,14 @@ class GenerateDocumentationCommand extends Command
             ->addOption(
                 name: 'api',
                 mode: InputOption::VALUE_REQUIRED,
-                description: sprintf('API definition to use (overrides config file)'),
+                description: \sprintf('API definition to use (overrides config file)'),
             )
             ->addOption(
                 name: 'config',
                 shortcut: 'c',
                 mode: InputOption::VALUE_OPTIONAL,
                 description: 'Path to configuration file',
-                default: getcwd().DIRECTORY_SEPARATOR.'reference.php',
+                default: getcwd() . \DIRECTORY_SEPARATOR . 'reference.php',
             )
             ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.');
     }
@@ -99,7 +86,7 @@ class GenerateDocumentationCommand extends Command
     protected function init(): void
     {
         $this->appendOutput = $this->config->get(key: 'append', default: false);
-        $outputPath = $this->config->get(key: 'output', default: getcwd().DIRECTORY_SEPARATOR.'output');
+        $outputPath = $this->config->get(key: 'output', default: getcwd() . \DIRECTORY_SEPARATOR . 'output');
         $realOutputPath = realpath($outputPath);
 
         if ($realOutputPath === false) {
@@ -131,7 +118,7 @@ class GenerateDocumentationCommand extends Command
         if (! $currentOutput) {
             $outputDir = $this->io->ask(
                 question: 'Please enter the output directory for generated documentation',
-                default: getcwd().DIRECTORY_SEPARATOR.'output'
+                default: getcwd() . \DIRECTORY_SEPARATOR . 'output'
             );
             $this->config->set('output', $outputDir);
         }
@@ -167,9 +154,9 @@ class GenerateDocumentationCommand extends Command
             $progress->advance();
             $progress->finish();
 
-            note(sprintf('Found %d elements to process.', count($this->execution->mainPhpNodes)));
+            note(\sprintf('Found %d elements to process.', \count($this->execution->mainPhpNodes)));
         } catch (\Throwable $e) {
-            error("Error while analyzing namespace '{$this->execution->codeIndex->namespace}': ".$e->getMessage());
+            error("Error while analyzing namespace '{$this->execution->codeIndex->namespace}': " . $e->getMessage());
             if ($output->isVerbose()) {
                 $this->io->text($e->getTraceAsString());
             }
@@ -207,11 +194,11 @@ class GenerateDocumentationCommand extends Command
             progress(
                 label: 'Generating API summary',
                 steps: 1,
-                callback: fn () => $this->execution->buildIndex(),
+                callback: fn() => $this->execution->buildIndex(),
             );
 
             // Process each class
-            $progress = progress(label: 'Processing classes', steps: count($this->execution->mainPhpNodes));
+            $progress = progress(label: 'Processing classes', steps: \count($this->execution->mainPhpNodes));
 
             $this->execution->buildPages(
                 afterElementCallback: function () use ($progress): void {
@@ -224,7 +211,7 @@ class GenerateDocumentationCommand extends Command
             $this->io->success([
                 'Documentation generation completed successfully!',
                 "Output directory: {$this->outputDir}",
-                sprintf('Processed %d classes.', count($this->execution->mainPhpNodes)),
+                \sprintf('Processed %d classes.', \count($this->execution->mainPhpNodes)),
             ]);
 
             info(new ResourceUsageFormatter()->resourceUsage($timer->stop()));
