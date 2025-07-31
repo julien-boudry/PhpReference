@@ -1,4 +1,5 @@
 {define classIndex, $class}
+{var $urlLinker = $class->getUrlLinker()}
 {* *}
 {foreach $class->getAllConstants() as $entry}
 {first}
@@ -20,7 +21,7 @@
 | Properties Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getPagePath()}) | _{$entry->getShortDescriptionForTable()}_ |
+| [{$entry->name}(...)]({$urlLinker->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 {* *}
 {* *}
@@ -33,7 +34,7 @@
 | Method Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
+| [{$entry->name}(...)]({$urlLinker->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 {* *}
 {* *}
@@ -46,7 +47,7 @@
 | Property Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
+| [{$entry->name}(...)]({$urlLinker->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 {* *}
 {* *}
@@ -59,7 +60,7 @@
 | Method Name | Description |
 | ------------- | ------------- |
 {/first}
-| [{$entry->name}(...)]({$entry->getUrlLinker()->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
+| [{$entry->name}(...)]({$urlLinker->to(page: $entry)}) | _{$entry->getShortDescriptionForTable()}_ |
 {/foreach}
 
 {/define}

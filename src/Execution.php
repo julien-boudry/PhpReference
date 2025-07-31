@@ -42,7 +42,6 @@ final class Execution
             $this->writePage(new ClassPageWriter($class));
 
             // Generate method pages
-
             foreach ($class->getAllApiMethods() as $method) {
                 $this->writePage(new MethodPageWriter($method));
             }
