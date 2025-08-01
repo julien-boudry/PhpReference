@@ -77,41 +77,46 @@ class Util
             return null;
         }
 
-        $type = (string) $type;
+        return self::processReflectionType($type, $urlLinker);
+    }
 
-        // Parse type and determine separator
-        $separator = null;
-        $types = [];
-
-        if (str_contains($type, '|')) {
-            $separator = ' | ';
-            $types = array_map(trim(...), explode('|', $type));
-        } elseif (str_contains($type, '&')) {
-            $separator = ' & ';
-            $types = array_map(trim(...), explode('&', $type));
-        } else {
-            // Named type (single type)
-            $types = [$type];
+    private static function processReflectionType(ReflectionType $type, UrlLinker $urlLinker): string
+    {
+        // Handle Union types (|)
+        if ($type instanceof \ReflectionUnionType) {
+            $types = array_map(
+                fn(\ReflectionType $t) => self::processReflectionType($t, $urlLinker),
+                $type->getTypes()
+            );
+            return implode(' | ', $types);
         }
 
-        return implode(
-            $separator ?? '',
-            array_map(
-                function (string $type) use ($urlLinker): string {
-                    $pureType = str_replace('?', '', $type); // Remove nullable type indicator
+        // Handle Intersection types (&)
+        if ($type instanceof \ReflectionIntersectionType) {
+            $types = array_map(
+                fn(\ReflectionType $t) => self::processReflectionType($t, $urlLinker),
+                $type->getTypes()
+            );
+            return implode(' & ', $types);
+        }
 
-                    if (\array_key_exists($pureType, Execution::$instance->codeIndex->classList)) {
-                        $pageDestination = Execution::$instance->codeIndex->classList[$pureType];
+        // Handle Named types (including built-in types and classes)
+        if ($type instanceof \ReflectionNamedType) {
+            $typeName = $type->getName();
+            $nullable = $type->allowsNull() && $typeName !== 'mixed';
+            $typeString = ($nullable ? '?' : '') . $typeName;
 
-                        $toLink = $urlLinker->to($pageDestination);
+            if (\array_key_exists($typeName, Execution::$instance->codeIndex->classList)) {
+                $pageDestination = Execution::$instance->codeIndex->classList[$typeName];
+                $toLink = $urlLinker->to($pageDestination);
+                return "[`{$typeString}`]({$toLink})";
+            }
 
-                        return "[`{$type}`]({$toLink})";
-                    }
+            return "`{$typeString}`";
+        }
 
-                    return "`{$type}`";
-                },
-                $types
-            )
-        );
+        // Fallback for any other ReflectionType implementations
+        $typeString = (string) $type;
+        return "`{$typeString}`";
     }
 }
