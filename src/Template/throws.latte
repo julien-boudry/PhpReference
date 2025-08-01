@@ -1,10 +1,14 @@
-{define throws, $function}
+{define throws, $reflection}
 {* *}
-{if $throws = $function->getThrows()}
+{if $throwsTags = $reflection->getResolvedThrowsTags()}
+{var $urlLinker = $reflection->getUrlLinker()}
 
 ## Throws
-{foreach $throws as $throw}
-- **{$throw->getType()}:** {$throw->getDescription()}
+{foreach $throwsTags as $resolved}
+{* *}
+{var $url = $resolved['destination'] ? $urlLinker->to(page: $resolved['destination'])}
+{* *}
+- **[{$resolved['tag']->getType()}]({$url})**{if $resolved['tag']->getDescription()} _{$resolved['tag']->getDescription()}_{/if}
 {/foreach}
 {/if}
 {/define}

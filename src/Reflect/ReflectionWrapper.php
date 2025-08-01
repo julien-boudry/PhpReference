@@ -12,6 +12,7 @@ use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\{Fqsen, Url};
 use phpDocumentor\Reflection\Types\Context;
+use phpDocumentor\Reflection\Types\Object_;
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -159,32 +160,44 @@ abstract class ReflectionWrapper
     }
 
     /**
+     * @param $tags ?array<DocBlock\Tags\See|DocBlock\Tags\Throws>
+     *
      * @throws LogicException
      *
-     * @return ?array<array{destination: ClassElementWrapper|string, name: string, tag: DocBlock\Tags\See}>
+     * @return ?array<array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\Throws}>
      */
-    public function getResolvedSeeTags(): ?array
+    protected function resolveTags(?array $tags): ?array
     {
-        $seeTags = $this->getSeeTags();
-
-        if ($seeTags === null) {
+        if ($tags === null) {
             return null;
         }
 
         $resolved = [];
 
         // Resolve the see tags to their actual links
-        foreach ($seeTags as $key => $seeTag) {
+        foreach ($tags as $key => $tag) {
             // Resolve the reference to a URL
-            $reference = $seeTag->getReference();
+            $reference = ($tag instanceof DocBlock\Tags\See) ? $tag->getReference() : $tag->getType();
             $referenceRender = (string) $reference;
 
             if ($reference instanceof Url) {
                 // If it's already a URL, just return it
                 $resolved[$key] = [
                     'destination' => (string) $reference,
-                    'name' => $referenceRender,
-                    'tag' => $seeTag,
+                    'tag' => $tag,
+                ];
+            } elseif ($reference instanceof Object_) {
+                $fqsenPath = (string) $tag->getType();
+                if (str_starts_with($fqsenPath, '\\')) {
+                    $fqsenPath = substr($fqsenPath, 1);
+                }
+                $destination = Execution::$instance->codeIndex->getClassWrapper($fqsenPath);
+
+                // If it's already a URL, just return it
+                $resolved[$key] = [
+                    'fqsenPath' => $fqsenPath,
+                    'destination' => $destination,
+                    'tag' => $tag,
                 ];
             } elseif ($reference instanceof Fqsen) {
                 try {
@@ -196,8 +209,7 @@ abstract class ReflectionWrapper
                 // If it's already a URL, just return it
                 $resolved[$key] = [
                     'destination' => $element,
-                    'name' => $referenceRender,
-                    'tag' => $seeTag,
+                    'tag' => $tag,
                 ];
             } else {
                 throw new LogicException('Unsupported reference type in see tag: ' . $reference::class);
@@ -205,6 +217,18 @@ abstract class ReflectionWrapper
         }
 
         return $resolved;
+    }
+
+    /**
+     * @throws LogicException
+     *
+     * @return ?array<array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>
+     */
+    public function getResolvedSeeTags(): ?array
+    {
+        $seeTags = $this->getSeeTags();
+
+        return $this->resolveTags($seeTags); // @phpstan-ignore return.type
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
