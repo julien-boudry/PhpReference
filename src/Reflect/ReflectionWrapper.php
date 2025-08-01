@@ -77,6 +77,8 @@ abstract class ReflectionWrapper
         }
     }
 
+    protected readonly UrlLinker $urlLinker;
+
     public function __construct(protected readonly Reflector $reflector)
     {
         // Docblock
@@ -183,26 +185,13 @@ abstract class ReflectionWrapper
                 ];
             }
             elseif ($reference instanceof Fqsen) {
-                // If it's a class reference, resolve it to a ClassWrapper
-                [$classPath, $elementName] = explode('::', $referenceRender);
-
-                // Remove leading backslash if it's the first character
-                if (str_starts_with($classPath, '\\')) {
-                    $classPath = substr($classPath, 1);
+                try {
+                    $element = Execution::$instance->codeIndex->getElement((string) $reference);
+                } catch (LogicException $e) {
+                    throw new LogicException("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
                 }
 
-                $class = Execution::$instance->codeIndex->classList[$classPath] ?? null;
-
-                if ($class === null) {
-                    throw new LogicException("Class `{$classPath}` not found for see tag on {$this->name}");
-                }
-
-                $element = $class->getElementByName(str_replace('()', '', $elementName));
-
-                if ($element === null) {
-                    throw new LogicException("Element `{$elementName}` not found in class `{$classPath}` for see tag on {$this->name}");
-                }
-
+                // If it's already a URL, just return it
                 $resolved[$key] = [
                     'destination' => $element,
                     'name' => $referenceRender,
@@ -275,7 +264,9 @@ abstract class ReflectionWrapper
     public function getUrlLinker(): UrlLinker
     {
         if ($this instanceof WritableInterface) {
-            return new UrlLinker($this);
+            $this->urlLinker ??= new UrlLinker($this);
+
+            return $this->urlLinker;
         }
 
         throw new LogicException('This wrapper does not implement WritableInterface');

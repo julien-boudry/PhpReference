@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
 use JulienBoudry\PhpReference\Reflect\ParameterWrapper;
+use JulienBoudry\PhpReference\UrlLinker;
+use JulienBoudry\PhpReference\Util;
 use ReflectionParameter;
 
 /**
@@ -45,6 +47,13 @@ trait IsFunction
         }
 
         return (string) $this->reflection->getReturnType();
+    }
+
+    public function getReturnTypeMd(UrlLinker $urlLinker): string
+    {
+        $type = $this->reflection->getReturnType();
+
+        return Util::getTypeMd($type, $urlLinker);
     }
 
     public function getReturnDescription(): ?string

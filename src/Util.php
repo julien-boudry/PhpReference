@@ -6,6 +6,7 @@ namespace JulienBoudry\PhpReference;
 
 use phpDocumentor\Reflection\{DocBlockFactory, DocBlockFactoryInterface};
 use phpDocumentor\Reflection\Types\ContextFactory;
+use ReflectionType;
 
 class Util
 {
@@ -68,5 +69,49 @@ class Util
         $result .= ']';
 
         return $result;
+    }
+
+    public static function getTypeMd(?ReflectionType $type, UrlLinker $urlLinker): ?string
+    {
+        if ($type === null) {
+            return null;
+        }
+
+        $type = (string) $type;
+
+        // Parse type and determine separator
+        $separator = null;
+        $types = [];
+
+        if (str_contains($type, '|')) {
+            $separator = ' | ';
+            $types = array_map(trim(...), explode('|', $type));
+        } elseif (str_contains($type, '&')) {
+            $separator = ' & ';
+            $types = array_map(trim(...), explode('&', $type));
+        } else {
+            // Named type (single type)
+            $types = [$type];
+        }
+
+        return implode(
+            $separator ?? '',
+            array_map(
+                function (string $type) use ($urlLinker): string {
+                    $pureType = str_replace('?', '', $type); // Remove nullable type indicator
+
+                    if (\array_key_exists($pureType, Execution::$instance->codeIndex->classList)) {
+                        $pageDestination = Execution::$instance->codeIndex->classList[$pureType];
+
+                        $toLink = $urlLinker->to($pageDestination);
+
+                        return "[`{$type}`]({$toLink})";
+                    }
+
+                    return "`{$type}`";
+                },
+                $types
+            )
+        );
     }
 }

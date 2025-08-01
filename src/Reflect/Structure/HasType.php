@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
 use JulienBoudry\PhpReference\Execution;
+use JulienBoudry\PhpReference\UrlLinker;
+use JulienBoudry\PhpReference\Util;
 
 /**
  * @mixin \JulienBoudry\PhpReference\Reflect\PropertyWrapper
@@ -22,47 +24,8 @@ trait HasType
         return $type ? (string) $type : null;
     }
 
-    public function getTypeMd(): ?string
+    public function getTypeMd(UrlLinker $urlLinker): ?string
     {
-        $type = $this->getType();
-
-        if ($type === null) {
-            return null;
-        }
-
-        // Parse type and determine separator
-        $separator = null;
-        $types = [];
-
-        if (str_contains($type, '|')) {
-            $separator = ' | ';
-            $types = array_map(trim(...), explode('|', $type));
-        } elseif (str_contains($type, '&')) {
-            $separator = ' & ';
-            $types = array_map(trim(...), explode('&', $type));
-        } else {
-            // Named type (single type)
-            $types = [$type];
-        }
-
-        return implode(
-            $separator ?? '',
-            array_map(
-                function (string $type): string {
-                    $pureType = str_replace('?', '', $type); // Remove nullable type indicator
-
-                    if (\array_key_exists($pureType, Execution::$instance->codeIndex->classList)) {
-                        $pageDestination = Execution::$instance->codeIndex->classList[$pureType];
-
-                        $toLink = $this->parentWrapper->getUrlLinker()->to($pageDestination);
-
-                        return "[`{$type}`]({$toLink})";
-                    }
-
-                    return "`{$type}`";
-                },
-                $types
-            )
-        );
+        return Util::getTypeMd($this->reflection->getType(), $urlLinker);
     }
 }

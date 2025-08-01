@@ -1,9 +1,10 @@
 {define return, $function}
 {* *}
 {if $function->hasReturnType()}
+{var $urlLinker = $function->getUrlLinker()}
 
 ## Return
-**Type:** {$function->getReturnType()}
+**Type:** {$function->getReturnTypeMd($urlLinker)}
 
 {$function->getReturnDescription()}
 {* *}

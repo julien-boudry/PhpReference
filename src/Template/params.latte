@@ -1,6 +1,7 @@
 {define params, $function}
 {* *}
 {if $parameters = $function->getParameters()}
+{var $urlLinker = $function->getUrlLinker()}
 
 ## Parameters
 {foreach $parameters as $param}
@@ -9,7 +10,7 @@
 ```php
 {$param->getSignature()}
 ```
-**Type:** {$param->getTypeMd()}
+**Type:** {$param->getTypeMd($urlLinker)}
 
 {$param->getDescription()}
 {/foreach}
