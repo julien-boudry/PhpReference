@@ -49,6 +49,8 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
 
         $this->declaringClassReference = $declaringClass ? WeakReference::create($declaringClass) : null;
 
+        $this->docBlockContext = $classWrapper->docBlockContext;
+
         parent::__construct($reflectorInClass);
     }
 

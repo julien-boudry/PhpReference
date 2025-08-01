@@ -11,6 +11,7 @@ use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\{Fqsen, Url};
+use phpDocumentor\Reflection\Types\Context;
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -77,12 +78,15 @@ abstract class ReflectionWrapper
     }
 
     protected readonly UrlLinker $urlLinker;
+    public readonly Context $docBlockContext;
 
     public function __construct(protected readonly Reflector $reflector)
     {
         // Docblock
         $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
-        $this->docBlock = ! empty($docComment) ? Util::getDocBlocFactory()->create($docComment, Util::getDocBlocContextFactory()->createFromReflector($reflector)) : null;
+
+        $this->docBlockContext ??= Util::getDocBlocContextFactory()->createFromReflector($reflector);
+        $this->docBlock = ! empty($docComment) ? Util::getDocBlocFactory()->create($docComment, $this->docBlockContext) : null;
 
         // DocBlock visibility
         if ($this->docBlock !== null && $this->docBlock->hasTag('api')) {

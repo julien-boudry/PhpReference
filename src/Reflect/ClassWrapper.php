@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\{SignatureInterface, WritableInterface};
+use phpDocumentor\Reflection\Types\Context;
 use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunctionAbstract;
