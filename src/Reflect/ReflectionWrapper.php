@@ -10,6 +10,8 @@ use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen;
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -149,6 +151,69 @@ abstract class ReflectionWrapper
     {
         /** @var ?DocBlock\Tags\See[] */
         return $this->getDocBlockTags('see');
+    }
+
+    /**
+     *
+     * @return ?array<array{destination: ClassElementWrapper|string, name: string, tag: DocBlock\Tags\See}>
+     * @throws LogicException
+     */
+    public function getResolvedSeeTags(): ?array
+    {
+        $seeTags = $this->getSeeTags();
+
+        if ($seeTags === null) {
+            return null;
+        }
+
+        $resolved = [];
+
+        // Resolve the see tags to their actual links
+        foreach ($seeTags as $key => $seeTag) {
+            // Resolve the reference to a URL
+            $reference = $seeTag->getReference();
+            $referenceRender = (string) $reference;
+
+            if ($reference instanceof Url) {
+                // If it's already a URL, just return it
+                $resolved[$key] = [
+                    'destination' => (string) $reference,
+                    'name' => $referenceRender,
+                    'tag' => $seeTag,
+                ];
+            }
+            elseif ($reference instanceof Fqsen) {
+                // If it's a class reference, resolve it to a ClassWrapper
+                [$classPath, $elementName] = explode('::', $referenceRender);
+
+                // Remove leading backslash if it's the first character
+                if (str_starts_with($classPath, '\\')) {
+                    $classPath = substr($classPath, 1);
+                }
+
+                $class = Execution::$instance->codeIndex->classList[$classPath] ?? null;
+
+                if ($class === null) {
+                    throw new LogicException("Class `{$classPath}` not found for see tag on {$this->name}");
+                }
+
+                $element = $class->getElementByName(str_replace('()', '', $elementName));
+
+                if ($element === null) {
+                    throw new LogicException("Element `{$elementName}` not found in class `{$classPath}` for see tag on {$this->name}");
+                }
+
+                $resolved[$key] = [
+                    'destination' => $element,
+                    'name' => $referenceRender,
+                    'tag' => $seeTag,
+                ];
+            } else {
+                throw new LogicException('Unsupported reference type in see tag: ' . get_class($reference));
+            }
+        }
+
+        return $resolved;
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string

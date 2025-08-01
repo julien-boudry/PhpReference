@@ -206,6 +206,23 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
         );
     }
 
+    public function getElementByName(string $name): ?ClassElementWrapper
+    {
+        if (isset($this->methods[$name])) {
+            return $this->methods[$name];
+        }
+
+        if (isset($this->properties[$name])) {
+            return $this->properties[$name];
+        }
+
+        if (isset($this->constants[$name])) {
+            return $this->constants[$name];
+        }
+
+        return null;
+    }
+
     /**
      * @return array<string, ClassElementWrapper>
      */

@@ -1,10 +1,20 @@
 {define related, $reflection}
+{var $ReflectionWrapper = JulienBoudry\PhpReference\Reflect\ReflectionWrapper::class}
+
 {* *}
-{if $seeTags = $reflection->getSeeTags()}
+{if $seeTags = $reflection->getResolvedSeeTags()}
+{var $urlLinker = $reflection->getUrlLinker()}
 
 ## Related
-{foreach $seeTags as $tag}
-- **{$tag->getReference()}**{if $tag->getDescription()} _{$tag->getDescription()}_{/if}
+{foreach $seeTags as $resolved}
+{* *}
+    {if $resolved['destination'] instanceof $ReflectionWrapper}
+        {var $url = $urlLinker->to(page: $resolved['destination'])}
+    {else}
+        {var $url = $resolved['destination']}
+    {/if}
+{* *}
+- **[{$resolved['tag']->getReference()}]({$url})**{if $resolved['tag']->getDescription()} _{$resolved['tag']->getDescription()}_{/if}
 {/foreach}
 {/if}
 {/define}
