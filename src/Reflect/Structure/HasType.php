@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
-use JulienBoudry\PhpReference\Execution;
-use JulienBoudry\PhpReference\UrlLinker;
-use JulienBoudry\PhpReference\Util;
+use JulienBoudry\PhpReference\{UrlLinker, Util};
 
 /**
  * @mixin \JulienBoudry\PhpReference\Reflect\PropertyWrapper

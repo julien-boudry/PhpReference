@@ -10,8 +10,7 @@ use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
-use phpDocumentor\Reflection\DocBlock\Tags\Reference\Fqsen;
-use phpDocumentor\Reflection\DocBlock\Tags\Reference\Url;
+use phpDocumentor\Reflection\DocBlock\Tags\Reference\{Fqsen, Url};
 use Reflection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -156,9 +155,9 @@ abstract class ReflectionWrapper
     }
 
     /**
+     * @throws LogicException
      *
      * @return ?array<array{destination: ClassElementWrapper|string, name: string, tag: DocBlock\Tags\See}>
-     * @throws LogicException
      */
     public function getResolvedSeeTags(): ?array
     {
@@ -183,8 +182,7 @@ abstract class ReflectionWrapper
                     'name' => $referenceRender,
                     'tag' => $seeTag,
                 ];
-            }
-            elseif ($reference instanceof Fqsen) {
+            } elseif ($reference instanceof Fqsen) {
                 try {
                     $element = Execution::$instance->codeIndex->getElement((string) $reference);
                 } catch (LogicException $e) {
@@ -198,7 +196,7 @@ abstract class ReflectionWrapper
                     'tag' => $seeTag,
                 ];
             } else {
-                throw new LogicException('Unsupported reference type in see tag: ' . get_class($reference));
+                throw new LogicException('Unsupported reference type in see tag: ' . $reference::class);
             }
         }
 
