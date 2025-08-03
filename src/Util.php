@@ -85,18 +85,20 @@ class Util
         // Handle Union types (|)
         if ($type instanceof \ReflectionUnionType) {
             $types = array_map(
-                fn(\ReflectionType $t) => self::processReflectionType($t, $urlLinker),
+                fn(ReflectionType $t) => self::processReflectionType($t, $urlLinker),
                 $type->getTypes()
             );
+
             return implode(' | ', $types);
         }
 
         // Handle Intersection types (&)
         if ($type instanceof \ReflectionIntersectionType) {
             $types = array_map(
-                fn(\ReflectionType $t) => self::processReflectionType($t, $urlLinker),
+                fn(ReflectionType $t) => self::processReflectionType($t, $urlLinker),
                 $type->getTypes()
             );
+
             return implode(' & ', $types);
         }
 
@@ -109,6 +111,7 @@ class Util
             if (\array_key_exists($typeName, Execution::$instance->codeIndex->classList)) {
                 $pageDestination = Execution::$instance->codeIndex->classList[$typeName];
                 $toLink = $urlLinker->to($pageDestination);
+
                 return "[`{$typeString}`]({$toLink})";
             }
 
@@ -117,6 +120,7 @@ class Util
 
         // Fallback for any other ReflectionType implementations
         $typeString = (string) $type;
+
         return "`{$typeString}`";
     }
 }

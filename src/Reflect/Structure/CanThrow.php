@@ -14,11 +14,11 @@ use phpDocumentor\Reflection\DocBlock;
 trait CanThrow
 {
     /**
-     * @return ?\phpDocumentor\Reflection\DocBlock\Tags\Throws[]
+     * @return ?DocBlock\Tags\Throws[]
      */
     public function getThrows(): ?array
     {
-        /** @var ?\phpDocumentor\Reflection\DocBlock\Tags\Throws[] */
+        /** @var ?DocBlock\Tags\Throws[] */
         $throws = $this->getDocBlockTags('throws');
 
         if ($throws === null) {

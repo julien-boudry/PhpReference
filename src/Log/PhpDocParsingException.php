@@ -2,5 +2,4 @@
 
 namespace JulienBoudry\PhpReference\Log;
 
-abstract class PhpDocParsingException extends \Exception
-{}
+abstract class PhpDocParsingException extends \Exception {}

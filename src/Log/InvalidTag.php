@@ -11,7 +11,7 @@ abstract class InvalidTag extends PhpDocParsingException
         ?\Throwable $previous = null,
     ) {
         parent::__construct(
-            message: sprintf('Tag "%s" is invalid: %s', $this->tagName, $message),
+            message: \sprintf('Tag "%s" is invalid: %s', $this->tagName, $message),
             previous: $previous
         );
     }
