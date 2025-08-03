@@ -160,11 +160,11 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param $tags ?array<DocBlock\Tags\See|DocBlock\Tags\Throws>
+     * @param $tags ?DocBlock\Tags\BaseTag>
      *
      * @throws LogicException
      *
-     * @return ?array<array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\Throws}>
+     * @return ?array<array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>
      */
     protected function resolveTags(?array $tags): ?array
     {
@@ -195,7 +195,6 @@ abstract class ReflectionWrapper
 
                 // If it's already a URL, just return it
                 $resolved[$key] = [
-                    'fqsenPath' => $fqsenPath,
                     'destination' => $destination,
                     'tag' => $tag,
                 ];
