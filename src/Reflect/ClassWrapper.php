@@ -25,19 +25,19 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
 
     /** @var array<string, MethodWrapper> */
     public array $methods {
-        get => $this->methods ??= ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this); // @phpstan-ignore return.type, assign.propertyType
+        get => $this->methods ??= ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
     }
 
     /**
      * @var array<string, PropertyWrapper>
      */
     public array $properties {
-        get => $this->properties ??= ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this); // @phpstan-ignore return.type, assign.propertyType
+        get => $this->properties ??= ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
     }
 
     /** @var array<string, ClassConstantWrapper> */
     public array $constants {
-        get => $this->constants ??= ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this); // @phpstan-ignore return.type, assign.propertyType
+        get => $this->constants ??= ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this);
     }
 
     public ReflectionClass $reflection {

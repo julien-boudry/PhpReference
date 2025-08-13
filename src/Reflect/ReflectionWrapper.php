@@ -36,17 +36,17 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param  array<ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction>  $reflectors
+     * @template T of ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction
      *
-     * @return array<ReflectionWrapper>
+     * @param  array<T>  $reflectors
+     *
+     * @return array<string, (T is ReflectionMethod ? MethodWrapper : (T is ReflectionProperty ? PropertyWrapper : (T is ReflectionClassConstant ? ClassConstantWrapper : FunctionWrapper)))>
      */
     public static function toWrapper(array $reflectors, ClassWrapper $classWrapper): array
     {
         $wrappers = [];
         foreach ($reflectors as $reflector) {
-            if (method_exists($reflector, 'getDeclaringClass')) {
-                $declaringClass = Execution::$instance->codeIndex->getClassWrapper($reflector->getDeclaringClass()->name);
-            }
+            $declaringClass = method_exists($reflector, 'getDeclaringClass') ? Execution::$instance->codeIndex->getClassWrapper($reflector->getDeclaringClass()->name) : null;
 
             $wrappers[$reflector->getName()] = match (true) {
                 $reflector instanceof ReflectionMethod => new MethodWrapper($reflector, $classWrapper, $declaringClass),
