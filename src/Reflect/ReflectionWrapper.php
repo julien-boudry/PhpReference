@@ -226,7 +226,14 @@ abstract class ReflectionWrapper
     {
         $seeTags = $this->getSeeTags();
 
-        return $this->resolveTags($seeTags); // @phpstan-ignore return.type
+        $resolved = $this->resolveTags($seeTags);
+
+        if($resolved === null) {
+            return null;
+        }
+
+        // Filter out any tags that match the ignored reflection
+        return array_filter($resolved, fn(array $item): bool => $item['destination'] !== $this); // @phpstan-ignore return.type
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
