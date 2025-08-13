@@ -228,7 +228,7 @@ abstract class ReflectionWrapper
 
         $resolved = $this->resolveTags($seeTags);
 
-        if($resolved === null) {
+        if ($resolved === null) {
             return null;
         }
 
