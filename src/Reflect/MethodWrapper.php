@@ -49,12 +49,12 @@ class MethodWrapper extends ClassElementWrapper implements SignatureInterface, W
 
         $str .= ' )';
 
-        return $this->getModifierNames() .
-                ' function ' .
-                (! $withClassName ? $this->inDocParentWrapper->shortName : '') .
-                (! $withClassName ? ($this->reflection->isStatic() ? '::' : '->') : '') .
-                $this->reflection->name .
-                $str .
-                ($this->hasReturnType() ? ': ' . $this->getReturnType() : '');
+        return $this->getModifierNames()
+                . ' function '
+                . (! $withClassName ? $this->inDocParentWrapper->shortName : '')
+                . (! $withClassName ? ($this->reflection->isStatic() ? '::' : '->') : '')
+                . $this->reflection->name
+                . $str
+                . ($this->hasReturnType() ? ': ' . $this->getReturnType() : '');
     }
 }

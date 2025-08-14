@@ -287,9 +287,9 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        return 'https://github.com/julien-boudry/Condorcet/blob/master/' .
-                substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1) .
-                '#L' . $this->reflection->getStartLine();
+        return 'https://github.com/julien-boudry/Condorcet/blob/master/'
+                . substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1)
+                . '#L' . $this->reflection->getStartLine();
     }
 
     public function getUrlLinker(): UrlLinker
