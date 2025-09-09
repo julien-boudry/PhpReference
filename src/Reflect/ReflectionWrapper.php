@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
-use JulienBoudry\PhpReference\Log\InvalidBookTag;
+use JulienBoudry\PhpReference\Log\InvalidManualTag;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -159,10 +159,18 @@ abstract class ReflectionWrapper
         return $this->getDocBlockTags('see');
     }
 
-    public function getBookTags(): ?array
+    /**
+     * @return ?DocBlock\Tags\BaseTag[]
+     */
+    public function getManualTags(): ?array
     {
-        /** @var ?DocBlock\Tags\BaseTag[] */
-        return $this->getDocBlockTags('book');
+        $book = $this->getDocBlockTags('book') ?? [];
+        $manual = $this->getDocBlockTags('manual') ?? [];
+
+        /** @var DocBlock\Tags\BaseTag[] */
+        $merged = array_merge($book, $manual);
+
+        return empty($merged) ? null : $merged;
     }
 
     /**
@@ -243,22 +251,22 @@ abstract class ReflectionWrapper
         return array_filter($resolved, fn(array $item): bool => $item['destination'] !== $this); // @phpstan-ignore return.type
     }
 
-    public function getResolvedBookTags(): ?array
+    public function getResolvedManualTags(): ?array
     {
-        $bookTags = $this->getBookTags();
+        $ManualTags = $this->getManualTags();
 
-        if ($bookTags === null) {
+        if ($ManualTags === null) {
             return null;
         }
 
         $resolved = [];
 
         try {
-            foreach ($bookTags as $key => $tag) {
+            foreach ($ManualTags as $key => $tag) {
                 $resolved[$key] = constant($tag->getDescription()->render())->value;
             }
         } catch (\Error $e) {
-            throw new InvalidBookTag("Invalid book tag on {$this->name} / " . $e->getMessage());
+            throw new InvalidManualTag("Invalid manual tag on {$this->name} / " . $e->getMessage());
         }
 
         return $resolved;

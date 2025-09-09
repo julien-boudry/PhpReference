@@ -2,7 +2,7 @@
 
 namespace JulienBoudry\PhpReference\Log;
 
-class InvalidBookTag extends InvalidTag
+class InvalidManualTag extends InvalidTag
 {
     protected string $tagName = '@book';
 }
