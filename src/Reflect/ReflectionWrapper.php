@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
+use JulienBoudry\PhpReference\Log\InvalidBookTag;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -158,6 +159,12 @@ abstract class ReflectionWrapper
         return $this->getDocBlockTags('see');
     }
 
+    public function getBookTags(): ?array
+    {
+        /** @var ?DocBlock\Tags\BaseTag[] */
+        return $this->getDocBlockTags('book');
+    }
+
     /**
      * @param $tags ?DocBlock\Tags\BaseTag>
      *
@@ -234,6 +241,27 @@ abstract class ReflectionWrapper
 
         // Filter out any tags that match the ignored reflection
         return array_filter($resolved, fn(array $item): bool => $item['destination'] !== $this); // @phpstan-ignore return.type
+    }
+
+    public function getResolvedBookTags(): ?array
+    {
+        $bookTags = $this->getBookTags();
+
+        if ($bookTags === null) {
+            return null;
+        }
+
+        $resolved = [];
+
+        try {
+            foreach ($bookTags as $key => $tag) {
+                $resolved[$key] = constant($tag->getDescription()->render())->value;
+            }
+        } catch (\Error $e) {
+            throw new InvalidBookTag("Invalid book tag on {$this->name} / " . $e->getMessage());
+        }
+
+        return $resolved;
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string

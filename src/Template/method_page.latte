@@ -5,6 +5,7 @@
 {import 'return.latte'}
 {import 'throws.latte'}
 {import 'related.latte'}
+{import 'manual.latte'}
 {* *}
 # Method {$method->name}()
 {include readItAtSource, $method}
@@ -22,3 +23,5 @@
 {include throws, $method}
 {* *}
 {include related, $method}
+{* *}
+{include manual, $method}
