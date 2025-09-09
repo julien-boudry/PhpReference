@@ -263,7 +263,7 @@ abstract class ReflectionWrapper
 
         try {
             foreach ($ManualTags as $key => $tag) {
-                $resolved[$key] = constant($tag->getDescription()->render())->value;
+                $resolved[$key] = \constant($tag->getDescription()->render())->value;
             }
         } catch (\Error $e) {
             throw new InvalidManualTag("Invalid manual tag on {$this->name} / " . $e->getMessage());
