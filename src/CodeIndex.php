@@ -7,8 +7,8 @@ namespace JulienBoudry\PhpReference;
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper};
 use LogicException;
-use ReflectionClass;
-use ReflectionEnum;
+use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionEnum;
 
 class CodeIndex
 {
@@ -23,10 +23,10 @@ class CodeIndex
         $classList = [];
 
         foreach ($classPathList as $classPath) {
-            $reflection = new ReflectionClass($classPath);
+            $reflection = ReflectionClass::createFromName($classPath);
 
             if ($reflection->isEnum()) {
-                $reflection = new ReflectionEnum($classPath);
+                $reflection = ReflectionEnum::createFromName($classPath);
                 $classList[$classPath] = new EnumWrapper($reflection);
             } else {
                 $classList[$classPath] = new ClassWrapper($reflection);

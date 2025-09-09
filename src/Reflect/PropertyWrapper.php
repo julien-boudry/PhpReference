@@ -6,7 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Structure\{CanThrow, HasType};
 use JulienBoudry\PhpReference\Reflect\Capabilities\{SignatureInterface, WritableInterface};
-use ReflectionProperty;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 
 class PropertyWrapper extends ClassElementWrapper implements SignatureInterface, WritableInterface
 {

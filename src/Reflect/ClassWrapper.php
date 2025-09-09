@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\{SignatureInterface, WritableInterface};
-use ReflectionClass;
-use ReflectionClassConstant;
-use ReflectionFunctionAbstract;
+use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use Roave\BetterReflection\Reflection\ReflectionFunctionAbstract;
 
 class ClassWrapper extends ReflectionWrapper implements SignatureInterface, WritableInterface
 {

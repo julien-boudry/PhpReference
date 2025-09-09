@@ -6,7 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Structure\{CanThrow, IsFunction};
 use JulienBoudry\PhpReference\Reflect\Capabilities\{SignatureInterface, WritableInterface};
-use ReflectionMethod;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
 
 class MethodWrapper extends ClassElementWrapper implements SignatureInterface, WritableInterface
 {

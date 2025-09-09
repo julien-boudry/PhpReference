@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\HasParentInterface;
-use ReflectionClassConstant;
-use ReflectionMethod;
-use ReflectionProperty;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 use WeakReference;
 
 abstract class ClassElementWrapper extends ReflectionWrapper implements HasParentInterface

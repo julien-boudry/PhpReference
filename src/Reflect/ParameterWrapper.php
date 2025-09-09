@@ -6,7 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\{HasParentInterface, SignatureInterface};
 use JulienBoudry\PhpReference\Reflect\Structure\HasType;
-use ReflectionParameter;
+use Roave\BetterReflection\Reflection\ReflectionParameter;
 use WeakReference;
 
 class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, SignatureInterface

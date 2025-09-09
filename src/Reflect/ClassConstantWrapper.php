@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\SignatureInterface;
-use ReflectionClassConstant;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 
 class ClassConstantWrapper extends ClassElementWrapper implements SignatureInterface
 {

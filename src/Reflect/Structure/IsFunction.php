@@ -6,7 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect\Structure;
 
 use JulienBoudry\PhpReference\Reflect\ParameterWrapper;
 use JulienBoudry\PhpReference\{UrlLinker, Util};
-use ReflectionParameter;
+use Roave\BetterReflection\Reflection\ReflectionParameter;
 
 /**
  * @mixin \JulienBoudry\PhpReference\Reflect\FunctionWrapper

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect;
 
-use ReflectionEnum;
-use ReflectionEnumBackedCase;
+use Roave\BetterReflection\Reflection\ReflectionEnum;
+use Roave\BetterReflection\Reflection\ReflectionEnumBackedCase;
 
 class EnumWrapper extends ClassWrapper
 {

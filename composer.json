@@ -8,7 +8,8 @@
         "league/flysystem": "^3.29",
         "symfony/console": "^7.3",
         "laravel/prompts": "^0.3",
-        "phpunit/php-timer": "^7.0"
+        "phpunit/php-timer": "^7.0",
+        "roave/better-reflection": "^6.63"
     },
     "require-dev": {
         "pestphp/pest": "^3.8",

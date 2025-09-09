@@ -12,16 +12,13 @@ use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\{Fqsen, Url};
 use phpDocumentor\Reflection\Types\{Context, Object_};
-use Reflection;
-use ReflectionClass;
-use ReflectionClassConstant;
-use ReflectionFunction;
-use ReflectionFunctionAbstract;
-use ReflectionMethod;
-use ReflectionParameter;
-use ReflectionProperty;
-use Reflector;
-
+use Roave\BetterReflection\Reflection\Reflection;
+use Roave\BetterReflection\Reflection\ReflectionClass;
+use Roave\BetterReflection\Reflection\ReflectionClassConstant;
+use Roave\BetterReflection\Reflection\ReflectionFunction;
+use Roave\BetterReflection\Reflection\ReflectionMethod;
+use Roave\BetterReflection\Reflection\ReflectionParameter;
+use Roave\BetterReflection\Reflection\ReflectionProperty;
 abstract class ReflectionWrapper
 {
     protected static function formatValue(mixed $defaultValue): string
@@ -70,8 +67,7 @@ abstract class ReflectionWrapper
         get => Execution::$instance->publicApiDefinition->isPartOfPublicApi($this);
     }
 
-    // @phpstan-ignore missingType.generics
-    public ReflectionClass|ReflectionProperty|ReflectionFunctionAbstract|ReflectionClassConstant|ReflectionParameter $reflection {
+    public ReflectionClass|ReflectionProperty|ReflectionMethod|ReflectionFunction|ReflectionClassConstant|ReflectionParameter $reflection {
         get {
             return $this->reflector; // @phpstan-ignore return.type
         }
@@ -80,7 +76,7 @@ abstract class ReflectionWrapper
     protected readonly UrlLinker $urlLinker;
     public readonly Context $docBlockContext;
 
-    public function __construct(protected readonly Reflector $reflector)
+    public function __construct(protected readonly Reflection $reflector)
     {
         // Docblock
         $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
