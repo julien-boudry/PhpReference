@@ -114,7 +114,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
 
         uasort(
             array: $filtered,
-            callback: function (ClassElementWrapper $a, ClassElementWrapper $b) {
+            callback: function (ClassElementWrapper $a, ClassElementWrapper $b): int {
                 // First sort by visibility: public, protected, private
                 $visibilityOrder = function (ClassElementWrapper $element): int {
                     if ($element->reflection->isPublic()) {
