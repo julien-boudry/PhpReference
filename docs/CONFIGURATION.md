@@ -1,10 +1,10 @@
 # Configuration
 
-PhpReference supporte un fichier de configuration PHP pour éviter de saisir les arguments en ligne de commande à chaque fois.
+PhpReference supports a PHP configuration file to avoid typing command-line arguments every time.
 
-## Fichier de configuration
+## Configuration File
 
-Créez un fichier `reference.php` à la racine de votre projet :
+Create a `reference.php` file at the root of your project:
 
 ```php
 <?php
@@ -13,45 +13,45 @@ use JulienBoudry\PhpReference\Definition\HasTagApi;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 
 return [
-    // Le namespace pour lequel générer la documentation
+    // The namespace for which to generate documentation
     'namespace' => 'MonNamespace\\MonProjet',
 
-    // Répertoire de sortie pour la documentation générée
+    // Output directory for the generated documentation
     'output' => __DIR__ . '/docs',
 
-    // Ne pas nettoyer le répertoire de sortie avant la génération
+    // Do not clean the output directory before generation
     'append' => false,
 
-    // Définition de l'API publique - peut être :
-    // - Une instance d'une classe implémentant PublicApiDefinitionInterface
-    // - Une chaîne correspondant à une définition enregistrée ('api', 'public')
-    'api' => new HasTagApi(), // ou 'api' en string
+    // Public API definition - can be:
+    // - An instance of a class implementing PublicApiDefinitionInterface
+    // - A string corresponding to a registered definition ('api', 'public')
+    'api' => new HasTagApi(), // or 'api' as a string
 ];
 ```
 
-## Définitions d'API disponibles
+## Available API Definitions
 
-### Via chaîne de caractères (CLI et config)
+### Via string (CLI and config)
 
-- **`api`** : Inclut les éléments marqués avec `@api` (par défaut)
-- **`public`** : Inclut tous les éléments publics
-- **`beta`** : Inclut les éléments marqués avec `@beta`
+- **`api`**: Includes elements marked with `@api` (default)
+- **`public`**: Includes all public elements
+- **`beta`**: Includes elements marked with `@beta`
 
-### Via objet (config uniquement)
+### Via object (config only)
 
 ```php
 use JulienBoudry\PhpReference\Definition\HasTagApi;
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 use JulienBoudry\PhpReference\Definition\HasTagBeta;
 
-// Inclut uniquement les éléments avec @api
+// Includes only elements with @api
 'api' => new HasTagApi(),
 
-// Inclut tous les éléments publics
+// Includes all public elements
 'api' => new IsPubliclyAccessible(),
 ```
 
-## Créer une définition personnalisée
+## Create a Custom Definition
 
 ```php
 <?php
@@ -68,68 +68,68 @@ class MyCustomDefinition extends Base implements PublicApiDefinitionInterface
             return false;
         }
 
-        // Votre logique personnalisée ici
-        return $reflectionWrapper->hasTagCustom; // Par exemple
+        // Your custom logic here
+        return $reflectionWrapper->hasTagCustom; // For example
     }
 }
 
-// Dans votre config
+// In your config
 return [
     'api' => new MyCustomDefinition(),
     // ...
 ];
 ```
 
-## Priorité des arguments
+## Argument Priority
 
-La priorité est la suivante (du plus important au moins important) :
+The priority is as follows (from highest to lowest):
 
-1. **Arguments en ligne de commande** (priorité absolue)
-2. **Fichier de configuration**
-3. **Valeurs par défaut**
+1. **Command-line arguments** (absolute priority)
+2. **Configuration file**
+3. **Default values**
 
-## Exemples d'utilisation
+## Usage Examples
 
-### Utiliser uniquement le fichier de configuration
+### Use only the configuration file
 ```bash
 php bin/php-reference generate:documentation
 ```
 
-### Surcharger le namespace depuis la ligne de commande
+### Override the namespace from the command line
 ```bash
 php bin/php-reference generate:documentation MonAutreNamespace
 ```
 
-### Utiliser une définition d'API spécifique
+### Use a specific API definition
 ```bash
 php bin/php-reference generate:documentation --api=public
 php bin/php-reference generate:documentation --api=beta
 ```
 
-### Utiliser un fichier de configuration alternatif
+### Use an alternative configuration file
 ```bash
 php bin/php-reference generate:documentation --config=/path/to/config.php
 ```
 
-### Surcharger plusieurs options
+### Override multiple options
 ```bash
 php bin/php-reference generate:documentation MonNamespace --output=/tmp/docs --append --api=public
 ```
 
-## Fichiers de configuration d'exemple
+## Example Configuration Files
 
-### Configuration basique
+### Basic configuration
 ```php
 <?php
 return [
     'namespace' => 'App\\',
     'output' => getcwd() . '/api-docs',
     'append' => false,
-    'api' => 'HasTagApi', // Utilise HasTagApi
+    'api' => 'HasTagApi', // Uses HasTagApi
 ];
 ```
 
-### Configuration avancée
+### Advanced configuration
 ```php
 <?php
 
@@ -139,21 +139,21 @@ return [
     'namespace' => 'MyLibrary\\',
     'output' => __DIR__ . '/public-api-docs',
     'append' => true,
-    'api' => new IsPubliclyAccessible(), // Instance directe
+    'api' => new IsPubliclyAccessible(), // Direct instance
 ];
 ```
 
-### Utiliser un fichier de configuration personnalisé
+### Use a custom configuration file
 ```bash
 php bin/php-reference generate:documentation --config=/path/to/my-config.php
 ```
 
-## Options disponibles
+## Available Options
 
-| Option | Raccourci | Description | Exemple config | Exemple CLI |
-|--------|-----------|-------------|----------------|-------------|
-| namespace | - | Namespace à analyser | `'namespace' => 'Mon\\Namespace'` | `MonNamespace` |
-| output | `-o` | Répertoire de sortie | `'output' => '/path/to/docs'` | `--output=/path/to/docs` |
-| append | `-a` | Ne pas nettoyer avant génération | `'append' => true` | `--append` |
-| all-public | `-p` | Inclure tout le code public | `'all-public' => true` | `--all-public` |
-| config | `-c` | Chemin du fichier de config | - | `--config=/custom/path.php` |
+| Option | Shortcut | Description | Config example | CLI example |
+|--------|----------|-------------|----------------|-------------|
+| namespace | - | Namespace to analyze | `'namespace' => 'Mon\\Namespace'` | `MonNamespace` |
+| output | `-o` | Output directory | `'output' => '/path/to/docs'` | `--output=/path/to/docs` |
+| append | `-a` | Do not clean before generation | `'append' => true` | `--append` |
+| all-public | `-p` | Include all public code | `'all-public' => true` | `--all-public` |
+| config | `-c` | Configuration file path | - | `--config=/custom/path.php` |
