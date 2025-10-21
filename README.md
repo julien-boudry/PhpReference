@@ -1,21 +1,16 @@
-# PhpReference
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Packagist](https://img.shields.io/packagist/v/julien-boudry/php-reference.svg)](https://packagist.org/packages/julien-boudry/php-reference)
-
-> **PhpReference** is a powerful documentation generator for PHP projects. It analyzes your codebase using reflection and generates comprehensive Markdown documentation for your namespaces, classes, methods, properties, and constants.
-
----
 
 **Main Author:** [Julien Boudry](https://www.linkedin.com/in/julienboudry/)  
 **License:** [BSD-3-Clause](LICENSE) - Please [say hello](https://github.com/julien-boudry/PhpReference/discussions) if you like or use this code!  
 **Donation:** ₿ [bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh](https://blockchair.com/bitcoin/address/bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh) or [GitHub Sponsor Page](https://github.com/sponsors/julien-boudry)
 
----
+# PhpReference
 
-## What is PhpReference?
+**PhpReference** is a powerful documentation generator for PHP projects. It analyzes your codebase using reflection and generates comprehensive Markdown documentation for your namespaces, classes, methods, properties, and constants.
 
-PhpReference is a documentation generation tool that creates structured Markdown documentation from your PHP code. It provides:
+## Workflow
 
 - **Automatic Documentation Generation** - Analyzes PHP namespaces using reflection to extract classes, methods, properties, constants, and their metadata
 - **PHPDoc Integration** - Parses and renders PHPDoc blocks including descriptions, parameters, return types, and custom tags
@@ -32,11 +27,6 @@ PhpReference is a documentation generation tool that creates structured Markdown
 - **Inheritance Tracking** - Shows declaring class for inherited members
 - **Custom Public API Rules** - Define what gets documented
 - **Source Links** - Optional links back to source code
-
-## Requirements
-
-- PHP 8.4 or higher
-- Composer for dependency management
 
 ## Quick Start
 
@@ -161,6 +151,11 @@ output/
             └── AnotherClass/          # Directory for another class
                 └── class_AnotherClass.md   # Another class documentation
 ```
+
+## Requirements
+
+- PHP 8.4 or higher
+- Composer for dependency management
 
 ## Contributing
 
