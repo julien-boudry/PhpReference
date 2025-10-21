@@ -6,6 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
 use JulienBoudry\PhpReference\Log\InvalidManualTag;
+use JulienBoudry\PhpReference\Log\InvalidSeeTag;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -22,6 +23,8 @@ use ReflectionMethod;
 use ReflectionParameter;
 use ReflectionProperty;
 use Reflector;
+
+use function Laravel\Prompts\warning;
 
 abstract class ReflectionWrapper
 {
@@ -214,9 +217,19 @@ abstract class ReflectionWrapper
                 ];
             } elseif ($reference instanceof Fqsen) {
                 try {
-                    $element = Execution::$instance->codeIndex->getElement((string) $reference);
+                    $referenceString = (string) $reference;
+                    // Transform only the last \ to :: before method name
+                    if (str_ends_with($referenceString, '()')) {
+                        $reformatedString = preg_replace('/(\\\\.+)\\\\([^:]+\(\))$/', '$1::$2', $referenceString);
+                    } else {
+                        $reformatedString = $referenceString;
+                    }
+
+                    $element = Execution::$instance->codeIndex->getElement($reformatedString);
                 } catch (LogicException $e) {
-                    throw new LogicException("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
+                    // throw new InvalidSeeTag("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
+                    warning("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
+                    continue;
                 }
 
                 // If it's already a URL, just return it
