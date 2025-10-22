@@ -97,7 +97,7 @@ php bin/php-reference generate:documentation
 
 ### Override the namespace from the command line
 ```bash
-php bin/php-reference generate:documentation MonAutreNamespace
+php bin/php-reference generate:documentation MyNamespace
 ```
 
 ### Use a specific API definition
