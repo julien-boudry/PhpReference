@@ -1,12 +1,11 @@
 
-[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Packagist](https://img.shields.io/packagist/v/julien-boudry/php-reference.svg)](https://packagist.org/packages/julien-boudry/php-reference)
-
+# PhpReference
 > **Main Author:** [Julien Boudry](https://www.linkedin.com/in/julienboudry/)  
 > **License:** [BSD-3-Clause](LICENSE) - Please [say hello](https://github.com/julien-boudry/PhpReference/discussions) if you like or use this code!  
 > **Donation:** ₿ [bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh](https://blockchair.com/bitcoin/address/bc1q3jllk3qd9fjvvuqy07tawkv7t6h7qjf55fc2gh) or [GitHub Sponsor Page](https://github.com/sponsors/julien-boudry)
 
-# PhpReference
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Packagist](https://img.shields.io/packagist/v/julien-boudry/php-reference.svg)](https://packagist.org/packages/julien-boudry/php-reference)
 
 **PhpReference** is a powerful documentation generator for PHP projects. It analyzes your codebase using reflection and generates comprehensive Markdown documentation for your namespaces, classes, methods, properties, and constants.
 
