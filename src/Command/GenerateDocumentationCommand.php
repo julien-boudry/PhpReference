@@ -74,6 +74,10 @@ class GenerateDocumentationCommand extends Command
         // Load configuration
         $this->config = new Config($input->getOption('config'));
 
+        if($this->config->get('no-interaction')) {
+            $input->setInteractive(false);
+        }
+
         // Merge CLI arguments with config, CLI takes priority
         $this->config->mergeWithCliArgs([
             'namespace' => $input->getArgument('namespace'),

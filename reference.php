@@ -30,6 +30,9 @@ return [
     // Can be overridden with: --append or -a
     'append' => false,
 
+    // Never prompt for user interaction (e.g., yes/no prompts), especially if the output directory is not empty
+    'no-interaction' => false,
+
     // API definition to determine which elements should be included in documentation
     // Can be an instance of PublicApiDefinitionInterface or will be resolved from string via CLI
     // Available CLI values: 'api' (default), 'public'
