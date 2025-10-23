@@ -9,10 +9,12 @@ use JulienBoudry\PhpReference\Template\Input\ApiSummaryInput;
 
 class PublicApiSummaryWriter extends AbstractWriter
 {
-    public string $writePath = '/readme.md';
-
-    public function __construct(public readonly CodeIndex $codeIndex)
+    public function __construct(public readonly CodeIndex $codeIndex, string $filePath)
     {
+        $filePath = str_replace('.md', '', $filePath);
+        $filePath .= '.md';
+
+        $this->writePath = $filePath;
         parent::__construct();
     }
 

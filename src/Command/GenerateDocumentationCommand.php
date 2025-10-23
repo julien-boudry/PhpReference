@@ -35,6 +35,7 @@ class GenerateDocumentationCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.')
             ->addArgument(
                 name: 'namespace',
                 mode: InputArgument::OPTIONAL,
@@ -64,7 +65,12 @@ class GenerateDocumentationCommand extends Command
                 description: 'Path to configuration file',
                 default: getcwd() . \DIRECTORY_SEPARATOR . 'reference.php',
             )
-            ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.');
+            ->addOption(
+                name: 'index-file-name',
+                shortcut: null,
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'The name of the index file to generate',
+            );
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
@@ -82,6 +88,7 @@ class GenerateDocumentationCommand extends Command
         $this->config->mergeWithCliArgs([
             'namespace' => $input->getArgument('namespace'),
             'output' => $input->getOption('output'),
+            'index-file-name' => $input->getOption('index-file-name'),
             'append' => $input->getOption('append'),
             'api' => $input->getOption('api'),
         ]);
@@ -198,7 +205,7 @@ class GenerateDocumentationCommand extends Command
             progress(
                 label: 'Generating API summary',
                 steps: 1,
-                callback: fn() => $this->execution->buildIndex(),
+                callback: fn() => $this->execution->buildIndex($this->config->get(key: 'index-file-name', default: 'readme')),
             );
 
             // Process each class

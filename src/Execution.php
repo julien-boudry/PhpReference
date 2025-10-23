@@ -36,10 +36,10 @@ final class Execution
         $this->warning[] = $exception;
     }
 
-    public function buildIndex(): static
+    public function buildIndex(string $fileName): static
     {
         // Generate index page
-        $this->writePage(new PublicApiSummaryWriter($this->codeIndex));
+        $this->writePage(new PublicApiSummaryWriter(codeIndex: $this->codeIndex, filePath: '/' . $fileName));
 
         return $this;
     }
