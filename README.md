@@ -90,7 +90,8 @@ php vendor/bin/php-reference MyNamespace\\MyProject -a
 | namespace | - | Namespace to analyze (required) | `MyNamespace\\MyProject` |
 | `--output` | `-o` | Output directory | `--output=./docs/api` |
 | `--append` | `-a` | Do not clean output directory before generation | `--append` |
-| `--all-public` | `-p` | Include all public code (not just `@api` tagged) | `--all-public` |
+| `--api` | - | API definition to use | `--api=public` |
+| `--index-file-name` | - | Name of the index file to generate | `--index-file-name=index` |
 | `--config` | `-c` | Path to configuration file | `--config=./my-config.php` |
 
 ## Configuration File

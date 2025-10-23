@@ -26,6 +26,12 @@ return [
     // - An instance of a class implementing PublicApiDefinitionInterface
     // - A string corresponding to a registered definition ('api', 'public')
     'api' => new HasTagApi(), // or 'api' as a string
+
+    // The name of the index file to generate (without extension)
+    'index-file-name' => 'readme', // Default: 'readme'
+
+    // Disable interactive mode (no prompts)
+    'no-interaction' => true, // Default: false
 ];
 ```
 
@@ -126,6 +132,8 @@ return [
     'output' => getcwd() . '/api-docs',
     'append' => false,
     'api' => 'HasTagApi', // Uses HasTagApi
+    'index-file-name' => 'readme', //default 'readme'
+    'no-interaction' => true,
 ];
 ```
 
@@ -140,6 +148,8 @@ return [
     'output' => __DIR__ . '/public-api-docs',
     'append' => true,
     'api' => new IsPubliclyAccessible(), // Direct instance
+    'index-file-name' => 'API-INDEX',
+    'no-interaction' => true, // Run without prompts
 ];
 ```
 
@@ -155,5 +165,7 @@ php bin/php-reference generate:documentation --config=/path/to/my-config.php
 | namespace | - | Namespace to analyze | `'namespace' => 'Mon\\Namespace'` | `MonNamespace` |
 | output | `-o` | Output directory | `'output' => '/path/to/docs'` | `--output=/path/to/docs` |
 | append | `-a` | Do not clean before generation | `'append' => true` | `--append` |
-| all-public | `-p` | Include all public code | `'all-public' => true` | `--all-public` |
+| api | - | API definition to use | `'api' => new HasTagApi()` | `--api=public` |
+| index-file-name | - | Name of the index file | `'index-file-name' => 'readme'` | `--index-file-name=index` |
+| no-interaction | - | Disable interactive mode | `'no-interaction' => true` | - |
 | config | `-c` | Configuration file path | - | `--config=/custom/path.php` |
