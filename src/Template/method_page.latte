@@ -1,11 +1,11 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
-{import 'readItAtSource.latte'}
-{import 'description.latte'}
-{import 'params.latte'}
-{import 'return.latte'}
-{import 'throws.latte'}
-{import 'related.latte'}
-{import 'manual.latte'}
+{import 'parts/readItAtSource.latte'}
+{import 'parts/description.latte'}
+{import 'parts/params.latte'}
+{import 'parts/return.latte'}
+{import 'parts/throws.latte'}
+{import 'parts/related.latte'}
+{import 'parts/manual.latte'}
 {* *}
 # Method {$method->name}()
 {include readItAtSource, $method}
