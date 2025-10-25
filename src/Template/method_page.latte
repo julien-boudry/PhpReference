@@ -1,5 +1,5 @@
 {templateType JulienBoudry\PhpReference\Template\Input\MethodPageInput}
-{import 'parts/nav_breadcrumb.latte'}
+{import 'parts/navBreadcrumbClassElement.latte'}
 {import 'parts/readItAtSource.latte'}
 {import 'parts/description.latte'}
 {import 'parts/params.latte'}
@@ -8,7 +8,7 @@
 {import 'parts/related.latte'}
 {import 'parts/manual.latte'}
 {* *}
-{include nav_breadcrumb, $method}
+{include navBreadcrumbClassElement, $method}
 {* *}
 # Method {$method->name}()
 {include readItAtSource, $method}
