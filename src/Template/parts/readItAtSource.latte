@@ -1,7 +1,5 @@
 {define readItAtSource, $wrapper}
 {if $sourceLink = $wrapper->getSourceLink()}
-> Source: [{$wrapper->name}]({$sourceLink})
-{else}
-> {$wrapper->name}
+> [Read it at source]({$sourceLink})
 {/if}
 {/define}
