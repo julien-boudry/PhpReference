@@ -10,11 +10,11 @@ use JulienBoudry\PhpReference\Template\Input\NamespacePageInput;
 class NamespacePageWriter extends AbstractWriter
 {
     public function __construct(
-        public readonly NamespaceWrapper $namespace,
+        public readonly NamespaceWrapper $namespaceWrapper,
         string $indexFileName = 'readme',
     ) {
         // Generate path like /ref/Namespace/Name/readme.md
-        $namespacePath = str_replace('\\', '/', $this->namespace->namespace);
+        $namespacePath = str_replace('\\', '/', $this->namespaceWrapper->namespace);
         $this->writePath = '/ref/' . $namespacePath . '/' . $indexFileName . '.md';
 
         parent::__construct();
@@ -25,7 +25,7 @@ class NamespacePageWriter extends AbstractWriter
         return self::$latte->renderToString(
             name: AbstractWriter::TEMPLATE_DIR . '/namespace_page.latte',
             params : new NamespacePageInput(
-                namespace: $this->namespace
+                namespaceWrapper: $this->namespaceWrapper
             ),
         );
     }

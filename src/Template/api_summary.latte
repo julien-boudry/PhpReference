@@ -2,10 +2,10 @@
 {import 'classIndex.latte'}
 # API Reference Index
 
-{foreach $namespaces as $namespace => $classes}
-## {$namespace}
+{foreach $namespaces as $namespaceInput}
+## {$namespaceInput->namespaceWrapper->namespace}
 {* *}
-{foreach $classes['class'] as $class}
+{foreach $namespaceInput->classes as $class}
 {first}
 | Class Name | Description |
 | ------------- | ------------- |
@@ -13,7 +13,7 @@
 | [{$class->shortName}]({str_replace('\\', '/', mb_substr($class->getPagePath(), 1))}) | _{$class->getShortDescriptionForTable()}_ |
 {/foreach}
 
-{foreach $classes['enum'] as $enum}
+{foreach $namespaceInput->enums as $enum}
 {first}
 | Enum Name | Description |
 | ------------- | ------------- |

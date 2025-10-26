@@ -15,12 +15,12 @@ class NamespacePageInput
     public readonly array $enums;
 
     public function __construct(
-        public readonly NamespaceWrapper $namespace,
+        public readonly NamespaceWrapper $namespaceWrapper,
     ) {
         $classes = [];
         $enums = [];
 
-        foreach ($this->namespace->classes as $class) {
+        foreach ($this->namespaceWrapper->classes as $class) {
             match ($class::TYPE) {
                 'class' => $classes[$class->shortName] = $class,
                 'enum' => $enums[$class->shortName] = $class,

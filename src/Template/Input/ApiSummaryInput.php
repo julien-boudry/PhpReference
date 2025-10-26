@@ -4,25 +4,38 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Template\Input;
 
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
+use JulienBoudry\PhpReference\CodeIndex;
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper, NamespaceWrapper};
 
 class ApiSummaryInput
 {
-    /** @var array<string, array<string, ClassWrapper[]>> */
+    /**
+     * @var array<string, NamespacePageInput>
+     */
     public readonly array $namespaces;
 
     public function __construct(
-        /** @var array<string, ClassWrapper[]> */
-        array $classes,
+        CodeIndex $codeIndex,
     ) {
         $namespaces = [];
 
-        foreach ($classes as $class) {
-            if (! isset($namespaces[$class->reflection->getNamespaceName()])) {
-                $namespaces[$class->reflection->getNamespaceName()] = ['class' => [], 'enum' => [], 'trait' => []];
-            }
+        // Filter namespaces to only include those with API classes
+        foreach ($codeIndex->namespaces as $namespaceWrapper) {
+            $apiClasses = array_filter(
+                $namespaceWrapper->classes,
+                fn(ClassWrapper $class) => $class->willBeInPublicApi
+            );
 
-            $namespaces[$class->reflection->getNamespaceName()][$class::TYPE][$class->shortName] = $class;
+            if (!empty($apiClasses)) {
+                // Create a filtered NamespaceWrapper with only API classes
+                $filteredNamespace = new NamespaceWrapper(
+                    namespace: $namespaceWrapper->namespace,
+                    classes: $apiClasses
+                );
+
+                // Reuse NamespacePageInput to organize classes by type
+                $namespaces[$namespaceWrapper->namespace] = new NamespacePageInput($filteredNamespace);
+            }
         }
 
         $this->namespaces = $namespaces;
