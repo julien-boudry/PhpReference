@@ -6,7 +6,7 @@ namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, PropertyPageWriter, PublicApiSummaryWriter};
+use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, NamespacePageWriter, PropertyPageWriter, PublicApiSummaryWriter};
 use JulienBoudry\PhpReference\Log\PhpDocParsingException;
 
 final class Execution
@@ -40,6 +40,16 @@ final class Execution
     {
         // Generate index page
         $this->writePage(new PublicApiSummaryWriter(codeIndex: $this->codeIndex, filePath: '/' . $fileName));
+
+        return $this;
+    }
+
+    public function buildNamespacePages(string $indexFileName): static
+    {
+        // Generate a page for each namespace
+        foreach ($this->codeIndex->namespaces as $namespace) {
+            $this->writePage(new NamespacePageWriter($namespace, $indexFileName));
+        }
 
         return $this;
     }

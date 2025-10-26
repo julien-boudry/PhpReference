@@ -1,0 +1,22 @@
+{templateType JulienBoudry\PhpReference\Template\Input\NamespacePageInput}
+# Namespace: {$namespace->namespace}
+
+{foreach $classes as $class}
+{first}
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+{/first}
+| [{$class->shortName}]({str_replace('\\', '/', mb_substr($class->getPagePath(), 1))}) | _{$class->getShortDescriptionForTable()}_ |
+{/foreach}
+
+{foreach $enums as $enum}
+{first}
+## Enums
+
+| Enum Name | Description |
+| ------------- | ------------- |
+{/first}
+| [{$enum->shortName}]({str_replace('\\', '/', mb_substr($enum->getPagePath(), 1))}) | _{$enum->getShortDescriptionForTable()}_ |
+{/foreach}

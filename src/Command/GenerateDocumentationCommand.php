@@ -208,6 +208,13 @@ class GenerateDocumentationCommand extends Command
                 callback: fn() => $this->execution->buildIndex($this->config->get(key: 'index-file-name', default: 'readme')),
             );
 
+            // Generate namespace pages
+            progress(
+                label: 'Generating namespace pages',
+                steps: \count($this->execution->codeIndex->namespaces),
+                callback: fn() => $this->execution->buildNamespacePages($this->config->get(key: 'index-file-name', default: 'readme')),
+            );
+
             // Process each class
             $progress = progress(label: 'Processing classes', steps: \count($this->execution->mainPhpNodes));
 
