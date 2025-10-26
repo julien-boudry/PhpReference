@@ -1,22 +1,15 @@
 {templateType JulienBoudry\PhpReference\Template\Input\NamespacePageInput}
+{import 'parts/namespace_tables.latte'}
 # Namespace: {$namespaceWrapper->namespace}
 
-{foreach $classes as $class}
-{first}
+{if !empty($classes)}
 ## Classes
 
-| Class Name | Description |
-| ------------- | ------------- |
-{/first}
-| [{$class->shortName}]({str_replace('\\', '/', mb_substr($class->getPagePath(), 1))}) | _{$class->getShortDescriptionForTable()}_ |
-{/foreach}
+{include classTable, classes: $classes}
+{/if}
 
-{foreach $enums as $enum}
-{first}
+{if !empty($enums)}
 ## Enums
 
-| Enum Name | Description |
-| ------------- | ------------- |
-{/first}
-| [{$enum->shortName}]({str_replace('\\', '/', mb_substr($enum->getPagePath(), 1))}) | _{$enum->getShortDescriptionForTable()}_ |
-{/foreach}
+{include enumTable, enums: $enums}
+{/if}
