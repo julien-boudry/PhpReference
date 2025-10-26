@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Template\Input;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use JulienBoudry\PhpReference\Reflect\ClassElementWrapper;
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ReflectionWrapper};
 use JulienBoudry\PhpReference\UrlLinker;
 
 abstract class AbstractElementInput
@@ -26,7 +25,7 @@ abstract class AbstractElementInput
     }
 
     /**
-     * Get breadcrumb navigation data for a class element
+     * Get breadcrumb navigation data for a class element.
      *
      * @return array{namespace: string, className: string, classUrl: string, elementName: string}|null
      */

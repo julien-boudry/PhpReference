@@ -9,31 +9,55 @@ use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWr
 use LogicException;
 use ReflectionClass;
 use ReflectionEnum;
+use JulienBoudry\PhpReference\Reflect\NamespaceWrapper;
 
 class CodeIndex
 {
-    /** @var array<string, ClassWrapper> */
-    public readonly array $classList;
+    /** @var array<string, NamespaceWrapper> */
+    public protected(set) array $namespaces = [];
+
+    /**
+     * @var array<string, ClassWrapper>
+     */
+    public array $classList {
+        get {
+            $result = [];
+            foreach ($this->namespaces as $namespaceItem) {
+                $result = array_merge($result, $namespaceItem->classes);
+            }
+
+            return $result;
+        }
+    }
 
     public function __construct(
         public readonly string $namespace,
     ) {
         $classPathList = ClassFinder::getClassesInNamespace($this->namespace, ClassFinder::RECURSIVE_MODE);
 
-        $classList = [];
+        $namespaceGroups = [];
 
         foreach ($classPathList as $classPath) {
             $reflection = new ReflectionClass($classPath);
 
-            if ($reflection->isEnum()) {
-                $reflection = new ReflectionEnum($classPath);
-                $classList[$classPath] = new EnumWrapper($reflection);
-            } else {
-                $classList[$classPath] = new ClassWrapper($reflection);
+            $classWrapper = $reflection->isEnum()
+                ? new EnumWrapper(new ReflectionEnum($classPath))
+                : new ClassWrapper($reflection);
+
+            // Extraire le namespace de la classe
+            $classNamespace = $reflection->getNamespaceName();
+
+            // Grouper par namespace
+            if (!isset($namespaceGroups[$classNamespace])) {
+                $namespaceGroups[$classNamespace] = [];
             }
+            $namespaceGroups[$classNamespace][$classPath] = $classWrapper;
         }
 
-        $this->classList = $classList;
+        // Créer les objets NamespaceWrapper
+        foreach ($namespaceGroups as $namespaceName => $classes) {
+            $this->namespaces[$namespaceName] = new NamespaceWrapper($namespaceName, $classes);
+        }
     }
 
     public function getClassWrapper(string $className): ?ClassWrapper

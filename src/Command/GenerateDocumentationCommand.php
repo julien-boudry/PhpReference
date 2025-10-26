@@ -80,7 +80,7 @@ class GenerateDocumentationCommand extends Command
         // Load configuration
         $this->config = new Config($input->getOption('config'));
 
-        if($this->config->get('no-interaction')) {
+        if ($this->config->get('no-interaction')) {
             $input->setInteractive(false);
         }
 

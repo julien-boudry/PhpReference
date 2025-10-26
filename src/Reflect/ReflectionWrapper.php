@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
-use JulienBoudry\PhpReference\Log\InvalidManualTag;
-use JulienBoudry\PhpReference\Log\InvalidSeeTag;
+use JulienBoudry\PhpReference\Log\{InvalidManualTag, InvalidSeeTag};
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -229,6 +228,7 @@ abstract class ReflectionWrapper
                 } catch (LogicException $e) {
                     // throw new InvalidSeeTag("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
                     warning("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
+
                     continue;
                 }
 
