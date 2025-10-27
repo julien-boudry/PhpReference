@@ -63,6 +63,8 @@ abstract class ReflectionWrapper
         return $wrappers;
     }
 
+    public NamespaceWrapper $declaringNamespace;
+
     public readonly ?DocBlock $docBlock;
 
     public readonly bool $hasApiTag;

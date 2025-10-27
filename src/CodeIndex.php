@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
-use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, ReflectionWrapper};
 use LogicException;
 use ReflectionClass;
 use ReflectionEnum;
@@ -35,6 +35,9 @@ class CodeIndex
     ) {
         $classPathList = ClassFinder::getClassesInNamespace($this->namespace, ClassFinder::RECURSIVE_MODE);
 
+        /**
+         * @var array<string, array<string, ReflectionWrapper>>
+         */
         $namespaceGroups = [];
 
         foreach ($classPathList as $classPath) {
@@ -45,18 +48,23 @@ class CodeIndex
                 : new ClassWrapper($reflection);
 
             // Extraire le namespace de la classe
-            $classNamespace = $reflection->getNamespaceName();
+            $elementNamespace = $reflection->getNamespaceName();
 
             // Grouper par namespace
-            if (!isset($namespaceGroups[$classNamespace])) {
-                $namespaceGroups[$classNamespace] = [];
+            if (!isset($namespaceGroups[$elementNamespace])) {
+                $namespaceGroups[$elementNamespace] = [];
             }
-            $namespaceGroups[$classNamespace][$classPath] = $classWrapper;
+            $namespaceGroups[$elementNamespace][$classPath] = $classWrapper;
         }
 
         // Créer les objets NamespaceWrapper
-        foreach ($namespaceGroups as $namespaceName => $classes) {
-            $this->namespaces[$namespaceName] = new NamespaceWrapper($namespaceName, $classes);
+        foreach ($namespaceGroups as $namespaceName => $namespaceElements) {
+            $namespaceWrapper = new NamespaceWrapper($namespaceName, $namespaceElements);
+            $this->namespaces[$namespaceName] = $namespaceWrapper;
+
+            foreach ($namespaceElements as $reflectionWrapper) {
+                $reflectionWrapper->declaringNamespace = $namespaceWrapper;
+            }
         }
     }
 
