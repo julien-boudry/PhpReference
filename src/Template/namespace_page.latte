@@ -1,15 +1,16 @@
 {templateType JulienBoudry\PhpReference\Template\Input\NamespacePageInput}
 {import 'parts/namespace_tables.latte'}
+{var $urlLinker = $namespaceWrapper->getUrlLinker()}
 # Namespace: {$namespaceWrapper->namespace}
 
 {if !empty($classes)}
 ## Classes
 
-{include classTable, classes: $classes}
+{include classTable, classes: $classes, urlLinker: $urlLinker}
 {/if}
 
 {if !empty($enums)}
 ## Enums
 
-{include enumTable, enums: $enums}
+{include enumTable, enums: $enums, urlLinker: $urlLinker}
 {/if}

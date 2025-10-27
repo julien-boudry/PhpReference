@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace JulienBoudry\PhpReference\Reflect;
+namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use JulienBoudry\PhpReference\UrlLinker;
 
-class NamespaceWrapper implements WritableInterface
+/**
+ * Wrapper for the API summary page (readme.md at root)
+ * Implements WritableInterface to allow UrlLinker creation
+ */
+class ApiSummaryPage implements WritableInterface
 {
     protected ?UrlLinker $urlLinker = null;
 
-    /**
-     * @param array<string, ClassWrapper> $classes
-     */
     public function __construct(
-        public readonly string $namespace,
-        public readonly array $classes,
+        public readonly string $pagePath = '/readme.md',
     ) {}
 
     public function getPageDirectory(): string
     {
-        return '/ref/' . str_replace('\\', '/', $this->namespace);
+        return '/';
     }
 
     public function getPagePath(): string
     {
-        return $this->getPageDirectory() . '/readme.md';
+        return $this->pagePath;
     }
 
     public function getUrlLinker(): UrlLinker

@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 
 class UrlLinker
 {
     public function __construct(
-        public readonly WritableInterface&ReflectionWrapper $sourcePage,
+        public readonly WritableInterface $sourcePage,
     ) {}
 
-    public function to(WritableInterface&ReflectionWrapper $page): string
+    public function to(WritableInterface $page): string
     {
         $sourceDirectory = $this->sourcePage->getPageDirectory();
         $destinationPath = $page->getPagePath();

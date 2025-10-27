@@ -1,13 +1,14 @@
 {templateType JulienBoudry\PhpReference\Template\Input\ApiSummaryInput}
 {import 'classIndex.latte'}
 {import 'parts/namespace_tables.latte'}
+{var $urlLinker = $summaryPage->getUrlLinker()}
 # API Reference Index
 
 {foreach $namespaces as $namespaceInput}
 ## {$namespaceInput->namespaceWrapper->namespace}
 {* *}
-{include classTable, classes: $namespaceInput->classes}
+{include classTable, classes: $namespaceInput->classes, urlLinker: $urlLinker}
 
-{include enumTable, enums: $namespaceInput->enums}
+{include enumTable, enums: $namespaceInput->enums, urlLinker: $urlLinker}
 
 {/foreach}

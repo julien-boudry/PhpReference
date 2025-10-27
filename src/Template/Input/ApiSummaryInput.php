@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Template\Input;
 
+use JulienBoudry\PhpReference\ApiSummaryPage;
 use JulienBoudry\PhpReference\CodeIndex;
 use JulienBoudry\PhpReference\Reflect\{ClassWrapper, NamespaceWrapper};
 
@@ -14,9 +15,13 @@ class ApiSummaryInput
      */
     public readonly array $namespaces;
 
+    public readonly ApiSummaryPage $summaryPage;
+
     public function __construct(
         CodeIndex $codeIndex,
     ) {
+        $this->summaryPage = new ApiSummaryPage;
+
         $namespaces = [];
 
         // Filter namespaces to only include those with API classes
