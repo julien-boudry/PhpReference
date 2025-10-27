@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use JulienBoudry\PhpReference\UrlLinker;
 
 /**
  * Wrapper for the API summary page (readme.md at root)
- * Implements WritableInterface to allow UrlLinker creation
+ * Implements WritableInterface to allow UrlLinker creation.
  */
 class ApiSummaryPage implements WritableInterface
 {

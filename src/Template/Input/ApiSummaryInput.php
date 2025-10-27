@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Template\Input;
 
-use JulienBoudry\PhpReference\ApiSummaryPage;
-use JulienBoudry\PhpReference\CodeIndex;
+use JulienBoudry\PhpReference\{ApiSummaryPage, CodeIndex};
 use JulienBoudry\PhpReference\Reflect\{ClassWrapper, NamespaceWrapper};
 
 class ApiSummaryInput
