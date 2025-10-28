@@ -9,7 +9,7 @@ use JulienBoudry\PhpReference\UrlLinker;
 
 class NamespaceWrapper implements WritableInterface
 {
-    protected ?UrlLinker $urlLinker = null;
+    public readonly UrlLinker $urlLinker;
 
     public protected(set) array $hierarchy;
 
@@ -19,7 +19,10 @@ class NamespaceWrapper implements WritableInterface
     public function __construct(
         public readonly string $namespace,
         public readonly array $classes,
-    ) {}
+    )
+    {
+        $this->urlLinker = new UrlLinker($this);
+    }
 
     public function setHierarchy(array $hierarchy): void
     {
@@ -38,6 +41,6 @@ class NamespaceWrapper implements WritableInterface
 
     public function getUrlLinker(): UrlLinker
     {
-        return $this->urlLinker ??= new UrlLinker($this);
+        return $this->urlLinker;
     }
 }
