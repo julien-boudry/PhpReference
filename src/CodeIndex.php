@@ -57,6 +57,8 @@ class CodeIndex
             $namespaceGroups[$elementNamespace][$classPath] = $classWrapper;
         }
 
+        ksort($namespaceGroups, SORT_STRING);
+
         // Créer les objets NamespaceWrapper
         foreach ($namespaceGroups as $namespaceName => $namespaceElements) {
             $namespaceWrapper = new NamespaceWrapper($namespaceName, $namespaceElements);
