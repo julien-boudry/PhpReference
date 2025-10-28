@@ -13,10 +13,16 @@ class NamespaceWrapper implements WritableInterface
 
     public protected(set) array $hierarchy;
 
+    public string $name {
+        get => $this->namespace;
+    }
+
     public string $shortName {
         get {
             $parts = explode('\\', $this->namespace);
-            return end($parts) ?: $this->namespace;
+            $lastPart = end($parts);
+
+            return $lastPart ? $lastPart : $this->namespace;
         }
     }
 

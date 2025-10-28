@@ -1,6 +1,8 @@
 {templateType JulienBoudry\PhpReference\Template\Input\NamespacePageInput}
 {import 'parts/namespace_tables.latte'}
 {var $urlLinker = $namespaceWrapper->getUrlLinker()}
+> {JulienBoudry\PhpReference\Template\Input\AbstractElementInput::getBreadcrumb($namespaceWrapper)}
+{* *}
 # Namespace: {$namespaceWrapper->namespace}
 
 {if !empty($classes)}

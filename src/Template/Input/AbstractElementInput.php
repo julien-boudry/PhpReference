@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Template\Input;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
-use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ReflectionWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, NamespaceWrapper, ReflectionWrapper};
 use JulienBoudry\PhpReference\UrlLinker;
 
 abstract class AbstractElementInput
@@ -25,15 +25,21 @@ abstract class AbstractElementInput
     }
 
     /**
-     * Get breadcrumb navigation data for a class element.
+     * Get breadcrumb navigation data for an element or namespace.
      */
-    public static function getBreadcrumb(ReflectionWrapper $element): ?string
+    public static function getBreadcrumb(ReflectionWrapper|NamespaceWrapper $element): ?string
     {
         $urlLinker = $element->getUrlLinker();
 
         $path = '';
 
-        foreach ($element->declaringNamespace->hierarchy as $nsPart)
+        // Handle namespace hierarchy
+        $hierarchy = match (true) {
+            $element instanceof NamespaceWrapper => $element->hierarchy,
+            default => $element->declaringNamespace->hierarchy,
+        };
+
+        foreach ($hierarchy as $nsPart)
         {
             if (is_string($nsPart)) {
                 $path .= $nsPart;
@@ -45,7 +51,9 @@ abstract class AbstractElementInput
             $path .= ' \\ ';
         }
 
+        // Handle different element types
         if ($element instanceof ClassElementWrapper) {
+            // For class elements (methods, properties), show the parent class as a link
             $parentWrapper = $element->parentWrapper;
 
             $className = $parentWrapper->shortName;
@@ -54,7 +62,8 @@ abstract class AbstractElementInput
             $path .= "[{$className}]({$classLink})";
         }
         else {
-            $name = method_exists($element, 'shortName') ? $element->shortName : $element->name; // @phpstan-ignore property.notFound
+            // For classes themselves, show as bold
+            $name = property_exists($element, 'shortName') ? $element->shortName : $element->name;
             $path .= "**{$name}**";
         }
 
