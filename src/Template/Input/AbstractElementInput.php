@@ -26,10 +26,8 @@ abstract class AbstractElementInput
 
     /**
      * Get breadcrumb navigation data for a class element.
-     *
-     * @return array{namespace: string, className: string, classUrl: string, elementName: string}|null
      */
-    public static function getBreadcrumb(ClassElementWrapper $element): ?array
+    public static function getBreadcrumb(ClassElementWrapper $element): ?string
     {
         $parentWrapper = $element->parentWrapper;
 
@@ -37,17 +35,25 @@ abstract class AbstractElementInput
             return null;
         }
 
-        $namespaceParts = explode('\\', $parentWrapper->name);
-        $className = array_pop($namespaceParts);
-        $namespace = implode('\\', $namespaceParts);
-
         $urlLinker = $element->getUrlLinker();
 
-        return [
-            'namespace' => $namespace,
-            'className' => $className,
-            'classUrl' => $urlLinker->to($parentWrapper),
-            'elementName' => $element->name,
-        ];
+        $path = '';
+
+        foreach ($element->declaringNamespace->hierarchy as $nsPart)
+        {
+            if (is_string($nsPart)) {
+                $path .= $nsPart;
+            }
+            else {
+                $path .= "[{$nsPart->shortName}]({$urlLinker->to($nsPart)})";
+            }
+
+            $path .= ' \\ ';
+        }
+
+        $className = $parentWrapper->shortName;
+        $classLink = $urlLinker->to($parentWrapper);
+
+        return $path . "[{$className}]({$classLink})";
     }
 }

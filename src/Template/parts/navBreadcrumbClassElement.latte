@@ -1,6 +1,6 @@
 {define navBreadcrumbClassElement, $element}
 {var $AbstractElementInput = JulienBoudry\PhpReference\Template\Input\AbstractElementInput::class}
 {if $breadcrumb = $AbstractElementInput::getBreadcrumb($element)}
-> {$breadcrumb['namespace']}\\[**{$breadcrumb['className']}**]({$breadcrumb['classUrl']})::{$breadcrumb['elementName']}
+> {$breadcrumb}
 {/if}
 {/define}

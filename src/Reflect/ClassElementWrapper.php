@@ -22,6 +22,10 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
         get => $this->classReference->get();
     }
 
+    public NamespaceWrapper $declaringNamespace {
+        get => $this->parentWrapper->declaringNamespace; // @phpstan-ignore propertyGetHook.noRead
+    }
+
     public ?ClassWrapper $declaringClass {
         get => $this->declaringClassReference ? $this->declaringClassReference->get() : null;
     }
