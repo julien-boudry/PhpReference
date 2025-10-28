@@ -27,14 +27,8 @@ abstract class AbstractElementInput
     /**
      * Get breadcrumb navigation data for a class element.
      */
-    public static function getBreadcrumb(ClassElementWrapper $element): ?string
+    public static function getBreadcrumb(ReflectionWrapper $element): ?string
     {
-        $parentWrapper = $element->parentWrapper;
-
-        if (! $parentWrapper) {
-            return null;
-        }
-
         $urlLinker = $element->getUrlLinker();
 
         $path = '';
@@ -51,9 +45,19 @@ abstract class AbstractElementInput
             $path .= ' \\ ';
         }
 
-        $className = $parentWrapper->shortName;
-        $classLink = $urlLinker->to($parentWrapper);
+        if ($element instanceof ClassElementWrapper) {
+            $parentWrapper = $element->parentWrapper;
 
-        return $path . "[{$className}]({$classLink})";
+            $className = $parentWrapper->shortName;
+            $classLink = $urlLinker->to($parentWrapper);
+
+            $path .= "[{$className}]({$classLink})";
+        }
+        else {
+            $name = method_exists($element, 'shortName') ? $element->shortName : $element->name; // @phpstan-ignore property.notFound
+            $path .= "**{$name}**";
+        }
+
+        return $path;
     }
 }

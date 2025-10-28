@@ -1,9 +1,10 @@
 {templateType JulienBoudry\PhpReference\Template\Input\ClassPageInput}
+{import 'parts/navBreadcrumbClassElement.latte'}
 {import 'parts/readItAtSource.latte'}
 {import 'classIndex.latte'}
 {import 'parts/description.latte'}
 {* *}
-> {$class->name}
+{include navBreadcrumbClassElement, $class}
 {* *}
 # {$type} {$class->shortName}
 {include readItAtSource, $class}
