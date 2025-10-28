@@ -57,6 +57,7 @@ class CodeIndex
             $namespaceGroups[$elementNamespace][$classPath] = $classWrapper;
         }
 
+        // Sort Namespace
         ksort($namespaceGroups, SORT_STRING);
 
         // Créer les objets NamespaceWrapper
@@ -67,6 +68,28 @@ class CodeIndex
             foreach ($namespaceElements as $reflectionWrapper) {
                 $reflectionWrapper->declaringNamespace = $namespaceWrapper;
             }
+        }
+
+        // Write hierarchy
+        $this->createNamespaceHierarchy();
+    }
+
+    protected function createNamespaceHierarchy(): void
+    {
+        foreach ($this->namespaces as $namespaceWrapper) {
+            $hierarchy = [];
+            $parts = explode('\\', $namespaceWrapper->namespace);
+
+            // Construire progressivement chaque niveau de namespace parent
+            for ($i = 1; $i < count($parts); $i++) {
+                $parentNamespace = implode('\\', array_slice($parts, 0, $i));
+
+                // Si le parent existe dans notre index, l'ajouter à la hiérarchie
+                // Sinon, ajouter le nom du namespace comme string
+                $hierarchy[] = $this->namespaces[$parentNamespace] ?? $parentNamespace;
+            }
+
+            $namespaceWrapper->setHierarchy($hierarchy);
         }
     }
 

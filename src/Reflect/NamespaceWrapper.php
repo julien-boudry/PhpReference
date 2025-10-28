@@ -11,6 +11,8 @@ class NamespaceWrapper implements WritableInterface
 {
     protected ?UrlLinker $urlLinker = null;
 
+    public protected(set) array $hierarchy;
+
     /**
      * @param array<string, ClassWrapper> $classes
      */
@@ -18,6 +20,11 @@ class NamespaceWrapper implements WritableInterface
         public readonly string $namespace,
         public readonly array $classes,
     ) {}
+
+    public function setHierarchy(array $hierarchy): void
+    {
+        $this->hierarchy ??= $hierarchy;
+    }
 
     public function getPageDirectory(): string
     {
