@@ -19,7 +19,7 @@ class CodeIndex
     /**
      * @var array<string, ClassWrapper>
      */
-    public array $classList {
+    public array $elementsList {
         get {
             $result = [];
             foreach ($this->namespaces as $namespaceItem) {
@@ -70,7 +70,7 @@ class CodeIndex
 
     public function getClassWrapper(string $className): ?ClassWrapper
     {
-        return $this->classList[$className] ?? null;
+        return $this->elementsList[$className] ?? null;
     }
 
     /**
@@ -78,7 +78,7 @@ class CodeIndex
      */
     public function getApiClasses(): array
     {
-        return array_filter($this->classList, function (ClassWrapper $class): bool {
+        return array_filter($this->elementsList, function (ClassWrapper $class): bool {
             return $class->willBeInPublicApi;
         });
     }
@@ -93,7 +93,7 @@ class CodeIndex
             $classPath = substr($classPath, 1);
         }
 
-        $class = $this->classList[$classPath] ?? null;
+        $class = $this->elementsList[$classPath] ?? null;
 
         if ($class === null) {
             throw new LogicException("Class `{$classPath}` not found");

@@ -108,8 +108,8 @@ class Util
             $nullable = $type->allowsNull() && $typeName !== 'mixed';
             $typeString = ($nullable ? '?' : '') . $typeName;
 
-            if (\array_key_exists($typeName, Execution::$instance->codeIndex->classList)) {
-                $pageDestination = Execution::$instance->codeIndex->classList[$typeName];
+            if (\array_key_exists($typeName, Execution::$instance->codeIndex->elementsList)) {
+                $pageDestination = Execution::$instance->codeIndex->elementsList[$typeName];
                 $toLink = $urlLinker->to($pageDestination);
 
                 return "[`{$typeString}`]({$toLink})";
