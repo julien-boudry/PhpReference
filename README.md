@@ -47,12 +47,16 @@ php vendor/bin/php-reference MyNamespace\\MyProject
 
 This will analyze all classes in `MyNamespace\MyProject` and generate Markdown documentation in the `./output` directory.
 
+> **Note:** If you're working on the PhpReference project itself, use `php bin/php-reference` instead of `php vendor/bin/php-reference`.
+
 ### Generate with Output Directory
 
 Specify a custom output directory:
 
 ```bash
 php vendor/bin/php-reference MyNamespace\\MyProject --output=./docs/api
+# Or with shorthand:
+php vendor/bin/php-reference MyNamespace\\MyProject -o ./docs/api
 ```
 
 ### Include All Public Elements
@@ -60,13 +64,7 @@ php vendor/bin/php-reference MyNamespace\\MyProject --output=./docs/api
 By default, only elements marked with `@api` are documented. To include all public elements:
 
 ```bash
-php vendor/bin/php-reference MyNamespace\\MyProject --all-public
-```
-
-Or use the shorthand:
-
-```bash
-php vendor/bin/php-reference MyNamespace\\MyProject -p
+php vendor/bin/php-reference MyNamespace\\MyProject --api=public
 ```
 
 ### Append Mode
@@ -75,23 +73,41 @@ By default, PhpReference cleans the output directory before generation. To appen
 
 ```bash
 php vendor/bin/php-reference MyNamespace\\MyProject --append
+# Or with shorthand:
+php vendor/bin/php-reference MyNamespace\\MyProject -a
 ```
 
-Or use the shorthand:
+### Add Source Links
+
+Link documentation to your source code repository:
 
 ```bash
-php vendor/bin/php-reference MyNamespace\\MyProject -a
+php vendor/bin/php-reference MyNamespace\\MyProject --source-url-base=https://github.com/user/repo/blob/main
+```
+
+### Combine Multiple Options
+
+You can combine any options:
+
+```bash
+php vendor/bin/php-reference MyNamespace\\MyProject \
+  --output=./docs/api \
+  --api=public \
+  --append \
+  --index-file-name=API \
+  --source-url-base=https://github.com/user/repo/blob/main
 ```
 
 ## Command-Line Options
 
 | Option | Shortcut | Description | Example |
 |--------|----------|-------------|---------|
-| namespace | - | Namespace to analyze (required) | `MyNamespace\\MyProject` |
+| `namespace` | - | Namespace to analyze (optional if set in config) | `MyNamespace\\MyProject` |
 | `--output` | `-o` | Output directory | `--output=./docs/api` |
 | `--append` | `-a` | Do not clean output directory before generation | `--append` |
-| `--api` | - | API definition to use | `--api=public` |
-| `--index-file-name` | - | Name of the index file to generate | `--index-file-name=index` |
+| `--api` | - | API definition to use (`api`, `public`, `beta`) | `--api=public` |
+| `--index-file-name` | - | Name of the index file (without extension) | `--index-file-name=index` |
+| `--source-url-base` | - | Base URL for source code links | `--source-url-base=https://github.com/user/repo/blob/main` |
 | `--config` | `-c` | Path to configuration file | `--config=./my-config.php` |
 
 ## Configuration File
@@ -132,7 +148,17 @@ class MyClass
 
 ### Include All Public Elements
 
-Use `--all-public` (or `-p`) to document all public classes, methods, and properties regardless of `@api` tags.
+Use `--api=public` to document all public classes, methods, and properties regardless of `@api` tags:
+
+```bash
+php vendor/bin/php-reference MyNamespace\\MyProject --api=public
+```
+
+### Available API Definitions
+
+- **`api`** (default): Only elements marked with `@api` tag
+- **`public`**: All public elements
+- **`beta`**: Elements marked with `@beta` tag
 
 ## Output Structure
 
