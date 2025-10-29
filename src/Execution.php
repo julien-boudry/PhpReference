@@ -28,7 +28,7 @@ final class Execution
     ) {
         self::$instance = $this;
         $this->mainPhpNodes = $codeIndex->getApiClasses();
-        $this->errorCollector = new ErrorCollector();
+        $this->errorCollector = new ErrorCollector;
     }
 
     public function buildIndex(string $fileName): static

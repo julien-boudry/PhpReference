@@ -12,6 +12,6 @@ readonly class CollectedError
         public ?string $context = null,
         public ?string $elementName = null,
         public ?\Throwable $exception = null,
-        public \DateTimeImmutable $timestamp = new \DateTimeImmutable(),
+        public \DateTimeImmutable $timestamp = new \DateTimeImmutable,
     ) {}
 }

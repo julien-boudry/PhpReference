@@ -6,7 +6,6 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
 use JulienBoudry\PhpReference\Exception\UnsupportedOperationException;
-use JulienBoudry\PhpReference\Log\ErrorLevel;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -301,6 +300,7 @@ abstract class ReflectionWrapper
                 context: "Element: {$this->name}",
                 element: $this,
             );
+
             return null;
         }
 

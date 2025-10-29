@@ -7,6 +7,4 @@ namespace JulienBoudry\PhpReference\Exception;
 /**
  * Thrown when configuration is invalid or missing.
  */
-class InvalidConfigurationException extends PhpReferenceException
-{
-}
+class InvalidConfigurationException extends PhpReferenceException {}

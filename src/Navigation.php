@@ -23,14 +23,12 @@ class Navigation
             default => $element->declaringNamespace->hierarchy,
         };
 
-        foreach ($hierarchy as $nsPart)
-        {
-            if (is_string($nsPart)) {
+        foreach ($hierarchy as $nsPart) {
+            if (\is_string($nsPart)) {
                 $parentNamespace = explode('\\', $nsPart);
                 $path .= end($parentNamespace);
                 unset($parentNamespace);
-            }
-            else {
+            } else {
                 $path .= "[{$nsPart->shortName}]({$urlLinker->to($nsPart)})";
             }
 
@@ -46,8 +44,7 @@ class Navigation
             $classLink = $urlLinker->to($parentWrapper);
 
             $path .= "[{$className}]({$classLink})";
-        }
-        else {
+        } else {
             // For classes themselves, show as bold
             $name = property_exists($element, 'shortName') ? $element->shortName : $element->name;
             $path .= "**{$name}**";

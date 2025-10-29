@@ -31,7 +31,7 @@ class ErrorCollector
             context: $context,
             elementName: $element?->name,
             exception: $exception,
-            timestamp: new \DateTimeImmutable(),
+            timestamp: new \DateTimeImmutable,
         );
 
         $this->errors[] = $error;
@@ -78,7 +78,7 @@ class ErrorCollector
     public function getErrorCount(?ErrorLevel $level = null): int
     {
         if ($level === null) {
-            return count($this->errors);
+            return \count($this->errors);
         }
 
         return $this->errorCounts[$level->value] ?? 0;
@@ -117,11 +117,11 @@ class ErrorCollector
                 continue;
             }
 
-            $output .= sprintf("%s (%d):\n", $level->getLabel(), count($levelErrors));
+            $output .= \sprintf("%s (%d):\n", $level->getLabel(), \count($levelErrors));
             $output .= str_repeat('-', 50) . "\n";
 
             foreach ($levelErrors as $error) {
-                $output .= sprintf(
+                $output .= \sprintf(
                     "  [%s] %s%s\n",
                     $error->timestamp->format('H:i:s'),
                     $error->elementName ? "[{$error->elementName}] " : '',

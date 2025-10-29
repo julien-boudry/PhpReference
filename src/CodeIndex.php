@@ -7,7 +7,6 @@ namespace JulienBoudry\PhpReference;
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Exception\UnresolvableReferenceException;
 use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, ReflectionWrapper};
-use LogicException;
 use ReflectionClass;
 use ReflectionEnum;
 use JulienBoudry\PhpReference\Reflect\NamespaceWrapper;
@@ -59,7 +58,7 @@ class CodeIndex
         }
 
         // Sort Namespace
-        ksort($namespaceGroups, SORT_STRING);
+        ksort($namespaceGroups, \SORT_STRING);
 
         // Créer les objets NamespaceWrapper
         foreach ($namespaceGroups as $namespaceName => $namespaceElements) {
@@ -82,8 +81,8 @@ class CodeIndex
             $parts = explode('\\', $namespaceWrapper->namespace);
 
             // Construire progressivement chaque niveau de namespace parent
-            for ($i = 1; $i < count($parts); $i++) {
-                $parentNamespace = implode('\\', array_slice($parts, 0, $i));
+            for ($i = 1; $i < \count($parts); $i++) {
+                $parentNamespace = implode('\\', \array_slice($parts, 0, $i));
 
                 // Si le parent existe dans notre index, l'ajouter à la hiérarchie
                 // Sinon, ajouter le nom du namespace comme string

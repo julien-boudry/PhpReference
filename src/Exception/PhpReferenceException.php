@@ -7,6 +7,4 @@ namespace JulienBoudry\PhpReference\Exception;
 /**
  * Base exception for all PhpReference exceptions.
  */
-class PhpReferenceException extends \Exception
-{
-}
+class PhpReferenceException extends \Exception {}

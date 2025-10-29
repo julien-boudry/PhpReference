@@ -33,8 +33,7 @@ class NamespaceWrapper implements WritableInterface
     public function __construct(
         public readonly string $namespace,
         public readonly array $classes,
-    )
-    {
+    ) {
         $this->urlLinker = new UrlLinker($this);
     }
 
