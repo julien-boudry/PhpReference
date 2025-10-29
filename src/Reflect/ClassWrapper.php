@@ -57,7 +57,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
-     * @param  array<ClassElementWrapper>  $list
+     * @param  array<string, ClassElementWrapper>  $list
      *
      * @return array<string, ClassElementWrapper>
      */
@@ -224,6 +224,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * @param array<string, ClassElementWrapper> $list
      * @return array<string, ClassElementWrapper>
      */
     protected function filterApiReflection(array $list): array

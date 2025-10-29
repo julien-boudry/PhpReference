@@ -27,6 +27,9 @@ class Util
         return self::$docBlockContextFactory;
     }
 
+    /**
+     * @param array<int|string, mixed> $array
+     */
     public static function arrayToString(array $array, int $depth = 0): string
     {
         if (empty($array)) {

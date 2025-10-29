@@ -127,7 +127,7 @@ abstract class ReflectionWrapper
      * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
      * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
      *
-     * @return ?array<DocBlock\Tags\BaseTag> Array of tags matching the criteria.
+     * @return ?array<int, DocBlock\Tags\BaseTag> Array of tags matching the criteria.
      */
     public function getDocBlockTags(string $tag, ?string $variableNameFilter = null): ?array
     {
@@ -155,7 +155,7 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @return ?array<DocBlock\Tags\See>
+     * @return ?array<int, DocBlock\Tags\See>
      */
     public function getSeeTags(): ?array
     {
@@ -164,7 +164,7 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @return ?DocBlock\Tags\BaseTag[]
+     * @return ?array<int, DocBlock\Tags\BaseTag>
      */
     public function getManualTags(): ?array
     {
@@ -178,11 +178,11 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param $tags ?DocBlock\Tags\BaseTag>
+     * @param ?array<int, DocBlock\Tags\See|DocBlock\Tags\Throws> $tags
      *
      * @throws LogicException
      *
-     * @return ?array<array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>
+     * @return ?array<int, array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>
      */
     protected function resolveTags(?array $tags): ?array
     {
@@ -205,6 +205,12 @@ abstract class ReflectionWrapper
                     'tag' => $tag,
                 ];
             } elseif ($reference instanceof Object_) {
+                // For Object_ references, we need the type information
+                // See tags have getType(), Throws tags have getType()
+                if (!method_exists($tag, 'getType')) {
+                    continue;
+                }
+
                 $fqsenPath = (string) $tag->getType();
                 if (str_starts_with($fqsenPath, '\\')) {
                     $fqsenPath = substr($fqsenPath, 1);
@@ -250,7 +256,7 @@ abstract class ReflectionWrapper
     /**
      * @throws LogicException
      *
-     * @return ?array<array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>
+     * @return ?array<int, array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>
      */
     public function getResolvedSeeTags(): ?array
     {
@@ -266,6 +272,9 @@ abstract class ReflectionWrapper
         return array_filter($resolved, fn(array $item): bool => $item['destination'] !== $this); // @phpstan-ignore return.type
     }
 
+    /**
+     * @return ?array<int, string>
+     */
     public function getResolvedManualTags(): ?array
     {
         $ManualTags = $this->getManualTags();

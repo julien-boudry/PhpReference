@@ -8,6 +8,7 @@ use JulienBoudry\PhpReference\Definition\{HasTagApi, IsPubliclyAccessible, Publi
 
 class Config
 {
+    /** @var array<string, mixed> */
     private array $config = [];
 
     public function __construct(?string $configPath = null)
@@ -45,6 +46,8 @@ class Config
 
     /**
      * Get all configuration as array.
+     *
+     * @return array<string, mixed>
      */
     public function all(): array
     {
@@ -54,7 +57,7 @@ class Config
     /**
      * Merge configuration with CLI arguments, giving priority to CLI.
      *
-     * @param  array<string|null>  $cliArgs  Associative array of CLI arguments
+     * @param  array<string, string|bool|null>  $cliArgs  Associative array of CLI arguments
      */
     public function mergeWithCliArgs(array $cliArgs): void
     {

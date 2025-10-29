@@ -19,7 +19,7 @@ final class Execution
     /** @var ClassWrapper[] */
     public readonly array $mainPhpNodes;
 
-    /* @var array<string> */
+    /** @var array<int, string> */
     public private(set) array $writedPages = [];
 
     public function __construct(

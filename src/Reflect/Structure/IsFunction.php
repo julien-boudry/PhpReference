@@ -20,7 +20,7 @@ trait IsFunction
     }
 
     /**
-     * @return array<ParameterWrapper>
+     * @return array<int, ParameterWrapper>
      */
     public function getParameters(): array
     {
