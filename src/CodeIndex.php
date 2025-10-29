@@ -110,6 +110,14 @@ class CodeIndex
 
     public function getElement(string $path): ClassElementWrapper
     {
+        // Validate path format
+        if (!str_contains($path, '::')) {
+            throw new UnresolvableReferenceException(
+                reference: $path,
+                message: "Invalid element path format '{$path}'. Expected format: 'ClassName::elementName'",
+            );
+        }
+
         // If it's a class reference, resolve it to a ClassWrapper
         [$classPath, $elementName] = explode('::', $path);
 

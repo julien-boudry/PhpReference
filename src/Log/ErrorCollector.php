@@ -60,10 +60,10 @@ class ErrorCollector
             return $this->errors;
         }
 
-        return array_filter(
+        return array_values(array_filter(
             $this->errors,
             fn(CollectedError $error) => $error->level === $filterByLevel
-        );
+        ));
     }
 
     public function hasErrors(?ErrorLevel $level = null): bool

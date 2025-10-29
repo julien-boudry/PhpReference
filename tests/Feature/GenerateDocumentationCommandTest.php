@@ -1,0 +1,53 @@
+<?php
+
+declare(strict_types=1);
+
+use JulienBoudry\PhpReference\Command\GenerateDocumentationCommand;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
+
+describe('GenerateDocumentationCommand', function () {
+    beforeEach(function () {
+        $this->application = new Application();
+        $this->command = new GenerateDocumentationCommand();
+        $this->application->add($this->command);
+        $this->commandTester = new CommandTester($this->command);
+    });
+
+    it('can be created', function () {
+        expect($this->command)->toBeInstanceOf(GenerateDocumentationCommand::class);
+    });
+
+    it('has correct name', function () {
+        expect($this->command->getName())->toBe('generate:documentation');
+    });
+
+    it('has description', function () {
+        expect($this->command->getDescription())->not->toBeEmpty();
+    });
+
+    it('defines namespace argument', function () {
+        $definition = $this->command->getDefinition();
+        expect($definition->hasArgument('namespace'))->toBeTrue();
+    });
+
+    it('defines output option', function () {
+        $definition = $this->command->getDefinition();
+        expect($definition->hasOption('output'))->toBeTrue();
+    });
+
+    it('defines api option', function () {
+        $definition = $this->command->getDefinition();
+        expect($definition->hasOption('api'))->toBeTrue();
+    });
+
+    it('defines append option', function () {
+        $definition = $this->command->getDefinition();
+        expect($definition->hasOption('append'))->toBeTrue();
+    });
+
+    it('defines config option', function () {
+        $definition = $this->command->getDefinition();
+        expect($definition->hasOption('config'))->toBeTrue();
+    });
+});
