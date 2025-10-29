@@ -8,13 +8,13 @@
         "league/flysystem": "^3.29",
         "symfony/console": "^7.3",
         "laravel/prompts": "^0.3",
-        "phpunit/php-timer": "^7.0"
+        "phpunit/php-timer": "^8.0"
     },
     "require-dev": {
-        "pestphp/pest": "^3.8",
+        "pestphp/pest": "^4.1",
         "phpstan/phpstan": "^2.1",
         "julien-boudry/condorcet": "dev-dev-5.0",
-        "friendsofphp/php-cs-fixer": "^3.85"
+        "friendsofphp/php-cs-fixer": "^3.89"
     },
     "bin": [
         "bin/php-reference"
