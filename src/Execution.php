@@ -39,11 +39,15 @@ final class Execution
         return $this;
     }
 
-    public function buildNamespacePages(string $indexFileName): static
+    public function buildNamespacePages(string $indexFileName, ?callable $afterElementCallback = null): static
     {
         // Generate a page for each namespace
         foreach ($this->codeIndex->namespaces as $namespace) {
             $this->writePage(new NamespacePageWriter($namespace, $indexFileName));
+
+            if ($afterElementCallback) {
+                $afterElementCallback();
+            }
         }
 
         return $this;

@@ -185,19 +185,23 @@ class GenerateDocumentationCommand extends Command
 
         // Clean output directory if requested
         if (! $this->appendOutput) {
-            progress(label: 'Cleaning output directory', steps: 1, callback: function (): string {
-                $filesystem = AbstractWriter::getFlySystem();
+            progress(
+                label: 'Cleaning output directory',
+                steps: 1,
+                callback: function (): string {
+                    $filesystem = AbstractWriter::getFlySystem();
 
-                foreach ($filesystem->listContents('/', false) as $item) {
-                    if ($item->isDir()) {
-                        $filesystem->deleteDirectory($item->path());
-                    } else {
-                        $filesystem->delete($item->path());
+                    foreach ($filesystem->listContents('/', false) as $item) {
+                        if ($item->isDir()) {
+                            $filesystem->deleteDirectory($item->path());
+                        } else {
+                            $filesystem->delete($item->path());
+                        }
                     }
-                }
 
-                return 'Output directory cleaned successfully.';
-            });
+                    return 'Output directory cleaned successfully.';
+                }
+            );
         }
 
         try {
@@ -208,20 +212,28 @@ class GenerateDocumentationCommand extends Command
                 callback: fn() => $this->execution->buildIndex($this->config->get(key: 'index-file-name', default: 'readme')),
             );
 
+            $output->write("\033[1A"); // Move cursor up one line to remove extra blank line
+
             // Generate namespace pages
-            progress(
+            $progress = progress(
                 label: 'Generating namespace pages',
                 steps: \count($this->execution->codeIndex->namespaces),
-                callback: fn() => $this->execution->buildNamespacePages($this->config->get(key: 'index-file-name', default: 'readme')),
             );
+
+            $this->execution->buildNamespacePages(
+                indexFileName: $this->config->get(key: 'index-file-name', default: 'readme'),
+                afterElementCallback: fn() => $progress->advance()
+            );
+
+            $progress->finish();
+
+            $output->write("\033[1A"); // Move cursor up one line to remove extra blank line
 
             // Process each class
             $progress = progress(label: 'Processing classes', steps: \count($this->execution->mainPhpNodes));
 
             $this->execution->buildPages(
-                afterElementCallback: function () use ($progress): void {
-                    $progress->advance();
-                }
+                afterElementCallback: fn() => $progress->advance(),
             );
 
             $progress->finish();
