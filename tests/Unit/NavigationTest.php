@@ -6,12 +6,12 @@ use JulienBoudry\PhpReference\Navigation;
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
 
-describe('Navigation', function () {
-    beforeEach(function () {
+describe('Navigation', function (): void {
+    beforeEach(function (): void {
         $this->execution = createExecutionFixture('JulienBoudry\\PhpReference\\Log');
     });
 
-    it('generates breadcrumb for namespace', function () {
+    it('generates breadcrumb for namespace', function (): void {
         $namespace = $this->execution->codeIndex->namespaces['JulienBoudry\\PhpReference\\Log'];
         $breadcrumb = Navigation::getBreadcrumb($namespace);
 
@@ -19,7 +19,7 @@ describe('Navigation', function () {
             ->and($breadcrumb)->not->toBeEmpty();
     });
 
-    it('breadcrumb contains namespace hierarchy', function () {
+    it('breadcrumb contains namespace hierarchy', function (): void {
         $namespace = $this->execution->codeIndex->namespaces['JulienBoudry\\PhpReference\\Log'];
         $breadcrumb = Navigation::getBreadcrumb($namespace);
 
@@ -27,7 +27,7 @@ describe('Navigation', function () {
         expect($breadcrumb)->toContain('\\');
     });
 
-    it('generates breadcrumb for class', function () {
+    it('generates breadcrumb for class', function (): void {
         $class = $this->execution->codeIndex->elementsList['JulienBoudry\\PhpReference\\Log\\ErrorCollector'];
         $breadcrumb = Navigation::getBreadcrumb($class);
 
@@ -35,7 +35,7 @@ describe('Navigation', function () {
             ->and($breadcrumb)->not->toBeEmpty();
     });
 
-    it('breadcrumb for class includes namespace', function () {
+    it('breadcrumb for class includes namespace', function (): void {
         $class = $this->execution->codeIndex->elementsList['JulienBoudry\\PhpReference\\Log\\ErrorCollector'];
         $breadcrumb = Navigation::getBreadcrumb($class);
 
@@ -44,7 +44,7 @@ describe('Navigation', function () {
             ->and($breadcrumb)->toContain('ErrorCollector');
     });
 
-    it('breadcrumb for class shows class name in bold', function () {
+    it('breadcrumb for class shows class name in bold', function (): void {
         $class = $this->execution->codeIndex->elementsList['JulienBoudry\\PhpReference\\Log\\ErrorCollector'];
         $breadcrumb = Navigation::getBreadcrumb($class);
 
@@ -52,7 +52,7 @@ describe('Navigation', function () {
         expect($breadcrumb)->toContain('**ErrorCollector**');
     });
 
-    it('generates breadcrumb for method', function () {
+    it('generates breadcrumb for method', function (): void {
         $class = $this->execution->codeIndex->elementsList['JulienBoudry\\PhpReference\\Log\\ErrorCollector'];
         $method = $class->methods['addWarning'];
         $breadcrumb = Navigation::getBreadcrumb($method);
@@ -61,7 +61,7 @@ describe('Navigation', function () {
             ->and($breadcrumb)->not->toBeEmpty();
     });
 
-    it('breadcrumb for method includes class link', function () {
+    it('breadcrumb for method includes class link', function (): void {
         $class = $this->execution->codeIndex->elementsList['JulienBoudry\\PhpReference\\Log\\ErrorCollector'];
         $method = $class->methods['addWarning'];
         $breadcrumb = Navigation::getBreadcrumb($method);
@@ -70,7 +70,7 @@ describe('Navigation', function () {
         expect($breadcrumb)->toContain('[ErrorCollector]');
     });
 
-    it('breadcrumb format includes backslashes as separators', function () {
+    it('breadcrumb format includes backslashes as separators', function (): void {
         $class = $this->execution->codeIndex->elementsList['JulienBoudry\\PhpReference\\Log\\ErrorCollector'];
         $breadcrumb = Navigation::getBreadcrumb($class);
 

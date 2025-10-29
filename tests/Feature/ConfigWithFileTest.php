@@ -6,14 +6,14 @@ use JulienBoudry\PhpReference\Config;
 
 use function JulienBoudry\PhpReference\Tests\{createTempConfig, removeTempConfig};
 
-describe('Config with file', function () {
-    afterEach(function () {
+describe('Config with file', function (): void {
+    afterEach(function (): void {
         if (isset($this->tempConfigPath)) {
             removeTempConfig($this->tempConfigPath);
         }
     });
 
-    it('loads config from file', function () {
+    it('loads config from file', function (): void {
         $this->tempConfigPath = createTempConfig([
             'namespace' => 'My\\Test\\Namespace',
             'output' => '/tmp/output',
@@ -27,12 +27,12 @@ describe('Config with file', function () {
             ->and($config->get('api'))->toBe('HasTagApi');
     });
 
-    it('handles missing config file gracefully', function () {
+    it('handles missing config file gracefully', function (): void {
         $config = new Config('/non/existent/config.php');
         expect($config)->toBeInstanceOf(Config::class);
     });
 
-    it('CLI args override config file values', function () {
+    it('CLI args override config file values', function (): void {
         $this->tempConfigPath = createTempConfig([
             'namespace' => 'Original\\Namespace',
             'output' => '/original/path',

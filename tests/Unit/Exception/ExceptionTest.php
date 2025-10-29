@@ -9,21 +9,21 @@ use JulienBoudry\PhpReference\Exception\{
     UnsupportedOperationException
 };
 
-describe('Exceptions', function () {
-    describe('PhpReferenceException', function () {
-        it('can be thrown and caught', function () {
+describe('Exceptions', function (): void {
+    describe('PhpReferenceException', function (): void {
+        it('can be thrown and caught', function (): void {
             expect(fn() => throw new PhpReferenceException('Test'))
                 ->toThrow(PhpReferenceException::class, 'Test');
         });
 
-        it('is an instance of Exception', function () {
+        it('is an instance of Exception', function (): void {
             $exception = new PhpReferenceException('Test');
             expect($exception)->toBeInstanceOf(Exception::class);
         });
     });
 
-    describe('UnresolvableReferenceException', function () {
-        it('stores the reference', function () {
+    describe('UnresolvableReferenceException', function (): void {
+        it('stores the reference', function (): void {
             $exception = new UnresolvableReferenceException(
                 reference: 'MyClass',
                 message: 'Class not found'
@@ -33,14 +33,14 @@ describe('Exceptions', function () {
                 ->and($exception->getMessage())->toContain('Class not found');
         });
 
-        it('has a default message', function () {
+        it('has a default message', function (): void {
             $exception = new UnresolvableReferenceException(reference: 'MyClass');
 
             expect($exception->getMessage())->toContain('Unable to resolve reference')
                 ->and($exception->getMessage())->toContain('MyClass');
         });
 
-        it('can chain previous exceptions', function () {
+        it('can chain previous exceptions', function (): void {
             $previous = new Exception('Original error');
             $exception = new UnresolvableReferenceException(
                 reference: 'MyClass',
@@ -51,8 +51,8 @@ describe('Exceptions', function () {
         });
     });
 
-    describe('UnsupportedOperationException', function () {
-        it('stores operation and wrapper type', function () {
+    describe('UnsupportedOperationException', function (): void {
+        it('stores operation and wrapper type', function (): void {
             $exception = new UnsupportedOperationException(
                 operation: 'getUrlLinker',
                 wrapperType: 'ParameterWrapper'
@@ -65,8 +65,8 @@ describe('Exceptions', function () {
         });
     });
 
-    describe('InvalidConfigurationException', function () {
-        it('can be thrown with custom message', function () {
+    describe('InvalidConfigurationException', function (): void {
+        it('can be thrown with custom message', function (): void {
             expect(fn() => throw new InvalidConfigurationException('Bad config'))
                 ->toThrow(InvalidConfigurationException::class, 'Bad config');
         });

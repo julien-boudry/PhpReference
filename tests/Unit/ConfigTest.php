@@ -6,36 +6,36 @@ use JulienBoudry\PhpReference\Config;
 use JulienBoudry\PhpReference\Definition\{HasTagApi, IsPubliclyAccessible};
 use JulienBoudry\PhpReference\Exception\InvalidConfigurationException;
 
-describe('Config', function () {
-    it('can be created without a config file', function () {
+describe('Config', function (): void {
+    it('can be created without a config file', function (): void {
         $config = new Config('/non/existent/path');
 
         expect($config)->toBeInstanceOf(Config::class);
     });
 
-    it('can set and get values', function () {
-        $config = new Config();
+    it('can set and get values', function (): void {
+        $config = new Config;
         $config->set('test', 'value');
 
         expect($config->get('test'))->toBe('value');
     });
 
-    it('returns default value when key does not exist', function () {
-        $config = new Config();
+    it('returns default value when key does not exist', function (): void {
+        $config = new Config;
 
         expect($config->get('nonexistent', 'default'))->toBe('default');
     });
 
-    it('can check if key exists', function () {
-        $config = new Config();
+    it('can check if key exists', function (): void {
+        $config = new Config;
         $config->set('existing', 'value');
 
         expect($config->has('existing'))->toBeTrue()
             ->and($config->has('nonexistent'))->toBeFalse();
     });
 
-    it('can return all config as array', function () {
-        $config = new Config();
+    it('can return all config as array', function (): void {
+        $config = new Config;
         $config->set('key1', 'value1');
         $config->set('key2', 'value2');
 
@@ -47,8 +47,8 @@ describe('Config', function () {
             ->and($all['key1'])->toBe('value1');
     });
 
-    it('can merge with CLI args', function () {
-        $config = new Config();
+    it('can merge with CLI args', function (): void {
+        $config = new Config;
         $config->set('namespace', 'Original');
 
         $config->mergeWithCliArgs([
@@ -60,8 +60,8 @@ describe('Config', function () {
             ->and($config->get('output'))->toBe('/path/to/output');
     });
 
-    it('ignores null values when merging CLI args', function () {
-        $config = new Config();
+    it('ignores null values when merging CLI args', function (): void {
+        $config = new Config;
         $config->set('namespace', 'Original');
 
         $config->mergeWithCliArgs([
@@ -73,9 +73,9 @@ describe('Config', function () {
             ->and($config->get('output'))->toBe('/path');
     });
 
-    describe('API definition resolution', function () {
-        it('resolves IsPubliclyAccessible from string', function () {
-            $config = new Config();
+    describe('API definition resolution', function (): void {
+        it('resolves IsPubliclyAccessible from string', function (): void {
+            $config = new Config;
             $config->set('api', 'IsPubliclyAccessible');
 
             $definition = $config->getApiDefinition();
@@ -83,8 +83,8 @@ describe('Config', function () {
             expect($definition)->toBeInstanceOf(IsPubliclyAccessible::class);
         });
 
-        it('resolves HasTagApi from string case-insensitive', function () {
-            $config = new Config();
+        it('resolves HasTagApi from string case-insensitive', function (): void {
+            $config = new Config;
             $config->set('api', 'hastagapi');
 
             $definition = $config->getApiDefinition();
@@ -92,9 +92,9 @@ describe('Config', function () {
             expect($definition)->toBeInstanceOf(HasTagApi::class);
         });
 
-        it('returns existing instance if already set', function () {
-            $config = new Config();
-            $instance = new IsPubliclyAccessible();
+        it('returns existing instance if already set', function (): void {
+            $config = new Config;
+            $instance = new IsPubliclyAccessible;
             $config->set('api', $instance);
 
             $definition = $config->getApiDefinition();
@@ -102,17 +102,17 @@ describe('Config', function () {
             expect($definition)->toBe($instance);
         });
 
-        it('throws exception for unknown API definition', function () {
-            $config = new Config();
+        it('throws exception for unknown API definition', function (): void {
+            $config = new Config;
             $config->set('api', 'UnknownDefinition');
 
             expect(fn() => $config->getApiDefinition())
                 ->toThrow(InvalidConfigurationException::class);
         });
 
-        it('returns default when not set', function () {
-            $config = new Config();
-            $default = new HasTagApi();
+        it('returns default when not set', function (): void {
+            $config = new Config;
+            $default = new HasTagApi;
 
             $definition = $config->getApiDefinition($default);
 

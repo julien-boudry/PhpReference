@@ -2,25 +2,24 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Writer\ClassPageWriter;
 use JulienBoudry\PhpReference\Log\ErrorCollector;
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
 
-describe('ClassPageWriter', function () {
-    beforeEach(function () {
+describe('ClassPageWriter', function (): void {
+    beforeEach(function (): void {
         $this->execution = createExecutionFixture();
         // Get wrapper from CodeIndex to have declaringNamespace properly initialized
         $this->wrapper = $this->execution->codeIndex->elementsList[ErrorCollector::class];
         $this->writer = new ClassPageWriter($this->wrapper);
     });
 
-    it('can be created', function () {
+    it('can be created', function (): void {
         expect($this->writer)->toBeInstanceOf(ClassPageWriter::class);
     });
 
-    it('generates correct file path', function () {
+    it('generates correct file path', function (): void {
         $path = $this->wrapper->getPagePath();
 
         expect($path)->toBeString()
@@ -28,40 +27,40 @@ describe('ClassPageWriter', function () {
             ->and($path)->toEndWith('class_ErrorCollector.md');
     });
 
-    it('generates markdown content', function () {
+    it('generates markdown content', function (): void {
         $content = $this->writer->makeContent();
 
         expect($content)->toBeString()
             ->and($content)->not->toBeEmpty();
     });
 
-    it('content contains class name', function () {
+    it('content contains class name', function (): void {
         $content = $this->writer->makeContent();
 
         expect($content)->toContain('ErrorCollector');
     });
 
-    it('content contains methods section when class has methods', function () {
+    it('content contains methods section when class has methods', function (): void {
         $content = $this->writer->makeContent();
 
         // ErrorCollector has methods, so should have Methods section
         expect($content)->toContain('Method');
     });
 
-    it('content contains namespace information', function () {
+    it('content contains namespace information', function (): void {
         $content = $this->writer->makeContent();
 
         expect($content)->toContain('JulienBoudry\\PhpReference\\Log');
     });
 
-    it('generates valid markdown format', function () {
+    it('generates valid markdown format', function (): void {
         $content = $this->writer->makeContent();
 
         // Should have markdown headers
         expect($content)->toMatch('/^#\s+/m');
     });
 
-    it('content includes class signature', function () {
+    it('content includes class signature', function (): void {
         $content = $this->writer->makeContent();
 
         // Should mention it's a class

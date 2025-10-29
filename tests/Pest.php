@@ -34,6 +34,7 @@ expect()->extend('toContainAll', function (array $needles) {
             "Failed asserting that '{$this->value}' contains '{$needle}'"
         );
     }
+
     return $this;
 });
 
@@ -44,17 +45,18 @@ expect()->extend('toContainAll', function (array $needles) {
 */
 
 /**
- * Create a temporary config file for testing
+ * Create a temporary config file for testing.
  */
 function createTempConfig(array $config): string
 {
     $path = sys_get_temp_dir() . '/php-reference-test-' . uniqid() . '.php';
     file_put_contents($path, '<?php return ' . var_export($config, true) . ';');
+
     return $path;
 }
 
 /**
- * Clean up temporary config file
+ * Clean up temporary config file.
  */
 function removeTempConfig(string $path): void
 {
@@ -65,7 +67,7 @@ function removeTempConfig(string $path): void
 
 /**
  * Create a properly initialized Execution instance for testing
- * This initializes Execution::$instance which is required by Reflection wrappers
+ * This initializes Execution::$instance which is required by Reflection wrappers.
  */
 function createExecutionFixture(
     ?string $namespace = null,
@@ -76,7 +78,7 @@ function createExecutionFixture(
     // Log namespace is smaller and faster to index
     $namespace ??= 'JulienBoudry\\PhpReference\\Log';
     $outputDir ??= sys_get_temp_dir() . '/php-reference-test';
-    $apiDefinition ??= new \JulienBoudry\PhpReference\Definition\IsPubliclyAccessible();
+    $apiDefinition ??= new \JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 
     // Create and return Execution instance (this sets Execution::$instance)
     return new \JulienBoudry\PhpReference\Execution(

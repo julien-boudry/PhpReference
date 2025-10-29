@@ -10,7 +10,7 @@ beforeEach(function (): void {
 });
 
 it('test public condorcet', function (): void {
-    expect(count($this->codeIndex->elementsList))
+    expect(\count($this->codeIndex->elementsList))
         ->toBeGreaterThan(100)
         ->toBeGreaterThan(\count($this->codeIndex->getApiClasses()));
 

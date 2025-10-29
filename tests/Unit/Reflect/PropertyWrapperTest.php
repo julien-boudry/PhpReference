@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Reflect\PropertyWrapper;
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper, PropertyWrapper};
 use JulienBoudry\PhpReference\Log\ErrorCollector;
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
 
-describe('PropertyWrapper', function () {
-    beforeEach(function () {
+describe('PropertyWrapper', function (): void {
+    beforeEach(function (): void {
         $this->execution = createExecutionFixture();
-        $this->classWrapper = new ClassWrapper(new \ReflectionClass(ErrorCollector::class));
+        $this->classWrapper = new ClassWrapper(new ReflectionClass(ErrorCollector::class));
     });
 
-    it('wraps a property correctly', function () {
+    it('wraps a property correctly', function (): void {
         $properties = $this->classWrapper->properties;
 
         expect($properties)->toBeArray();
@@ -25,25 +24,25 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('detects public properties', function () {
+    it('detects public properties', function (): void {
         $publicProperties = $this->classWrapper->getAllProperties(protected: false, private: false);
 
         expect($publicProperties)->toBeArray();
-        
+
         foreach ($publicProperties as $property) {
             expect($property->reflection->isPublic())->toBeTrue();
         }
     });
 
-    it('can filter properties by visibility', function () {
+    it('can filter properties by visibility', function (): void {
         $allProperties = $this->classWrapper->getAllProperties(protected: true, private: true);
         $publicOnly = $this->classWrapper->getAllProperties(protected: false, private: false);
 
         // If there are protected/private properties, count should be different
-        expect(count($allProperties))->toBeGreaterThanOrEqual(count($publicOnly));
+        expect(\count($allProperties))->toBeGreaterThanOrEqual(\count($publicOnly));
     });
 
-    it('detects readonly properties', function () {
+    it('detects readonly properties', function (): void {
         // ErrorCollector has private properties, check if any are readonly
         $properties = $this->classWrapper->getAllProperties(protected: true, private: true);
 
@@ -53,7 +52,7 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('detects static properties', function () {
+    it('detects static properties', function (): void {
         $properties = $this->classWrapper->getAllProperties(protected: true, private: true);
 
         foreach ($properties as $property) {
@@ -62,7 +61,7 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('gets property type when available', function () {
+    it('gets property type when available', function (): void {
         $properties = $this->classWrapper->getAllProperties(protected: true, private: true);
 
         foreach ($properties as $property) {
@@ -72,7 +71,7 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('detects if property has default value', function () {
+    it('detects if property has default value', function (): void {
         $properties = $this->classWrapper->getAllProperties(protected: true, private: true);
 
         foreach ($properties as $property) {
@@ -81,7 +80,7 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('generates correct page path', function () {
+    it('generates correct page path', function (): void {
         $properties = $this->classWrapper->properties;
 
         if (!empty($properties)) {
@@ -94,7 +93,7 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('has reference to parent class', function () {
+    it('has reference to parent class', function (): void {
         $properties = $this->classWrapper->properties;
 
         if (!empty($properties)) {
@@ -103,25 +102,25 @@ describe('PropertyWrapper', function () {
         }
     });
 
-    it('detects if property is in public API', function () {
+    it('detects if property is in public API', function (): void {
         $apiProperties = $this->classWrapper->getAllApiProperties();
 
         foreach ($apiProperties as $property) {
             expect($property->willBeInPublicApi)->toBeTrue();
         }
-        
+
         // If there are no API properties, that's okay too
         expect($apiProperties)->toBeArray();
     });
 
-    it('can get property documentation', function () {
+    it('can get property documentation', function (): void {
         $properties = $this->classWrapper->properties;
 
         if (!empty($properties)) {
             $property = reset($properties);
             // Properties can have docblocks
             $docComment = $property->reflection->getDocComment();
-            expect($docComment === false || is_string($docComment))->toBeTrue();
+            expect($docComment === false || \is_string($docComment))->toBeTrue();
         }
     });
 });

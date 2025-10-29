@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Log\{CollectedError, ErrorCollector, ErrorLevel};
+use JulienBoudry\PhpReference\Log\{ErrorCollector, ErrorLevel};
 
-describe('ErrorCollector', function () {
-    beforeEach(function () {
-        $this->collector = new ErrorCollector();
+describe('ErrorCollector', function (): void {
+    beforeEach(function (): void {
+        $this->collector = new ErrorCollector;
     });
 
-    it('starts with no errors', function () {
+    it('starts with no errors', function (): void {
         expect($this->collector->hasErrors())->toBeFalse()
             ->and($this->collector->getErrorCount())->toBe(0);
     });
 
-    it('can add a warning', function () {
+    it('can add a warning', function (): void {
         $this->collector->addWarning('Test warning');
 
         expect($this->collector->hasErrors())->toBeTrue()
@@ -22,7 +22,7 @@ describe('ErrorCollector', function () {
             ->and($this->collector->getErrorCount(ErrorLevel::WARNING))->toBe(1);
     });
 
-    it('can add multiple errors of different levels', function () {
+    it('can add multiple errors of different levels', function (): void {
         $this->collector->addWarning('Warning 1');
         $this->collector->addWarning('Warning 2');
         $this->collector->addNotice('Notice 1');
@@ -34,7 +34,7 @@ describe('ErrorCollector', function () {
             ->and($this->collector->getErrorCount(ErrorLevel::ERROR))->toBe(1);
     });
 
-    it('can filter errors by level', function () {
+    it('can filter errors by level', function (): void {
         $this->collector->addWarning('Warning');
         $this->collector->addNotice('Notice');
         $this->collector->addError('Error', ErrorLevel::ERROR);
@@ -48,7 +48,7 @@ describe('ErrorCollector', function () {
             ->and($notices[0]->message)->toBe('Notice');
     });
 
-    it('can get summary of errors', function () {
+    it('can get summary of errors', function (): void {
         $this->collector->addWarning('W1');
         $this->collector->addWarning('W2');
         $this->collector->addNotice('N1');
@@ -61,7 +61,7 @@ describe('ErrorCollector', function () {
             ->and($summary['notice'])->toBe(1);
     });
 
-    it('can clear all errors', function () {
+    it('can clear all errors', function (): void {
         $this->collector->addWarning('Test');
         $this->collector->addError('Error', ErrorLevel::ERROR);
 
@@ -73,7 +73,7 @@ describe('ErrorCollector', function () {
             ->and($this->collector->getErrorCount())->toBe(0);
     });
 
-    it('formats errors for console output', function () {
+    it('formats errors for console output', function (): void {
         $this->collector->addWarning('Test warning', 'Test context');
 
         $output = $this->collector->formatForConsole();
@@ -84,10 +84,10 @@ describe('ErrorCollector', function () {
             ->and($output)->toContain('⚠️  WARNINGS');
     });
 
-    it('stores timestamp with each error', function () {
-        $before = new DateTimeImmutable();
+    it('stores timestamp with each error', function (): void {
+        $before = new DateTimeImmutable;
         $this->collector->addWarning('Test');
-        $after = new DateTimeImmutable();
+        $after = new DateTimeImmutable;
 
         $errors = $this->collector->getErrors();
         $timestamp = $errors[0]->timestamp;
