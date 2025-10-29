@@ -26,7 +26,9 @@ class Navigation
         foreach ($hierarchy as $nsPart)
         {
             if (is_string($nsPart)) {
-                $path .= $nsPart;
+                $parentNamespace = explode('\\', $nsPart);
+                $path .= end($parentNamespace);
+                unset($parentNamespace);
             }
             else {
                 $path .= "[{$nsPart->shortName}]({$urlLinker->to($nsPart)})";
