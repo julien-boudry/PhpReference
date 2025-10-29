@@ -7,14 +7,13 @@ namespace JulienBoudry\PhpReference;
 use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, NamespacePageWriter, PropertyPageWriter, PublicApiSummaryWriter};
-use JulienBoudry\PhpReference\Log\PhpDocParsingException;
+use JulienBoudry\PhpReference\Log\ErrorCollector;
 
 final class Execution
 {
     public static self $instance;
 
-    /** @var PhpDocParsingException[] */
-    public private(set) array $warning = [];
+    public readonly ErrorCollector $errorCollector;
 
     /** @var ClassWrapper[] */
     public readonly array $mainPhpNodes;
@@ -29,11 +28,7 @@ final class Execution
     ) {
         self::$instance = $this;
         $this->mainPhpNodes = $codeIndex->getApiClasses();
-    }
-
-    public function addWarning(PhpDocParsingException $exception): void
-    {
-        $this->warning[] = $exception;
+        $this->errorCollector = new ErrorCollector();
     }
 
     public function buildIndex(string $fileName): static

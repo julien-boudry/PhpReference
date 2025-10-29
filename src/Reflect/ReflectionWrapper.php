@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
-use JulienBoudry\PhpReference\Log\{InvalidManualTag, InvalidSeeTag};
+use JulienBoudry\PhpReference\Exception\UnsupportedOperationException;
+use JulienBoudry\PhpReference\Log\ErrorLevel;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -234,8 +235,12 @@ abstract class ReflectionWrapper
 
                     $element = Execution::$instance->codeIndex->getElement($reformatedString);
                 } catch (LogicException $e) {
-                    // throw new InvalidSeeTag("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
-                    warning("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
+                    // Collect the error instead of throwing or displaying a warning
+                    Execution::$instance->errorCollector->addWarning(
+                        message: "Failed to resolve @see reference: {$referenceString}",
+                        context: "Element: {$this->name}",
+                        element: $this,
+                    );
 
                     continue;
                 }
@@ -290,7 +295,13 @@ abstract class ReflectionWrapper
                 $resolved[$key] = \constant($tag->getDescription()->render())->value;
             }
         } catch (\Error $e) {
-            throw new InvalidManualTag("Invalid manual tag on {$this->name} / " . $e->getMessage());
+            // Log the error instead of throwing - invalid tag is a data quality issue
+            Execution::$instance->errorCollector->addWarning(
+                message: "Invalid @manual or @book tag: {$e->getMessage()}",
+                context: "Element: {$this->name}",
+                element: $this,
+            );
+            return null;
         }
 
         return $resolved;
@@ -360,13 +371,19 @@ abstract class ReflectionWrapper
             return $this->urlLinker;
         }
 
-        throw new LogicException('This wrapper does not implement WritableInterface');
+        throw new UnsupportedOperationException(
+            operation: 'getUrlLinker',
+            wrapperType: static::class,
+        );
     }
 
     public function getModifierNames(): string
     {
         if (! method_exists($this->reflection, 'getModifiers')) {
-            throw new LogicException('Method getModifiers() is not available on this reflection class.');
+            throw new UnsupportedOperationException(
+                operation: 'getModifierNames',
+                wrapperType: static::class,
+            );
         }
 
         return implode(' ', Reflection::getModifierNames($this->reflection->getModifiers()));

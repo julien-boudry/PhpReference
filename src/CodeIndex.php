@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
+use JulienBoudry\PhpReference\Exception\UnresolvableReferenceException;
 use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, ReflectionWrapper};
 use LogicException;
 use ReflectionClass;
@@ -121,13 +122,19 @@ class CodeIndex
         $class = $this->elementsList[$classPath] ?? null;
 
         if ($class === null) {
-            throw new LogicException("Class `{$classPath}` not found");
+            throw new UnresolvableReferenceException(
+                reference: $classPath,
+                message: "Class `{$classPath}` not found in indexed namespace",
+            );
         }
 
         $element = $class->getElementByName(str_replace('()', '', $elementName));
 
         if ($element === null) {
-            throw new LogicException("Element `{$elementName}` not found in class `{$classPath}` for see tag.");
+            throw new UnresolvableReferenceException(
+                reference: $path,
+                message: "Element `{$elementName}` not found in class `{$classPath}`",
+            );
         }
 
         return $element;

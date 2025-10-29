@@ -226,6 +226,24 @@ class GenerateDocumentationCommand extends Command
 
             $progress->finish();
 
+            // Display error report if there are any warnings or errors
+            if ($this->execution->errorCollector->hasErrors()) {
+                $summary = $this->execution->errorCollector->getSummary();
+                $summaryText = [];
+
+                foreach ($summary as $level => $count) {
+                    $summaryText[] = "{$level}: {$count}";
+                }
+
+                warning('Errors/warnings were collected during generation: ' . implode(' | ', $summaryText));
+
+                if ($output->isVerbose()) {
+                    note($this->execution->errorCollector->formatForConsole());
+                } else {
+                    note('Run with -v to see detailed error report.');
+                }
+            }
+
             $this->io->success([
                 'Documentation generation completed successfully!',
                 "Output directory: {$this->outputDir}",

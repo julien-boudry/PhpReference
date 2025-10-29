@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Definition\{HasTagApi, IsPubliclyAccessible, PublicApiDefinitionInterface};
+use JulienBoudry\PhpReference\Exception\InvalidConfigurationException;
 
 class Config
 {
@@ -83,7 +84,7 @@ class Config
             return match (mb_strtolower($apiConfig)) {
                 mb_strtolower('IsPubliclyAccessible') => new IsPubliclyAccessible,
                 mb_strtolower('HasTagApi') => new HasTagApi,
-                default => throw new \InvalidArgumentException("Unknown API definition '{$apiConfig}'"),
+                default => throw new InvalidConfigurationException("Unknown API definition '{$apiConfig}'. Valid options: IsPubliclyAccessible, HasTagApi"),
             };
         }
 
