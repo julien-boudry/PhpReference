@@ -26,6 +26,7 @@
 - **Inheritance Tracking** - Shows declaring class for inherited members
 - **Custom Public API Rules** - Define what gets documented
 - **Source Links** - Optional links back to source code
+- **Configuration File Support** - Set your preferences once in `reference.php` and run without arguments
 
 ## Quick Start
 
@@ -37,66 +38,56 @@ Install PhpReference via Composer:
 composer require --dev julien-boudry/php-reference
 ```
 
-### Basic Usage
+### Recommended: Using a Configuration File
 
-Generate documentation for a namespace:
+**The recommended way to use PhpReference is with a configuration file.** This avoids typing the same arguments repeatedly and makes your documentation setup reproducible.
 
-```bash
-php vendor/bin/php-reference MyNamespace\\MyProject
+Create a `reference.php` file at your project root:
+
+```php
+<?php
+
+return [
+    'namespace' => 'MyNamespace\\MyProject',
+    'output' => __DIR__ . '/docs/api',
+    'api' => 'HasTagApi', // 'HasTagApi' (default) or 'IsPubliclyAccessible'
+    'index-file-name' => 'readme',
+    'source-url-base' => 'https://github.com/username/repository/blob/main',
+];
 ```
 
-This will analyze all classes in `MyNamespace\MyProject` and generate Markdown documentation in the `./output` directory.
+Then simply run:
+
+```bash
+php vendor/bin/php-reference
+```
+
+📖 **[Full Configuration Documentation](docs/CONFIGURATION_FILE.md)** - Learn about all available options, priority rules, and advanced usage.
 
 > **Note:** If you're working on the PhpReference project itself, use `php bin/php-reference` instead of `php vendor/bin/php-reference`.
 
-### Generate with Output Directory
+### Quick Start Without Configuration
 
-Specify a custom output directory:
+For a quick one-time generation, you can use command-line arguments:
 
 ```bash
+# Basic usage - generate docs for a namespace
+php vendor/bin/php-reference MyNamespace\\MyProject
+
+# With custom output directory
 php vendor/bin/php-reference MyNamespace\\MyProject --output=./docs/api
-# Or with shorthand:
-php vendor/bin/php-reference MyNamespace\\MyProject -o ./docs/api
-```
 
-### Include All Public Elements
+# Include all public elements (not just @api tagged)
+php vendor/bin/php-reference MyNamespace\\MyProject --api=IsPubliclyAccessible
 
-By default, only elements marked with `@api` are documented. To include all public elements:
-
-```bash
-php vendor/bin/php-reference MyNamespace\\MyProject --api=public
-```
-
-### Append Mode
-
-By default, PhpReference cleans the output directory before generation. To append without cleaning:
-
-```bash
+# Append mode (don't clean output directory first)
 php vendor/bin/php-reference MyNamespace\\MyProject --append
-# Or with shorthand:
-php vendor/bin/php-reference MyNamespace\\MyProject -a
-```
 
-### Add Source Links
-
-Link documentation to your source code repository:
-
-```bash
+# With source code links
 php vendor/bin/php-reference MyNamespace\\MyProject --source-url-base=https://github.com/user/repo/blob/main
 ```
 
-### Combine Multiple Options
-
-You can combine any options:
-
-```bash
-php vendor/bin/php-reference MyNamespace\\MyProject \
-  --output=./docs/api \
-  --api=public \
-  --append \
-  --index-file-name=API \
-  --source-url-base=https://github.com/user/repo/blob/main
-```
+> **💡 Tip:** While command-line arguments work well for testing, using a configuration file is recommended for regular use and CI/CD pipelines.
 
 ## Command-Line Options
 
@@ -105,16 +96,51 @@ php vendor/bin/php-reference MyNamespace\\MyProject \
 | `namespace` | - | Namespace to analyze (optional if set in config) | `MyNamespace\\MyProject` |
 | `--output` | `-o` | Output directory | `--output=./docs/api` |
 | `--append` | `-a` | Do not clean output directory before generation | `--append` |
-| `--api` | - | API definition to use (`api`, `public`, `beta`) | `--api=public` |
+| `--api` | - | API definition to use (`HasTagApi`, `IsPubliclyAccessible`) | `--api=IsPubliclyAccessible` |
 | `--index-file-name` | - | Name of the index file (without extension) | `--index-file-name=index` |
 | `--source-url-base` | - | Base URL for source code links | `--source-url-base=https://github.com/user/repo/blob/main` |
 | `--config` | `-c` | Path to configuration file | `--config=./my-config.php` |
 
-## Configuration File
+**💡 Remember:** Command-line arguments override configuration file settings. For regular use, prefer using a configuration file and only override specific options when needed.
 
-For repeated usage, create a `reference.php` configuration file at your project root to avoid typing arguments every time.
+## Common Use Cases
 
-📖 **[Full Configuration Documentation](docs/CONFIGURATION_FILE.md)**
+### Development Workflow
+
+Once you have a `reference.php` configuration file, your workflow becomes simple:
+
+```bash
+# Generate documentation (uses all config settings)
+php vendor/bin/php-reference
+
+# Override only what you need for a specific run
+php vendor/bin/php-reference --api=IsPubliclyAccessible  # Temporarily include all public elements
+php vendor/bin/php-reference --append                     # Don't clean output this time
+```
+
+### CI/CD Integration
+
+Using a configuration file makes CI/CD integration straightforward:
+
+```yaml
+# .github/workflows/docs.yml
+- name: Generate API Documentation
+  run: php vendor/bin/php-reference
+```
+
+No need to specify arguments in your workflow file - everything is configured in `reference.php`.
+
+### Multiple Documentation Targets
+
+Generate different documentation sets using different config files:
+
+```bash
+# Public API documentation (with @api tags)
+php vendor/bin/php-reference --config=reference-public.php
+
+# Complete documentation (all public elements)
+php vendor/bin/php-reference --config=reference-complete.php
+```
 
 ## Public API Control
 
@@ -148,17 +174,16 @@ class MyClass
 
 ### Include All Public Elements
 
-Use `--api=public` to document all public classes, methods, and properties regardless of `@api` tags:
+Use `--api=IsPubliclyAccessible` to document all public classes, methods, and properties regardless of `@api` tags:
 
 ```bash
-php vendor/bin/php-reference MyNamespace\\MyProject --api=public
+php vendor/bin/php-reference MyNamespace\\MyProject --api=IsPubliclyAccessible
 ```
 
 ### Available API Definitions
 
-- **`api`** (default): Only elements marked with `@api` tag
-- **`public`**: All public elements
-- **`beta`**: Elements marked with `@beta` tag
+- **`HasTagApi`** (default): Only elements marked with `@api` tag
+- **`IsPubliclyAccessible`**: All public elements
 
 ## Output Structure
 

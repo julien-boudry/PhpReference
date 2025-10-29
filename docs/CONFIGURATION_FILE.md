@@ -25,9 +25,9 @@ return [
     'append' => false,
 
     // Public API definition - can be:
-    // - A string: 'api' (default), 'public', or 'beta'
+    // - A string: 'HasTagApi' (default) or 'IsPubliclyAccessible'
     // - An instance of a class implementing PublicApiDefinitionInterface
-    'api' => 'api', // or new HasTagApi()
+    'api' => 'HasTagApi', // or new HasTagApi()
 
     // The name of the index file to generate (without extension, default: 'readme')
     'index-file-name' => 'readme',
@@ -54,9 +54,9 @@ The directory where documentation files will be generated. The directory must ex
 #### `append` (bool, default: `false`)
 When `false`, the output directory is cleaned before generation. When `true`, new files are added and existing files are overwritten, but other files are preserved.
 
-#### `api` (string|object, default: `'api'`)
+#### `api` (string|object, default: `'HasTagApi'`)
 Defines which elements are included in the documentation:
-- String values: `'api'`, `'public'`, `'beta'`
+- String values: `'HasTagApi'`, `'IsPubliclyAccessible'`
 - Object instances: `new HasTagApi()`, `new IsPubliclyAccessible()`
 
 #### `index-file-name` (string, default: `'readme'`)
@@ -75,21 +75,19 @@ When `true`, the command runs without any prompts. Useful for CI/CD environments
 
 When using the `--api` option on the command line or the `'api'` key in the configuration file, you can use these string values:
 
-- **`api`** (default): Includes only elements marked with the `@api` PHPDoc tag
-- **`public`**: Includes all public elements (classes, methods, properties, constants) regardless of tags
-- **`beta`**: Includes elements marked with the `@beta` PHPDoc tag
+- **`HasTagApi`** (default): Includes only elements marked with the `@api` PHPDoc tag
+- **`IsPubliclyAccessible`**: Includes all public elements (classes, methods, properties, constants) regardless of tags
 
 **Command-line examples:**
 ```bash
-php bin/php-reference --api=api      # Default behavior
-php bin/php-reference --api=public   # Include all public elements
-php bin/php-reference --api=beta     # Include @beta tagged elements
+php bin/php-reference --api=HasTagApi           # Default behavior
+php bin/php-reference --api=IsPubliclyAccessible # Include all public elements
 ```
 
 **Config file example:**
 ```php
 return [
-    'api' => 'public', // String value
+    'api' => 'IsPubliclyAccessible', // String value
     // ...
 ];
 ```
@@ -163,10 +161,7 @@ php bin/php-reference generate:documentation MyNamespace\\MyProject
 ### Change the API definition
 ```bash
 # Include all public elements instead of only @api tagged
-php bin/php-reference --api=public
-
-# Include @beta tagged elements
-php bin/php-reference --api=beta
+php bin/php-reference --api=IsPubliclyAccessible
 ```
 
 ### Change output directory
@@ -222,7 +217,7 @@ return [
     'namespace' => 'App\\',
     'output' => getcwd() . '/api-docs',
     'append' => false,
-    'api' => 'api', // Uses HasTagApi (can also use 'public' or 'beta')
+    'api' => 'HasTagApi', // Uses HasTagApi (default) or 'IsPubliclyAccessible'
     'index-file-name' => 'readme', // Default: 'readme'
     'source-url-base' => 'https://github.com/myuser/myrepo/blob/main',
     'no-interaction' => true,
@@ -253,7 +248,7 @@ return [
 | `namespace` | - | Namespace to analyze | `'namespace' => 'Mon\\Namespace'` | `MonNamespace` |
 | `output` | `-o` | Output directory | `'output' => '/path/to/docs'` | `--output=/path/to/docs` |
 | `append` | `-a` | Do not clean before generation | `'append' => true` | `--append` |
-| `api` | - | API definition to use | `'api' => 'api'` or `'api' => new HasTagApi()` | `--api=public` |
+| `api` | - | API definition to use | `'api' => 'HasTagApi'` or `'api' => new HasTagApi()` | `--api=IsPubliclyAccessible` |
 | `index-file-name` | - | Name of the index file (without extension) | `'index-file-name' => 'readme'` | `--index-file-name=index` |
 | `source-url-base` | - | Base URL for source links | `'source-url-base' => 'https://github.com/user/repo/blob/main'` | `--source-url-base=https://github.com/user/repo/blob/main` |
 | `no-interaction` | - | Disable interactive mode | `'no-interaction' => true` | (Not available via CLI) |
