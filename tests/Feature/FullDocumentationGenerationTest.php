@@ -7,11 +7,13 @@ use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 
 describe('Full Documentation Generation', function (): void {
     it('can create an Execution instance', function (): void {
+        $config = new Config;
+        $config->set('api', new IsPubliclyAccessible);
+
         $execution = new Execution(
             codeIndex: new CodeIndex('JulienBoudry\\PhpReference\\Log'),
             outputDir: sys_get_temp_dir() . '/php-reference-test',
-            publicApiDefinition: new IsPubliclyAccessible,
-            config: new Config,
+            config: $config,
         );
 
         expect($execution)->toBeInstanceOf(Execution::class)
@@ -36,11 +38,13 @@ describe('Full Documentation Generation', function (): void {
     it('Execution has correct output directory', function (): void {
         $outputDir = sys_get_temp_dir() . '/php-reference-test-' . uniqid();
 
+        $config = new Config;
+        $config->set('api', new IsPubliclyAccessible);
+
         $execution = new Execution(
             codeIndex: new CodeIndex('JulienBoudry\\PhpReference\\Log'),
             outputDir: $outputDir,
-            publicApiDefinition: new IsPubliclyAccessible,
-            config: new Config,
+            config: $config,
         );
 
         expect($execution->outputDir)->toBe($outputDir);
@@ -49,11 +53,13 @@ describe('Full Documentation Generation', function (): void {
     it('Execution uses correct API definition', function (): void {
         $apiDefinition = new IsPubliclyAccessible;
 
+        $config = new Config;
+        $config->set('api', $apiDefinition);
+
         $execution = new Execution(
             codeIndex: new CodeIndex('JulienBoudry\\PhpReference\\Log'),
             outputDir: sys_get_temp_dir(),
-            publicApiDefinition: $apiDefinition,
-            config: new Config,
+            config: $config,
         );
 
         expect($execution->publicApiDefinition)->toBe($apiDefinition);

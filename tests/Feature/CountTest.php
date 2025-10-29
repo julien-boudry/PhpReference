@@ -6,7 +6,11 @@ use JulienBoudry\PhpReference\Definition\HasTagApi;
 
 beforeEach(function (): void {
     $this->codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
-    $this->execution = new Execution($this->codeIndex, '', new HasTagApi, new Config);
+
+    $config = new Config;
+    $config->set('api', new HasTagApi);
+
+    $this->execution = new Execution($this->codeIndex, '', $config);
 });
 
 it('test public condorcet', function (): void {

@@ -2,7 +2,6 @@
 
 namespace JulienBoudry\PhpReference\Command;
 
-use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use SebastianBergmann\Timer\{ResourceUsageFormatter, Timer};
 use JulienBoudry\PhpReference\{App, CodeIndex, Config, Execution};
@@ -118,7 +117,6 @@ class GenerateDocumentationCommand extends Command
         $this->execution = new Execution(
             codeIndex: new CodeIndex($this->config->get('namespace')),
             outputDir: $this->outputDir,
-            publicApiDefinition: $this->config->getApiDefinition(default: new IsPubliclyAccessible),
             config: $this->config,
         );
     }

@@ -80,11 +80,14 @@ function createExecutionFixture(
     $outputDir ??= sys_get_temp_dir() . '/php-reference-test';
     $apiDefinition ??= new \JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 
+    // Create config with the API definition
+    $config = new \JulienBoudry\PhpReference\Config;
+    $config->set('api', $apiDefinition);
+
     // Create and return Execution instance (this sets Execution::$instance)
     return new \JulienBoudry\PhpReference\Execution(
         codeIndex: new \JulienBoudry\PhpReference\CodeIndex($namespace),
         outputDir: $outputDir,
-        publicApiDefinition: $apiDefinition,
-        config: new \JulienBoudry\PhpReference\Config,
+        config: $config,
     );
 }

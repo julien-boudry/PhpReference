@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
-use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
+use JulienBoudry\PhpReference\Definition\{IsPubliclyAccessible, PublicApiDefinitionInterface};
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, NamespacePageWriter, PropertyPageWriter, PublicApiSummaryWriter};
 use JulienBoudry\PhpReference\Log\ErrorCollector;
@@ -21,15 +21,19 @@ final class Execution
     /** @var array<int, string> */
     public private(set) array $writedPages = [];
 
+    public readonly PublicApiDefinitionInterface $publicApiDefinition;
+
     public function __construct(
         public readonly CodeIndex $codeIndex,
         public readonly string $outputDir,
-        public readonly PublicApiDefinitionInterface $publicApiDefinition,
         public readonly Config $config,
     ) {
-        self::$instance = $this;
-        $this->mainPhpNodes = $codeIndex->getApiClasses();
         $this->errorCollector = new ErrorCollector;
+
+        self::$instance = $this;
+
+        $this->publicApiDefinition = $this->config->getApiDefinition(default: new IsPubliclyAccessible);
+        $this->mainPhpNodes = $codeIndex->getApiClasses();
     }
 
     public function buildIndex(string $fileName): static
