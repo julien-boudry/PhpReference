@@ -30,6 +30,10 @@ return [
     // The name of the index file to generate (without extension)
     'index-file-name' => 'readme', // Default: 'readme'
 
+    // Base URL for source code links (e.g., https://github.com/user/repo/blob/main)
+    // If not set, no source links will be generated
+    'source-url-base' => 'https://github.com/user/repo/blob/main',
+
     // Disable interactive mode (no prompts)
     'no-interaction' => true, // Default: false
 ];
@@ -133,6 +137,7 @@ return [
     'append' => false,
     'api' => 'HasTagApi', // Uses HasTagApi
     'index-file-name' => 'readme', //default 'readme'
+    'source-url-base' => 'https://github.com/myuser/myrepo/blob/main',
     'no-interaction' => true,
 ];
 ```
@@ -149,6 +154,7 @@ return [
     'append' => true,
     'api' => new IsPubliclyAccessible(), // Direct instance
     'index-file-name' => 'API-INDEX',
+    'source-url-base' => 'https://github.com/myuser/mylibrary/blob/develop',
     'no-interaction' => true, // Run without prompts
 ];
 ```
@@ -167,5 +173,6 @@ php bin/php-reference generate:documentation --config=/path/to/my-config.php
 | append | `-a` | Do not clean before generation | `'append' => true` | `--append` |
 | api | - | API definition to use | `'api' => new HasTagApi()` | `--api=public` |
 | index-file-name | - | Name of the index file | `'index-file-name' => 'readme'` | `--index-file-name=index` |
+| source-url-base | - | Base URL for source links | `'source-url-base' => 'https://github.com/user/repo/blob/main'` | `--source-url-base=https://github.com/user/repo/blob/main` |
 | no-interaction | - | Disable interactive mode | `'no-interaction' => true` | - |
 | config | `-c` | Configuration file path | - | `--config=/custom/path.php` |

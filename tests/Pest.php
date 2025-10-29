@@ -66,7 +66,7 @@ function removeTempConfig(string $path): void
 }
 
 /**
- * Create a properly initialized Execution instance for testing
+ * Helper function to create an Execution instance for testing.
  * This initializes Execution::$instance which is required by Reflection wrappers.
  */
 function createExecutionFixture(
@@ -85,5 +85,6 @@ function createExecutionFixture(
         codeIndex: new \JulienBoudry\PhpReference\CodeIndex($namespace),
         outputDir: $outputDir,
         publicApiDefinition: $apiDefinition,
+        config: new \JulienBoudry\PhpReference\Config,
     );
 }

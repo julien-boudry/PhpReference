@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\{CodeIndex, Execution};
+use JulienBoudry\PhpReference\{CodeIndex, Config, Execution};
 use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 
 describe('Full Documentation Generation', function (): void {
@@ -11,6 +11,7 @@ describe('Full Documentation Generation', function (): void {
             codeIndex: new CodeIndex('JulienBoudry\\PhpReference\\Log'),
             outputDir: sys_get_temp_dir() . '/php-reference-test',
             publicApiDefinition: new IsPubliclyAccessible,
+            config: new Config,
         );
 
         expect($execution)->toBeInstanceOf(Execution::class)
@@ -39,6 +40,7 @@ describe('Full Documentation Generation', function (): void {
             codeIndex: new CodeIndex('JulienBoudry\\PhpReference\\Log'),
             outputDir: $outputDir,
             publicApiDefinition: new IsPubliclyAccessible,
+            config: new Config,
         );
 
         expect($execution->outputDir)->toBe($outputDir);
@@ -51,6 +53,7 @@ describe('Full Documentation Generation', function (): void {
             codeIndex: new CodeIndex('JulienBoudry\\PhpReference\\Log'),
             outputDir: sys_get_temp_dir(),
             publicApiDefinition: $apiDefinition,
+            config: new Config,
         );
 
         expect($execution->publicApiDefinition)->toBe($apiDefinition);

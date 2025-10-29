@@ -38,4 +38,9 @@ return [
     // Available CLI values: 'api' (default), 'public'
     // Can be overridden with: --api=public or --api=api
     'api' => new HasTagApi,
+
+    // Base URL for source code links (e.g., https://github.com/user/repo/blob/main)
+    // If not set, no source links will be generated
+    // Can be overridden with: --source-url-base=https://github.com/user/repo/blob/main
+    'source-url-base' => 'https://github.com/julien-boudry/Condorcet/blob/master',
 ];

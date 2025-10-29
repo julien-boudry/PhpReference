@@ -70,6 +70,12 @@ class GenerateDocumentationCommand extends Command
                 shortcut: null,
                 mode: InputOption::VALUE_REQUIRED,
                 description: 'The name of the index file to generate',
+            )
+            ->addOption(
+                name: 'source-url-base',
+                shortcut: null,
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'Base URL for source code links (e.g., https://github.com/user/repo/blob/main)',
             );
     }
 
@@ -91,6 +97,7 @@ class GenerateDocumentationCommand extends Command
             'index-file-name' => $input->getOption('index-file-name'),
             'append' => $input->getOption('append'),
             'api' => $input->getOption('api'),
+            'source-url-base' => $input->getOption('source-url-base'),
         ]);
     }
 
@@ -112,6 +119,7 @@ class GenerateDocumentationCommand extends Command
             codeIndex: new CodeIndex($this->config->get('namespace')),
             outputDir: $this->outputDir,
             publicApiDefinition: $this->config->getApiDefinition(default: new IsPubliclyAccessible),
+            config: $this->config,
         );
     }
 

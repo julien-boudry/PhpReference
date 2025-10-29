@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\{Condorcet, Election};
-use JulienBoudry\PhpReference\{CodeIndex, Execution};
+use JulienBoudry\PhpReference\{CodeIndex, Config, Execution};
 use JulienBoudry\PhpReference\Definition\HasTagApi;
 
 beforeEach(function (): void {
     $this->codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
-    $this->execution = new Execution($this->codeIndex, '', new HasTagApi);
+    $this->execution = new Execution($this->codeIndex, '', new HasTagApi, new Config);
 });
 
 it('test public condorcet', function (): void {

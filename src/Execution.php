@@ -25,6 +25,7 @@ final class Execution
         public readonly CodeIndex $codeIndex,
         public readonly string $outputDir,
         public readonly PublicApiDefinitionInterface $publicApiDefinition,
+        public readonly Config $config,
     ) {
         self::$instance = $this;
         $this->mainPhpNodes = $codeIndex->getApiClasses();

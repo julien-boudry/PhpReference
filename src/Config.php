@@ -90,4 +90,19 @@ class Config
 
         return null;
     }
+
+    /**
+     * Get the source URL base for generating source code links.
+     * Returns null if not configured.
+     */
+    public function getSourceUrlBase(): ?string
+    {
+        $sourceUrlBase = $this->get('source-url-base');
+
+        if (\is_string($sourceUrlBase) && ! empty($sourceUrlBase)) {
+            return rtrim($sourceUrlBase, '/');
+        }
+
+        return null;
+    }
 }

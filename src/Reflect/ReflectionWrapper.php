@@ -348,6 +348,10 @@ abstract class ReflectionWrapper
         return $description;
     }
 
+    /**
+     * Get the URL link to the source code of this element.
+     * Returns null if source-url-base is not configured or if the file/line information is not available.
+     */
     public function getSourceLink(): ?string
     {
         if (method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false) {
@@ -358,7 +362,13 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        return 'https://github.com/julien-boudry/Condorcet/blob/master/'
+        $sourceUrlBase = Execution::$instance->config->getSourceUrlBase();
+
+        if ($sourceUrlBase === null) {
+            return null;
+        }
+
+        return $sourceUrlBase . '/'
                 . substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1)
                 . '#L' . $this->reflection->getStartLine();
     }
