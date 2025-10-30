@@ -59,4 +59,34 @@ trait IsFunction
     {
         return $this->getDocBlockTagDescription('return');
     }
+
+    protected function getFunctionPartSignature(): string
+    {
+        $str = '(';
+
+        if ($this->reflection->getNumberOfParameters() > 0) {
+            $option = false;
+            $i = 0;
+
+            foreach ($this->getParameters() as $param) {
+                $str .= $i === 0 ? ' ' : ', ';
+                $str .= ($param->reflection->isOptional() && ! $option) ? '[ ' : '';
+
+                $str .= $param->getSignature();
+
+                ($param->reflection->isOptional() && ! $option) ? $option = true : null;
+                $i++;
+            }
+
+            if ($option) {
+                $str .= ' ]';
+            }
+        }
+
+        $str .= ' )';
+
+        return $this->reflection->name
+                . $str
+                . ($this->hasReturnType() ? ': ' . $this->getReturnType() : '');
+    }
 }
