@@ -31,7 +31,7 @@ trait CanThrow
     /**
      * @throws LogicException
      *
-     * @return ?array<array{destination: \JulienBoudry\PhpReference\Reflect\ClassElementWrapper|string, name: string, tag: DocBlock\Tags\Throws}>
+     * @return ?array<int, array{destination: \JulienBoudry\PhpReference\Reflect\ClassElementWrapper|string, name: string, tag: DocBlock\Tags\Throws}>
      */
     public function getResolvedThrowsTags(): ?array
     {

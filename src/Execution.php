@@ -4,42 +4,56 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference;
 
-use JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface;
+use JulienBoudry\PhpReference\Definition\{IsPubliclyAccessible, PublicApiDefinitionInterface};
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, PropertyPageWriter, PublicApiSummaryWriter};
-use JulienBoudry\PhpReference\Log\PhpDocParsingException;
+use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, NamespacePageWriter, PropertyPageWriter, PublicApiSummaryWriter};
+use JulienBoudry\PhpReference\Log\ErrorCollector;
 
 final class Execution
 {
     public static self $instance;
 
-    /** @var PhpDocParsingException[] */
-    public private(set) array $warning = [];
+    public readonly ErrorCollector $errorCollector;
 
     /** @var ClassWrapper[] */
     public readonly array $mainPhpNodes;
 
-    /* @var array<string> */
+    /** @var array<int, string> */
     public private(set) array $writedPages = [];
+
+    public readonly PublicApiDefinitionInterface $publicApiDefinition;
 
     public function __construct(
         public readonly CodeIndex $codeIndex,
         public readonly string $outputDir,
-        public readonly PublicApiDefinitionInterface $publicApiDefinition,
+        public readonly Config $config,
     ) {
+        $this->errorCollector = new ErrorCollector;
+
         self::$instance = $this;
+
+        $this->publicApiDefinition = $this->config->getApiDefinition(default: new IsPubliclyAccessible);
         $this->mainPhpNodes = $codeIndex->getApiClasses();
     }
 
-    public function addWarning(PhpDocParsingException $exception): void
-    {
-        $this->warning[] = $exception;
-    }
-
-    public function buildIndex(): static
+    public function buildIndex(string $fileName): static
     {
         // Generate index page
-        $this->writePage(new PublicApiSummaryWriter($this->codeIndex));
+        $this->writePage(new PublicApiSummaryWriter(codeIndex: $this->codeIndex, filePath: '/' . $fileName));
+
+        return $this;
+    }
+
+    public function buildNamespacePages(string $indexFileName, ?callable $afterElementCallback = null): static
+    {
+        // Generate a page for each namespace
+        foreach ($this->codeIndex->namespaces as $namespace) {
+            $this->writePage(new NamespacePageWriter($namespace, $indexFileName));
+
+            if ($afterElementCallback) {
+                $afterElementCallback();
+            }
+        }
 
         return $this;
     }

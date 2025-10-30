@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JulienBoudry\PhpReference\Test;
+namespace JulienBoudry\PhpReference\Tests;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,29 +21,73 @@ namespace JulienBoudry\PhpReference\Test;
 |--------------------------------------------------------------------------
 | Expectations
 |--------------------------------------------------------------------------
-|
-| When you're writing tests, you often need to check that values meet certain conditions. The
-| "expect()" function gives you access to a set of "expectations" methods that you can use
-| to assert different things. Of course, you may extend the Expectation API at any time.
-|
 */
 
 expect()->extend('toBeOne', function () {
     return $this->toBe(1);
 });
 
+expect()->extend('toContainAll', function (array $needles) {
+    foreach ($needles as $needle) {
+        test()->assertTrue(
+            str_contains($this->value, $needle),
+            "Failed asserting that '{$this->value}' contains '{$needle}'"
+        );
+    }
+
+    return $this;
+});
+
 /*
 |--------------------------------------------------------------------------
 | Functions
 |--------------------------------------------------------------------------
-|
-| While Pest is very powerful out-of-the-box, you may have some testing code specific to your
-| project that you don't want to repeat in every file. Here you can also expose helpers as
-| global functions to help you to reduce the number of lines of code in your test files.
-|
 */
 
-function something(): void
+/**
+ * Create a temporary config file for testing.
+ */
+function createTempConfig(array $config): string
 {
-    // ..
+    $path = sys_get_temp_dir() . '/php-reference-test-' . uniqid() . '.php';
+    file_put_contents($path, '<?php return ' . var_export($config, true) . ';');
+
+    return $path;
+}
+
+/**
+ * Clean up temporary config file.
+ */
+function removeTempConfig(string $path): void
+{
+    if (file_exists($path)) {
+        unlink($path);
+    }
+}
+
+/**
+ * Helper function to create an Execution instance for testing.
+ * This initializes Execution::$instance which is required by Reflection wrappers.
+ */
+function createExecutionFixture(
+    ?string $namespace = null,
+    ?string $outputDir = null,
+    ?\JulienBoudry\PhpReference\Definition\PublicApiDefinitionInterface $apiDefinition = null
+): \JulienBoudry\PhpReference\Execution {
+    // Default to a smaller, specific namespace for testing
+    // Log namespace is smaller and faster to index
+    $namespace ??= 'JulienBoudry\\PhpReference\\Log';
+    $outputDir ??= sys_get_temp_dir() . '/php-reference-test';
+    $apiDefinition ??= new \JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
+
+    // Create config with the API definition
+    $config = new \JulienBoudry\PhpReference\Config;
+    $config->set('api', $apiDefinition);
+
+    // Create and return Execution instance (this sets Execution::$instance)
+    return new \JulienBoudry\PhpReference\Execution(
+        codeIndex: new \JulienBoudry\PhpReference\CodeIndex($namespace),
+        outputDir: $outputDir,
+        config: $config,
+    );
 }

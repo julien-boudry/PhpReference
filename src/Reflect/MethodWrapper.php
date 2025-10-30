@@ -26,35 +26,10 @@ class MethodWrapper extends ClassElementWrapper implements SignatureInterface, W
 
     public function getSignature(bool $withClassName = false): string
     {
-        $str = '(';
-
-        if ($this->reflection->getNumberOfParameters() > 0) {
-            $option = false;
-            $i = 0;
-
-            foreach ($this->getParameters() as $param) {
-                $str .= $i === 0 ? ' ' : ', ';
-                $str .= ($param->reflection->isOptional() && ! $option) ? '[ ' : '';
-
-                $str .= $param->getSignature();
-
-                ($param->reflection->isOptional() && ! $option) ? $option = true : null;
-                $i++;
-            }
-
-            if ($option) {
-                $str .= ' ]';
-            }
-        }
-
-        $str .= ' )';
-
         return $this->getModifierNames()
                 . ' function '
                 . (! $withClassName ? $this->inDocParentWrapper->shortName : '')
                 . (! $withClassName ? ($this->reflection->isStatic() ? '::' : '->') : '')
-                . $this->reflection->name
-                . $str
-                . ($this->hasReturnType() ? ': ' . $this->getReturnType() : '');
+                . $this->getFunctionPartSignature();
     }
 }

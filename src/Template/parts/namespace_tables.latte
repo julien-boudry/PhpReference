@@ -1,0 +1,25 @@
+{**
+ * Displays tables of classes and enums for a namespace
+ * @param array<string, ClassWrapper> $classes
+ * @param array<string, ClassWrapper> $enums
+ * @param UrlLinker $urlLinker
+ *}
+{define classTable}
+{foreach $classes as $class}
+{first}
+| Class Name | Description |
+| ------------- | ------------- |
+{/first}
+| [{$class->shortName}]({$urlLinker->to(page: $class)}) | _{$class->getShortDescriptionForTable()}_ |
+{/foreach}
+{/define}
+
+{define enumTable}
+{foreach $enums as $enum}
+{first}
+| Enum Name | Description |
+| ------------- | ------------- |
+{/first}
+| [{$enum->shortName}]({$urlLinker->to(page: $enum)}) | _{$enum->getShortDescriptionForTable()}_ |
+{/foreach}
+{/define}

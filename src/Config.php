@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Definition\{HasTagApi, IsPubliclyAccessible, PublicApiDefinitionInterface};
+use JulienBoudry\PhpReference\Exception\InvalidConfigurationException;
 
 class Config
 {
+    /** @var array<string, mixed> */
     private array $config = [];
 
     public function __construct(?string $configPath = null)
@@ -45,6 +47,8 @@ class Config
 
     /**
      * Get all configuration as array.
+     *
+     * @return array<string, mixed>
      */
     public function all(): array
     {
@@ -54,7 +58,7 @@ class Config
     /**
      * Merge configuration with CLI arguments, giving priority to CLI.
      *
-     * @param  array<string|null>  $cliArgs  Associative array of CLI arguments
+     * @param  array<string, string|bool|null>  $cliArgs  Associative array of CLI arguments
      */
     public function mergeWithCliArgs(array $cliArgs): void
     {
@@ -80,8 +84,23 @@ class Config
             return match (mb_strtolower($apiConfig)) {
                 mb_strtolower('IsPubliclyAccessible') => new IsPubliclyAccessible,
                 mb_strtolower('HasTagApi') => new HasTagApi,
-                default => throw new \InvalidArgumentException("Unknown API definition '{$apiConfig}'"),
+                default => throw new InvalidConfigurationException("Unknown API definition '{$apiConfig}'. Valid options: IsPubliclyAccessible, HasTagApi"),
             };
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the source URL base for generating source code links.
+     * Returns null if not configured.
+     */
+    public function getSourceUrlBase(): ?string
+    {
+        $sourceUrlBase = $this->get('source-url-base');
+
+        if (\is_string($sourceUrlBase) && ! empty($sourceUrlBase)) {
+            return rtrim($sourceUrlBase, '/');
         }
 
         return null;

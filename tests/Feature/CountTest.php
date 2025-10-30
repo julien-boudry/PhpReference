@@ -1,16 +1,20 @@
 <?php declare(strict_types=1);
 
 use CondorcetPHP\Condorcet\{Condorcet, Election};
-use JulienBoudry\PhpReference\{CodeIndex, Execution};
+use JulienBoudry\PhpReference\{CodeIndex, Config, Execution};
 use JulienBoudry\PhpReference\Definition\HasTagApi;
 
 beforeEach(function (): void {
     $this->codeIndex = new CodeIndex(new ReflectionClass(Condorcet::class)->getNamespaceName());
-    $this->execution = new Execution($this->codeIndex, '', new HasTagApi);
+
+    $config = new Config;
+    $config->set('api', new HasTagApi);
+
+    $this->execution = new Execution($this->codeIndex, '', $config);
 });
 
 it('test public condorcet', function (): void {
-    expect($this->codeIndex->classList)
+    expect(\count($this->codeIndex->elementsList))
         ->toBeGreaterThan(100)
         ->toBeGreaterThan(\count($this->codeIndex->getApiClasses()));
 
@@ -22,9 +26,9 @@ it('test public condorcet', function (): void {
 });
 
 it('has methods', function (): void {
-    expect($this->codeIndex->classList)->toHaveKey(Election::class);
+    expect($this->codeIndex->elementsList)->toHaveKey(Election::class);
 
-    $electionClass = $this->codeIndex->classList[Election::class];
+    $electionClass = $this->codeIndex->elementsList[Election::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
     $allApiMethods = \count($electionClass->getAllApiMethods());
@@ -45,9 +49,9 @@ it('has methods', function (): void {
 });
 
 it('has properties', function (): void {
-    expect($this->codeIndex->classList)->toHaveKey(Election::class);
+    expect($this->codeIndex->elementsList)->toHaveKey(Election::class);
 
-    $electionClass = $this->codeIndex->classList[Election::class];
+    $electionClass = $this->codeIndex->elementsList[Election::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
     $allApiProperties = \count($electionClass->getAllApiProperties());
@@ -68,9 +72,9 @@ it('has properties', function (): void {
 });
 
 it('has constants', function (): void {
-    expect($this->codeIndex->classList)->toHaveKey(Condorcet::class);
+    expect($this->codeIndex->elementsList)->toHaveKey(Condorcet::class);
 
-    $electionClass = $this->codeIndex->classList[Condorcet::class];
+    $electionClass = $this->codeIndex->elementsList[Condorcet::class];
     expect($electionClass->willBeInPublicApi)->toBeTrue();
 
     $allConstants = \count($electionClass->getAllConstants());

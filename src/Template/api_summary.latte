@@ -1,24 +1,14 @@
 {templateType JulienBoudry\PhpReference\Template\Input\ApiSummaryInput}
 {import 'classIndex.latte'}
+{import 'parts/namespace_tables.latte'}
+{var $urlLinker = $summaryPage->getUrlLinker()}
 # API Reference Index
 
-{foreach $namespaces as $namespace => $classes}
-## {$namespace}
+{foreach $namespaces as $namespaceInput}
+## {$namespaceInput->namespaceWrapper->namespace}
 {* *}
-{foreach $classes['class'] as $class}
-{first}
-| Class Name | Description |
-| ------------- | ------------- |
-{/first}
-| [{$class->shortName}]({str_replace('\\', '/', mb_substr($class->getPagePath(), 1))}) | _{$class->getShortDescriptionForTable()}_ |
-{/foreach}
+{include classTable, classes: $namespaceInput->classes, urlLinker: $urlLinker}
 
-{foreach $classes['enum'] as $enum}
-{first}
-| Enum Name | Description |
-| ------------- | ------------- |
-{/first}
-| [{$enum->shortName}]({str_replace('\\', '/', mb_substr($enum->getPagePath(), 1))}) | _{$enum->getShortDescriptionForTable()}_ |
-{/foreach}
+{include enumTable, enums: $namespaceInput->enums, urlLinker: $urlLinker}
 
 {/foreach}

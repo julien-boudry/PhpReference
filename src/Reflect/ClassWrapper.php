@@ -16,7 +16,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     protected const string TAB = '    ';
 
     public string $name {
-        get => $this->reflection->name;
+        get => $this->reflection->getName();
     }
 
     public string $shortName {
@@ -57,7 +57,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
-     * @param  array<ClassElementWrapper>  $list
+     * @param  array<string, ClassElementWrapper>  $list
      *
      * @return array<string, ClassElementWrapper>
      */
@@ -114,7 +114,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
 
         uasort(
             array: $filtered,
-            callback: function (ClassElementWrapper $a, ClassElementWrapper $b) {
+            callback: function (ClassElementWrapper $a, ClassElementWrapper $b): int {
                 // First sort by visibility: public, protected, private
                 $visibilityOrder = function (ClassElementWrapper $element): int {
                     if ($element->reflection->isPublic()) {
@@ -224,6 +224,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * @param array<string, ClassElementWrapper> $list
+     *
      * @return array<string, ClassElementWrapper>
      */
     protected function filterApiReflection(array $list): array

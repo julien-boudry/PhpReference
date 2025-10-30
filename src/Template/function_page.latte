@@ -1,0 +1,30 @@
+{templateType JulienBoudry\PhpReference\Template\Input\FunctionPageInput}
+{import 'parts/navBreadcrumbClassElement.latte'}
+{import 'parts/readItAtSource.latte'}
+{import 'parts/description.latte'}
+{import 'parts/params.latte'}
+{import 'parts/return.latte'}
+{import 'parts/throws.latte'}
+{import 'parts/related.latte'}
+{import 'parts/manual.latte'}
+{* *}
+{include navBreadcrumbClassElement, $function}
+{* *}
+# Method {$function->name}()
+{include readItAtSource, $function}
+
+```php
+{$function->getSignature()}
+```
+{* *}
+{include description, $function}
+{* *}
+{include params, $function}
+{* *}
+{include return, $function}
+{* *}
+{include throws, $function}
+{* *}
+{include related, $function}
+{* *}
+{include manual, $function}

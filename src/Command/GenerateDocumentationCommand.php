@@ -2,7 +2,6 @@
 
 namespace JulienBoudry\PhpReference\Command;
 
-use JulienBoudry\PhpReference\Definition\IsPubliclyAccessible;
 use JulienBoudry\PhpReference\Writer\AbstractWriter;
 use SebastianBergmann\Timer\{ResourceUsageFormatter, Timer};
 use JulienBoudry\PhpReference\{App, CodeIndex, Config, Execution};
@@ -35,6 +34,7 @@ class GenerateDocumentationCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.')
             ->addArgument(
                 name: 'namespace',
                 mode: InputArgument::OPTIONAL,
@@ -64,7 +64,18 @@ class GenerateDocumentationCommand extends Command
                 description: 'Path to configuration file',
                 default: getcwd() . \DIRECTORY_SEPARATOR . 'reference.php',
             )
-            ->setHelp('This command generates API documentation for a given PHP namespace by analyzing all public classes and their methods and properties. Configuration can be set in a reference.php file, with command line arguments taking priority.');
+            ->addOption(
+                name: 'index-file-name',
+                shortcut: null,
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'The name of the index file to generate',
+            )
+            ->addOption(
+                name: 'source-url-base',
+                shortcut: null,
+                mode: InputOption::VALUE_REQUIRED,
+                description: 'Base URL for source code links (e.g., https://github.com/user/repo/blob/main)',
+            );
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output): void
@@ -74,12 +85,18 @@ class GenerateDocumentationCommand extends Command
         // Load configuration
         $this->config = new Config($input->getOption('config'));
 
+        if ($this->config->get('no-interaction')) {
+            $input->setInteractive(false);
+        }
+
         // Merge CLI arguments with config, CLI takes priority
         $this->config->mergeWithCliArgs([
             'namespace' => $input->getArgument('namespace'),
             'output' => $input->getOption('output'),
+            'index-file-name' => $input->getOption('index-file-name'),
             'append' => $input->getOption('append'),
             'api' => $input->getOption('api'),
+            'source-url-base' => $input->getOption('source-url-base'),
         ]);
     }
 
@@ -100,7 +117,7 @@ class GenerateDocumentationCommand extends Command
         $this->execution = new Execution(
             codeIndex: new CodeIndex($this->config->get('namespace')),
             outputDir: $this->outputDir,
-            publicApiDefinition: $this->config->getApiDefinition(default: new IsPubliclyAccessible),
+            config: $this->config,
         );
     }
 
@@ -174,19 +191,23 @@ class GenerateDocumentationCommand extends Command
 
         // Clean output directory if requested
         if (! $this->appendOutput) {
-            progress(label: 'Cleaning output directory', steps: 1, callback: function (): string {
-                $filesystem = AbstractWriter::getFlySystem();
+            progress(
+                label: 'Cleaning output directory',
+                steps: 1,
+                callback: function (): string {
+                    $filesystem = AbstractWriter::getFlySystem();
 
-                foreach ($filesystem->listContents('/', false) as $item) {
-                    if ($item->isDir()) {
-                        $filesystem->deleteDirectory($item->path());
-                    } else {
-                        $filesystem->delete($item->path());
+                    foreach ($filesystem->listContents('/', false) as $item) {
+                        if ($item->isDir()) {
+                            $filesystem->deleteDirectory($item->path());
+                        } else {
+                            $filesystem->delete($item->path());
+                        }
                     }
-                }
 
-                return 'Output directory cleaned successfully.';
-            });
+                    return 'Output directory cleaned successfully.';
+                }
+            );
         }
 
         try {
@@ -194,19 +215,52 @@ class GenerateDocumentationCommand extends Command
             progress(
                 label: 'Generating API summary',
                 steps: 1,
-                callback: fn() => $this->execution->buildIndex(),
+                callback: fn() => $this->execution->buildIndex($this->config->get(key: 'index-file-name', default: 'readme')),
             );
+
+            $output->write("\033[1A"); // Move cursor up one line to remove extra blank line
+
+            // Generate namespace pages
+            $progress = progress(
+                label: 'Generating namespace pages',
+                steps: \count($this->execution->codeIndex->namespaces),
+            );
+
+            $this->execution->buildNamespacePages(
+                indexFileName: $this->config->get(key: 'index-file-name', default: 'readme'),
+                afterElementCallback: fn() => $progress->advance()
+            );
+
+            $progress->finish();
+
+            $output->write("\033[1A"); // Move cursor up one line to remove extra blank line
 
             // Process each class
             $progress = progress(label: 'Processing classes', steps: \count($this->execution->mainPhpNodes));
 
             $this->execution->buildPages(
-                afterElementCallback: function () use ($progress): void {
-                    $progress->advance();
-                }
+                afterElementCallback: fn() => $progress->advance(),
             );
 
             $progress->finish();
+
+            // Display error report if there are any warnings or errors
+            if ($this->execution->errorCollector->hasErrors()) {
+                $summary = $this->execution->errorCollector->getSummary();
+                $summaryText = [];
+
+                foreach ($summary as $level => $count) {
+                    $summaryText[] = "{$level}: {$count}";
+                }
+
+                warning('Errors/warnings were collected during generation: ' . implode(' | ', $summaryText));
+
+                if ($output->isVerbose()) {
+                    note($this->execution->errorCollector->formatForConsole());
+                } else {
+                    note('Run with -v to see detailed error report.');
+                }
+            }
 
             $this->io->success([
                 'Documentation generation completed successfully!',

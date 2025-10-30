@@ -22,6 +22,10 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
         get => $this->classReference->get();
     }
 
+    public NamespaceWrapper $declaringNamespace {
+        get => $this->parentWrapper->declaringNamespace; // @phpstan-ignore propertyGetHook.noRead
+    }
+
     public ?ClassWrapper $declaringClass {
         get => $this->declaringClassReference ? $this->declaringClassReference->get() : null;
     }
@@ -66,6 +70,6 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
 
     public function isLocalTo(ClassWrapper $classWrapper): bool
     {
-        return $this->reflection->getDeclaringClass()->name === $classWrapper->name;
+        return $this->reflection->getDeclaringClass()->getName() === $classWrapper->name;
     }
 }

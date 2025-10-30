@@ -1,6 +1,9 @@
 {templateType JulienBoudry\PhpReference\Template\Input\PropertyPageInput}
-{import 'description.latte'}
-{import 'throws.latte'}
+{import 'parts/navBreadcrumbClassElement.latte'}
+{import 'parts/description.latte'}
+{import 'parts/throws.latte'}
+{* *}
+{include navBreadcrumbClassElement, $property}
 {* *}
 # Property {$property->name}
 ```php

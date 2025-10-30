@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
+use JulienBoudry\PhpReference\Exception\UnsupportedOperationException;
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -12,13 +13,16 @@ use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlock\Tags\{InvalidTag, Param};
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\{Fqsen, Url};
 use phpDocumentor\Reflection\Types\{Context, Object_};
-use Roave\BetterReflection\Reflection\Reflection;
+use Reflection;
 use Roave\BetterReflection\Reflection\ReflectionClass;
 use Roave\BetterReflection\Reflection\ReflectionClassConstant;
 use Roave\BetterReflection\Reflection\ReflectionFunction;
 use Roave\BetterReflection\Reflection\ReflectionMethod;
 use Roave\BetterReflection\Reflection\ReflectionParameter;
 use Roave\BetterReflection\Reflection\ReflectionProperty;
+
+use function Laravel\Prompts\warning;
+
 abstract class ReflectionWrapper
 {
     protected static function formatValue(mixed $defaultValue): string
@@ -56,6 +60,8 @@ abstract class ReflectionWrapper
 
         return $wrappers;
     }
+
+    public NamespaceWrapper $declaringNamespace;
 
     public readonly ?DocBlock $docBlock;
 
@@ -118,7 +124,7 @@ abstract class ReflectionWrapper
      * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
      * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
      *
-     * @return ?array<DocBlock\Tags\BaseTag> Array of tags matching the criteria.
+     * @return ?array<int, DocBlock\Tags\BaseTag> Array of tags matching the criteria.
      */
     public function getDocBlockTags(string $tag, ?string $variableNameFilter = null): ?array
     {
@@ -146,7 +152,7 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @return ?array<DocBlock\Tags\See>
+     * @return ?array<int, DocBlock\Tags\See>
      */
     public function getSeeTags(): ?array
     {
@@ -155,11 +161,25 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param $tags ?DocBlock\Tags\BaseTag>
+     * @return ?array<int, DocBlock\Tags\BaseTag>
+     */
+    public function getManualTags(): ?array
+    {
+        $book = $this->getDocBlockTags('book') ?? [];
+        $manual = $this->getDocBlockTags('manual') ?? [];
+
+        /** @var DocBlock\Tags\BaseTag[] */
+        $merged = array_merge($book, $manual);
+
+        return empty($merged) ? null : $merged;
+    }
+
+    /**
+     * @param ?array<int, DocBlock\Tags\See|DocBlock\Tags\Throws> $tags
      *
      * @throws LogicException
      *
-     * @return ?array<array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>
+     * @return ?array<int, array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>
      */
     protected function resolveTags(?array $tags): ?array
     {
@@ -182,6 +202,12 @@ abstract class ReflectionWrapper
                     'tag' => $tag,
                 ];
             } elseif ($reference instanceof Object_) {
+                // For Object_ references, we need the type information
+                // See tags have getType(), Throws tags have getType()
+                if (!method_exists($tag, 'getType')) {
+                    continue;
+                }
+
                 $fqsenPath = (string) $tag->getType();
                 if (str_starts_with($fqsenPath, '\\')) {
                     $fqsenPath = substr($fqsenPath, 1);
@@ -195,9 +221,24 @@ abstract class ReflectionWrapper
                 ];
             } elseif ($reference instanceof Fqsen) {
                 try {
-                    $element = Execution::$instance->codeIndex->getElement((string) $reference);
+                    $referenceString = (string) $reference;
+                    // Transform only the last \ to :: before method name
+                    if (str_ends_with($referenceString, '()')) {
+                        $reformatedString = preg_replace('/(\\\\.+)\\\\([^:]+\(\))$/', '$1::$2', $referenceString);
+                    } else {
+                        $reformatedString = $referenceString;
+                    }
+
+                    $element = Execution::$instance->codeIndex->getElement($reformatedString);
                 } catch (LogicException $e) {
-                    throw new LogicException("Failed to resolve Fqsen reference in see tag on {$this->name}, message:: " . $e->getMessage());
+                    // Collect the error instead of throwing or displaying a warning
+                    Execution::$instance->errorCollector->addWarning(
+                        message: "Failed to resolve @see reference: {$referenceString}",
+                        context: "Element: {$this->name}",
+                        element: $this,
+                    );
+
+                    continue;
                 }
 
                 // If it's already a URL, just return it
@@ -216,7 +257,7 @@ abstract class ReflectionWrapper
     /**
      * @throws LogicException
      *
-     * @return ?array<array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>
+     * @return ?array<int, array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>
      */
     public function getResolvedSeeTags(): ?array
     {
@@ -230,6 +271,37 @@ abstract class ReflectionWrapper
 
         // Filter out any tags that match the ignored reflection
         return array_filter($resolved, fn(array $item): bool => $item['destination'] !== $this); // @phpstan-ignore return.type
+    }
+
+    /**
+     * @return ?array<int, string>
+     */
+    public function getResolvedManualTags(): ?array
+    {
+        $ManualTags = $this->getManualTags();
+
+        if ($ManualTags === null) {
+            return null;
+        }
+
+        $resolved = [];
+
+        try {
+            foreach ($ManualTags as $key => $tag) {
+                $resolved[$key] = \constant($tag->getDescription()->render())->value;
+            }
+        } catch (\Error $e) {
+            // Log the error instead of throwing - invalid tag is a data quality issue
+            Execution::$instance->errorCollector->addWarning(
+                message: "Invalid @manual or @book tag: {$e->getMessage()}",
+                context: "Element: {$this->name}",
+                element: $this,
+            );
+
+            return null;
+        }
+
+        return $resolved;
     }
 
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
@@ -273,6 +345,10 @@ abstract class ReflectionWrapper
         return $description;
     }
 
+    /**
+     * Get the URL link to the source code of this element.
+     * Returns null if source-url-base is not configured or if the file/line information is not available.
+     */
     public function getSourceLink(): ?string
     {
         if (method_exists($this->reflection, 'getFileName') === false || method_exists($this->reflection, 'getStartLine') === false) {
@@ -283,7 +359,13 @@ abstract class ReflectionWrapper
             return null;
         }
 
-        return 'https://github.com/julien-boudry/Condorcet/blob/master/'
+        $sourceUrlBase = Execution::$instance->config->getSourceUrlBase();
+
+        if ($sourceUrlBase === null) {
+            return null;
+        }
+
+        return $sourceUrlBase . '/'
                 . substr($this->reflection->getFileName(), mb_strpos($this->reflection->getFileName(), '/src/') + 1)
                 . '#L' . $this->reflection->getStartLine();
     }
@@ -296,13 +378,19 @@ abstract class ReflectionWrapper
             return $this->urlLinker;
         }
 
-        throw new LogicException('This wrapper does not implement WritableInterface');
+        throw new UnsupportedOperationException(
+            operation: 'getUrlLinker',
+            wrapperType: static::class,
+        );
     }
 
     public function getModifierNames(): string
     {
         if (! method_exists($this->reflection, 'getModifiers')) {
-            throw new LogicException('Method getModifiers() is not available on this reflection class.');
+            throw new UnsupportedOperationException(
+                operation: 'getModifierNames',
+                wrapperType: static::class,
+            );
         }
 
         return implode(' ', Reflection::getModifierNames($this->reflection->getModifiers()));

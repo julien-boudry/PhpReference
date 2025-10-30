@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JulienBoudry\PhpReference\Test;
+namespace JulienBoudry\PhpReference\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

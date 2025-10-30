@@ -1,0 +1,6 @@
+{define navBreadcrumbClassElement, $element}
+{var $AbstractElementInput = JulienBoudry\PhpReference\Template\Input\AbstractElementInput::class}
+{if $breadcrumb = JulienBoudry\PhpReference\Navigation::getBreadcrumb($element)}
+> {$breadcrumb}
+{/if}
+{/define}

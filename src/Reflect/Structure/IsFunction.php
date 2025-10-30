@@ -20,7 +20,7 @@ trait IsFunction
     }
 
     /**
-     * @return array<ParameterWrapper>
+     * @return array<int, ParameterWrapper>
      */
     public function getParameters(): array
     {
@@ -58,5 +58,35 @@ trait IsFunction
     public function getReturnDescription(): ?string
     {
         return $this->getDocBlockTagDescription('return');
+    }
+
+    protected function getFunctionPartSignature(): string
+    {
+        $str = '(';
+
+        if ($this->reflection->getNumberOfParameters() > 0) {
+            $option = false;
+            $i = 0;
+
+            foreach ($this->getParameters() as $param) {
+                $str .= $i === 0 ? ' ' : ', ';
+                $str .= ($param->reflection->isOptional() && ! $option) ? '[ ' : '';
+
+                $str .= $param->getSignature();
+
+                ($param->reflection->isOptional() && ! $option) ? $option = true : null;
+                $i++;
+            }
+
+            if ($option) {
+                $str .= ' ]';
+            }
+        }
+
+        $str .= ' )';
+
+        return $this->reflection->getName()
+                . $str
+                . ($this->hasReturnType() ? ': ' . $this->getReturnType() : '');
     }
 }
