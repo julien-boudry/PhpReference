@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Definition\{IsPubliclyAccessible, PublicApiDefinitionInterface};
-use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, MethodPageWriter, NamespacePageWriter, PropertyPageWriter, PublicApiSummaryWriter};
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper, FunctionWrapper};
+use JulienBoudry\PhpReference\Writer\{AbstractWriter, ClassPageWriter, FunctionPageWriter, MethodPageWriter, NamespacePageWriter, PropertyPageWriter, PublicApiSummaryWriter};
 use JulienBoudry\PhpReference\Log\ErrorCollector;
 
 final class Execution
@@ -15,7 +15,7 @@ final class Execution
 
     public readonly ErrorCollector $errorCollector;
 
-    /** @var ClassWrapper[] */
+    /** @var array<ClassWrapper|FunctionWrapper> */
     public readonly array $mainPhpNodes;
 
     /** @var array<int, string> */
@@ -33,7 +33,7 @@ final class Execution
         self::$instance = $this;
 
         $this->publicApiDefinition = $this->config->getApiDefinition(default: new IsPubliclyAccessible);
-        $this->mainPhpNodes = $codeIndex->getApiClasses();
+        $this->mainPhpNodes = $codeIndex->apiElementsList;
     }
 
     public function buildIndex(string $fileName): static
@@ -60,18 +60,25 @@ final class Execution
 
     public function buildPages(?callable $afterElementCallback = null): static
     {
-        foreach ($this->mainPhpNodes as $class) {
-            // Generate class page
-            $this->writePage(new ClassPageWriter($class));
+        foreach ($this->mainPhpNodes as $element) {
+            if ($element instanceof ClassWrapper) {
+                // Generate class page
+                $this->writePage(new ClassPageWriter($element));
 
-            // Generate method pages
-            foreach ($class->getAllApiMethods() as $method) {
-                $this->writePage(new MethodPageWriter($method));
-            }
+                // Generate method pages
+                foreach ($element->getAllApiMethods() as $method) {
+                    $this->writePage(new MethodPageWriter($method));
+                }
 
-            // Generate property pages
-            foreach ($class->getAllApiProperties() as $property) {
-                $this->writePage(new PropertyPageWriter($property));
+                // Generate property pages
+                foreach ($element->getAllApiProperties() as $property) {
+                    $this->writePage(new PropertyPageWriter($property));
+                }
+            } elseif ($element instanceof FunctionWrapper) {
+                // Generate function page
+                $this->writePage(new FunctionPageWriter($element));
+            } else {
+                throw new \LogicException('Unsupported element type: ' . $element::class);
             }
 
             if ($afterElementCallback) {

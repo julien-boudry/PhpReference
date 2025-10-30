@@ -90,7 +90,14 @@ abstract class ReflectionWrapper
         // Docblock
         $docComment = $reflector instanceof ReflectionParameter ? null : $this->reflection->getDocComment(); // @phpstan-ignore method.notFound
 
-        $this->docBlockContext ??= Util::getDocBlocContextFactory()->createFromReflector($reflector);
+        // For ReflectionFunction, we need to create the context manually
+        if ($reflector instanceof ReflectionFunction) {
+            $namespaceName = $reflector->getNamespaceName();
+            $this->docBlockContext ??= new Context($namespaceName ?: '');
+        } else {
+            $this->docBlockContext ??= Util::getDocBlocContextFactory()->createFromReflector($reflector);
+        }
+
         $this->docBlock = ! empty($docComment) ? Util::getDocBlocFactory()->create($docComment, $this->docBlockContext) : null;
 
         // DocBlock visibility
@@ -232,7 +239,7 @@ abstract class ReflectionWrapper
                         $reformatedString = $referenceString;
                     }
 
-                    $element = Execution::$instance->codeIndex->getElement($reformatedString);
+                    $element = Execution::$instance->codeIndex->getClassElement($reformatedString);
                 } catch (LogicException $e) {
                     // Collect the error instead of throwing or displaying a warning
                     Execution::$instance->errorCollector->addWarning(

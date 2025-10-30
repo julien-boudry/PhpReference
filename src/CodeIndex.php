@@ -6,9 +6,10 @@ namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Exception\UnresolvableReferenceException;
-use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, ReflectionWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, FunctionWrapper, ReflectionWrapper};
 use ReflectionClass;
 use ReflectionEnum;
+use ReflectionFunction;
 use JulienBoudry\PhpReference\Reflect\NamespaceWrapper;
 
 class CodeIndex
@@ -17,17 +18,63 @@ class CodeIndex
     public protected(set) array $namespaces = [];
 
     /**
-     * @var array<string, ClassWrapper>
+     * @var array<string, ClassWrapper|FunctionWrapper>
      */
     public array $elementsList {
         get {
             $result = [];
             foreach ($this->namespaces as $namespaceItem) {
-                $result = array_merge($result, $namespaceItem->classes);
+                $result = array_merge($result, $namespaceItem->elements);
             }
 
             return $result;
         }
+    }
+
+    /**
+     * @var array<ClassWrapper|FunctionWrapper>
+     */
+    public array $apiElementsList {
+        get => array_filter(
+            $this->elementsList,
+            fn($element) => $element->willBeInPublicApi
+        );
+    }
+
+    /**
+     * @var array<ClassWrapper>
+     */
+    public array $apiClassesList {
+        get => array_filter(
+            $this->apiElementsList,
+            fn($element) => $element instanceof ClassWrapper
+        );
+    }
+
+    /**
+     * @var array<FunctionWrapper>
+     */
+    public array $apiFunctionsList {
+        get => array_filter(
+            $this->apiElementsList,
+            fn($element) => $element instanceof FunctionWrapper
+        );
+    }
+
+    /** @var FunctionWrapper[] */
+    public array $functionsList {
+        get => array_filter(
+            $this->elementsList,
+            fn($element) => $element instanceof FunctionWrapper
+        );
+    }
+
+    /** @var ClassWrapper[] */
+    public array $classesList {
+        get => array_filter(
+            $this->elementsList,
+            fn($element) => $element instanceof ClassWrapper
+        );
     }
 
     public function __construct(
@@ -57,12 +104,43 @@ class CodeIndex
             $namespaceGroups[$elementNamespace][$classPath] = $classWrapper;
         }
 
+        // Discover standalone functions
+        $functionPathList = FunctionDiscovery::getFunctionsInNamespace($this->namespace);
+
+        /** @var FunctionWrapper[] */
+        $functionsList = [];
+
+        foreach ($functionPathList as $functionPath) {
+            try {
+                $functionWrapper = new FunctionWrapper(new ReflectionFunction($functionPath));
+
+                // Add to namespace groups
+                $elementNamespace = $functionWrapper->reflection->getNamespaceName();
+                if (!isset($namespaceGroups[$elementNamespace])) {
+                    $namespaceGroups[$elementNamespace] = [];
+                }
+                $namespaceGroups[$elementNamespace][$functionPath] = $functionWrapper;
+            } catch (\ReflectionException $e) {
+                // Skip functions that can't be reflected
+                continue;
+            }
+        }
+
         // Sort Namespace
         ksort($namespaceGroups, \SORT_STRING);
 
         // Créer les objets NamespaceWrapper
         foreach ($namespaceGroups as $namespaceName => $namespaceElements) {
-            $namespaceWrapper = new NamespaceWrapper($namespaceName, $namespaceElements);
+            // Séparer les classes et les fonctions
+            $classes = array_filter($namespaceElements, fn($element) => $element instanceof ClassWrapper);
+            $functions = array_filter($namespaceElements, fn($element) => $element instanceof FunctionWrapper);
+
+            $namespaceWrapper = new NamespaceWrapper(
+                namespace: $namespaceName,
+                classes: $classes,
+                functions: $functions
+            );
+
             $this->namespaces[$namespaceName] = $namespaceWrapper;
 
             foreach ($namespaceElements as $reflectionWrapper) {
@@ -95,20 +173,10 @@ class CodeIndex
 
     public function getClassWrapper(string $className): ?ClassWrapper
     {
-        return $this->elementsList[$className] ?? null;
+        return $this->classesList[$className] ?? null;
     }
 
-    /**
-     * @return array<string, ClassWrapper>
-     */
-    public function getApiClasses(): array
-    {
-        return array_filter($this->elementsList, function (ClassWrapper $class): bool {
-            return $class->willBeInPublicApi;
-        });
-    }
-
-    public function getElement(string $path): ClassElementWrapper
+    public function getClassElement(string $path): ClassElementWrapper
     {
         // Validate path format
         if (!str_contains($path, '::')) {
@@ -126,7 +194,7 @@ class CodeIndex
             $classPath = substr($classPath, 1);
         }
 
-        $class = $this->elementsList[$classPath] ?? null;
+        $class = $this->getClassWrapper($classPath);
 
         if ($class === null) {
             throw new UnresolvableReferenceException(
