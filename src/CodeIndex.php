@@ -19,17 +19,63 @@ class CodeIndex
     public protected(set) array $namespaces = [];
 
     /**
-     * @var array<string, ClassWrapper>
+     * @var array<string, ClassWrapper|FunctionWrapper>
      */
     public array $elementsList {
         get {
             $result = [];
             foreach ($this->namespaces as $namespaceItem) {
-                $result = array_merge($result, $namespaceItem->classes);
+                $result = array_merge($result, $namespaceItem->elements);
             }
 
             return $result;
         }
+    }
+
+    /**
+     * @var array<ClassWrapper|FunctionWrapper>
+     */
+    public array $apiElementsList {
+        get => array_filter(
+            $this->elementsList,
+            fn($element) => $element->willBeInPublicApi
+        );
+    }
+
+    /**
+     * @var array<ClassWrapper>
+     */
+    public array $apiClassesList {
+        get => array_filter(
+            $this->apiElementsList,
+            fn($element) => $element instanceof ClassWrapper
+        );
+    }
+
+    /**
+     * @var array<FunctionWrapper>
+     */
+    public array $apiFunctionsList {
+        get => array_filter(
+            $this->apiElementsList,
+            fn($element) => $element instanceof FunctionWrapper
+        );
+    }
+
+    /** @var FunctionWrapper[] */
+    public array $functionsList {
+        get => array_filter(
+            $this->elementsList,
+            fn($element) => $element instanceof FunctionWrapper
+        );
+    }
+
+    /** @var ClassWrapper[] */
+    public array $classesList {
+        get => array_filter(
+            $this->elementsList,
+            fn($element) => $element instanceof ClassWrapper
+        );
     }
 
     public function __construct(
@@ -78,20 +124,10 @@ class CodeIndex
 
     public function getClassWrapper(string $className): ?ClassWrapper
     {
-        return $this->elementsList[$className] ?? null;
+        return $this->classesList[$className] ?? null;
     }
 
-    /**
-     * @return array<string, ClassWrapper>
-     */
-    public function getApiClasses(): array
-    {
-        return array_filter($this->elementsList, function (ClassWrapper $class): bool {
-            return $class->willBeInPublicApi;
-        });
-    }
-
-    public function getElement(string $path): ClassElementWrapper
+    public function getClassElement(string $path): ClassElementWrapper
     {
         // Validate path format
         if (!str_contains($path, '::')) {
@@ -109,7 +145,7 @@ class CodeIndex
             $classPath = substr($classPath, 1);
         }
 
-        $class = $this->elementsList[$classPath] ?? null;
+        $class = $this->getClassWrapper($classPath);
 
         if ($class === null) {
             throw new UnresolvableReferenceException(

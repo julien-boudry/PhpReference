@@ -37,7 +37,7 @@ describe('CodeIndex Integration', function (): void {
     });
 
     it('filters API classes correctly', function (): void {
-        $apiClasses = $this->index->getApiClasses();
+        $apiClasses = $this->index->classesList;
         expect($apiClasses)->toBeArray();
 
         foreach ($apiClasses as $class) {
@@ -46,12 +46,12 @@ describe('CodeIndex Integration', function (): void {
     });
 
     it('throws exception for invalid element path format', function (): void {
-        expect(fn() => $this->index->getElement('InvalidFormat'))
+        expect(fn() => $this->index->getClassElement('InvalidFormat'))
             ->toThrow(UnresolvableReferenceException::class);
     });
 
     it('throws exception for non-existent class in element path', function (): void {
-        expect(fn() => $this->index->getElement('NonExistent\\Class::method'))
+        expect(fn() => $this->index->getClassElement('NonExistent\\Class::method'))
             ->toThrow(UnresolvableReferenceException::class);
     });
 });
@@ -81,5 +81,22 @@ describe('CodeIndex with test fixtures', function (): void {
 
         // Should have parent namespaces in hierarchy
         expect(\count($namespace->hierarchy))->toBeGreaterThan(0);
+    });
+
+    it('discovers standalone functions in namespaces', function (): void {
+        // Require test functions
+        require_once __DIR__ . '/../Fixtures/TestFunctions.php';
+
+        $execution = createExecutionFixture('JulienBoudry\\PhpReference\\Tests\\Fixtures');
+        $index = $execution->codeIndex;
+
+        expect($index->functionsList)->not->toBeEmpty()
+            ->and($index->functionsList)->toHaveKey('JulienBoudry\\PhpReference\\Tests\\Fixtures\\testHelperFunction')
+            ->and($index->functionsList)->toHaveKey('JulienBoudry\\PhpReference\\Tests\\Fixtures\\anotherTestFunction');
+
+        // Check that functions are also in namespace wrappers
+        $namespace = $index->namespaces['JulienBoudry\\PhpReference\\Tests\\Fixtures'];
+        expect($namespace->functions)->not->toBeEmpty()
+            ->and(\count($namespace->functions))->toBeGreaterThanOrEqual(2);
     });
 });

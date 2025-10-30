@@ -16,12 +16,12 @@ beforeEach(function (): void {
 it('test public condorcet', function (): void {
     expect(\count($this->codeIndex->elementsList))
         ->toBeGreaterThan(100)
-        ->toBeGreaterThan(\count($this->codeIndex->getApiClasses()));
+        ->toBeGreaterThan(\count($this->codeIndex->apiElementsList));
 
-    expect(\count($this->codeIndex->getApiClasses()))->toBeGreaterThan(0);
+    expect(\count($this->codeIndex->apiElementsList))->toBeGreaterThan(0);
 
-    foreach ($this->codeIndex->getApiClasses() as $class) {
-        expect($class->willBeInPublicApi)->toBeTrue();
+    foreach ($this->codeIndex->apiElementsList as $element) {
+        expect($element->willBeInPublicApi)->toBeTrue();
     }
 });
 

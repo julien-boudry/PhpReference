@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Template\Input;
 
 use JulienBoudry\PhpReference\{ApiSummaryPage, CodeIndex};
-use JulienBoudry\PhpReference\Reflect\{ClassWrapper, NamespaceWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper, FunctionWrapper, NamespaceWrapper};
 
 class ApiSummaryInput
 {
@@ -25,16 +25,16 @@ class ApiSummaryInput
 
         // Filter namespaces to only include those with API classes
         foreach ($codeIndex->namespaces as $namespaceWrapper) {
-            $apiClasses = array_filter(
-                $namespaceWrapper->classes,
-                fn(ClassWrapper $class) => $class->willBeInPublicApi
-            );
+            $apiClasses = $namespaceWrapper->apiClasses;
 
-            if (!empty($apiClasses)) {
+            $apiFunctions = $namespaceWrapper->apiFunctions;
+
+            if (!empty($apiClasses) || !empty($apiFunctions)) {
                 // Create a filtered NamespaceWrapper with only API classes
                 $filteredNamespace = new NamespaceWrapper(
                     namespace: $namespaceWrapper->namespace,
-                    classes: $apiClasses
+                    classes: $apiClasses,
+                    functions: $apiFunctions
                 );
 
                 // Reuse NamespacePageInput to organize classes by type

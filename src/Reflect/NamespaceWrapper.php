@@ -18,6 +18,32 @@ class NamespaceWrapper implements WritableInterface
         get => $this->namespace;
     }
 
+    /** @var array<ClassWrapper|FunctionWrapper> */
+    public array $elements {
+        get => array_merge($this->classes, $this->functions);
+    }
+
+    /** @var array<ClassWrapper|FunctionWrapper> */
+    public array $apiElements {
+        get => array_merge($this->apiClasses, $this->apiFunctions);
+    }
+
+    /** @var array<ClassWrapper>  */
+    public array $apiClasses {
+        get => array_filter(
+            $this->classes,
+            fn(ClassWrapper $class) => $class->willBeInPublicApi
+        );
+    }
+
+    /** @var array<FunctionWrapper>  */
+    public array $apiFunctions {
+        get => array_filter(
+            $this->functions,
+            fn(FunctionWrapper $function) => $function->willBeInPublicApi
+        );
+    }
+
     public string $shortName {
         get {
             $parts = explode('\\', $this->namespace);
@@ -29,10 +55,12 @@ class NamespaceWrapper implements WritableInterface
 
     /**
      * @param array<string, ClassWrapper> $classes
+     * @param array<string, FunctionWrapper> $functions
      */
     public function __construct(
         public readonly string $namespace,
         public readonly array $classes,
+        public readonly array $functions,
     ) {
         $this->urlLinker = new UrlLinker($this);
     }
