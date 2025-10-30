@@ -25,20 +25,8 @@ class ApiSummaryInput
 
         // Filter namespaces to only include those with API classes
         foreach ($codeIndex->namespaces as $namespaceWrapper) {
-            $apiClasses = $namespaceWrapper->apiClasses;
-
-            $apiFunctions = $namespaceWrapper->apiFunctions;
-
-            if (!empty($apiClasses) || !empty($apiFunctions)) {
-                // Create a filtered NamespaceWrapper with only API classes
-                $filteredNamespace = new NamespaceWrapper(
-                    namespace: $namespaceWrapper->namespace,
-                    classes: $apiClasses,
-                    functions: $apiFunctions
-                );
-
-                // Reuse NamespacePageInput to organize classes by type
-                $namespaces[$namespaceWrapper->namespace] = new NamespacePageInput($filteredNamespace);
+            if (!empty($namespaceWrapper->apiElements)) {
+                $namespaces[$namespaceWrapper->namespace] = new NamespacePageInput($namespaceWrapper);
             }
         }
 

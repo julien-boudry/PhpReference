@@ -20,7 +20,7 @@ class NamespacePageInput
         $classes = [];
         $enums = [];
 
-        foreach ($this->namespaceWrapper->classes as $class) {
+        foreach ($this->namespaceWrapper->apiClasses as $class) {
             match ($class::TYPE) {
                 'class' => $classes[$class->shortName] = $class,
                 'enum' => $enums[$class->shortName] = $class,
