@@ -28,7 +28,7 @@ class NamespaceWrapper implements WritableInterface
         get => array_merge($this->apiClasses, $this->apiFunctions);
     }
 
-    /** @var array<ClassWrapper>  */
+    /** @var array<ClassWrapper> */
     public array $apiClasses {
         get => array_filter(
             $this->classes,
@@ -36,7 +36,7 @@ class NamespaceWrapper implements WritableInterface
         );
     }
 
-    /** @var array<FunctionWrapper>  */
+    /** @var array<FunctionWrapper> */
     public array $apiFunctions {
         get => array_filter(
             $this->functions,

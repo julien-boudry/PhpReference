@@ -6,7 +6,7 @@ namespace JulienBoudry\PhpReference;
 
 use HaydenPierce\ClassFinder\ClassFinder;
 use JulienBoudry\PhpReference\Exception\UnresolvableReferenceException;
-use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, FunctionWrapper, ReflectionWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, ClassWrapper, EnumWrapper, FunctionWrapper, InterfaceWrapper, ReflectionWrapper, TraitWrapper};
 use ReflectionClass;
 use ReflectionEnum;
 use ReflectionFunction;
@@ -88,20 +88,22 @@ class CodeIndex
         $namespaceGroups = [];
 
         foreach ($classPathList as $classPath) {
-            $reflection = new ReflectionClass($classPath);
+            $classReflection = new ReflectionClass($classPath);
+            $elementNamespace = $classReflection->getNamespaceName();
 
-            $classWrapper = $reflection->isEnum()
-                ? new EnumWrapper(new ReflectionEnum($classPath))
-                : new ClassWrapper($reflection);
-
-            // Extraire le namespace de la classe
-            $elementNamespace = $reflection->getNamespaceName();
+            $classReflectionWrapper = match (true) {
+                $classReflection->isEnum() => new EnumWrapper(new ReflectionEnum($classPath)),
+                $classReflection->isInterface() => new InterfaceWrapper($classReflection),
+                $classReflection->isTrait() => new TraitWrapper($classReflection),
+                default => new ClassWrapper($classReflection)
+            };
 
             // Grouper par namespace
             if (!isset($namespaceGroups[$elementNamespace])) {
                 $namespaceGroups[$elementNamespace] = [];
             }
-            $namespaceGroups[$elementNamespace][$classPath] = $classWrapper;
+
+            $namespaceGroups[$elementNamespace][$classPath] = $classReflectionWrapper;
         }
 
         // Discover standalone functions
