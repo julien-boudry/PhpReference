@@ -103,9 +103,6 @@ describe('PropertyWrapper Edge Cases', function (): void {
         $collector = new ErrorCollector;
 
         foreach ($properties as $property) {
-            // Make property accessible
-            $property->reflection->setAccessible(true);
-
             try {
                 // Try to get the value
                 $value = $property->reflection->getValue($collector);
