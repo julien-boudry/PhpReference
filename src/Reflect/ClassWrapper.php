@@ -402,11 +402,11 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
         }
 
         // Static Methods
-        $localMethods = $onlyApi ? $this->getAllApiMethods(nonStatic: false) : $this->getAllUserDefinedMethods();
+        $localMethods = $onlyApi ? $this->getAllApiMethods(nonStatic: false) : $this->getAllUserDefinedMethods(nonStatic: false);
 
         if (! empty($localMethods)) {
             $signature .= "\n";
-            $signature .= self::TAB . "// Methods\n";
+            $signature .= self::TAB . "// Static Methods\n";
         }
 
         foreach ($localMethods as $method) {
