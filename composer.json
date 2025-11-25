@@ -15,7 +15,7 @@
         "pestphp/pest": "^4.1",
         "phpstan/phpstan": "^2.1",
         "julien-boudry/condorcet": "dev-dev-5.0",
-        "friendsofphp/php-cs-fixer": "^3.89"
+        "friendsofphp/php-cs-fixer": "^3.90"
     },
     "bin": [
         "bin/php-reference"
