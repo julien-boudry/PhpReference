@@ -1,6 +1,7 @@
 {
     "name": "julien-boudry/php-reference",
     "type": "library",
+    "description": "A PHP documentation generator that analyzes namespaces using reflection and generates comprehensive Markdown documentation with cross-references",
     "require": {
         "haydenpierce/class-finder": "^0.5.3",
         "phpdocumentor/reflection-docblock": "^5.6",
