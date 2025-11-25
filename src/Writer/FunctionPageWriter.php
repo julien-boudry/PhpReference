@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Writer;
 
-use JulienBoudry\PhpReference\Reflect\{FunctionWrapper};
-use JulienBoudry\PhpReference\Template\Input\{FunctionPageInput};
+use JulienBoudry\PhpReference\Reflect\FunctionWrapper;
+use JulienBoudry\PhpReference\Template\Input\FunctionPageInput;
 
 class FunctionPageWriter extends AbstractWriter
 {
