@@ -205,7 +205,13 @@ class CodeIndex
             );
         }
 
-        $element = $class->getElementByName(str_replace('()', '', $elementName));
+        // Normalize element name: remove () suffix for methods and $ prefix for properties
+        $normalizedElementName = str_replace('()', '', $elementName);
+        if (str_starts_with($normalizedElementName, '$')) {
+            $normalizedElementName = substr($normalizedElementName, 1);
+        }
+
+        $element = $class->getElementByName($normalizedElementName);
 
         if ($element === null) {
             throw new UnresolvableReferenceException(
