@@ -31,34 +31,26 @@ class SeeTagFixture
      *
      * @see SeeTagFixture::$staticProperty
      */
-    public function methodReferencingStaticProperty(): void
-    {
-    }
+    public function methodReferencingStaticProperty(): void {}
 
     /**
      * A method that references a regular property in its docblock.
      *
      * @see SeeTagFixture::$regularProperty
      */
-    public function methodReferencingRegularProperty(): void
-    {
-    }
+    public function methodReferencingRegularProperty(): void {}
 
     /**
      * A method that references a constant in its docblock.
      *
      * @see SeeTagFixture::STATIC_CONSTANT
      */
-    public function methodReferencingConstant(): void
-    {
-    }
+    public function methodReferencingConstant(): void {}
 
     /**
      * A method that references another method.
      *
      * @see SeeTagFixture::methodReferencingStaticProperty()
      */
-    public function methodReferencingMethod(): void
-    {
-    }
+    public function methodReferencingMethod(): void {}
 }

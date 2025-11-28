@@ -36,9 +36,7 @@ class DocBlockFixture
      *
      * Third paragraph continues the description.
      */
-    public function methodWithMultipleParagraphs(): void
-    {
-    }
+    public function methodWithMultipleParagraphs(): void {}
 
     /**
      * Summary for method with params.
@@ -47,6 +45,7 @@ class DocBlockFixture
      *
      * @param string $foo The foo parameter description.
      * @param int $bar The bar parameter description.
+     *
      * @return bool Returns true on success.
      */
     public function methodWithParams(string $foo, int $bar): bool
@@ -57,9 +56,7 @@ class DocBlockFixture
     /**
      * @param string $value A value
      */
-    public function methodWithOnlyTags(string $value): void
-    {
-    }
+    public function methodWithOnlyTags(string $value): void {}
 
     /**
      * Summary with special characters: `code`, *italic*, **bold**.
@@ -70,7 +67,5 @@ class DocBlockFixture
      *
      * Another paragraph with `inline code`.
      */
-    public function methodWithMarkdown(): void
-    {
-    }
+    public function methodWithMarkdown(): void {}
 }
