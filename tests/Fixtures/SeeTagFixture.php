@@ -53,4 +53,11 @@ class SeeTagFixture
      * @see SeeTagFixture::methodReferencingStaticProperty()
      */
     public function methodReferencingMethod(): void {}
+
+    /**
+     * A method that references another method with short syntax.
+     *
+     * @see methodReferencingStaticProperty()
+     */
+    public function methodReferencingMethodShort(): void {}
 }

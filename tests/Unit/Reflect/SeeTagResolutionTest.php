@@ -79,4 +79,20 @@ describe('ReflectionWrapper @see tag resolution', function (): void {
         expect($firstTag['destination'])->toBeInstanceOf(MethodWrapper::class)
             ->and($firstTag['destination']->name)->toBe('methodReferencingStaticProperty');
     });
+
+    it('resolves @see tag referencing a method with short syntax (without class name)', function (): void {
+        $method = $this->classWrapper->methods['methodReferencingMethodShort'];
+
+        expect($method)->toBeInstanceOf(MethodWrapper::class);
+
+        $seeTags = $method->getResolvedSeeTags();
+
+        expect($seeTags)->not->toBeNull()
+            ->and($seeTags)->toBeArray()
+            ->and($seeTags)->not->toBeEmpty();
+
+        $firstTag = reset($seeTags);
+        expect($firstTag['destination'])->toBeInstanceOf(MethodWrapper::class)
+            ->and($firstTag['destination']->name)->toBe('methodReferencingStaticProperty');
+    });
 });

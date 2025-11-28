@@ -281,8 +281,33 @@ abstract class ReflectionWrapper
             } elseif ($reference instanceof Fqsen) {
                 try {
                     $referenceString = (string) $reference;
+
+                    // Handle short syntax like @see methodName() without class name
+                    // phpDocumentor resolves it to \Namespace\methodName() but we need \Namespace\ClassName::methodName()
+                    if (!str_contains($referenceString, '::')) {
+                        // Check if this is a method/property reference (ends with () or starts with $)
+                        $lastBackslash = strrpos($referenceString, '\\');
+                        if ($lastBackslash !== false) {
+                            $elementPart = substr($referenceString, $lastBackslash + 1);
+                            // If it looks like a method or property, try to resolve it relative to the declaring class
+                            if (str_ends_with($elementPart, '()') || str_starts_with($elementPart, '$')) {
+                                // Get the declaring class name if available
+                                $declaringClassName = null;
+                                if ($this instanceof ClassElementWrapper) {
+                                    $declaringClassName = $this->inDocParentWrapper->name;
+                                } elseif ($this instanceof ClassWrapper) {
+                                    $declaringClassName = $this->name;
+                                }
+
+                                if ($declaringClassName !== null) {
+                                    $referenceString = '\\' . $declaringClassName . '::' . $elementPart;
+                                }
+                            }
+                        }
+                    }
+
                     // Transform only the last \ to :: before method name
-                    if (str_ends_with($referenceString, '()')) {
+                    if (str_ends_with($referenceString, '()') && !str_contains($referenceString, '::')) {
                         $reformatedString = preg_replace('/(\\\\.+)\\\\([^:]+\(\))$/', '$1::$2', $referenceString);
                     } else {
                         $reformatedString = $referenceString;
