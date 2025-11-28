@@ -44,7 +44,7 @@
         }
     },
     "scripts": {
-        "test": "pest",
+        "test": "pest --parallel",
         "document": "php Dev/update-documentation.php",
         "lint": "php-cs-fixer fix",
         "pintify": "@lint",
