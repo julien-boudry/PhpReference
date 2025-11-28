@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 use JulienBoudry\PhpReference\App;
 
-(function () : void {
+(function (): void {
     $composer_autoload_path = __DIR__ . '/../vendor/autoload.php';
 
     $loaded = false;
