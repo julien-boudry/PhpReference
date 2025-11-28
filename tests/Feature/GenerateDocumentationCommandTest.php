@@ -10,7 +10,7 @@ describe('GenerateDocumentationCommand', function (): void {
     beforeEach(function (): void {
         $this->application = new Application;
         $this->command = new GenerateDocumentationCommand;
-        $this->application->add($this->command);
+        $this->application->addCommand($this->command);
         $this->commandTester = new CommandTester($this->command);
     });
 

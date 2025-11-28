@@ -27,7 +27,7 @@ abstract class App
 
         $generateCommand = new GenerateDocumentationCommand;
 
-        $application->add($generateCommand);
+        $application->addCommand($generateCommand);
         $application->setDefaultCommand($generateCommand->getName(), true);
 
         $application->run();
