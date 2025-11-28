@@ -123,9 +123,58 @@ abstract class ReflectionWrapper
         return '/ref';
     }
 
+    /**
+     * Get the summary from the DocBlock (first line/paragraph).
+     *
+     * phpDocumentor separates the DocBlock into:
+     * - Summary: The first line/paragraph (before the first blank line)
+     * - Description: Everything after the first blank line
+     *
+     * This method returns only the summary part.
+     */
+    public function getSummary(): ?string
+    {
+        if ($this->docBlock === null) {
+            return null;
+        }
+
+        $summary = $this->docBlock->getSummary();
+
+        return !empty($summary) ? $summary : null;
+    }
+
+    /**
+     * Get the full description from the DocBlock, combining summary and description.
+     *
+     * phpDocumentor separates the DocBlock into:
+     * - Summary: The first line/paragraph (before the first blank line)
+     * - Description: Everything after the first blank line
+     *
+     * This method combines both to return the complete documentation text.
+     */
     public function getDescription(): ?string
     {
-        return $this->docBlock?->getDescription()->render();
+        if ($this->docBlock === null) {
+            return null;
+        }
+
+        $summary = $this->getSummary();
+        $description = $this->docBlock->getDescription()->render();
+
+        // Combine summary and description
+        if ($summary !== null && !empty($description)) {
+            return $summary . "\n\n" . $description;
+        }
+
+        if ($summary !== null) {
+            return $summary;
+        }
+
+        if (!empty($description)) {
+            return $description;
+        }
+
+        return null;
     }
 
     /**
@@ -328,9 +377,13 @@ abstract class ReflectionWrapper
         return $firstTag->getDescription()->render();
     }
 
+    /**
+     * Get a short description suitable for display in tables.
+     * Uses only the summary (first line/paragraph) to keep it concise.
+     */
     public function getShortDescriptionForTable(): ?string
     {
-        $description = $this->getDescription();
+        $description = $this->getSummary();
 
         if ($description === null) {
             return null;
