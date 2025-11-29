@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Command;
 
@@ -13,24 +15,72 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function Laravel\Prompts\{confirm, error, info, note, progress, warning};
 
+/**
+ * Console command that generates API documentation for a PHP namespace.
+ *
+ * This is the main entry point for documentation generation. The command can be
+ * configured through:
+ * - Command line arguments and options
+ * - A configuration file (reference.php by default)
+ *
+ * The generation process includes:
+ * 1. Loading and merging configuration from file and CLI
+ * 2. Indexing all classes and functions in the namespace
+ * 3. Generating the API summary page
+ * 4. Generating namespace-level index pages
+ * 5. Generating individual pages for classes, methods, and properties
+ *
+ * @see Config For configuration management
+ * @see Execution For the documentation generation orchestration
+ */
 #[AsCommand(
     name: 'generate:documentation',
     description: 'Generate API documentation for a PHP namespace',
 )]
 class GenerateDocumentationCommand extends Command
 {
+    /**
+     * Styled I/O helper for formatted console output.
+     */
     protected readonly SymfonyStyle $io;
 
+    /**
+     * The resolved output directory path.
+     */
     protected readonly string $outputDir;
 
+    /**
+     * Whether to append to existing documentation instead of replacing it.
+     */
     protected readonly bool $appendOutput;
 
+    /**
+     * Whether the user confirmed the operation (only relevant in interactive mode).
+     */
     protected bool $confirmed = true;
 
+    /**
+     * Configuration manager instance.
+     */
     protected Config $config;
 
+    /**
+     * Execution orchestrator instance.
+     */
     protected readonly Execution $execution;
 
+    /**
+     * Configures the command arguments and options.
+     *
+     * Sets up:
+     * - namespace argument: The PHP namespace to document
+     * - --append/-a: Don't clean output directory before generating
+     * - --output/-o: Output directory path
+     * - --api: API definition strategy to use
+     * - --config/-c: Path to configuration file
+     * - --index-file-name: Name for index files
+     * - --source-url-base: Base URL for source code links
+     */
     protected function configure(): void
     {
         $this
@@ -78,6 +128,12 @@ class GenerateDocumentationCommand extends Command
             );
     }
 
+    /**
+     * Initializes the command before interaction.
+     *
+     * Loads the configuration file and merges CLI arguments. Also sets the
+     * no-interaction flag if configured in the config file.
+     */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
@@ -100,6 +156,12 @@ class GenerateDocumentationCommand extends Command
         ]);
     }
 
+    /**
+     * Initializes the execution context with resolved configuration.
+     *
+     * This method validates the output directory exists and creates the
+     * Execution instance that will orchestrate the documentation generation.
+     */
     protected function init(): void
     {
         $this->appendOutput = $this->config->get(key: 'append', default: false);
@@ -121,6 +183,13 @@ class GenerateDocumentationCommand extends Command
         );
     }
 
+    /**
+     * Prompts for missing required configuration in interactive mode.
+     *
+     * Asks for namespace and output directory if not already configured,
+     * and requests confirmation before proceeding (since the output
+     * directory will be erased by default).
+     */
     protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $currentNamespace = $this->config->get('namespace');
@@ -146,6 +215,19 @@ class GenerateDocumentationCommand extends Command
         );
     }
 
+    /**
+     * Executes the documentation generation process.
+     *
+     * This method coordinates the entire generation workflow:
+     * 1. Validates the namespace exists and contains documentable elements
+     * 2. Cleans the output directory (unless --append is set)
+     * 3. Generates the API summary index
+     * 4. Generates namespace pages
+     * 5. Generates individual class, method, and property pages
+     * 6. Reports any errors or warnings collected during generation
+     *
+     * @return int Command::SUCCESS on success, Command::FAILURE or Command::INVALID on error
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $timer = new Timer;

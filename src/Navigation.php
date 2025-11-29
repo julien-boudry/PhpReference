@@ -6,10 +6,29 @@ namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Reflect\{ClassElementWrapper, NamespaceWrapper, ReflectionWrapper};
 
+/**
+ * Provides navigation utilities for generating breadcrumb trails in documentation.
+ *
+ * This class generates Markdown-formatted breadcrumb navigation strings that show
+ * the hierarchical path to an element. The breadcrumbs help users understand where
+ * they are in the documentation and provide clickable links to parent elements.
+ *
+ * @see UrlLinker For generating the relative links used in breadcrumbs
+ */
 class Navigation
 {
     /**
-     * Get breadcrumb navigation data for an element or namespace.
+     * Generates a Markdown breadcrumb navigation string for an element.
+     *
+     * The breadcrumb shows the namespace hierarchy with links to documented namespaces,
+     * and plain text for non-documented parent namespaces. For class elements, it also
+     * includes a link to the parent class.
+     *
+     * Example output: "JulienBoudry \ [PhpReference](../readme.md) \ **MyClass**"
+     *
+     * @param ReflectionWrapper|NamespaceWrapper $element The element to generate breadcrumbs for
+     *
+     * @return string|null Markdown-formatted breadcrumb string, or null if unavailable
      */
     public static function getBreadcrumb(ReflectionWrapper|NamespaceWrapper $element): ?string
     {

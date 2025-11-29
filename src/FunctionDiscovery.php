@@ -7,12 +7,31 @@ namespace JulienBoudry\PhpReference;
 use PhpParser\{Node, NodeTraverser, NodeVisitorAbstract, ParserFactory};
 
 /**
- * Discovers standalone functions in a namespace using PHP Parser.
+ * Discovers standalone PHP functions within a namespace.
+ *
+ * While ClassFinder handles class discovery, PHP doesn't have a built-in
+ * way to discover functions in a namespace. This class uses PHP Parser
+ * to analyze source files and find function declarations.
+ *
+ * The discovery process:
+ * 1. Find PHP files in the namespace using Composer's PSR-4 autoload mappings
+ * 2. Parse each file to extract function declarations
+ * 3. Filter functions to those within the target namespace
+ *
+ * @see FunctionVisitor The AST visitor used to extract function declarations
  */
 class FunctionDiscovery
 {
     /**
-     * Find all standalone functions declared in the given namespace.
+     * Finds all standalone functions declared in a namespace.
+     *
+     * This method discovers functions by:
+     * 1. Locating PHP files using PSR-4 mappings from composer.json
+     * 2. Parsing each file with PHP Parser
+     * 3. Extracting function declarations using FunctionVisitor
+     * 4. Filtering to only include functions in the target namespace
+     *
+     * @param string $namespace The namespace to search for functions
      *
      * @return array<string> Array of fully qualified function names
      */
@@ -64,9 +83,14 @@ class FunctionDiscovery
     }
 
     /**
-     * Get all PHP files in the given namespace.
+     * Locates all PHP files within a namespace using Composer PSR-4 mappings.
      *
-     * @return array<string> Array of file paths
+     * This method reads composer.json to find the directory mapping for the
+     * given namespace, then recursively scans that directory for PHP files.
+     *
+     * @param string $namespace The namespace to find files for
+     *
+     * @return array<string> Array of absolute file paths
      */
     protected static function getPhpFilesInNamespace(string $namespace): array
     {
@@ -130,9 +154,11 @@ class FunctionDiscovery
     }
 
     /**
-     * Recursively scan a directory for PHP files.
+     * Recursively scans a directory for PHP files.
      *
-     * @return array<string> Array of file paths
+     * @param string $directory The directory to scan
+     *
+     * @return array<string> Array of absolute file paths
      */
     protected static function scanDirectory(string $directory): array
     {
@@ -153,15 +179,35 @@ class FunctionDiscovery
 }
 
 /**
- * AST visitor to extract function declarations from PHP code.
+ * PHP Parser AST visitor that extracts function declarations from source code.
+ *
+ * This visitor traverses the AST produced by PHP Parser and collects:
+ * - The namespace declaration (if any)
+ * - All standalone function declarations (not methods)
+ *
+ * @see FunctionDiscovery For how this visitor is used
  */
 class FunctionVisitor extends NodeVisitorAbstract
 {
-    /** @var array<string> */
+    /**
+     * Names of all discovered functions.
+     *
+     * @var array<string>
+     */
     private array $functions = [];
 
+    /**
+     * The namespace declared in the file, or null if global.
+     */
     private ?string $namespace = null;
 
+    /**
+     * Processes each node in the AST to find namespace and function declarations.
+     *
+     * @param Node $node The current AST node being visited
+     *
+     * @return int|Node|array<Node>|null Visitor return value
+     */
     public function enterNode(Node $node): int|Node|array|null
     {
         // Track the current namespace
@@ -178,13 +224,20 @@ class FunctionVisitor extends NodeVisitorAbstract
     }
 
     /**
-     * @return array<string>
+     * Returns the list of discovered function names.
+     *
+     * @return array<string> Function names (without namespace prefix)
      */
     public function getFunctions(): array
     {
         return $this->functions;
     }
 
+    /**
+     * Returns the namespace declared in the file.
+     *
+     * @return string|null The namespace, or null if the file is in global scope
+     */
     public function getNamespace(): ?string
     {
         return $this->namespace;

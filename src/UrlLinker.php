@@ -6,14 +6,31 @@ namespace JulienBoudry\PhpReference;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 
+/**
+ * Generates relative URLs between documentation pages.
+ *
+ * When generating documentation with multiple interconnected pages, each page needs
+ * to link to other pages using relative paths. This class calculates those relative
+ * paths based on the source page's location and the destination page's location.
+ *
+ * The UrlLinker is typically instantiated with a source page (the page containing
+ * the links) and then used to generate links to various destination pages.
+ *
+ * @see WritableInterface For the contract that pages must implement
+ */
 class UrlLinker
 {
+    /**
+     * Creates a new UrlLinker for generating links from the source page.
+     *
+     * @param WritableInterface $sourcePage The page from which links will be generated
+     */
     public function __construct(
         public readonly WritableInterface $sourcePage,
     ) {}
 
     /**
-     * Generate a relative URL from the source page to a destination page.
+     * Generates a relative URL from the source page to a destination page.
      *
      * This method calculates the relative path needed to link from the current source page
      * (set in constructor) to any other page in the documentation. It handles different
@@ -44,13 +61,20 @@ class UrlLinker
     }
 
     /**
-     * Calculate the relative path from one directory to a file.
+     * Calculates the relative path from a source directory to a destination file.
      *
      * This method computes the relative path needed to navigate from a source directory
      * to a destination file, handling common path prefixes and edge cases.
      *
+     * Algorithm:
+     * 1. Normalize paths by removing leading/trailing slashes
+     * 2. Handle the special case of root directory as source
+     * 3. Find the common path prefix between source and destination
+     * 4. Calculate how many '../' are needed to reach the common ancestor
+     * 5. Append the remaining path to the destination
+     *
      * @param string $from The source directory path (where we're linking FROM)
-     * @param string $to The destination file path (where we're linking TO)
+     * @param string $to   The destination file path (where we're linking TO)
      *
      * @return string The relative path with appropriate '../' prefixes
      *

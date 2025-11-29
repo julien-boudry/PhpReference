@@ -7,17 +7,46 @@ namespace JulienBoudry\PhpReference\Log;
 use JulienBoudry\PhpReference\Reflect\ReflectionWrapper;
 
 /**
- * Centralized error collector for non-fatal issues during documentation generation.
- * Allows collecting warnings and errors without stopping the process.
+ * Centralized collector for non-fatal errors and warnings during documentation generation.
+ *
+ * During documentation generation, various issues may occur that are not fatal
+ * (e.g., unresolvable @see references, invalid PHPDoc tags). Rather than stopping
+ * the process, these issues are collected and reported at the end.
+ *
+ * The collector categorizes errors by severity level and provides methods for:
+ * - Adding errors with context and source element information
+ * - Retrieving errors filtered by level
+ * - Generating formatted reports for console output
+ * - Summarizing error counts by level
+ *
+ * @see ErrorLevel For the severity levels
+ * @see CollectedError For the error data structure
  */
 class ErrorCollector
 {
-    /** @var array<int, CollectedError> */
+    /**
+     * All collected errors.
+     *
+     * @var array<int, CollectedError>
+     */
     private array $errors = [];
 
-    /** @var array<string, int> */
+    /**
+     * Error counts grouped by severity level.
+     *
+     * @var array<string, int>
+     */
     private array $errorCounts = [];
 
+    /**
+     * Adds an error to the collection.
+     *
+     * @param string              $message   Human-readable error message
+     * @param ErrorLevel          $level     Severity level of the error
+     * @param string|null         $context   Additional context about where/why the error occurred
+     * @param ReflectionWrapper|null $element The element being processed when the error occurred
+     * @param \Throwable|null     $exception The underlying exception if any
+     */
     public function addError(
         string $message,
         ErrorLevel $level = ErrorLevel::WARNING,
@@ -41,17 +70,39 @@ class ErrorCollector
         $this->errorCounts[$key] = ($this->errorCounts[$key] ?? 0) + 1;
     }
 
+    /**
+     * Adds a warning-level error.
+     *
+     * Convenience method for the most common error type.
+     *
+     * @param string                 $message Human-readable warning message
+     * @param string|null            $context Additional context
+     * @param ReflectionWrapper|null $element The element being processed
+     */
     public function addWarning(string $message, ?string $context = null, ?ReflectionWrapper $element = null): void
     {
         $this->addError($message, ErrorLevel::WARNING, $context, $element);
     }
 
+    /**
+     * Adds a notice-level error.
+     *
+     * Notices are less severe than warnings and typically informational.
+     *
+     * @param string                 $message Human-readable notice message
+     * @param string|null            $context Additional context
+     * @param ReflectionWrapper|null $element The element being processed
+     */
     public function addNotice(string $message, ?string $context = null, ?ReflectionWrapper $element = null): void
     {
         $this->addError($message, ErrorLevel::NOTICE, $context, $element);
     }
 
     /**
+     * Retrieves collected errors, optionally filtered by level.
+     *
+     * @param ErrorLevel|null $filterByLevel Only return errors of this level, or null for all
+     *
      * @return array<int, CollectedError>
      */
     public function getErrors(?ErrorLevel $filterByLevel = null): array
@@ -66,6 +117,13 @@ class ErrorCollector
         ));
     }
 
+    /**
+     * Checks if any errors have been collected.
+     *
+     * @param ErrorLevel|null $level Check only for errors of this level, or null for any
+     *
+     * @return bool True if errors exist
+     */
     public function hasErrors(?ErrorLevel $level = null): bool
     {
         if ($level === null) {
@@ -75,6 +133,11 @@ class ErrorCollector
         return !empty($this->getErrors($level));
     }
 
+    /**
+     * Returns the count of collected errors.
+     *
+     * @param ErrorLevel|null $level Count only errors of this level, or null for total
+     */
     public function getErrorCount(?ErrorLevel $level = null): int
     {
         if ($level === null) {
@@ -85,15 +148,20 @@ class ErrorCollector
     }
 
     /**
-     * Get a summary of all errors grouped by level.
+     * Returns a summary of error counts grouped by level.
      *
-     * @return array<string, int>
+     * @return array<string, int> Level name => count
      */
     public function getSummary(): array
     {
         return $this->errorCounts;
     }
 
+    /**
+     * Clears all collected errors.
+     *
+     * Useful for resetting between documentation generation runs.
+     */
     public function clear(): void
     {
         $this->errors = [];
@@ -101,7 +169,12 @@ class ErrorCollector
     }
 
     /**
-     * Format errors for console output.
+     * Formats all collected errors for console output.
+     *
+     * Produces a human-readable report organized by error level,
+     * including timestamps, element names, and context where available.
+     *
+     * @return string Formatted error report
      */
     public function formatForConsole(): string
     {
