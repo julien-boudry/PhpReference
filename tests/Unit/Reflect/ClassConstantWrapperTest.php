@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use JulienBoudry\PhpReference\Reflect\{ClassWrapper, ClassConstantWrapper};
-use JulienBoudry\PhpReference\Tests\Fixtures\{ClassFixture, InterfaceFixture, BaseClassFixture, ChildClassFixture};
+use JulienBoudry\PhpReference\Tests\Fixtures\{ClassFixture, InterfaceFixture, ChildClassFixture};
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
 

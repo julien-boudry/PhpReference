@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\{ClassWrapper, MethodWrapper, PropertyWrapper, ParameterWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper};
 use JulienBoudry\PhpReference\Tests\Fixtures\AdvancedTypesFixture;
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;

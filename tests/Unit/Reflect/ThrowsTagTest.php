@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\{ClassWrapper, MethodWrapper, FunctionWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper, FunctionWrapper};
 use JulienBoudry\PhpReference\Tests\Fixtures\ThrowsTagFixture;
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;

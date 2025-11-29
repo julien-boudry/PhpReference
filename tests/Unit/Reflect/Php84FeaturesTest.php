@@ -225,8 +225,8 @@ describe('PHP 8.4 Features', function (): void {
         it('signature includes properties section', function (): void {
             $signature = $this->classWrapper->getSignature();
 
-            $hasPropertiesSection = str_contains($signature, '// Properties') ||
-                                    str_contains($signature, '// Static Properties');
+            $hasPropertiesSection = str_contains($signature, '// Properties')
+                                    || str_contains($signature, '// Static Properties');
             expect($hasPropertiesSection)->toBeTrue();
         });
     });

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\{TraitWrapper, ClassWrapper, PropertyWrapper, MethodWrapper};
+use JulienBoudry\PhpReference\Reflect\{TraitWrapper, ClassWrapper};
 use JulienBoudry\PhpReference\Tests\Fixtures\{TraitFixture, SecondaryTraitFixture};
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
@@ -94,7 +94,7 @@ describe('TraitWrapper', function (): void {
             $publicMethods = $this->traitWrapper->getAllUserDefinedMethods(protected: false, private: false);
             $allMethods = $this->traitWrapper->getAllUserDefinedMethods();
 
-            expect(count($publicMethods))->toBeLessThan(count($allMethods));
+            expect(\count($publicMethods))->toBeLessThan(\count($allMethods));
 
             foreach ($publicMethods as $method) {
                 expect($method->reflection->isPublic())->toBeTrue();

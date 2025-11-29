@@ -378,8 +378,8 @@ describe('ClassWrapper with ClassFixture', function (): void {
             $signature = $this->classWrapper->getSignature();
 
             // Signature should contain at least one property
-            $hasProperty = str_contains($signature, 'publicProperty') ||
-                           str_contains($signature, 'publicStaticProperty');
+            $hasProperty = str_contains($signature, 'publicProperty')
+                           || str_contains($signature, 'publicStaticProperty');
             expect($hasProperty)->toBeTrue();
         });
 

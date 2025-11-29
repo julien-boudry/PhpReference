@@ -24,6 +24,7 @@ trait SecondaryTraitFixture
     public function toggleSecondaryFlag(): bool
     {
         $this->secondaryFlag = !$this->secondaryFlag;
+
         return $this->secondaryFlag;
     }
 }

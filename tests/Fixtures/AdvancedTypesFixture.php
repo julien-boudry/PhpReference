@@ -180,7 +180,7 @@ class AdvancedTypesFixture
      *
      * @return string|null A string or null.
      */
-    public function stringOrNull(): string|null
+    public function stringOrNull(): ?string
     {
         return null;
     }

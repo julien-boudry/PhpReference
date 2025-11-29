@@ -61,7 +61,7 @@ if (!\function_exists(__NAMESPACE__ . '\\functionWithVariadic')) {
      */
     function functionWithVariadic(string ...$items): int
     {
-        return count($items);
+        return \count($items);
     }
 }
 
@@ -81,9 +81,10 @@ if (!\function_exists(__NAMESPACE__ . '\\functionThatThrows')) {
     /**
      * A function that throws an exception.
      *
-     * @throws \InvalidArgumentException When value is negative.
      *
      * @param int $value The value to check.
+     *
+     * @throws \InvalidArgumentException When value is negative.
      *
      * @return int The same value if positive.
      */
@@ -92,6 +93,7 @@ if (!\function_exists(__NAMESPACE__ . '\\functionThatThrows')) {
         if ($value < 0) {
             throw new \InvalidArgumentException('Value must be non-negative');
         }
+
         return $value;
     }
 }

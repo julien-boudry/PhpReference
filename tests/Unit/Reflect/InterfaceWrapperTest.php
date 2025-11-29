@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\{InterfaceWrapper, ClassWrapper, MethodWrapper};
+use JulienBoudry\PhpReference\Reflect\{InterfaceWrapper, ClassWrapper};
 use JulienBoudry\PhpReference\Tests\Fixtures\{InterfaceFixture, SecondaryInterfaceFixture};
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;

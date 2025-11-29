@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\{ClassWrapper, MethodWrapper, PropertyWrapper, ClassConstantWrapper};
+use JulienBoudry\PhpReference\Reflect\{ClassWrapper};
 use JulienBoudry\PhpReference\Tests\Fixtures\{
     ClassFixture,
     InterfaceFixture,
@@ -75,8 +75,8 @@ describe('Signature Generation', function (): void {
             $wrapper = new ClassWrapper(new ReflectionClass(ClassFixture::class));
             $signature = $wrapper->getSignature();
 
-            $hasPropertiesSection = str_contains($signature, '// Properties') ||
-                                    str_contains($signature, '// Static Properties');
+            $hasPropertiesSection = str_contains($signature, '// Properties')
+                                    || str_contains($signature, '// Static Properties');
             expect($hasPropertiesSection)->toBeTrue();
         });
 
@@ -84,8 +84,8 @@ describe('Signature Generation', function (): void {
             $wrapper = new ClassWrapper(new ReflectionClass(ClassFixture::class));
             $signature = $wrapper->getSignature();
 
-            $hasMethodsSection = str_contains($signature, '// Methods') ||
-                                 str_contains($signature, '// Static Methods');
+            $hasMethodsSection = str_contains($signature, '// Methods')
+                                 || str_contains($signature, '// Static Methods');
             expect($hasMethodsSection)->toBeTrue();
         });
 

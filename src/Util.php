@@ -228,7 +228,7 @@ class Util
     private static function processReflectionType(ReflectionType $type, UrlLinker $urlLinker): string
     {
         // Handle Union types (|)
-        if ($type instanceof \ReflectionUnionType) {
+        if ($type instanceof ReflectionUnionType) {
             $types = array_map(
                 fn(ReflectionType $t) => self::processReflectionType($t, $urlLinker),
                 $type->getTypes()
@@ -238,7 +238,7 @@ class Util
         }
 
         // Handle Intersection types (&)
-        if ($type instanceof \ReflectionIntersectionType) {
+        if ($type instanceof ReflectionIntersectionType) {
             $types = array_map(
                 fn(ReflectionType $t) => self::processReflectionType($t, $urlLinker),
                 $type->getTypes()
@@ -248,7 +248,7 @@ class Util
         }
 
         // Handle Named types (including built-in types and classes)
-        if ($type instanceof \ReflectionNamedType) {
+        if ($type instanceof ReflectionNamedType) {
             $typeName = $type->getName();
             $nullable = $type->allowsNull() && $typeName !== 'mixed';
             $typeString = ($nullable ? '?' : '') . $typeName;
