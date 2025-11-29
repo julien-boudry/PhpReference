@@ -33,7 +33,7 @@ final class CondorcetDocumentationCache
         mkdir(self::$outputDir, 0755, true);
 
         // Create config file
-        $configContent = sprintf(
+        $configContent = \sprintf(
             '<?php return [
                 "namespace" => "CondorcetPHP\\\\Condorcet",
                 "output" => %s,
@@ -130,4 +130,3 @@ describe('Condorcet Documentation Snapshots', function (): void {
     })->with('condorcet_documentation_files')
         ->skipOnPhp('<8.5', 'Snapshots generated with PHP 8.5 - output differs on older versions');
 });
-
