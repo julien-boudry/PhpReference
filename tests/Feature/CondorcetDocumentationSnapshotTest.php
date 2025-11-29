@@ -127,6 +127,7 @@ dataset('condorcet_documentation_files', function () {
 describe('Condorcet Documentation Snapshots', function (): void {
     it('generates {file}', function (string $relativePath, string $content): void {
         expect($content)->toMatchSnapshot();
-    })->with('condorcet_documentation_files');
+    })->with('condorcet_documentation_files')
+        ->skipOnPhp('<8.5', 'Snapshots generated with PHP 8.5 - output differs on older versions');
 });
 
