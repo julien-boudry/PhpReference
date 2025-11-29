@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property isProportional
+```php
+virtual public bool $isProportional
+```
+
+## Description
+Does the result come from a proportional method.

@@ -1,0 +1,33 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method addVotesFromJson()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L480)
+
+```php
+public function Election->addVotesFromJson( string $input ): int
+```
+
+## Description
+Import votes from a Json source.
+
+## Parameters
+
+### **input:**
+```php
+string $input
+```
+**Type:** `string`
+
+Json string input.
+
+## Return
+**Type:** `int`
+
+Count of newly registered votes.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addVote()](method_addVote.md)**
+- **[\CondorcetPHP\Condorcet\Election::parseVotes()](method_parseVotes.md)**
+- **[\CondorcetPHP\Condorcet\Election::addCandidatesFromJson()](method_addCandidatesFromJson.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/1.AddVotes)**

@@ -1,0 +1,141 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ Tools \ [Converters](../../readme.md) \ [CondorcetElectionFormat](class_CondorcetElectionFormat.md)
+# Method setDataToAnElection()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L202)
+
+```php
+public function CondorcetElectionFormat->setDataToAnElection( [ CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__set_state(array(
+   'state' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\ElectionState::CANDIDATES_REGISTRATION,
+   'timer' => 
+  \CondorcetPHP\Condorcet\Timer\Manager::__set_state(array(
+     'globalTimer' => 0.0,
+     'lastTimer' => null,
+     'lastChronoTimestamp' => null,
+     'startDeclare' => null,
+     'history' => 
+    array (
+    ),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'authorizeVoteWeight' => false,
+   'seatsToElect' => 100,
+   'votesConstraints' => 
+  array (
+  ),
+   'hash' => 'a19a1584344c1f3783bff51524a5a4b86f2cc09356c9dbfb6af9cd236e314362',
+   'implicitRankingRule' => true,
+   'buildByCondorcetVersion' => '5.0.3',
+   'candidates' => 
+  array (
+  ),
+   'nextAutomaticCandidateName' => 'A',
+   'Votes' => 
+  \CondorcetPHP\Condorcet\DataManager\VotesManager::__set_state(array(
+     'Container' => 
+    array (
+    ),
+     'DataHandler' => null,
+     'Cache' => 
+    array (
+    ),
+     'CacheMaxKey' => 0,
+     'CacheMinKey' => 0,
+     'cursor' => null,
+     'counter' => 0,
+     'maxKey' => -1,
+     'valid' => true,
+     'selfElection' => 
+    \WeakReference::__set_state(array(
+    )),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'votesFastMode' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE,
+   'Pairwise' => null,
+   'MethodsComputation' => null,
+   'statsVerbosity' => 
+  \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD,
+)), ?Closure $callBack = null ] ): CondorcetPHP\Condorcet\Election
+```
+
+## Description
+Add the data to an election object.
+
+## Parameters
+
+### **election:**
+```php
+CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__set_state(array(
+   'state' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\ElectionState::CANDIDATES_REGISTRATION,
+   'timer' => 
+  \CondorcetPHP\Condorcet\Timer\Manager::__set_state(array(
+     'globalTimer' => 0.0,
+     'lastTimer' => null,
+     'lastChronoTimestamp' => null,
+     'startDeclare' => null,
+     'history' => 
+    array (
+    ),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'authorizeVoteWeight' => false,
+   'seatsToElect' => 100,
+   'votesConstraints' => 
+  array (
+  ),
+   'hash' => 'a19a1584344c1f3783bff51524a5a4b86f2cc09356c9dbfb6af9cd236e314362',
+   'implicitRankingRule' => true,
+   'buildByCondorcetVersion' => '5.0.3',
+   'candidates' => 
+  array (
+  ),
+   'nextAutomaticCandidateName' => 'A',
+   'Votes' => 
+  \CondorcetPHP\Condorcet\DataManager\VotesManager::__set_state(array(
+     'Container' => 
+    array (
+    ),
+     'DataHandler' => null,
+     'Cache' => 
+    array (
+    ),
+     'CacheMaxKey' => 0,
+     'CacheMinKey' => 0,
+     'cursor' => null,
+     'counter' => 0,
+     'maxKey' => -1,
+     'valid' => true,
+     'selfElection' => 
+    \WeakReference::__set_state(array(
+    )),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'votesFastMode' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE,
+   'Pairwise' => null,
+   'MethodsComputation' => null,
+   'statsVerbosity' => 
+  \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD,
+))
+```
+**Type:** [`CondorcetPHP\Condorcet\Election`](../../../../Election/class_Election.md)
+
+Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
+
+### **callBack:**
+```php
+?Closure $callBack = null
+```
+**Type:** `?Closure`
+
+Callback function to execute after each registered vote.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Election`](../../../../Election/class_Election.md)
+
+The election object
+
+## Related
+- **[\CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat::setDataToAnElection()](../../DavidHillFormat/method_setDataToAnElection.md)**
+- **[\CondorcetPHP\Condorcet\Tools\Converters\DebianFormat::setDataToAnElection()](../../DebianFormat/method_setDataToAnElection.md)**

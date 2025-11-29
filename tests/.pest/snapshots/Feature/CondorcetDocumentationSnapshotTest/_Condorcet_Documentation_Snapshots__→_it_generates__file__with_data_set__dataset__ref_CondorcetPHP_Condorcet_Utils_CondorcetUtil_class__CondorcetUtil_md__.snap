@@ -1,0 +1,38 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **CondorcetUtil**
+# Class CondorcetUtil
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L18)
+
+## Description
+Utility class for Condorcet operations like JSON validation and parsing.
+## Elements
+
+### Public Static Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [format(...)](method_format.md) | _Provides pretty re-formatting, human readable, of all Condorcet PHP objects or result sets._ |
+
+
+## Public Representation
+```php
+abstract class CondorcetPHP\Condorcet\Utils\CondorcetUtil
+{
+
+    // Static Methods
+    public static function format( mixed $input, [ bool $convertObject = true ] ): mixed;
+
+}
+```
+
+## Full Representation
+```php
+abstract class CondorcetPHP\Condorcet\Utils\CondorcetUtil
+{
+
+    // Static Methods
+    public static function format( mixed $input, [ bool $convertObject = true ] ): mixed;
+    public static function isValidJsonForCondorcet( string $string ): void;
+    public static function prepareJson( string $input ): mixed;
+    public static function prepareParse( string $input, bool $isFile ): array;
+
+}
+```

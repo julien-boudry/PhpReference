@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Method addMethod()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L222)
+
+```php
+public static function Condorcet::addMethod( string $methodClass ): bool
+```
+
+## Description
+If you create your own Condorcet Algo. You will need it !
+
+## Parameters
+
+### **methodClass:**
+```php
+string $methodClass
+```
+**Type:** `string`
+
+The class name implementing your method. The class name includes the namespace it was declared in (e.g. Foo\Bar).
+
+## Return
+**Type:** `bool`
+
+True on Success. False on failure.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Condorcet::isAuthMethod()](method_isAuthMethod.md)**
+- **[\CondorcetPHP\Condorcet\Condorcet::getMethodClass()](method_getMethodClass.md)**

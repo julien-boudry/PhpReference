@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ [DataManager](../../../readme.md) \ DataHandlerDrivers \ [PdoHandlerDriver](class_PdoHandlerDriver.md)
+# Property preferBlobInsteadVarchar
+```php
+public static bool $preferBlobInsteadVarchar = true
+```

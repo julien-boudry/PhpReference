@@ -1,0 +1,28 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ [StvQuotas](enum_StvQuotas.md)
+# Method fromString()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L38)
+
+```php
+public static function StvQuotas::fromString( string $quota ): self
+```
+
+## Description
+Build the Enum Quotas option for STV methods.
+
+## Parameters
+
+### **quota:**
+```php
+string $quota
+```
+**Type:** `string`
+
+Quota name.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Algo\Tools\StvQuotas`](enum_StvQuotas.md)
+
+
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/gh/VotingMethods)**

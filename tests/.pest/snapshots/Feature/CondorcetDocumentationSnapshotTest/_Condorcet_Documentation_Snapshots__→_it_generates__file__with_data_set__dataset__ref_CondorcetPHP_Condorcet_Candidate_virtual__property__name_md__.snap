@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Property name
+```php
+virtual public string $name
+```
+
+## Description
+Get the candidate name or change the candidate name.

@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method setStatsVerbosity()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L341)
+
+```php
+public function Election->setStatsVerbosity( CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity ): static
+```
+
+## Description
+Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods.
+
+## Parameters
+
+### **StatsVerbosity:**
+```php
+CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity
+```
+**Type:** [`CondorcetPHP\Condorcet\Algo\StatsVerbosity`](../Algo/StatsVerbosity/enum_StatsVerbosity.md)
+
+A verbosity level.
+
+## Return
+**Type:** `static`
+
+
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::statsVerbosity](property_statsVerbosity.md)**
+- **[\CondorcetPHP\Condorcet\Result::statsVerbosity](../Result/property_statsVerbosity.md)**

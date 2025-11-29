@@ -1,0 +1,31 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method removeCandidate()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L627)
+
+```php
+public function Vote->removeCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate ): true
+```
+
+## Description
+Remove candidate from ranking. Set a new ranking and archive the old ranking.
+
+## Parameters
+
+### **candidate:**
+```php
+CondorcetPHP\Condorcet\Candidate|string $candidate
+```
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md) | `string`
+
+Candidate object or string.
+
+## Return
+**Type:** `true`
+
+True on success.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException](../Throwable/CandidateDoesNotExistException/class_CandidateDoesNotExistException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::setRanking()](method_setRanking.md)**

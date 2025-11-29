@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property electionCondorcetVersion
+```php
+final public private(set) readonly string $electionCondorcetVersion
+```
+
+## Description
+Get the Condorcet PHP version that build this Result.

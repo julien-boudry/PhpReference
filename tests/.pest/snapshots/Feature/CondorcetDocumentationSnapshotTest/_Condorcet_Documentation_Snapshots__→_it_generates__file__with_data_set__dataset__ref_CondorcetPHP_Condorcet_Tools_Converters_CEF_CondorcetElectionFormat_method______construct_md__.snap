@@ -1,0 +1,20 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ Tools \ [Converters](../../readme.md) \ [CondorcetElectionFormat](class_CondorcetElectionFormat.md)
+# Method __construct()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L158)
+
+```php
+public function CondorcetElectionFormat->__construct( SplFileInfo|string $input )
+```
+
+## Description
+Read a Condorcet format file, usually using .cvotes file extension.
+
+## Parameters
+
+### **input:**
+```php
+SplFileInfo|string $input
+```
+**Type:** `SplFileInfo` | `string`
+
+String, valid path to a text file or an object SplFileInfo or extending it like SplFileObject.

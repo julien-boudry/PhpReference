@@ -1,0 +1,19 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method removeAllTags()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L741)
+
+```php
+public function Vote->removeAllTags( ): true
+```
+
+## Description
+Remove all registered tag(s) on this Vote.
+
+## Return
+**Type:** `true`
+
+Return True.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::addTags()](method_addTags.md)**
+- **[\CondorcetPHP\Condorcet\Vote::removeTags()](method_removeTags.md)**

@@ -1,0 +1,44 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getResult()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L65)
+
+```php
+public function Election->getResult( [ ?string $method = null, array $methodOptions = [] ] ): CondorcetPHP\Condorcet\Result
+```
+
+## Description
+Get a full ranking from an advanced Condorcet method.
+
+## Parameters
+
+### **method:**
+```php
+?string $method = null
+```
+**Type:** `?string`
+
+Not required for use election default method. Set the string name of the algorithm for use of a specific one.
+
+### **methodOptions:**
+```php
+array $methodOptions = []
+```
+**Type:** `array`
+
+Array of option for some methods. Look at each method documentation.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Result`](../Result/class_Result.md)
+
+An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
+
+## Throws
+- **[\CondorcetPHP\Condorcet\VotingMethodIsNotImplemented]()** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getWinner()](method_getWinner.md)**
+- **[\CondorcetPHP\Condorcet\Election::getLoser()](method_getLoser.md)**
+- **[\CondorcetPHP\Condorcet\Condorcet::getDefaultMethod()](../Condorcet/method_getDefaultMethod.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/6.Results/2.FullRanking)**

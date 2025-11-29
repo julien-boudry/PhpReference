@@ -1,0 +1,10 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ Tools \ **Randomizers**
+# Namespace: CondorcetPHP\Condorcet\Tools\Randomizers
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [ArrayRandomizer](ArrayRandomizer/class_ArrayRandomizer.md) | _Generates randomized arrays with configurable ranking constraints._ |
+| [VoteRandomizer](VoteRandomizer/class_VoteRandomizer.md) | _Generates random votes with configurable ranking constraints._ |
+

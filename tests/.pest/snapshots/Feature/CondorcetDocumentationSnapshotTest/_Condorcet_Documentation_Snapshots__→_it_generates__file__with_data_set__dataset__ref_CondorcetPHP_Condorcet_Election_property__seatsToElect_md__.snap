@@ -1,0 +1,11 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Property seatsToElect
+```php
+public int $seatsToElect = 100
+```
+
+## Description
+Get or set seats to elect count for proportionals methods like STV.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\NoSeatsException](../Throwable/NoSeatsException/class_NoSeatsException.md)** __

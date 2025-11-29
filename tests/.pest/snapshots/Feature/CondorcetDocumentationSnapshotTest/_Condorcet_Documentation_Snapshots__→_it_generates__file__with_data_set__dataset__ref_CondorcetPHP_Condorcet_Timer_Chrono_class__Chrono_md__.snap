@@ -1,0 +1,49 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **Chrono**
+# Class Chrono
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Chrono.php#L17)
+
+## Description
+Represents a chronometer for timing operations.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Timer\Chrono
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Timer\Chrono
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    public protected(set) readonly float $start;
+    protected readonly CondorcetPHP\Condorcet\Timer\Manager $manager;
+    protected ?string $role = null;
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

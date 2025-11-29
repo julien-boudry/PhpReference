@@ -1,0 +1,71 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ [DataManager](../../../readme.md) \ DataHandlerDrivers \ **PdoHandlerDriver**
+# Class PdoHandlerDriver
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver.php#L22)
+
+## Description
+PDO-based data handler driver for persistent vote storage.
+## Elements
+
+### Public Constants
+| Constant Name | Signature | Description |
+| ------------- | ------------- | ------------- |
+| SEGMENT | `public const array SEGMENT = [499, 50, 4, 1]` | __ |
+
+### Public Static Properties
+| Properties Name | Description |
+| ------------- | ------------- |
+| [preferBlobInsteadVarchar(...)](static_property_preferBlobInsteadVarchar.md) | __ |
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface
+{
+    // Constants
+    public const array SEGMENT = [499, 50, 4, 1];
+
+    // Static Properties
+    public static bool $preferBlobInsteadVarchar = true;
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandlerDriver implements CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface
+{
+    // Constants
+    public const array SEGMENT = [499, 50, 4, 1];
+
+    // Static Properties
+    public static bool $preferBlobInsteadVarchar = true;
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    protected readonly PDO $handler;
+    protected array $prepare = [];
+    protected bool $queryError = false;
+    protected array $struct;
+    protected bool $transaction = false;
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

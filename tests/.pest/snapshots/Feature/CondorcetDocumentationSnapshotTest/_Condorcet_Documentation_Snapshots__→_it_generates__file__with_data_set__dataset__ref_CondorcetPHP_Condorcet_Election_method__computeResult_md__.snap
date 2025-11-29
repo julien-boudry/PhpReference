@@ -1,0 +1,30 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method computeResult()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L365)
+
+```php
+public function Election->computeResult( [ ?string $method = null ] ): void
+```
+
+## Description
+Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache.
+
+## Parameters
+
+### **method:**
+```php
+?string $method = null
+```
+**Type:** `?string`
+
+Not requiered for use object default method. Set the string name of the algorithm for use an specific one.
+
+## Return
+**Type:** `void`
+
+
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getWinner()](method_getWinner.md)**
+- **[\CondorcetPHP\Condorcet\Election::getResult()](method_getResult.md)**
+- **[\CondorcetPHP\Condorcet\Condorcet::getDefaultMethod()](../Condorcet/method_getDefaultMethod.md)**

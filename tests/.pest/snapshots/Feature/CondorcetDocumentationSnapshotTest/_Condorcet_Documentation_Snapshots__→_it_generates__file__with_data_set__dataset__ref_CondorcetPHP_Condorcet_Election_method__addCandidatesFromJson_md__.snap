@@ -1,0 +1,36 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method addCandidatesFromJson()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L292)
+
+```php
+public function Election->addCandidatesFromJson( string $input ): array
+```
+
+## Description
+Import candidates from a JSON source.
+
+## Parameters
+
+### **input:**
+```php
+string $input
+```
+**Type:** `string`
+
+JSON string.
+
+## Return
+**Type:** `array`
+
+List of newly registered candidate objects.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\CandidateExistsException]()** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**
+- **[\CondorcetPHP\Condorcet\Election::parseCandidates()](method_parseCandidates.md)**
+- **[\CondorcetPHP\Condorcet\Election::addVotesFromJson()](method_addVotesFromJson.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/4.Candidates)**

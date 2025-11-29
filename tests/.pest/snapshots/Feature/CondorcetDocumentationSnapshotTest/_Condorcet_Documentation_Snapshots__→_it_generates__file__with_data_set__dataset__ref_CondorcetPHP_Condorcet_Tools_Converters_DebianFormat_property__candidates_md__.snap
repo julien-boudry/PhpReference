@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [DebianFormat](class_DebianFormat.md)
+# Property candidates
+```php
+final public private(set) readonly array $candidates
+```

@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ [Algo](../readme.md) \ **Tools**
+# Namespace: CondorcetPHP\Condorcet\Algo\Tools
+
+
+## Enums
+
+| Enum Name | Description |
+| ------------- | ------------- |
+| [StvQuotas](StvQuotas/enum_StvQuotas.md) | _Defines quota formulas for Single Transferable Vote methods._ |

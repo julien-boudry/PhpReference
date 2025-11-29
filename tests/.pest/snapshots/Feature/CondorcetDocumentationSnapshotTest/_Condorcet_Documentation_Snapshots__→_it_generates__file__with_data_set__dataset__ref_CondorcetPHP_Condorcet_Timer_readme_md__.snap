@@ -1,0 +1,10 @@
+> CondorcetPHP \ [Condorcet](../readme.md) \ **Timer**
+# Namespace: CondorcetPHP\Condorcet\Timer
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [Chrono](Chrono/class_Chrono.md) | _Represents a chronometer for timing operations._ |
+| [Manager](Manager/class_Manager.md) | _Manages chronometers and tracks execution time._ |
+

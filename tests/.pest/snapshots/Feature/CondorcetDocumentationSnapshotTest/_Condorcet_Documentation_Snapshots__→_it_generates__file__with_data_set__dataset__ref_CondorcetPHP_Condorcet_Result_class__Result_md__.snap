@@ -1,0 +1,110 @@
+> CondorcetPHP \ **Result**
+# Class Result
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L24)
+
+## Description
+Contains election results for a specific voting method.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [buildTimestamp(...)](property_buildTimestamp.md) | _The timestamp of this result at build time._ |
+| [byClass(...)](property_byClass.md) | _Get the The algorithmic method used for this result._ |
+| [CondorcetLoser(...)](property_CondorcetLoser.md) | _Get the Condorcet loser, if exist, at the result time._ |
+| [CondorcetWinner(...)](property_CondorcetWinner.md) | _Get the Condorcet winner, if exist, at the result time._ |
+| [electionCondorcetVersion(...)](property_electionCondorcetVersion.md) | _Get the Condorcet PHP version that build this Result._ |
+| [fromMethod(...)](property_fromMethod.md) | _Get the The algorithmic method used for this result._ |
+| [methodOptions(...)](property_methodOptions.md) | _Return the method options. Can be empty for most of the methods._ |
+| [originalRankingAsArrayString(...)](property_originalRankingAsArrayString.md) | _Get immutable result as an array Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created._ |
+| [pairwise(...)](property_pairwise.md) | __ |
+| [ranking(...)](property_ranking.md) | __ |
+| [seats(...)](property_seats.md) | _Get count of seats to elects for STV methods result._ |
+| [stats(...)](property_stats.md) | _Get advanced computing data from used algorithm. Like Strongest paths for Schulze method._ |
+| [statsVerbosity(...)](property_statsVerbosity.md) | __ |
+| [isProportional(...)](virtual_property_isProportional.md) | _Does the result come from a proportional method._ |
+| [Loser(...)](virtual_property_Loser.md) | _('Get the election loser if any') Contain Candidate object. Null if there are no available loser. Or an array with multiples losers._ |
+| [originalRankingAsString(...)](virtual_property_originalRankingAsString.md) | _Get immutable result as a string Unlike other methods to recover the result. This is frozen as soon as the original creation of the Result object is created._ |
+| [rankingAsArray(...)](virtual_property_rankingAsArray.md) | _Get result as an array populated by Candidate objects._ |
+| [rankingAsArrayString(...)](virtual_property_rankingAsArrayString.md) | _Get result as an array populated by string._ |
+| [Winner(...)](virtual_property_Winner.md) | _('Get the election winner if any') Contain Candidate object. Null if there are no available winner. Or an array with multiples winners._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [getWarning(...)](method_getWarning.md) | _From native methods: only Kemeny-Young use it to inform about a conflict during the computation process._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) readonly float $buildTimestamp;
+    final public private(set) readonly string $byClass;
+    final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetLoser;
+    final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetWinner;
+    final public private(set) readonly string $electionCondorcetVersion;
+    final public private(set) readonly string $fromMethod;
+    final public private(set) array $methodOptions;
+    public protected(set) readonly array $originalRankingAsArrayString;
+    final public private(set) readonly array $pairwise;
+    final public private(set) readonly array $ranking;
+    final public private(set) readonly ?int $seats;
+    public protected(set) readonly CondorcetPHP\Condorcet\Algo\Stats\StatsInterface $stats;
+    final public private(set) readonly CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity;
+    virtual public bool $isProportional;
+    virtual public CondorcetPHP\Condorcet\Candidate|array|null $Loser;
+    virtual public string $originalRankingAsString;
+    virtual public array $rankingAsArray;
+    virtual public array $rankingAsArrayString;
+    virtual public CondorcetPHP\Condorcet\Candidate|array|null $Winner;
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getWarning( [ ?int $type = null ] ): array;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator, Traversable
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) readonly float $buildTimestamp;
+    final public private(set) readonly string $byClass;
+    final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetLoser;
+    final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetWinner;
+    final public private(set) readonly string $electionCondorcetVersion;
+    final public private(set) readonly string $fromMethod;
+    final public private(set) array $methodOptions;
+    public protected(set) readonly array $originalRankingAsArrayString;
+    final public private(set) readonly array $pairwise;
+    final public private(set) readonly array $ranking;
+    final public private(set) readonly array $rawRanking;
+    final public private(set) readonly ?int $seats;
+    public protected(set) readonly CondorcetPHP\Condorcet\Algo\Stats\StatsInterface $stats;
+    final public private(set) readonly CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity;
+    virtual public bool $isProportional;
+    virtual public CondorcetPHP\Condorcet\Candidate|array|null $Loser;
+    virtual public string $originalRankingAsString;
+    virtual public array $rankingAsArray;
+    virtual public array $rankingAsArrayString;
+    virtual public string $rankingAsString;
+    virtual public CondorcetPHP\Condorcet\Candidate|array|null $Winner;
+    protected array $ResultIterator;
+    protected array $warning = [];
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getWarning( [ ?int $type = null ] ): array;
+
+}
+```

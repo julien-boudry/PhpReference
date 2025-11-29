@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property methodOptions
+```php
+final public private(set) array $methodOptions
+```
+
+## Description
+Return the method options. Can be empty for most of the methods.

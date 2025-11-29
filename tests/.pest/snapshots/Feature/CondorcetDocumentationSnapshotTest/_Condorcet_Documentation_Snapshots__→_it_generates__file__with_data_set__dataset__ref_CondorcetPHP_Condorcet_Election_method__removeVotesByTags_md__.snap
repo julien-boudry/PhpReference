@@ -1,0 +1,48 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method removeVotesByTags()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L425)
+
+```php
+public function Election->removeVotesByTags( array|string $tags, [ bool $with = true ] ): array
+```
+
+## Description
+Remove Vote from an election using tags.
+
+```php
+\$election->removeVotesByTags('Charlie') ; // Remove vote(s) with tag Charlie
+\$election->removeVotesByTags('Charlie', false) ; // Remove votes without tag Charlie
+\$election->removeVotesByTags('Charlie, Julien', false) ; // Remove votes without tag Charlie AND without tag Julien.
+\$election->removeVotesByTags(array('Julien','Charlie')) ; // Remove votes with tag Charlie OR with tag Julien.
+```
+
+## Parameters
+
+### **tags:**
+```php
+array|string $tags
+```
+**Type:** `array` | `string`
+
+Tags as string separated by commas or array.
+
+### **with:**
+```php
+bool $with = true
+```
+**Type:** `bool`
+
+Votes with these tags or without.
+
+## Return
+**Type:** `array`
+
+List of removed CondorcetPHP\Condorcet\Vote object.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addVote()](method_addVote.md)**
+- **[\CondorcetPHP\Condorcet\Election::getVotesList()](method_getVotesList.md)**
+- **[\CondorcetPHP\Condorcet\Election::removeVote()](method_removeVote.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/2.VotesTags)**

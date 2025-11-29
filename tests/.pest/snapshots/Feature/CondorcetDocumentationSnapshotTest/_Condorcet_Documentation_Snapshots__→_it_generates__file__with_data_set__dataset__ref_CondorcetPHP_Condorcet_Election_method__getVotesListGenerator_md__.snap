@@ -1,0 +1,38 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getVotesListGenerator()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L190)
+
+```php
+public function Election->getVotesListGenerator( [ array|string|null $tags = null, bool $with = true ] ): Generator
+```
+
+## Description
+Same as Election::getVotesList. But returns a PHP generator object.
+
+Useful if you work on very large elections with an external DataHandler, because it will not use large amounts of memory.
+
+## Parameters
+
+### **tags:**
+```php
+array|string|null $tags = null
+```
+**Type:** `array` | `string` | `?null`
+
+Tags list as a string separated by commas or array.
+
+### **with:**
+```php
+bool $with = true
+```
+**Type:** `bool`
+
+Get votes with these tags or without.
+
+## Return
+**Type:** `Generator`
+
+Populated by each Vote object.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getVotesList()](method_getVotesList.md)**

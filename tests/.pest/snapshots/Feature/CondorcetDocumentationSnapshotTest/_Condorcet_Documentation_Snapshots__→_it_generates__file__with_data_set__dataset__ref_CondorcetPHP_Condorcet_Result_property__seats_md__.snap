@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property seats
+```php
+final public private(set) readonly ?int $seats
+```
+
+## Description
+Get count of seats to elects for STV methods result.

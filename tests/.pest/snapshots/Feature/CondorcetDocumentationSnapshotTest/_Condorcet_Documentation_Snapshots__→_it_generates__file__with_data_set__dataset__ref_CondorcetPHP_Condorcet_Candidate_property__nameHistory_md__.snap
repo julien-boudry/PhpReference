@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Property nameHistory
+```php
+public protected(set) array $nameHistory = []
+```
+
+## Description
+Return an history of each naming change, with timestamp.

@@ -1,0 +1,36 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method hasCandidate()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L115)
+
+```php
+public function Election->hasCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate, [ bool $strictMode = true ] ): bool
+```
+
+## Description
+Check if a candidate is already registered for this election.
+
+## Parameters
+
+### **candidate:**
+```php
+CondorcetPHP\Condorcet\Candidate|string $candidate
+```
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md) | `string`
+
+Candidate object or candidate name as a string. The candidate name as a string only works if the strict mode is disabled.
+
+### **strictMode:**
+```php
+bool $strictMode = true
+```
+**Type:** `bool`
+
+Strict comparison mode. In strict mode, candidate objects are compared strictly and a string entry can match nothing. If strict mode is disabled, the comparison will be based on the name.
+
+## Return
+**Type:** `bool`
+
+
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**

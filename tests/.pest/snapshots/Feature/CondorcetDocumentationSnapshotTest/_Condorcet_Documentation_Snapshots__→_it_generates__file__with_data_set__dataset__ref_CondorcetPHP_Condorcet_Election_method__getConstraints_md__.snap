@@ -1,0 +1,23 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getConstraints()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L425)
+
+```php
+public function Election->getConstraints( ): array
+```
+
+## Description
+Get active constraints list.
+
+## Return
+**Type:** `array`
+
+Array with class name of each active constraint. Empty array if there is not.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::clearConstraints()](method_clearConstraints.md)**
+- **[\CondorcetPHP\Condorcet\Election::addConstraint()](method_addConstraint.md)**
+- **[\CondorcetPHP\Condorcet\Election::isVoteValidUnderConstraints()](method_isVoteValidUnderConstraints.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/5.VotesConstraints)**

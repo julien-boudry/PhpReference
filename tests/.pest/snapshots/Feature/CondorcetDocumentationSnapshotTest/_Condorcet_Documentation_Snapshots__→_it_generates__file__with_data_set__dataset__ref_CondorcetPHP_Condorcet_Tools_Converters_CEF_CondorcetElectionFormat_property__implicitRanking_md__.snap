@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ Tools \ [Converters](../../readme.md) \ [CondorcetElectionFormat](class_CondorcetElectionFormat.md)
+# Property implicitRanking
+```php
+final public private(set) readonly bool $implicitRanking
+```

@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property rankingAsArray
+```php
+virtual public array $rankingAsArray
+```
+
+## Description
+Get result as an array populated by Candidate objects.

@@ -1,0 +1,23 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method clearConstraints()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L441)
+
+```php
+public function Election->clearConstraints( ): static
+```
+
+## Description
+Clear all constraints rules and clear previous results.
+
+## Return
+**Type:** `static`
+
+
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getConstraints()](method_getConstraints.md)**
+- **[\CondorcetPHP\Condorcet\Election::addConstraint()](method_addConstraint.md)**
+- **[\CondorcetPHP\Condorcet\Election::isVoteValidUnderConstraints()](method_isVoteValidUnderConstraints.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/5.VotesConstraints)**

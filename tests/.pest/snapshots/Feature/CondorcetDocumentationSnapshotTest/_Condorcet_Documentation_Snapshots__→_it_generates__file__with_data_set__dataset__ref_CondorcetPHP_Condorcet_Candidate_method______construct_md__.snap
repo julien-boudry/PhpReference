@@ -1,0 +1,23 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Method __construct()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L83)
+
+```php
+public function Candidate->__construct( string $name )
+```
+
+## Description
+Build a candidate.
+
+## Parameters
+
+### **name:**
+```php
+string $name
+```
+**Type:** `string`
+
+Candidate Name.
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/4.Candidates)**

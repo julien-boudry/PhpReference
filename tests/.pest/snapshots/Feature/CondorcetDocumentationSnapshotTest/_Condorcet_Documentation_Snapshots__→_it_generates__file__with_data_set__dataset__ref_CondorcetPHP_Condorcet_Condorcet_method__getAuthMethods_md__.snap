@@ -1,0 +1,37 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Method getAuthMethods()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L118)
+
+```php
+public static function Condorcet::getAuthMethods( [ bool $basic = false, bool $withNonDeterministicMethods = true ] ): array
+```
+
+## Description
+Get a list of supported algorithm.
+
+## Parameters
+
+### **basic:**
+```php
+bool $basic = false
+```
+**Type:** `bool`
+
+Include or not the natural Condorcet base algorithm.
+
+### **withNonDeterministicMethods:**
+```php
+bool $withNonDeterministicMethods = true
+```
+**Type:** `bool`
+
+Include or not non deterministic methods.
+
+## Return
+**Type:** `array`
+
+Populated by method string name. You can use it on getResult ... and others methods.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Condorcet::isAuthMethod()](method_isAuthMethod.md)**
+- **[\CondorcetPHP\Condorcet\Condorcet::getMethodClass()](method_getMethodClass.md)**

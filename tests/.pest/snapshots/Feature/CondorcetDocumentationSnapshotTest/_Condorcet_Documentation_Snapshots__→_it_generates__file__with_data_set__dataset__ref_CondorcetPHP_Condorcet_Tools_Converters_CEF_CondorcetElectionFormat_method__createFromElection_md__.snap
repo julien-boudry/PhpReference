@@ -1,0 +1,65 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ Tools \ [Converters](../../readme.md) \ [CondorcetElectionFormat](class_CondorcetElectionFormat.md)
+# Method createFromElection()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L40)
+
+```php
+public static function CondorcetElectionFormat::createFromElection( CondorcetPHP\Condorcet\Election $election, [ bool $aggregateVotes = true, bool $includeSeatsToElect = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null ] ): ?string
+```
+
+## Description
+Create a CondorcetElectionFormat file from an Election object.
+
+## Parameters
+
+### **election:**
+```php
+CondorcetPHP\Condorcet\Election $election
+```
+**Type:** [`CondorcetPHP\Condorcet\Election`](../../../../Election/class_Election.md)
+
+Election with data.
+
+### **aggregateVotes:**
+```php
+bool $aggregateVotes = true
+```
+**Type:** `bool`
+
+If true, will try to reduce number of lines, with quantifier for identical votes.
+
+### **includeSeatsToElect:**
+```php
+bool $includeSeatsToElect = true
+```
+**Type:** `bool`
+
+Add the Number Of Seats parameters to the output.
+
+### **includeTags:**
+```php
+bool $includeTags = true
+```
+**Type:** `bool`
+
+Add the vote tags information if any. Not working if $aggregateVotes is true.
+
+### **inContext:**
+```php
+bool $inContext = false
+```
+**Type:** `bool`
+
+Non-election candidates will be ignored. If the implicit ranking parameter of the election object is true, the last rank will also be provided to facilitate the reading.
+
+### **file:**
+```php
+?SplFileObject $file = null
+```
+**Type:** `?SplFileObject`
+
+If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
+
+## Return
+**Type:** `?string`
+
+If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).

@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property pairwise
+```php
+final public private(set) readonly array $pairwise
+```

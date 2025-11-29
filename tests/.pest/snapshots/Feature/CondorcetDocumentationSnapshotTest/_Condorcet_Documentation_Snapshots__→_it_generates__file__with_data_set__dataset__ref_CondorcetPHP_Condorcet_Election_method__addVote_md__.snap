@@ -1,0 +1,45 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method addVote()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L249)
+
+```php
+public function Election->addVote( CondorcetPHP\Condorcet\Vote|array|string $vote, [ array|string|null $tags = null ] ): CondorcetPHP\Condorcet\Vote
+```
+
+## Description
+Add a vote to an election.
+
+## Parameters
+
+### **vote:**
+```php
+CondorcetPHP\Condorcet\Vote|array|string $vote
+```
+**Type:** [`CondorcetPHP\Condorcet\Vote`](../Vote/class_Vote.md) | `array` | `string`
+
+String or array representation. Or CondorcetPHP\Condorcet\Vote object. If you do not provide a Vote object yourself, a new one will be generated for you.
+
+### **tags:**
+```php
+array|string|null $tags = null
+```
+**Type:** `array` | `string` | `?null`
+
+String separated by commas or an array. Will add tags to the vote object for you. But you can also add them yourself to the Vote object.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Vote`](../Vote/class_Vote.md)
+
+The vote object.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\VoteMaxNumberReachedException]()** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::parseVotes()](method_parseVotes.md)**
+- **[\CondorcetPHP\Condorcet\Election::addVotesFromJson()](method_addVotesFromJson.md)**
+- **[\CondorcetPHP\Condorcet\Election::removeVote()](method_removeVote.md)**
+- **[\CondorcetPHP\Condorcet\Election::getVotesList()](method_getVotesList.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/1.AddVotes)**

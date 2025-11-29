@@ -1,0 +1,54 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method __construct()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L188)
+
+```php
+public function Vote->__construct( array|string $ranking, [ array|string|null $tags = null, ?float $ownTimestamp = null, ?CondorcetPHP\Condorcet\Election $electionContext = null ] )
+```
+
+## Description
+Build a vote object.
+
+## Parameters
+
+### **ranking:**
+```php
+array|string $ranking
+```
+**Type:** `array` | `string`
+
+Equivalent to Vote::setRanking method.
+
+### **tags:**
+```php
+array|string|null $tags = null
+```
+**Type:** `array` | `string` | `?null`
+
+Equivalent to Vote::addTags method.
+
+### **ownTimestamp:**
+```php
+?float $ownTimestamp = null
+```
+**Type:** `?float`
+
+Set your own timestamp metadata for this Ranking.
+
+### **electionContext:**
+```php
+?CondorcetPHP\Condorcet\Election $electionContext = null
+```
+**Type:** [`?CondorcetPHP\Condorcet\Election`](../Election/class_Election.md)
+
+Try to convert directly your candidates from string input to Candidate object of one election.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException](../Throwable/VoteInvalidFormatException/class_VoteInvalidFormatException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::setRanking()](method_setRanking.md)**
+- **[\CondorcetPHP\Condorcet\Vote::addTags()](method_addTags.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/1.AddVotes)**

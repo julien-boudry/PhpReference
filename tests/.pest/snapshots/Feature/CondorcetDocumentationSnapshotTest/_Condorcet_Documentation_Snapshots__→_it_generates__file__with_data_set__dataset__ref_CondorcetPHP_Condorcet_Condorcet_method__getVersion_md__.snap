@@ -1,0 +1,28 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Method getVersion()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L92)
+
+```php
+public static function Condorcet::getVersion( [ bool $major = false ] ): string
+```
+
+## Description
+Get the library version.
+
+## Parameters
+
+### **major:**
+```php
+bool $major = false
+```
+**Type:** `bool`
+
+* true will return : 2.0, false will return : 2.0.0.
+
+## Return
+**Type:** `string`
+
+Condorcet PHP version.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getCondorcetBuilderVersion()](../Election/method_getCondorcetBuilderVersion.md)**

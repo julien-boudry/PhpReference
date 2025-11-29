@@ -1,0 +1,44 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method setMethodOption()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L314)
+
+```php
+public function Election->setMethodOption( string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue ): static
+```
+
+## Description
+Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory.
+
+## Parameters
+
+### **method:**
+```php
+string $method
+```
+**Type:** `string`
+
+Method name or class path.
+
+### **optionName:**
+```php
+string $optionName
+```
+**Type:** `string`
+
+Option name.
+
+### **optionValue:**
+```php
+BackedEnum|Random\Randomizer|array|string|int|float $optionValue
+```
+**Type:** `BackedEnum` | `Random\Randomizer` | `array` | `string` | `int` | `float`
+
+Option Value.
+
+## Return
+**Type:** `static`
+
+
+
+## Related
+- **[\CondorcetPHP\Condorcet\Result::methodOptions](../Result/property_methodOptions.md)**

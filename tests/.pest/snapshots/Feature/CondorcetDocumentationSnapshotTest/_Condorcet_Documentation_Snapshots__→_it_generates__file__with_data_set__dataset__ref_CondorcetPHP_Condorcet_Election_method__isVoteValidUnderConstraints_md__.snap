@@ -1,0 +1,33 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method isVoteValidUnderConstraints()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L465)
+
+```php
+public function Election->isVoteValidUnderConstraints( CondorcetPHP\Condorcet\Vote $vote ): bool
+```
+
+## Description
+Test if a vote is valid with these election constraints.
+
+## Parameters
+
+### **vote:**
+```php
+CondorcetPHP\Condorcet\Vote $vote
+```
+**Type:** [`CondorcetPHP\Condorcet\Vote`](../Vote/class_Vote.md)
+
+A vote. Not necessarily registered in this election.
+
+## Return
+**Type:** `bool`
+
+Return True if vote will pass the constraints rules, else False.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getConstraints()](method_getConstraints.md)**
+- **[\CondorcetPHP\Condorcet\Election::addConstraint()](method_addConstraint.md)**
+- **[\CondorcetPHP\Condorcet\Election::clearConstraints()](method_clearConstraints.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/5.VotesConstraints)**

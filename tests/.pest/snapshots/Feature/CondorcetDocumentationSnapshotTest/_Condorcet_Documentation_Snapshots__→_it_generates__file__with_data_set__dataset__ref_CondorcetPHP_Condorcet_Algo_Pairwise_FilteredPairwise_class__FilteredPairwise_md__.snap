@@ -1,0 +1,64 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ **FilteredPairwise**
+# Class FilteredPairwise
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/FilteredPairwise.php#L18)
+
+## Description
+Pairwise comparison filtered by vote tags.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](../Pairwise/property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [candidateWinVersus(...)](../Pairwise/method_candidateWinVersus.md) | _Compare Candidate pairwise to another Candidate._ |
+| [compareCandidates(...)](../Pairwise/method_compareCandidates.md) | _Compare Candidate pairwise to another Candidate._ |
+| [getCondorcetBuilderVersion(...)](../Pairwise/method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [getExplicitPairwise(...)](../Pairwise/method_getExplicitPairwise.md) | _Return the Pairwise._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise extends CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements Traversable, Iterator, ArrayAccess
+{
+
+    // Inherited Properties
+    final public private(set) string Pairwise->buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Methods
+    public function Pairwise->candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool;
+    public function Pairwise->compareCandidates( CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b ): int;
+    public function Pairwise->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function Pairwise->getExplicitPairwise( ): array;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise extends CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements Traversable, Iterator, ArrayAccess
+{
+
+    // Properties
+    public protected(set) readonly ?array $tags;
+    public protected(set) readonly int|bool $withTags;
+    protected readonly array $candidates;
+
+    // Inherited Properties
+    final public private(set) string Pairwise->buildByCondorcetVersion = '5.0.3';
+    protected ?array Pairwise->explicitPairwise = null;
+    protected array Pairwise->Pairwise;
+    protected readonly array Pairwise->Pairwise_Model;
+    protected WeakReference Pairwise->selfElection;
+
+    // Inherited Methods
+    public function Pairwise->candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool;
+    public function Pairwise->compareCandidates( CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b ): int;
+    public function Pairwise->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function Pairwise->getExplicitPairwise( ): array;
+
+}
+```

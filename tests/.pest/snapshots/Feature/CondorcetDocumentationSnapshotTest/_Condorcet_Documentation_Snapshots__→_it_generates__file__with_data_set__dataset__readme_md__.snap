@@ -1,0 +1,111 @@
+# API Reference Index
+
+## CondorcetPHP\Condorcet
+| Class Name | Description |
+| ------------- | ------------- |
+| [Candidate](ref/CondorcetPHP/Condorcet/Candidate/class_Candidate.md) | _Represents a candidate in an election._ |
+| [Condorcet](ref/CondorcetPHP/Condorcet/Condorcet/class_Condorcet.md) | _Main Condorcet class for managing voting methods and global configurations._ |
+| [Election](ref/CondorcetPHP/Condorcet/Election/class_Election.md) | _Represents an election with candidates, votes, and result computation._ |
+| [Result](ref/CondorcetPHP/Condorcet/Result/class_Result.md) | _Contains election results for a specific voting method._ |
+| [Vote](ref/CondorcetPHP/Condorcet/Vote/class_Vote.md) | _Represents a ranked vote in an election._ |
+
+
+## CondorcetPHP\Condorcet\Algo\Pairwise
+| Class Name | Description |
+| ------------- | ------------- |
+| [FilteredPairwise](ref/CondorcetPHP/Condorcet/Algo/Pairwise/FilteredPairwise/class_FilteredPairwise.md) | _Pairwise comparison filtered by vote tags._ |
+| [Pairwise](ref/CondorcetPHP/Condorcet/Algo/Pairwise/Pairwise/class_Pairwise.md) | _Computes and stores pairwise comparison results between candidates._ |
+
+
+## CondorcetPHP\Condorcet\Algo\Tools
+
+| Enum Name | Description |
+| ------------- | ------------- |
+| [StvQuotas](ref/CondorcetPHP/Condorcet/Algo/Tools/StvQuotas/enum_StvQuotas.md) | _Defines quota formulas for Single Transferable Vote methods._ |
+
+## CondorcetPHP\Condorcet\DataManager
+| Class Name | Description |
+| ------------- | ------------- |
+| [VotesManager](ref/CondorcetPHP/Condorcet/DataManager/VotesManager/class_VotesManager.md) | _Manages vote storage with optional external data handler support._ |
+
+
+## CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver
+| Class Name | Description |
+| ------------- | ------------- |
+| [PdoHandlerDriver](ref/CondorcetPHP/Condorcet/DataManager/DataHandlerDrivers/PdoDriver/PdoHandlerDriver/class_PdoHandlerDriver.md) | _PDO-based data handler driver for persistent vote storage._ |
+
+
+## CondorcetPHP\Condorcet\Throwable
+| Class Name | Description |
+| ------------- | ------------- |
+| [AlgorithmWithoutRankingFeatureException](ref/CondorcetPHP/Condorcet/Throwable/AlgorithmWithoutRankingFeatureException/class_AlgorithmWithoutRankingFeatureException.md) | _Exception thrown when an algorithm cannot provide a full ranking._ |
+| [CandidateDoesNotExistException](ref/CondorcetPHP/Condorcet/Throwable/CandidateDoesNotExistException/class_CandidateDoesNotExistException.md) | _Exception thrown when referencing a non-existent candidate._ |
+| [CandidateExistsException](ref/CondorcetPHP/Condorcet/Throwable/CandidateExistsException/class_CandidateExistsException.md) | _Exception thrown when attempting to add a duplicate candidate._ |
+| [CandidateInvalidNameException](ref/CondorcetPHP/Condorcet/Throwable/CandidateInvalidNameException/class_CandidateInvalidNameException.md) | _Exception thrown when a candidate name is invalid._ |
+| [CandidatesMaxNumberReachedException](ref/CondorcetPHP/Condorcet/Throwable/CandidatesMaxNumberReachedException/class_CandidatesMaxNumberReachedException.md) | _Exception thrown when maximum candidate limit is exceeded for a method._ |
+| [CondorcetPublicApiException](ref/CondorcetPHP/Condorcet/Throwable/CondorcetPublicApiException/class_CondorcetPublicApiException.md) | _Base exception class for all Condorcet public API exceptions._ |
+| [ConsoleInputException](ref/CondorcetPHP/Condorcet/Throwable/ConsoleInputException/class_ConsoleInputException.md) | _Exception thrown for console input errors._ |
+| [DataHandlerException](ref/CondorcetPHP/Condorcet/Throwable/DataHandlerException/class_DataHandlerException.md) | _Exception thrown when there is a problem with data handling._ |
+| [ElectionFileFormatParseException](ref/CondorcetPHP/Condorcet/Throwable/ElectionFileFormatParseException/class_ElectionFileFormatParseException.md) | _Exception thrown when parsing an election file format fails._ |
+| [ElectionObjectVersionMismatchException](ref/CondorcetPHP/Condorcet/Throwable/ElectionObjectVersionMismatchException/class_ElectionObjectVersionMismatchException.md) | _Exception thrown when an election object version doesn't match the library version._ |
+| [FileDoesNotExistException](ref/CondorcetPHP/Condorcet/Throwable/FileDoesNotExistException/class_FileDoesNotExistException.md) | _Exception thrown when a specified file does not exist._ |
+| [MethodLimitReachedException](ref/CondorcetPHP/Condorcet/Throwable/MethodLimitReachedException/class_MethodLimitReachedException.md) | _Exception thrown when a voting method's computational limit is reached._ |
+| [NoCandidatesException](ref/CondorcetPHP/Condorcet/Throwable/NoCandidatesException/class_NoCandidatesException.md) | _Exception thrown when an election has no candidates defined._ |
+| [NoSeatsException](ref/CondorcetPHP/Condorcet/Throwable/NoSeatsException/class_NoSeatsException.md) | _Exception thrown when seats are not defined for a proportional method._ |
+| [ParseVotesMaxNumberReachedException](ref/CondorcetPHP/Condorcet/Throwable/ParseVotesMaxNumberReachedException/class_ParseVotesMaxNumberReachedException.md) | _Exception thrown when maximum parse iteration limit is exceeded._ |
+| [ResultException](ref/CondorcetPHP/Condorcet/Throwable/ResultException/class_ResultException.md) | _Exception thrown when attempting to modify an immutable result._ |
+| [ResultRequestedWithoutVotesException](ref/CondorcetPHP/Condorcet/Throwable/ResultRequestedWithoutVotesException/class_ResultRequestedWithoutVotesException.md) | _Exception thrown when requesting results without any votes registered._ |
+| [StatsEntryDoNotExistException](ref/CondorcetPHP/Condorcet/Throwable/StatsEntryDoNotExistException/class_StatsEntryDoNotExistException.md) | _Exception thrown when a requested statistics entry doesn't exist._ |
+| [StvQuotaNotImplementedException](ref/CondorcetPHP/Condorcet/Throwable/StvQuotaNotImplementedException/class_StvQuotaNotImplementedException.md) | _Exception thrown when a requested STV quota is not implemented._ |
+| [TagsFilterException](ref/CondorcetPHP/Condorcet/Throwable/TagsFilterException/class_TagsFilterException.md) | _Exception thrown when tags filter is used incorrectly._ |
+| [TimerException](ref/CondorcetPHP/Condorcet/Throwable/TimerException/class_TimerException.md) | _Exception thrown for timer-related errors._ |
+| [VoteConstraintException](ref/CondorcetPHP/Condorcet/Throwable/VoteConstraintException/class_VoteConstraintException.md) | _Exception thrown when a vote constraint cannot be set up or validated._ |
+| [VoteException](ref/CondorcetPHP/Condorcet/Throwable/VoteException/class_VoteException.md) | _Exception thrown when there is a problem handling a vote._ |
+| [VoteInvalidFormatException](ref/CondorcetPHP/Condorcet/Throwable/VoteInvalidFormatException/class_VoteInvalidFormatException.md) | _Exception thrown when a vote has an invalid format._ |
+| [VoteManagerException](ref/CondorcetPHP/Condorcet/Throwable/VoteManagerException/class_VoteManagerException.md) | _Exception thrown for vote manager-related errors._ |
+| [VoteMaxNumberReachedException](ref/CondorcetPHP/Condorcet/Throwable/VoteMaxNumberReachedException/class_VoteMaxNumberReachedException.md) | _Exception thrown when the maximum number of votes is reached._ |
+| [VoteNotLinkedException](ref/CondorcetPHP/Condorcet/Throwable/VoteNotLinkedException/class_VoteNotLinkedException.md) | _Exception thrown when a vote is not linked to any election._ |
+| [VotingHasStartedException](ref/CondorcetPHP/Condorcet/Throwable/VotingHasStartedException/class_VotingHasStartedException.md) | _Exception thrown when attempting changes after voting has started._ |
+| [VotingMethodIsNotImplemented](ref/CondorcetPHP/Condorcet/Throwable/VotingMethodIsNotImplemented/class_VotingMethodIsNotImplemented.md) | _Exception thrown when a voting method is not implemented or available._ |
+
+
+## CondorcetPHP\Condorcet\Throwable\Internal
+| Class Name | Description |
+| ------------- | ------------- |
+| [CondorcetInternalError](ref/CondorcetPHP/Condorcet/Throwable/Internal/CondorcetInternalError/class_CondorcetInternalError.md) | _Base error class for internal Condorcet library errors._ |
+
+
+## CondorcetPHP\Condorcet\Timer
+| Class Name | Description |
+| ------------- | ------------- |
+| [Chrono](ref/CondorcetPHP/Condorcet/Timer/Chrono/class_Chrono.md) | _Represents a chronometer for timing operations._ |
+| [Manager](ref/CondorcetPHP/Condorcet/Timer/Manager/class_Manager.md) | _Manages chronometers and tracks execution time._ |
+
+
+## CondorcetPHP\Condorcet\Tools\Converters
+| Class Name | Description |
+| ------------- | ------------- |
+| [CivsFormat](ref/CondorcetPHP/Condorcet/Tools/Converters/CivsFormat/class_CivsFormat.md) | _Exports election data to CIVS format._ |
+| [DavidHillFormat](ref/CondorcetPHP/Condorcet/Tools/Converters/DavidHillFormat/class_DavidHillFormat.md) | _Imports election data from David Hill format._ |
+| [DebianFormat](ref/CondorcetPHP/Condorcet/Tools/Converters/DebianFormat/class_DebianFormat.md) | _Imports election data from Debian voting format._ |
+
+
+## CondorcetPHP\Condorcet\Tools\Converters\CEF
+| Class Name | Description |
+| ------------- | ------------- |
+| [CondorcetElectionFormat](ref/CondorcetPHP/Condorcet/Tools/Converters/CEF/CondorcetElectionFormat/class_CondorcetElectionFormat.md) | _Converts election data to and from Condorcet Election Format (CEF)._ |
+
+
+## CondorcetPHP\Condorcet\Tools\Randomizers
+| Class Name | Description |
+| ------------- | ------------- |
+| [ArrayRandomizer](ref/CondorcetPHP/Condorcet/Tools/Randomizers/ArrayRandomizer/class_ArrayRandomizer.md) | _Generates randomized arrays with configurable ranking constraints._ |
+| [VoteRandomizer](ref/CondorcetPHP/Condorcet/Tools/Randomizers/VoteRandomizer/class_VoteRandomizer.md) | _Generates random votes with configurable ranking constraints._ |
+
+
+## CondorcetPHP\Condorcet\Utils
+| Class Name | Description |
+| ------------- | ------------- |
+| [CondorcetUtil](ref/CondorcetPHP/Condorcet/Utils/CondorcetUtil/class_CondorcetUtil.md) | _Utility class for Condorcet operations like JSON validation and parsing._ |
+
+

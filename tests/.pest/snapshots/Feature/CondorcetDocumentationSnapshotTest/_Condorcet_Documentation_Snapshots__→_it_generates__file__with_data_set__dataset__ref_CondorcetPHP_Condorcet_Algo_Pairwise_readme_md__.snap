@@ -1,0 +1,10 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ [Algo](../readme.md) \ **Pairwise**
+# Namespace: CondorcetPHP\Condorcet\Algo\Pairwise
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [FilteredPairwise](FilteredPairwise/class_FilteredPairwise.md) | _Pairwise comparison filtered by vote tags._ |
+| [Pairwise](Pairwise/class_Pairwise.md) | _Computes and stores pairwise comparison results between candidates._ |
+

@@ -1,0 +1,31 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method removeTags()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L705)
+
+```php
+public function Vote->removeTags( array|string $tags ): array
+```
+
+## Description
+Remove registered tag(s) on this Vote.
+
+## Parameters
+
+### **tags:**
+```php
+array|string $tags
+```
+**Type:** `array` | `string`
+
+They can be added by string separated by commas or an array.
+
+## Return
+**Type:** `array`
+
+List of deleted tags.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::addTags()](method_addTags.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/2.VotesTags)**

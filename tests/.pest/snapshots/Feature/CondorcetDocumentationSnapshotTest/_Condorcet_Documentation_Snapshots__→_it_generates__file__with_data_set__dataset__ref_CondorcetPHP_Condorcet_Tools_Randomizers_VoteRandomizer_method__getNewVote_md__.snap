@@ -1,0 +1,15 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [VoteRandomizer](class_VoteRandomizer.md)
+# Method getNewVote()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L26)
+
+```php
+public function VoteRandomizer->getNewVote( ): CondorcetPHP\Condorcet\Vote
+```
+
+## Description
+Generate a new random vote.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Vote`](../../../Vote/class_Vote.md)
+
+Return the new vote.

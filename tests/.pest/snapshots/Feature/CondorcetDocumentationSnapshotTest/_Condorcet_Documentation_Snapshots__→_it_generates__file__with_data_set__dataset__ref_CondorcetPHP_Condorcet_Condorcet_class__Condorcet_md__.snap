@@ -1,0 +1,84 @@
+> CondorcetPHP \ **Condorcet**
+# Class Condorcet
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L53)
+
+## Description
+Main Condorcet class for managing voting methods and global configurations.
+## Elements
+
+### Public Constants
+| Constant Name | Signature | Description |
+| ------------- | ------------- | ------------- |
+| AUTHOR | `final public const AUTHOR = 'Julien Boudry and contributors'` | __ |
+| CONDORCET_BASIC_CLASS | `final public const CONDORCET_BASIC_CLASS = 'CondorcetPHP\\Condorcet\\Algo\\Methods\\CondorcetBasic'` | __ |
+| HOMEPAGE | `final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet'` | __ |
+| VERSION | `final public const VERSION = '5.0.3'` | __ |
+
+### Public Static Properties
+| Properties Name | Description |
+| ------------- | ------------- |
+| [UseTimer(...)](static_property_UseTimer.md) | __ |
+
+### Public Static Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [addMethod(...)](method_addMethod.md) | _If you create your own Condorcet Algo. You will need it !_ |
+| [getAuthMethods(...)](method_getAuthMethods.md) | _Get a list of supported algorithm._ |
+| [getDefaultMethod(...)](method_getDefaultMethod.md) | _Return the Condorcet static default method._ |
+| [getMethodClass(...)](method_getMethodClass.md) | _Return the full class path for a method._ |
+| [getVersion(...)](method_getVersion.md) | _Get the library version._ |
+| [isAuthMethod(...)](method_isAuthMethod.md) | _Test if a method is in the result set of Condorcet::getAuthMethods._ |
+| [setDefaultMethod(...)](method_setDefaultMethod.md) | _Put a new static method by default for the news Condorcet objects._ |
+
+
+## Public Representation
+```php
+abstract class CondorcetPHP\Condorcet\Condorcet
+{
+    // Constants
+    final public const CONDORCET_BASIC_CLASS = 'CondorcetPHP\\Condorcet\\Algo\\Methods\\CondorcetBasic';
+    final public const VERSION = '5.0.3';
+
+    // Static Properties
+    public static bool $UseTimer = false;
+
+    // Static Methods
+    public static function addMethod( string $methodClass ): bool;
+    public static function getAuthMethods( [ bool $basic = false, bool $withNonDeterministicMethods = true ] ): array;
+    public static function getDefaultMethod( ): ?string;
+    public static function getMethodClass( string $method ): ?string;
+    public static function getVersion( [ bool $major = false ] ): string;
+    public static function isAuthMethod( string $method ): bool;
+    public static function setDefaultMethod( string $method ): bool;
+
+}
+```
+
+## Full Representation
+```php
+abstract class CondorcetPHP\Condorcet\Condorcet
+{
+    // Constants
+    final public const AUTHOR = 'Julien Boudry and contributors';
+    final public const CONDORCET_BASIC_CLASS = 'CondorcetPHP\\Condorcet\\Algo\\Methods\\CondorcetBasic';
+    final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet';
+    final public const VERSION = '5.0.3';
+
+    // Static Properties
+    public static bool $UseTimer = false;
+    protected static array $authMethods = ['CondorcetPHP\Condorcet\Algo\Methods\CondorcetBasic' => ['CondorcetBasic']];
+    protected static ?string $defaultMethod = null;
+
+    // Static Methods
+    public static function addMethod( string $methodClass ): bool;
+    public static function getAuthMethods( [ bool $basic = false, bool $withNonDeterministicMethods = true ] ): array;
+    public static function getDefaultMethod( ): ?string;
+    public static function getMethodClass( string $method ): ?string;
+    public static function getVersion( [ bool $major = false ] ): string;
+    public static function isAuthMethod( string $method ): bool;
+    public static function setDefaultMethod( string $method ): bool;
+    public static function validateAlternativeWinnerLoserMethod( ?string $substitution ): string;
+    protected static function testMethod( string $method ): bool;
+
+}
+```

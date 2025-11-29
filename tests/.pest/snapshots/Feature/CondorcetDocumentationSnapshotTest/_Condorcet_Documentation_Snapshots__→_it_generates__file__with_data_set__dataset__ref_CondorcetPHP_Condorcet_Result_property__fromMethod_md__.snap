@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property fromMethod
+```php
+final public private(set) readonly string $fromMethod
+```
+
+## Description
+Get the The algorithmic method used for this result.

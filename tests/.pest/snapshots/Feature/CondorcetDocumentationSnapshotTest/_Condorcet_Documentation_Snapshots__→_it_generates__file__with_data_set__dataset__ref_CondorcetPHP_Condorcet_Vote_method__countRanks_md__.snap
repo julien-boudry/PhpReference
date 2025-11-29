@@ -1,0 +1,15 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method countRanks()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L312)
+
+```php
+public function Vote->countRanks( ): int
+```
+
+## Description
+Count the number of ranks.
+
+## Return
+**Type:** `int`
+
+Number of ranks.

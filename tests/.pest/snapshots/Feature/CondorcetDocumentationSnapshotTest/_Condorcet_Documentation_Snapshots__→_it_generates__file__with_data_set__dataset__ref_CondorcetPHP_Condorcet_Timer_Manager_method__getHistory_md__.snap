@@ -1,0 +1,15 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ [Manager](class_Manager.md)
+# Method getHistory()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Manager.php#L78)
+
+```php
+public function Manager->getHistory( ): array
+```
+
+## Description
+Returns benchmarked actions history.
+
+## Return
+**Type:** `array`
+
+An array containing detailed benchmark history.

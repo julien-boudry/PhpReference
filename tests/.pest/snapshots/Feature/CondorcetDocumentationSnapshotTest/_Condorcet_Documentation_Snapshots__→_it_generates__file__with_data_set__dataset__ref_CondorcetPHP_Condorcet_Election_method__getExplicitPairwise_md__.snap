@@ -1,0 +1,19 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getExplicitPairwise()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L279)
+
+```php
+public function Election->getExplicitPairwise( ): array
+```
+
+## Description
+Return the Pairwise.
+
+## Return
+**Type:** `array`
+
+Pairwise as an explicit array .
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getPairwise()](method_getPairwise.md)**
+- **[\CondorcetPHP\Condorcet\Election::getResult()](method_getResult.md)**

@@ -1,0 +1,12 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Property tags
+```php
+final public private(set) array $tags = []
+```
+
+## Description
+Get the registered tags for this Vote.
+
+## Value
+
+List of registered tag.

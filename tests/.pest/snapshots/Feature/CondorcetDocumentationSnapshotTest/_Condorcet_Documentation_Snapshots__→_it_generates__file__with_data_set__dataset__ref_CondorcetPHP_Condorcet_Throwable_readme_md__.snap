@@ -1,0 +1,37 @@
+> CondorcetPHP \ [Condorcet](../readme.md) \ **Throwable**
+# Namespace: CondorcetPHP\Condorcet\Throwable
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [AlgorithmWithoutRankingFeatureException](AlgorithmWithoutRankingFeatureException/class_AlgorithmWithoutRankingFeatureException.md) | _Exception thrown when an algorithm cannot provide a full ranking._ |
+| [CandidateDoesNotExistException](CandidateDoesNotExistException/class_CandidateDoesNotExistException.md) | _Exception thrown when referencing a non-existent candidate._ |
+| [CandidateExistsException](CandidateExistsException/class_CandidateExistsException.md) | _Exception thrown when attempting to add a duplicate candidate._ |
+| [CandidateInvalidNameException](CandidateInvalidNameException/class_CandidateInvalidNameException.md) | _Exception thrown when a candidate name is invalid._ |
+| [CandidatesMaxNumberReachedException](CandidatesMaxNumberReachedException/class_CandidatesMaxNumberReachedException.md) | _Exception thrown when maximum candidate limit is exceeded for a method._ |
+| [CondorcetPublicApiException](CondorcetPublicApiException/class_CondorcetPublicApiException.md) | _Base exception class for all Condorcet public API exceptions._ |
+| [ConsoleInputException](ConsoleInputException/class_ConsoleInputException.md) | _Exception thrown for console input errors._ |
+| [DataHandlerException](DataHandlerException/class_DataHandlerException.md) | _Exception thrown when there is a problem with data handling._ |
+| [ElectionFileFormatParseException](ElectionFileFormatParseException/class_ElectionFileFormatParseException.md) | _Exception thrown when parsing an election file format fails._ |
+| [ElectionObjectVersionMismatchException](ElectionObjectVersionMismatchException/class_ElectionObjectVersionMismatchException.md) | _Exception thrown when an election object version doesn't match the library version._ |
+| [FileDoesNotExistException](FileDoesNotExistException/class_FileDoesNotExistException.md) | _Exception thrown when a specified file does not exist._ |
+| [MethodLimitReachedException](MethodLimitReachedException/class_MethodLimitReachedException.md) | _Exception thrown when a voting method's computational limit is reached._ |
+| [NoCandidatesException](NoCandidatesException/class_NoCandidatesException.md) | _Exception thrown when an election has no candidates defined._ |
+| [NoSeatsException](NoSeatsException/class_NoSeatsException.md) | _Exception thrown when seats are not defined for a proportional method._ |
+| [ParseVotesMaxNumberReachedException](ParseVotesMaxNumberReachedException/class_ParseVotesMaxNumberReachedException.md) | _Exception thrown when maximum parse iteration limit is exceeded._ |
+| [ResultException](ResultException/class_ResultException.md) | _Exception thrown when attempting to modify an immutable result._ |
+| [ResultRequestedWithoutVotesException](ResultRequestedWithoutVotesException/class_ResultRequestedWithoutVotesException.md) | _Exception thrown when requesting results without any votes registered._ |
+| [StatsEntryDoNotExistException](StatsEntryDoNotExistException/class_StatsEntryDoNotExistException.md) | _Exception thrown when a requested statistics entry doesn't exist._ |
+| [StvQuotaNotImplementedException](StvQuotaNotImplementedException/class_StvQuotaNotImplementedException.md) | _Exception thrown when a requested STV quota is not implemented._ |
+| [TagsFilterException](TagsFilterException/class_TagsFilterException.md) | _Exception thrown when tags filter is used incorrectly._ |
+| [TimerException](TimerException/class_TimerException.md) | _Exception thrown for timer-related errors._ |
+| [VoteConstraintException](VoteConstraintException/class_VoteConstraintException.md) | _Exception thrown when a vote constraint cannot be set up or validated._ |
+| [VoteException](VoteException/class_VoteException.md) | _Exception thrown when there is a problem handling a vote._ |
+| [VoteInvalidFormatException](VoteInvalidFormatException/class_VoteInvalidFormatException.md) | _Exception thrown when a vote has an invalid format._ |
+| [VoteManagerException](VoteManagerException/class_VoteManagerException.md) | _Exception thrown for vote manager-related errors._ |
+| [VoteMaxNumberReachedException](VoteMaxNumberReachedException/class_VoteMaxNumberReachedException.md) | _Exception thrown when the maximum number of votes is reached._ |
+| [VoteNotLinkedException](VoteNotLinkedException/class_VoteNotLinkedException.md) | _Exception thrown when a vote is not linked to any election._ |
+| [VotingHasStartedException](VotingHasStartedException/class_VotingHasStartedException.md) | _Exception thrown when attempting changes after voting has started._ |
+| [VotingMethodIsNotImplemented](VotingMethodIsNotImplemented/class_VotingMethodIsNotImplemented.md) | _Exception thrown when a voting method is not implemented or available._ |
+

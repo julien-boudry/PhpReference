@@ -1,0 +1,23 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method removeAllVotes()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L364)
+
+```php
+public function Election->removeAllVotes( ): true
+```
+
+## Description
+Remove all Votes from an election.
+
+## Return
+**Type:** `true`
+
+True on success.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addVote()](method_addVote.md)**
+- **[\CondorcetPHP\Condorcet\Election::removeVote()](method_removeVote.md)**
+- **[\CondorcetPHP\Condorcet\Election::removeVotesByTags()](method_removeVotesByTags.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/1.AddVotes)**

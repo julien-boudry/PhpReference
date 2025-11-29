@@ -1,0 +1,53 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ **DebianFormat**
+# Class DebianFormat
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L19)
+
+## Description
+Imports election data from Debian voting format.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [candidates(...)](property_candidates.md) | __ |
+| [votes(...)](property_votes.md) | __ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [__construct(...)](method___construct.md) | _Read a Tideman format file._ |
+| [setDataToAnElection(...)](method_setDataToAnElection.md) | _Add the Debian data to an election object._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Converters\DebianFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport
+{
+
+    // Properties
+    final public private(set) readonly array $candidates;
+    final public private(set) readonly array $votes;
+
+    // Methods
+    public function __construct( string $filePath );
+    public function setDataToAnElection( [ ?CondorcetPHP\Condorcet\Election $election = null ] ): CondorcetPHP\Condorcet\Election;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Converters\DebianFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport
+{
+
+    // Properties
+    final public private(set) readonly array $candidates;
+    final public private(set) readonly array $votes;
+    protected array $lines;
+
+    // Methods
+    public function __construct( string $filePath );
+    public function setDataToAnElection( [ ?CondorcetPHP\Condorcet\Election $election = null ] ): CondorcetPHP\Condorcet\Election;
+
+}
+```

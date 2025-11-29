@@ -1,0 +1,33 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Method setName()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Candidate.php#L123)
+
+```php
+public function Candidate->setName( string $name ): static
+```
+
+## Description
+Change the candidate name.
+
+*If this will not cause conflicts if the candidate is already participating in elections and would namesake. This situation will throw an exception.*.
+
+## Parameters
+
+### **name:**
+```php
+string $name
+```
+**Type:** `string`
+
+Candidate Name.
+
+## Return
+**Type:** `static`
+
+
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException](../Throwable/CandidateInvalidNameException/class_CandidateInvalidNameException.md)** _If the name exceeds the maximum allowed length, contains invalid characters, or is already taken by another candidate in the election context.
+- Exceeds maximum length: The name length exceeds `Election::MAX_CANDIDATE_NAME_LENGTH`.
+- Contains invalid characters: The name contains prohibited characters such as `<`, `>`, `\n`, `\t`, `\0`, `^`, `*`, `$`, `:`, `;`, `||`, `"`, or `#`.
+- Name conflict: The name is already taken by another candidate in the election context._

@@ -1,0 +1,73 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ **VoteRandomizer**
+# Class VoteRandomizer
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/VoteRandomizer.php#L17)
+
+## Description
+Generates random votes with configurable ranking constraints.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [maxCandidatesRanked(...)](../ArrayRandomizer/property_maxCandidatesRanked.md) | __ |
+| [maxRanksCount(...)](../ArrayRandomizer/property_maxRanksCount.md) | __ |
+| [minCandidatesRanked(...)](../ArrayRandomizer/property_minCandidatesRanked.md) | __ |
+| [tiesProbability(...)](../ArrayRandomizer/property_tiesProbability.md) | _Per vote. Max decimal precision is 3._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [__construct(...)](../ArrayRandomizer/method___construct.md) | _Create a new VotesRandomGenerator instance._ |
+| [countCandidates(...)](../ArrayRandomizer/method_countCandidates.md) | _Count candidates currently running for this instance of the randomizer._ |
+| [getNewVote(...)](method_getNewVote.md) | _Generate a new random vote._ |
+| [setCandidates(...)](../ArrayRandomizer/method_setCandidates.md) | _Change the candidates running for this randomizer._ |
+| [shuffle(...)](../ArrayRandomizer/method_shuffle.md) | _Generate a new random vote._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer extends CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer
+{
+
+    // Inherited Properties
+    public ?int ArrayRandomizer->maxCandidatesRanked = null;
+    public ?int ArrayRandomizer->maxRanksCount = null;
+    public int|false ArrayRandomizer->minCandidatesRanked = false;
+    public int|float ArrayRandomizer->tiesProbability = 0;
+
+    // Methods
+    public function getNewVote( ): CondorcetPHP\Condorcet\Vote;
+
+    // Inherited Methods
+    public function ArrayRandomizer->__construct( array $candidates, [ Random\Randomizer|string|null $seed = null ] );
+    public function ArrayRandomizer->countCandidates( ): int;
+    public function ArrayRandomizer->setCandidates( array $candidates ): void;
+    public function ArrayRandomizer->shuffle( ): array;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Randomizers\VoteRandomizer extends CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer
+{
+
+    // Inherited Properties
+    public array ArrayRandomizer->candidates;
+    public ?int ArrayRandomizer->maxCandidatesRanked = null;
+    public ?int ArrayRandomizer->maxRanksCount = null;
+    public int|false ArrayRandomizer->minCandidatesRanked = false;
+    public int|float ArrayRandomizer->tiesProbability = 0;
+    protected Random\Randomizer ArrayRandomizer->randomizer;
+
+    // Methods
+    public function getNewVote( ): CondorcetPHP\Condorcet\Vote;
+
+    // Inherited Methods
+    public function ArrayRandomizer->__construct( array $candidates, [ Random\Randomizer|string|null $seed = null ] );
+    public function ArrayRandomizer->countCandidates( ): int;
+    public function ArrayRandomizer->setCandidates( array $candidates ): void;
+    public function ArrayRandomizer->shuffle( ): array;
+
+}
+```

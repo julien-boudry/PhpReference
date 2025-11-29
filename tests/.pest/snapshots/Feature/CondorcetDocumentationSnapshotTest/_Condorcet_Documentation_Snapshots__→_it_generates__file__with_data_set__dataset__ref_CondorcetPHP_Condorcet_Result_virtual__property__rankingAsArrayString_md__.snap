@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property rankingAsArrayString
+```php
+virtual public array $rankingAsArrayString
+```
+
+## Description
+Get result as an array populated by string.

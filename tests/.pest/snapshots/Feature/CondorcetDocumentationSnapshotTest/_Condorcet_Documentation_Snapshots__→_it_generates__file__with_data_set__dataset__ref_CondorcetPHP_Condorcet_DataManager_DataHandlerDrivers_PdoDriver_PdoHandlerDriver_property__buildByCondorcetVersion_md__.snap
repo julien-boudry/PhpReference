@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ [DataManager](../../../readme.md) \ DataHandlerDrivers \ [PdoHandlerDriver](class_PdoHandlerDriver.md)
+# Property buildByCondorcetVersion
+```php
+final public private(set) string $buildByCondorcetVersion = '5.0.3'
+```
+
+## Description
+The Condorcet PHP version who built this object. Usefull pour serializing Election.

@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [Converters](../readme.md) \ **CEF**
+# Namespace: CondorcetPHP\Condorcet\Tools\Converters\CEF
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [CondorcetElectionFormat](CondorcetElectionFormat/class_CondorcetElectionFormat.md) | _Converts election data to and from Condorcet Election Format (CEF)._ |
+

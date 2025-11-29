@@ -1,0 +1,66 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ **ArrayRandomizer**
+# Class ArrayRandomizer
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L17)
+
+## Description
+Generates randomized arrays with configurable ranking constraints.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [maxCandidatesRanked(...)](property_maxCandidatesRanked.md) | __ |
+| [maxRanksCount(...)](property_maxRanksCount.md) | __ |
+| [minCandidatesRanked(...)](property_minCandidatesRanked.md) | __ |
+| [tiesProbability(...)](property_tiesProbability.md) | _Per vote. Max decimal precision is 3._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [__construct(...)](method___construct.md) | _Create a new VotesRandomGenerator instance._ |
+| [countCandidates(...)](method_countCandidates.md) | _Count candidates currently running for this instance of the randomizer._ |
+| [setCandidates(...)](method_setCandidates.md) | _Change the candidates running for this randomizer._ |
+| [shuffle(...)](method_shuffle.md) | _Generate a new random vote._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer
+{
+
+    // Properties
+    public ?int $maxCandidatesRanked = null;
+    public ?int $maxRanksCount = null;
+    public int|false $minCandidatesRanked = false;
+    public int|float $tiesProbability = 0;
+
+    // Methods
+    public function __construct( array $candidates, [ Random\Randomizer|string|null $seed = null ] );
+    public function countCandidates( ): int;
+    public function setCandidates( array $candidates ): void;
+    public function shuffle( ): array;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Randomizers\ArrayRandomizer
+{
+
+    // Properties
+    public array $candidates;
+    public ?int $maxCandidatesRanked = null;
+    public ?int $maxRanksCount = null;
+    public int|false $minCandidatesRanked = false;
+    public int|float $tiesProbability = 0;
+    protected Random\Randomizer $randomizer;
+
+    // Methods
+    public function __construct( array $candidates, [ Random\Randomizer|string|null $seed = null ] );
+    public function countCandidates( ): int;
+    public function setCandidates( array $candidates ): void;
+    public function shuffle( ): array;
+
+}
+```

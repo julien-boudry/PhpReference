@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [ArrayRandomizer](class_ArrayRandomizer.md)
+# Property maxRanksCount
+```php
+public ?int $maxRanksCount = null
+```

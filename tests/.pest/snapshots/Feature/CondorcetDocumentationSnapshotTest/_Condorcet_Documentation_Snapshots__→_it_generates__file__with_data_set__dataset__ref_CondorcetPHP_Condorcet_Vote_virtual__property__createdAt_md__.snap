@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Property createdAt
+```php
+virtual public float $createdAt
+```
+
+## Description
+Get the timestamp corresponding of the creation of this vote.

@@ -1,0 +1,25 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [ArrayRandomizer](class_ArrayRandomizer.md)
+# Method setCandidates()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L76)
+
+```php
+public function ArrayRandomizer->setCandidates( array $candidates ): void
+```
+
+## Description
+Change the candidates running for this randomizer.
+
+## Parameters
+
+### **candidates:**
+```php
+array $candidates
+```
+**Type:** `array`
+
+The array of candidates to shuffle.
+
+## Return
+**Type:** `void`
+
+

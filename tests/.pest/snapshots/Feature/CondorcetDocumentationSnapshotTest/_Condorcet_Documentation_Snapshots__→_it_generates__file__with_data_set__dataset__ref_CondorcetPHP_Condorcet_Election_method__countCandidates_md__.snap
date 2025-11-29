@@ -1,0 +1,18 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method countCandidates()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L43)
+
+```php
+public function Election->countCandidates( ): int
+```
+
+## Description
+Count the number of registered candidates.
+
+## Return
+**Type:** `int`
+
+Number of registered candidates for this election.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getCandidatesList()](method_getCandidatesList.md)**

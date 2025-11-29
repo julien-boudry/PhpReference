@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Property rankingHistory
+```php
+final public private(set) array $rankingHistory = []
+```
+
+## Description
+Return an history of each vote change, with timestamp.

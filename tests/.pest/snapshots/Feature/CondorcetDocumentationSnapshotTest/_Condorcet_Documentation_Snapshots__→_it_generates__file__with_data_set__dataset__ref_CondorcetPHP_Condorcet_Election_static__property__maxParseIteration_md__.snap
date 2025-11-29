@@ -1,0 +1,10 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Property maxParseIteration
+```php
+public static ?int $maxParseIteration = null
+```
+
+## Description
+Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded.
+
+Null will deactivate this functionality. An integer will set the limit.

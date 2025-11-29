@@ -1,0 +1,19 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getTimerManager()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L282)
+
+```php
+public function Election->getTimerManager( ): CondorcetPHP\Condorcet\Timer\Manager
+```
+
+## Description
+Get the Timer manager object.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Timer\Manager`](../Timer/Manager/class_Manager.md)
+
+An CondorcetPHP\Condorcet\Timer\Manager object using by this election.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getGlobalTimer()](method_getGlobalTimer.md)**
+- **[\CondorcetPHP\Condorcet\Election::getLastTimer()](method_getLastTimer.md)**

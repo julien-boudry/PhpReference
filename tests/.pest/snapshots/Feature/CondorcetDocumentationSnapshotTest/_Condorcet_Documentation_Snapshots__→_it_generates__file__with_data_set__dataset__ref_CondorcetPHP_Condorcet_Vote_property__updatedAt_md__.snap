@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Property updatedAt
+```php
+final public private(set) float $updatedAt
+```
+
+## Description
+Get the timestamp corresponding of the last vote change.

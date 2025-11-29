@@ -1,0 +1,25 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ Tools \ [Converters](../../readme.md) \ [CondorcetElectionFormat](class_CondorcetElectionFormat.md)
+# Method createFromString()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L91)
+
+```php
+public static function CondorcetElectionFormat::createFromString( string $input ): self
+```
+
+## Description
+Create a CondorcetElectionFormat object from string.
+
+## Parameters
+
+### **input:**
+```php
+string $input
+```
+**Type:** `string`
+
+CondorcetElectionFormat string to parse.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat`](class_CondorcetElectionFormat.md)
+
+

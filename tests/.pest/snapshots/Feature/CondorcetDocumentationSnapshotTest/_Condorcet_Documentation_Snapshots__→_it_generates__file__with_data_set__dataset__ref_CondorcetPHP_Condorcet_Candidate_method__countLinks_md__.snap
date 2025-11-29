@@ -1,0 +1,22 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Method countLinks()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L66)
+
+```php
+public function Candidate->countLinks( ): int
+```
+
+## Description
+Count number of linked elections to this object.
+
+## Return
+**Type:** `int`
+
+Number of linked elections.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::countLinks()](../Vote/method_countLinks.md)**
+- **[\CondorcetPHP\Condorcet\Vote::getLinks()](../Vote/method_getLinks.md)**
+- **[\CondorcetPHP\Condorcet\Candidate::getLinks()](method_getLinks.md)**
+- **[\CondorcetPHP\Condorcet\Vote::haveLink()](../Vote/method_haveLink.md)**
+- **[\CondorcetPHP\Condorcet\Candidate::haveLink()](method_haveLink.md)**

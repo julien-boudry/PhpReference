@@ -1,0 +1,32 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Method haveLink()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L44)
+
+```php
+public function Candidate->haveLink( CondorcetPHP\Condorcet\Election $election ): bool
+```
+
+## Description
+Check if this election is linked with this Candidate/Vote object.
+
+## Parameters
+
+### **election:**
+```php
+CondorcetPHP\Condorcet\Election $election
+```
+**Type:** [`CondorcetPHP\Condorcet\Election`](../Election/class_Election.md)
+
+Condorcet election to check.
+
+## Return
+**Type:** `bool`
+
+True or False.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::countLinks()](../Vote/method_countLinks.md)**
+- **[\CondorcetPHP\Condorcet\Candidate::countLinks()](method_countLinks.md)**
+- **[\CondorcetPHP\Condorcet\Vote::getLinks()](../Vote/method_getLinks.md)**
+- **[\CondorcetPHP\Condorcet\Candidate::getLinks()](method_getLinks.md)**
+- **[\CondorcetPHP\Condorcet\Vote::haveLink()](../Vote/method_haveLink.md)**

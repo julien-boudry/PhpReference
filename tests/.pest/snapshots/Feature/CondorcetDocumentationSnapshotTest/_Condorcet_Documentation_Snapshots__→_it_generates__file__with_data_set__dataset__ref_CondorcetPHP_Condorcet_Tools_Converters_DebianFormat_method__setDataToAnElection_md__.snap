@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [DebianFormat](class_DebianFormat.md)
+# Method setDataToAnElection()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/DebianFormat.php#L68)
+
+```php
+public function DebianFormat->setDataToAnElection( [ ?CondorcetPHP\Condorcet\Election $election = null ] ): CondorcetPHP\Condorcet\Election
+```
+
+## Description
+Add the Debian data to an election object.
+
+## Parameters
+
+### **election:**
+```php
+?CondorcetPHP\Condorcet\Election $election = null
+```
+**Type:** [`?CondorcetPHP\Condorcet\Election`](../../../Election/class_Election.md)
+
+Add an existing election, useful if you want to set up some parameters or add extra candidates. If null an election object will be created for you.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Election`](../../../Election/class_Election.md)
+
+The election object
+
+## Related
+- **[\CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat::setDataToAnElection()](../CEF/CondorcetElectionFormat/method_setDataToAnElection.md)**
+- **[\CondorcetPHP\Condorcet\Tools\Converters\DavidHillFormat::setDataToAnElection()](../DavidHillFormat/method_setDataToAnElection.md)**

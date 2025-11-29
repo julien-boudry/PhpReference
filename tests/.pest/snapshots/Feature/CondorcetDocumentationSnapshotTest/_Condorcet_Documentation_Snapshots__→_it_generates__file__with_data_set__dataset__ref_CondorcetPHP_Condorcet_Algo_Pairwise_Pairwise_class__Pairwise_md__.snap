@@ -1,0 +1,60 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ **Pairwise**
+# Class Pairwise
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L23)
+
+## Description
+Computes and stores pairwise comparison results between candidates.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [candidateWinVersus(...)](method_candidateWinVersus.md) | _Compare Candidate pairwise to another Candidate._ |
+| [compareCandidates(...)](method_compareCandidates.md) | _Compare Candidate pairwise to another Candidate._ |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [getExplicitPairwise(...)](method_getExplicitPairwise.md) | _Return the Pairwise._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements ArrayAccess, Iterator, Traversable
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+
+    // Methods
+    public function candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool;
+    public function compareCandidates( CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b ): int;
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getExplicitPairwise( ): array;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise implements ArrayAccess, Iterator, Traversable
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    protected ?array $explicitPairwise = null;
+    protected array $Pairwise;
+    protected readonly array $Pairwise_Model;
+    protected WeakReference $selfElection;
+    private bool $valid = true;
+
+    // Methods
+    public function candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool;
+    public function compareCandidates( CondorcetPHP\Condorcet\Candidate|string $a, CondorcetPHP\Condorcet\Candidate|string $b ): int;
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getExplicitPairwise( ): array;
+
+}
+```

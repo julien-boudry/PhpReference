@@ -1,0 +1,35 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ **CivsFormat**
+# Class CivsFormat
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L18)
+
+## Description
+Exports election data to CIVS format.
+## Elements
+
+### Public Static Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [createFromElection(...)](method_createFromElection.md) | _Create a CondorcetElectionFormat file from an Election object._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Converters\CivsFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport
+{
+
+    // Static Methods
+    public static function createFromElection( CondorcetPHP\Condorcet\Election $election, [ ?SplFileObject $file = null ] ): string|true;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Converters\CivsFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport
+{
+
+    // Static Methods
+    public static function createFromElection( CondorcetPHP\Condorcet\Election $election, [ ?SplFileObject $file = null ] ): string|true;
+
+}
+```

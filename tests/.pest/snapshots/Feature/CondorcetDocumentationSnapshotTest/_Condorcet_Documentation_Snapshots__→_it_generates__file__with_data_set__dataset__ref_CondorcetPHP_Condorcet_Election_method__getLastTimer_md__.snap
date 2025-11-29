@@ -1,0 +1,21 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getLastTimer()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L267)
+
+```php
+public function Election->getLastTimer( ): ?float
+```
+
+## Description
+Return the last computation runtime (typically after a getResult() call.). Include only computation related methods.
+
+## Return
+**Type:** `?float`
+
+Timer
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getGlobalTimer()](method_getGlobalTimer.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/8.GoFurther/3.TimerBenchMarking)**

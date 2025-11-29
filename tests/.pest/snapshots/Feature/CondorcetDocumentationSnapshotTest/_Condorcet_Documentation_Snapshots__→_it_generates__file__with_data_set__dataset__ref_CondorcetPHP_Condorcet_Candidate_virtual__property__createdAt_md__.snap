@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Property createdAt
+```php
+virtual public float $createdAt
+```
+
+## Description
+The timestamp corresponding of the creation of this candidate.

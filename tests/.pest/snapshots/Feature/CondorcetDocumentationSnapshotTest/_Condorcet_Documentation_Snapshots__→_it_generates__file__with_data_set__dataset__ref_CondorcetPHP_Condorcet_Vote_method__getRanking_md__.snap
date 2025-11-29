@@ -1,0 +1,36 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method getRanking()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L274)
+
+```php
+public function Vote->getRanking( [ ?CondorcetPHP\Condorcet\Election $context = null, bool $sortCandidatesInRank = true ] ): array
+```
+
+## Description
+Get the actual Ranking of this Vote.
+
+## Parameters
+
+### **context:**
+```php
+?CondorcetPHP\Condorcet\Election $context = null
+```
+**Type:** [`?CondorcetPHP\Condorcet\Election`](../Election/class_Election.md)
+
+An election already linked to the Vote.
+
+### **sortCandidatesInRank:**
+```php
+bool $sortCandidatesInRank = true
+```
+**Type:** `bool`
+
+Sort Candidate in a Rank by name. Useful for performant internal calls from methods.
+
+## Return
+**Type:** `array`
+
+Multidimenssionnal array populated by Candidate object.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::setRanking()](method_setRanking.md)**

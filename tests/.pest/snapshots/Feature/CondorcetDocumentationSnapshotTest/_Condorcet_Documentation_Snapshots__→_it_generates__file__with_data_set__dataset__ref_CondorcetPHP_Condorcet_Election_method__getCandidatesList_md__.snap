@@ -1,0 +1,18 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getCandidatesList()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L57)
+
+```php
+public function Election->getCandidatesList( ): array
+```
+
+## Description
+Return a list of registered candidates for this election.
+
+## Return
+**Type:** `array`
+
+List of candidates in an array.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::countCandidates()](method_countCandidates.md)**

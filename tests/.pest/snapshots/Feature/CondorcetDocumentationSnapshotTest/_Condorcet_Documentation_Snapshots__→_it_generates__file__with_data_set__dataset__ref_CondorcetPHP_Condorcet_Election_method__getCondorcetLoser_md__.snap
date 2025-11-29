@@ -1,0 +1,23 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getCondorcetLoser()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L224)
+
+```php
+public function Election->getCondorcetLoser( ): ?CondorcetPHP\Condorcet\Candidate
+```
+
+## Description
+Get the natural Condorcet loser if there is one.
+
+## Return
+**Type:** [`?CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md)
+
+Candidate object given. Null if there are no available loser.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getCondorcetWinner()](method_getCondorcetWinner.md)**
+- **[\CondorcetPHP\Condorcet\Election::getLoser()](method_getLoser.md)**
+- **[\CondorcetPHP\Condorcet\Election::getResult()](method_getResult.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/6.Results/1.WinnerAndLoser)**

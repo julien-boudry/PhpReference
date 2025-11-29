@@ -1,0 +1,25 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method authorizeVoteWeight()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L112)
+
+```php
+public function Election->authorizeVoteWeight( [ bool $authorized = true ] ): static
+```
+
+## Description
+Alias as a method for Election->authorizeVoteWeight.
+
+## Parameters
+
+### **authorized:**
+```php
+bool $authorized = true
+```
+**Type:** `bool`
+
+New rule.
+
+## Return
+**Type:** `static`
+
+

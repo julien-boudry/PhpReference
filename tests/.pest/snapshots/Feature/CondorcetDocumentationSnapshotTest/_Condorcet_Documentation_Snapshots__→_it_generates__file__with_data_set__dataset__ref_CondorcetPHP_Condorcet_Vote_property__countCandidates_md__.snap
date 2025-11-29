@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Property countCandidates
+```php
+final public private(set) int $countCandidates
+```
+
+## Description
+Count the number of candidate provide into the active Ranking set.

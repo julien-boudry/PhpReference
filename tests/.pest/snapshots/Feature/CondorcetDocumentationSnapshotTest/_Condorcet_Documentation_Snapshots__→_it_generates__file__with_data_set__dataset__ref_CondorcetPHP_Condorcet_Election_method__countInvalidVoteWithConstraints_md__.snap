@@ -1,0 +1,20 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method countInvalidVoteWithConstraints()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L66)
+
+```php
+public function Election->countInvalidVoteWithConstraints( ): int
+```
+
+## Description
+Count the number of actual invalid (if constraints functionality is enabled) but registered votes for this election.
+
+## Return
+**Type:** `int`
+
+Number of valid and registered votes in this election.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::countValidVoteWithConstraints()](method_countValidVoteWithConstraints.md)**
+- **[\CondorcetPHP\Condorcet\Election::countVotes()](method_countVotes.md)**
+- **[\CondorcetPHP\Condorcet\Election::sumValidVoteWeightsWithConstraints()](method_sumValidVoteWeightsWithConstraints.md)**

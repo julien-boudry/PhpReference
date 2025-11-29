@@ -1,0 +1,37 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getVotesList()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L146)
+
+```php
+public function Election->getVotesList( [ array|string|null $tags = null, bool $with = true ] ): array
+```
+
+## Description
+Get registered votes list.
+
+## Parameters
+
+### **tags:**
+```php
+array|string|null $tags = null
+```
+**Type:** `array` | `string` | `?null`
+
+Tags list as a string separated by commas or array.
+
+### **with:**
+```php
+bool $with = true
+```
+**Type:** `bool`
+
+Get votes with these tags or without.
+
+## Return
+**Type:** `array`
+
+Populated by each Vote object.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::countVotes()](method_countVotes.md)**
+- **[\CondorcetPHP\Condorcet\Election::getVotesListAsString()](method_getVotesListAsString.md)**

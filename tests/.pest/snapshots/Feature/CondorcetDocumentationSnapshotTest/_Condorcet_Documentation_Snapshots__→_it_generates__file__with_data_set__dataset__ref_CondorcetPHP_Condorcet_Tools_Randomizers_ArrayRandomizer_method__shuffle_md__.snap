@@ -1,0 +1,15 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [ArrayRandomizer](class_ArrayRandomizer.md)
+# Method shuffle()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L101)
+
+```php
+public function ArrayRandomizer->shuffle( ): array
+```
+
+## Description
+Generate a new random vote.
+
+## Return
+**Type:** `array`
+
+Return the new vote.

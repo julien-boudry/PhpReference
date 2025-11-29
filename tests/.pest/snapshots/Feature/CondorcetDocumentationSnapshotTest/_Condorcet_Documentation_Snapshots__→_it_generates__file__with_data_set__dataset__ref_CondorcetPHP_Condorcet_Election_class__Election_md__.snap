@@ -1,0 +1,257 @@
+> CondorcetPHP \ **Election**
+# Class Election
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L22)
+
+## Description
+Represents an election with candidates, votes, and result computation.
+## Elements
+
+### Public Constants
+| Constant Name | Signature | Description |
+| ------------- | ------------- | ------------- |
+| MAX_CANDIDATE_NAME_LENGTH | `public const int MAX_CANDIDATE_NAME_LENGTH = 100` | __ |
+
+### Public Static Properties
+| Properties Name | Description |
+| ------------- | ------------- |
+| [maxParseIteration(...)](static_property_maxParseIteration.md) | _Maximum input for each use of Election::parseCandidate && Election::parseVote. Will throw an exception if exceeded._ |
+| [maxVotePerElection(...)](static_property_maxVotePerElection.md) | _Add a limitation on Election::addVote and related methods. You can't add new votes if the number of registered votes is equal or superior to this limit._ |
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [authorizeVoteWeight(...)](property_authorizeVoteWeight.md) | _Returns the corresponding setting as currently set (False by default)._ |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [implicitRankingRule(...)](property_implicitRankingRule.md) | _The corresponding setting as currently set (True by default)._ |
+| [seatsToElect(...)](property_seatsToElect.md) | _Get or set seats to elect count for proportionals methods like STV._ |
+| [state(...)](property_state.md) | _Get the election process level._ |
+| [statsVerbosity(...)](property_statsVerbosity.md) | _The current level of stats verbosity for this election object. Look at Election->setStatsVerbosity method for more informations._ |
+| [votesConstraints(...)](property_votesConstraints.md) | __ |
+| [hash(...)](virtual_property_hash.md) | __ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [__construct(...)](method___construct.md) | _Build a new Election._ |
+| [addCandidate(...)](method_addCandidate.md) | _Add a candidate to an election._ |
+| [addCandidatesFromJson(...)](method_addCandidatesFromJson.md) | _Import candidates from a JSON source._ |
+| [addConstraint(...)](method_addConstraint.md) | _Add a constraint rules as a valid class path._ |
+| [addVote(...)](method_addVote.md) | _Add a vote to an election._ |
+| [addVotesFromJson(...)](method_addVotesFromJson.md) | _Import votes from a Json source._ |
+| [authorizeVoteWeight(...)](method_authorizeVoteWeight.md) | _Alias as a method for Election->authorizeVoteWeight._ |
+| [canAddCandidate(...)](method_canAddCandidate.md) | _Check if a candidate is already registered. Equivalent of !$election->hasCandidate($candidate, false)._ |
+| [clearConstraints(...)](method_clearConstraints.md) | _Clear all constraints rules and clear previous results._ |
+| [computeResult(...)](method_computeResult.md) | _Really similar to Election::getResult() but not return anything. Just calculates silently and fill the cache._ |
+| [countCandidates(...)](method_countCandidates.md) | _Count the number of registered candidates._ |
+| [countInvalidVoteWithConstraints(...)](method_countInvalidVoteWithConstraints.md) | _Count the number of actual invalid (if constraints functionality is enabled) but registered votes for this election._ |
+| [countValidVoteWithConstraints(...)](method_countValidVoteWithConstraints.md) | _Count the number of actual registered and valid votes for this election. This method doesn't ignore votes constraints, only valid votes will be counted._ |
+| [countVotes(...)](method_countVotes.md) | _Count the number of actual registered and valid votes for this election. This method ignores votes constraints, only valid votes will be counted._ |
+| [getCandidateObjectFromName(...)](method_getCandidateObjectFromName.md) | _Find the candidate object from its name and return it._ |
+| [getCandidatesList(...)](method_getCandidatesList.md) | _Return a list of registered candidates for this election._ |
+| [getCandidatesListAsString(...)](method_getCandidatesListAsString.md) | _Return a list of registered candidates for this election as strings._ |
+| [getChecksum(...)](method_getChecksum.md) | _SHA-2 256 checksum of following internal data: * Candidates * Votes list & tags * Computed data (pairwise, algorithm cache, stats) * Class version (major version like 3.4)_ |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [getCondorcetLoser(...)](method_getCondorcetLoser.md) | _Get the natural Condorcet loser if there is one._ |
+| [getCondorcetWinner(...)](method_getCondorcetWinner.md) | _Get the natural Condorcet winner if there is one._ |
+| [getConstraints(...)](method_getConstraints.md) | _Get active constraints list._ |
+| [getExplicitFilteredPairwiseByTags(...)](method_getExplicitFilteredPairwiseByTags.md) | _Get a pairwise filtered by tags._ |
+| [getExplicitPairwise(...)](method_getExplicitPairwise.md) | _Return the Pairwise._ |
+| [getGlobalTimer(...)](method_getGlobalTimer.md) | _Returns the cumulated computation runtime of this object. Include only computation related methods._ |
+| [getLastTimer(...)](method_getLastTimer.md) | _Return the last computation runtime (typically after a getResult() call.). Include only computation related methods._ |
+| [getLoser(...)](method_getLoser.md) | _Get the natural Condorcet loser if there is one. Alternatively you can get the loser(s) from an advanced Condorcet algorithm._ |
+| [getPairwise(...)](method_getPairwise.md) | _Return the Pairwise._ |
+| [getResult(...)](method_getResult.md) | _Get a full ranking from an advanced Condorcet method._ |
+| [getTimerManager(...)](method_getTimerManager.md) | _Get the Timer manager object._ |
+| [getVotesList(...)](method_getVotesList.md) | _Get registered votes list._ |
+| [getVotesListAsString(...)](method_getVotesListAsString.md) | _Get registered votes list as string._ |
+| [getVotesListGenerator(...)](method_getVotesListGenerator.md) | _Same as Election::getVotesList. But returns a PHP generator object._ |
+| [getVotesValidUnderConstraintGenerator(...)](method_getVotesValidUnderConstraintGenerator.md) | _Same as Election::getVotesList, filter out vote invalid under constraint. But returns a PHP generator object._ |
+| [getWinner(...)](method_getWinner.md) | _Get the natural Condorcet winner if there is one. Alternatively you can get the winner(s) from an advanced Condorcet algorithm._ |
+| [hasCandidate(...)](method_hasCandidate.md) | _Check if a candidate is already registered for this election._ |
+| [implicitRankingRule(...)](method_implicitRankingRule.md) | _Act like public property Election->implicitRankingRule, but return the election object._ |
+| [isVoteValidUnderConstraints(...)](method_isVoteValidUnderConstraints.md) | _Test if a vote is valid with these election constraints._ |
+| [parseCandidates(...)](method_parseCandidates.md) | _Import candidates from a text source._ |
+| [parseVotes(...)](method_parseVotes.md) | _Import votes from a text source. If any invalid vote is found inside, nothing is registered._ |
+| [parseVotesSafe(...)](method_parseVotesSafe.md) | _Similar to parseVote method. But will ignore invalid lines. This method is also far less greedy in memory and should be preferred for very large file inputs. Best used in combination with an external ..._ |
+| [removeAllVotes(...)](method_removeAllVotes.md) | _Remove all Votes from an election._ |
+| [removeCandidates(...)](method_removeCandidates.md) | _Remove candidates from an election._ |
+| [removeExternalDataHandler(...)](method_removeExternalDataHandler.md) | _Remove an external driver to store vote on very large election. And import his data into classical memory._ |
+| [removeVote(...)](method_removeVote.md) | _Remove Votes from an election._ |
+| [removeVotesByTags(...)](method_removeVotesByTags.md) | _Remove Vote from an election using tags._ |
+| [setExternalDataHandler(...)](method_setExternalDataHandler.md) | _Import and enable an external driver to store vote on very large election._ |
+| [setMethodOption(...)](method_setMethodOption.md) | _Set an option to a method module and reset his cache for this election object. Be aware that this option applies to all election objects and remains in memory._ |
+| [setSeatsToElect(...)](method_setSeatsToElect.md) | _Set count of seats to elects for STV methods._ |
+| [setStateToVote(...)](method_setStateToVote.md) | _Force the election to get back to state 2._ |
+| [setStatsVerbosity(...)](method_setStatsVerbosity.md) | _Set a verbosity level for Result->statsVerbosity on returning Result objects. High level can slow down processing and use more memory (many more) than LOW and STD (default) level on somes methods._ |
+| [sumValidVoteWeightsWithConstraints(...)](method_sumValidVoteWeightsWithConstraints.md) | _Sum total votes weight in this election. If vote weight functionality is disabled (default setting), it will return the number of registered votes. This method doesn't ignore votes constraints, only v..._ |
+| [sumVoteWeights(...)](method_sumVoteWeights.md) | _Sum total votes weight in this election. If vote weight functionality is disabled (default setting), it will return the number of registered votes. This method ignores votes constraints._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Election
+{
+    // Constants
+    public const int MAX_CANDIDATE_NAME_LENGTH = 100;
+
+    // Static Properties
+    public static ?int $maxParseIteration = null;
+    public static ?int $maxVotePerElection = null;
+
+    // Properties
+    public bool $authorizeVoteWeight = false;
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    public bool $implicitRankingRule = true;
+    public int $seatsToElect = 100;
+    public protected(set) CondorcetPHP\Condorcet\ElectionProcess\ElectionState $state = \CondorcetPHP\Condorcet\ElectionProcess\ElectionState::CANDIDATES_REGISTRATION;
+    public protected(set) CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity = \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD;
+    public protected(set) array $votesConstraints = [];
+    virtual public string $hash;
+
+    // Methods
+    public function __construct( );
+    public function addCandidate( [ CondorcetPHP\Condorcet\Candidate|string|null $candidate = null ] ): CondorcetPHP\Condorcet\Candidate;
+    public function addCandidatesFromJson( string $input ): array;
+    public function addConstraint( string $constraintClass ): static;
+    public function addVote( CondorcetPHP\Condorcet\Vote|array|string $vote, [ array|string|null $tags = null ] ): CondorcetPHP\Condorcet\Vote;
+    public function addVotesFromJson( string $input ): int;
+    public function authorizeVoteWeight( [ bool $authorized = true ] ): static;
+    public function canAddCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate ): bool;
+    public function clearConstraints( ): static;
+    public function computeResult( [ ?string $method = null ] ): void;
+    public function countCandidates( ): int;
+    public function countInvalidVoteWithConstraints( ): int;
+    public function countValidVoteWithConstraints( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+    public function countVotes( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+    public function getCandidateObjectFromName( string $candidateName ): ?CondorcetPHP\Condorcet\Candidate;
+    public function getCandidatesList( ): array;
+    public function getCandidatesListAsString( ): array;
+    public function getChecksum( ): string;
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getCondorcetLoser( ): ?CondorcetPHP\Condorcet\Candidate;
+    public function getCondorcetWinner( ): ?CondorcetPHP\Condorcet\Candidate;
+    public function getConstraints( ): array;
+    public function getExplicitFilteredPairwiseByTags( array|string $tags, [ int|bool $with = 1 ] ): array;
+    public function getExplicitPairwise( ): array;
+    public function getGlobalTimer( ): float;
+    public function getLastTimer( ): ?float;
+    public function getLoser( [ ?string $method = null ] ): CondorcetPHP\Condorcet\Candidate|array|null;
+    public function getPairwise( ): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
+    public function getResult( [ ?string $method = null, array $methodOptions = [] ] ): CondorcetPHP\Condorcet\Result;
+    public function getTimerManager( ): CondorcetPHP\Condorcet\Timer\Manager;
+    public function getVotesList( [ array|string|null $tags = null, bool $with = true ] ): array;
+    public function getVotesListAsString( [ bool $withContext = true ] ): string;
+    public function getVotesListGenerator( [ array|string|null $tags = null, bool $with = true ] ): Generator;
+    public function getVotesValidUnderConstraintGenerator( [ array|string|null $tags = null, bool $with = true ] ): Generator;
+    public function getWinner( [ ?string $method = null ] ): CondorcetPHP\Condorcet\Candidate|array|null;
+    public function hasCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate, [ bool $strictMode = true ] ): bool;
+    public function implicitRankingRule( bool $rule ): static;
+    public function isVoteValidUnderConstraints( CondorcetPHP\Condorcet\Vote $vote ): bool;
+    public function parseCandidates( string $input, [ bool $isFile = false ] ): array;
+    public function parseVotes( string $input, [ bool $isFile = false ] ): int;
+    public function parseVotesSafe( SplFileInfo|string $input, [ bool $isFile = false, ?Closure $callBack = null ] ): int;
+    public function removeAllVotes( ): true;
+    public function removeCandidates( CondorcetPHP\Condorcet\Candidate|array|string $candidates_input ): array;
+    public function removeExternalDataHandler( ): bool;
+    public function removeVote( CondorcetPHP\Condorcet\Vote $vote ): true;
+    public function removeVotesByTags( array|string $tags, [ bool $with = true ] ): array;
+    public function setExternalDataHandler( CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver ): static;
+    public function setMethodOption( string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue ): static;
+    public function setSeatsToElect( int $seats ): static;
+    public function setStateToVote( ): true;
+    public function setStatsVerbosity( CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity ): static;
+    public function sumValidVoteWeightsWithConstraints( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+    public function sumVoteWeights( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Election
+{
+    // Constants
+    public const int MAX_CANDIDATE_NAME_LENGTH = 100;
+
+    // Static Properties
+    public static ?int $maxParseIteration = null;
+    public static ?int $maxVotePerElection = null;
+    protected static bool $checksumMode = false;
+
+    // Properties
+    public bool $authorizeVoteWeight = false;
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    public protected(set) array $candidates = [];
+    public bool $implicitRankingRule = true;
+    public protected(set) string $nextAutomaticCandidateName = 'A';
+    public int $seatsToElect = 100;
+    public protected(set) CondorcetPHP\Condorcet\ElectionProcess\ElectionState $state = \CondorcetPHP\Condorcet\ElectionProcess\ElectionState::CANDIDATES_REGISTRATION;
+    public protected(set) CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity = \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD;
+    public protected(set) array $votesConstraints = [];
+    virtual public string $hash;
+    protected ?array $MethodsComputation = null;
+    protected ?CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise $Pairwise = null;
+    protected readonly CondorcetPHP\Condorcet\Timer\Manager $timer;
+    protected readonly CondorcetPHP\Condorcet\DataManager\VotesManager $Votes;
+    protected CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode $votesFastMode = \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE;
+
+    // Static Methods
+    protected static function formatResultOptions( array $arg ): array;
+
+    // Methods
+    public function __construct( );
+    public function addCandidate( [ CondorcetPHP\Condorcet\Candidate|string|null $candidate = null ] ): CondorcetPHP\Condorcet\Candidate;
+    public function addCandidatesFromJson( string $input ): array;
+    public function addConstraint( string $constraintClass ): static;
+    public function addVote( CondorcetPHP\Condorcet\Vote|array|string $vote, [ array|string|null $tags = null ] ): CondorcetPHP\Condorcet\Vote;
+    public function addVotesFromJson( string $input ): int;
+    public function authorizeVoteWeight( [ bool $authorized = true ] ): static;
+    public function canAddCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate ): bool;
+    public function clearConstraints( ): static;
+    public function computeResult( [ ?string $method = null ] ): void;
+    public function countCandidates( ): int;
+    public function countInvalidVoteWithConstraints( ): int;
+    public function countValidVoteWithConstraints( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+    public function countVotes( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+    public function getCandidateObjectFromName( string $candidateName ): ?CondorcetPHP\Condorcet\Candidate;
+    public function getCandidatesList( ): array;
+    public function getCandidatesListAsString( ): array;
+    public function getChecksum( ): string;
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getCondorcetLoser( ): ?CondorcetPHP\Condorcet\Candidate;
+    public function getCondorcetWinner( ): ?CondorcetPHP\Condorcet\Candidate;
+    public function getConstraints( ): array;
+    public function getExplicitFilteredPairwiseByTags( array|string $tags, [ int|bool $with = 1 ] ): array;
+    public function getExplicitPairwise( ): array;
+    public function getGlobalTimer( ): float;
+    public function getLastTimer( ): ?float;
+    public function getLoser( [ ?string $method = null ] ): CondorcetPHP\Condorcet\Candidate|array|null;
+    public function getPairwise( ): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise;
+    public function getResult( [ ?string $method = null, array $methodOptions = [] ] ): CondorcetPHP\Condorcet\Result;
+    public function getTimerManager( ): CondorcetPHP\Condorcet\Timer\Manager;
+    public function getVotesList( [ array|string|null $tags = null, bool $with = true ] ): array;
+    public function getVotesListAsString( [ bool $withContext = true ] ): string;
+    public function getVotesListGenerator( [ array|string|null $tags = null, bool $with = true ] ): Generator;
+    public function getVotesValidUnderConstraintGenerator( [ array|string|null $tags = null, bool $with = true ] ): Generator;
+    public function getWinner( [ ?string $method = null ] ): CondorcetPHP\Condorcet\Candidate|array|null;
+    public function hasCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate, [ bool $strictMode = true ] ): bool;
+    public function implicitRankingRule( bool $rule ): static;
+    public function isVoteValidUnderConstraints( CondorcetPHP\Condorcet\Vote $vote ): bool;
+    public function parseCandidates( string $input, [ bool $isFile = false ] ): array;
+    public function parseVotes( string $input, [ bool $isFile = false ] ): int;
+    public function parseVotesSafe( SplFileInfo|string $input, [ bool $isFile = false, ?Closure $callBack = null ] ): int;
+    public function removeAllVotes( ): true;
+    public function removeCandidates( CondorcetPHP\Condorcet\Candidate|array|string $candidates_input ): array;
+    public function removeExternalDataHandler( ): bool;
+    public function removeVote( CondorcetPHP\Condorcet\Vote $vote ): true;
+    public function removeVotesByTags( array|string $tags, [ bool $with = true ] ): array;
+    public function setExternalDataHandler( CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver ): static;
+    public function setMethodOption( string $method, string $optionName, BackedEnum|Random\Randomizer|array|string|int|float $optionValue ): static;
+    public function setSeatsToElect( int $seats ): static;
+    public function setStateToVote( ): true;
+    public function setStatsVerbosity( CondorcetPHP\Condorcet\Algo\StatsVerbosity $StatsVerbosity ): static;
+    public function sumValidVoteWeightsWithConstraints( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+    public function sumVoteWeights( [ array|string|null $tags = null, int|bool $with = true ] ): int;
+
+}
+```

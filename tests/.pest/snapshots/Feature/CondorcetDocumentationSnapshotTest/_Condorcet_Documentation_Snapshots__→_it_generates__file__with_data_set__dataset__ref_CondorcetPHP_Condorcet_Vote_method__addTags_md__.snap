@@ -1,0 +1,34 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method addTags()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L672)
+
+```php
+public function Vote->addTags( array|string $tags ): bool
+```
+
+## Description
+Add tag(s) on this Vote.
+
+## Parameters
+
+### **tags:**
+```php
+array|string $tags
+```
+**Type:** `array` | `string`
+
+Tag(s) are non-numeric alphanumeric string. They can be added by string separated by commas or an array. Tags will be trimmed.
+
+## Return
+**Type:** `bool`
+
+In case of success, return TRUE
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException](../Throwable/VoteInvalidFormatException/class_VoteInvalidFormatException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::removeTags()](method_removeTags.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/5.Votes/2.VotesTags)**

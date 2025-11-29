@@ -1,0 +1,39 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method addCandidate()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L167)
+
+```php
+public function Election->addCandidate( [ CondorcetPHP\Condorcet\Candidate|string|null $candidate = null ] ): CondorcetPHP\Condorcet\Candidate
+```
+
+## Description
+Add a candidate to an election.
+
+## Parameters
+
+### **candidate:**
+```php
+CondorcetPHP\Condorcet\Candidate|string|null $candidate = null
+```
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md) | `string` | `?null`
+
+Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate name's white spaces will be removed. If null, this function will create a new candidate with an automatic name.
+
+## Return
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md)
+
+The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
+
+## Throws
+- **[\CondorcetPHP\Condorcet\CandidateExistsException]()** __
+- **[\CondorcetPHP\Condorcet\VotingHasStartedException]()** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::parseCandidates()](method_parseCandidates.md)**
+- **[\CondorcetPHP\Condorcet\Election::addCandidatesFromJson()](method_addCandidatesFromJson.md)**
+- **[\CondorcetPHP\Condorcet\Election::removeCandidates()](method_removeCandidates.md)**
+- **[\CondorcetPHP\Condorcet\Election::getCandidatesList()](method_getCandidatesList.md)**
+- **[\CondorcetPHP\Condorcet\Election::canAddCandidate()](method_canAddCandidate.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/4.Candidates)**

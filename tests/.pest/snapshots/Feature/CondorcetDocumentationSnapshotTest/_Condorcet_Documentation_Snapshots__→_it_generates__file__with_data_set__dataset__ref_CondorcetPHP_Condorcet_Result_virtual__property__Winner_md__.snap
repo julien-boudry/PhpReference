@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property Winner
+```php
+virtual public CondorcetPHP\Condorcet\Candidate|array|null $Winner
+```
+
+## Description
+('Get the election winner if any')
+Contain Candidate object. Null if there are no available winner. Or an array with multiples winners.

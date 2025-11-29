@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Property hash
+```php
+virtual public string $hash
+```

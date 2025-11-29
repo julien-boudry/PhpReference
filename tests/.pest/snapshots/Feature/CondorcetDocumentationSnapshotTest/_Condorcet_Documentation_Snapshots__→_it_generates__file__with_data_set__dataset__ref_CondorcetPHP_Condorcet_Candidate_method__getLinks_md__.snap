@@ -1,0 +1,22 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Method getLinks()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Relations/Linkable.php#L87)
+
+```php
+public function Candidate->getLinks( ): array
+```
+
+## Description
+Get election objects linked to this Vote or Candidate object.
+
+## Return
+**Type:** `array`
+
+Array containing linked Condorcet election objects.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::countLinks()](../Vote/method_countLinks.md)**
+- **[\CondorcetPHP\Condorcet\Candidate::countLinks()](method_countLinks.md)**
+- **[\CondorcetPHP\Condorcet\Vote::getLinks()](../Vote/method_getLinks.md)**
+- **[\CondorcetPHP\Condorcet\Vote::haveLink()](../Vote/method_haveLink.md)**
+- **[\CondorcetPHP\Condorcet\Candidate::haveLink()](method_haveLink.md)**

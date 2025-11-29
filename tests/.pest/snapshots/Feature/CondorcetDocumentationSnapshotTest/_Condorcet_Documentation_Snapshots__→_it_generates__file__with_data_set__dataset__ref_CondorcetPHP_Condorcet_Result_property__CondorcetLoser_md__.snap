@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property CondorcetLoser
+```php
+final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetLoser
+```
+
+## Description
+Get the Condorcet loser, if exist, at the result time.

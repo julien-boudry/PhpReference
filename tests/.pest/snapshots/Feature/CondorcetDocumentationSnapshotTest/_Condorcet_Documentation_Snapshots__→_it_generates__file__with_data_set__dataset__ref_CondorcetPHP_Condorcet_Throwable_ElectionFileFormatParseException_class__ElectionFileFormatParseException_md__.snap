@@ -1,0 +1,50 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **ElectionFileFormatParseException**
+# Class ElectionFileFormatParseException
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/ElectionFileFormatParseException.php#L15)
+
+## Description
+Exception thrown when parsing an election file format fails.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](../CondorcetPublicApiException/property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](../CondorcetPublicApiException/method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    protected  ElectionFileFormatParseException->code = 0;
+    protected string ElectionFileFormatParseException->file = '';
+    protected int ElectionFileFormatParseException->line = 0;
+    protected  ElectionFileFormatParseException->message = '';
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

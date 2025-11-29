@@ -1,0 +1,19 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ [FilteredPairwise](../FilteredPairwise/class_FilteredPairwise.md)
+# Method getExplicitPairwise()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L172)
+
+```php
+public function Pairwise->getExplicitPairwise( ): array
+```
+
+## Description
+Return the Pairwise.
+
+## Return
+**Type:** `array`
+
+Pairwise as an explicit array .
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getPairwise()](../../../Election/method_getPairwise.md)**
+- **[\CondorcetPHP\Condorcet\Election::getResult()](../../../Election/method_getResult.md)**

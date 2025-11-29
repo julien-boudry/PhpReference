@@ -1,0 +1,28 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Method setDefaultMethod()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L272)
+
+```php
+public static function Condorcet::setDefaultMethod( string $method ): bool
+```
+
+## Description
+Put a new static method by default for the news Condorcet objects.
+
+## Parameters
+
+### **method:**
+```php
+string $method
+```
+**Type:** `string`
+
+A valid method name or class.
+
+## Return
+**Type:** `bool`
+
+In case of success, return TRUE
+
+## Related
+- **[\CondorcetPHP\Condorcet\Condorcet::getDefaultMethod()](method_getDefaultMethod.md)**

@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Property votesConstraints
+```php
+public protected(set) array $votesConstraints = []
+```

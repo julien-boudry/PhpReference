@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Property UseTimer
+```php
+public static bool $UseTimer = false
+```

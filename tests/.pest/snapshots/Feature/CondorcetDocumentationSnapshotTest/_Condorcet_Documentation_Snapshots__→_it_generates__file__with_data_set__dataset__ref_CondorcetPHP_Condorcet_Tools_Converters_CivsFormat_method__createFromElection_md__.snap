@@ -1,0 +1,33 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [CivsFormat](class_CivsFormat.md)
+# Method createFromElection()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CivsFormat.php#L31)
+
+```php
+public static function CivsFormat::createFromElection( CondorcetPHP\Condorcet\Election $election, [ ?SplFileObject $file = null ] ): string|true
+```
+
+## Description
+Create a CondorcetElectionFormat file from an Election object.
+
+## Parameters
+
+### **election:**
+```php
+CondorcetPHP\Condorcet\Election $election
+```
+**Type:** [`CondorcetPHP\Condorcet\Election`](../../../Election/class_Election.md)
+
+Election with data.
+
+### **file:**
+```php
+?SplFileObject $file = null
+```
+**Type:** `?SplFileObject`
+
+If provided, the function will return null and the result will be writing directly to the file instead. _Note that the file cursor is not rewinding_.
+
+## Return
+**Type:** `string` | `true`
+
+If the file is not provided, it's return a CondorcetElectionFormat as string, else returning null and working directly on the file object (necessary for very large non-aggregated elections, at the risk of memory saturation).

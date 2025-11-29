@@ -1,0 +1,54 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **Manager**
+# Class Manager
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Timer/Manager.php#L19)
+
+## Description
+Manages chronometers and tracks execution time.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+| [getHistory(...)](method_getHistory.md) | _Returns benchmarked actions history._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Timer\Manager
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getHistory( ): array;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Timer\Manager
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    protected float $globalTimer = 0.0;
+    protected array $history = [];
+    protected ?float $lastChronoTimestamp = null;
+    protected ?float $lastTimer = null;
+    protected ?float $startDeclare = null;
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+    public function getHistory( ): array;
+
+}
+```

@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [DataManager](../../readme.md) \ DataHandlerDrivers \ **PdoDriver**
+# Namespace: CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [PdoHandlerDriver](PdoHandlerDriver/class_PdoHandlerDriver.md) | _PDO-based data handler driver for persistent vote storage._ |
+

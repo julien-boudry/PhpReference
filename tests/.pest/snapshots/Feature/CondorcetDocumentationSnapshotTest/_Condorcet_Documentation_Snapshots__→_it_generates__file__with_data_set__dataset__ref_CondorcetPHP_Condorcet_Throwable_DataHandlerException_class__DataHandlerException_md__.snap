@@ -1,0 +1,52 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **DataHandlerException**
+# Class DataHandlerException
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/DataHandlerException.php#L15)
+
+## Description
+Exception thrown when there is a problem with data handling.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](../CondorcetPublicApiException/property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](../CondorcetPublicApiException/method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Properties
+    protected  $message = 'Problem with data handler';
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    protected  DataHandlerException->code = 0;
+    protected string DataHandlerException->file = '';
+    protected int DataHandlerException->line = 0;
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

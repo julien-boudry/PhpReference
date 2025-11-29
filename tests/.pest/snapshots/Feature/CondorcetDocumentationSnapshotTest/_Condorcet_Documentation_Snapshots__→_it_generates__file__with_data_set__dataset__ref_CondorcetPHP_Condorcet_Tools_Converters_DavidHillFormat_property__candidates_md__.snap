@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [DavidHillFormat](class_DavidHillFormat.md)
+# Property candidates
+```php
+final public private(set) readonly array $candidates
+```

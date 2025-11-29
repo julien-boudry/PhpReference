@@ -1,0 +1,60 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ **StvQuotas**
+# Enum StvQuotas
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Tools/StvQuotas.php#L22)
+
+## Description
+Defines quota formulas for Single Transferable Vote methods.
+## Elements
+
+### Public Constants
+| Constant Name | Signature | Description |
+| ------------- | ------------- | ------------- |
+| DROOP | `public const DROOP = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::DROOP` | __ |
+| HAGENBACH_BISCHOFF | `public const HAGENBACH_BISCHOFF = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF` | __ |
+| HARE | `public const HARE = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::HARE` | __ |
+| IMPERIALI | `public const IMPERIALI = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::IMPERIALI` | __ |
+
+### Public Static Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [fromString(...)](method_fromString.md) | _Build the Enum Quotas option for STV methods._ |
+
+
+## Public Representation
+```php
+enum CondorcetPHP\Condorcet\Algo\Tools\StvQuotas: string implements UnitEnum, BackedEnum
+{
+    case DROOP = "Droop Quota";
+    case HARE = "Hare Quota";
+    case HAGENBACH_BISCHOFF = "Hagenbach-Bischoff Quota";
+    case IMPERIALI = "Imperiali Quota";
+
+    // Static Methods
+    public static function fromString( string $quota ): self;
+
+}
+```
+
+## Full Representation
+```php
+enum CondorcetPHP\Condorcet\Algo\Tools\StvQuotas: string implements UnitEnum, BackedEnum
+{
+    case DROOP = "Droop Quota";
+    case HARE = "Hare Quota";
+    case HAGENBACH_BISCHOFF = "Hagenbach-Bischoff Quota";
+    case IMPERIALI = "Imperiali Quota";
+    // Constants
+    public const DROOP = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::DROOP;
+    public const HAGENBACH_BISCHOFF = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::HAGENBACH_BISCHOFF;
+    public const HARE = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::HARE;
+    public const IMPERIALI = \CondorcetPHP\Condorcet\Algo\Tools\StvQuotas::IMPERIALI;
+
+    // Properties
+    public protected(set) readonly string $name;
+    public protected(set) readonly string $value;
+
+    // Static Methods
+    public static function fromString( string $quota ): self;
+
+}
+```

@@ -1,0 +1,36 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ [FilteredPairwise](../FilteredPairwise/class_FilteredPairwise.md)
+# Method candidateWinVersus()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L241)
+
+```php
+public function Pairwise->candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool
+```
+
+## Description
+Compare Candidate pairwise to another Candidate.
+
+## Parameters
+
+### **candidate:**
+```php
+CondorcetPHP\Condorcet\Candidate|string $candidate
+```
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../../../Candidate/class_Candidate.md) | `string`
+
+the candidate to be compared
+
+### **opponent:**
+```php
+CondorcetPHP\Condorcet\Candidate|string $opponent
+```
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../../../Candidate/class_Candidate.md) | `string`
+
+the candidate to be compared with $candidate
+
+## Return
+**Type:** `bool`
+
+true if $a win, false if it lose or tie
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Algo\Pairwise\CandidateExistsException]()** __

@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method getRankingAsArrayString()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L459)
+
+```php
+public function Vote->getRankingAsArrayString( [ ?CondorcetPHP\Condorcet\Election $context = null ] ): array
+```
+
+## Description
+Return the vote actual ranking complete for the contexte of the provide election. Election must be linked to the Vote object.
+
+## Parameters
+
+### **context:**
+```php
+?CondorcetPHP\Condorcet\Election $context = null
+```
+**Type:** [`?CondorcetPHP\Condorcet\Election`](../Election/class_Election.md)
+
+An election already linked to the Vote.
+
+## Return
+**Type:** `array`
+
+Contextual full ranking, with string instead Candidate object.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::getRanking()](method_getRanking.md)**
+- **[\CondorcetPHP\Condorcet\Vote::getRankingAsString()](method_getRankingAsString.md)**

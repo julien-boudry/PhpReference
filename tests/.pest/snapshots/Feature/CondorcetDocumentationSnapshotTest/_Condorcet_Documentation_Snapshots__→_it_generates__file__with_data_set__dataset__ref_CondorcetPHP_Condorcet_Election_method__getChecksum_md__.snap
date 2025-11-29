@@ -1,0 +1,24 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getChecksum()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L302)
+
+```php
+public function Election->getChecksum( ): string
+```
+
+## Description
+SHA-2 256 checksum of following internal data:
+* Candidates
+* Votes list & tags
+* Computed data (pairwise, algorithm cache, stats)
+* Class version (major version like 3.4)
+
+Can be powerfull to check integrity and security of an election. Or working with serialized object.
+
+## Return
+**Type:** `string`
+
+SHA-2 256 bits Hexadecimal
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/8.GoFurther/2.CryptographicChecksum)**

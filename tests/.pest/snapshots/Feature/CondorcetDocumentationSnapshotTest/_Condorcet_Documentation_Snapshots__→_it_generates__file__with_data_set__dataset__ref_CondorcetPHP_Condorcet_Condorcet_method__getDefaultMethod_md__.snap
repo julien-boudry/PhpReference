@@ -1,0 +1,19 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Method getDefaultMethod()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L148)
+
+```php
+public static function Condorcet::getDefaultMethod( ): ?string
+```
+
+## Description
+Return the Condorcet static default method.
+
+## Return
+**Type:** `?string`
+
+Method name.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Condorcet::getAuthMethods()](method_getAuthMethods.md)**
+- **[\CondorcetPHP\Condorcet\Condorcet::setDefaultMethod()](method_setDefaultMethod.md)**

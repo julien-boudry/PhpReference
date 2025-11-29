@@ -1,0 +1,45 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method parseCandidates()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L337)
+
+```php
+public function Election->parseCandidates( string $input, [ bool $isFile = false ] ): array
+```
+
+## Description
+Import candidates from a text source.
+
+## Parameters
+
+### **input:**
+```php
+string $input
+```
+**Type:** `string`
+
+String or valid path to a text file.
+
+### **isFile:**
+```php
+bool $isFile = false
+```
+**Type:** `bool`
+
+If true, the input is evaluated as a path to a text file.
+
+## Return
+**Type:** `array`
+
+List of newly registered candidate objects. Count to check if all candidates were correctly registered.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\CandidateExistsException]()** __
+- **[\CondorcetPHP\Condorcet\VoteMaxNumberReachedException]()** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**
+- **[\CondorcetPHP\Condorcet\Election::addCandidatesFromJson()](method_addCandidatesFromJson.md)**
+- **[\CondorcetPHP\Condorcet\Election::parseVotes()](method_parseVotes.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/4.Candidates)**

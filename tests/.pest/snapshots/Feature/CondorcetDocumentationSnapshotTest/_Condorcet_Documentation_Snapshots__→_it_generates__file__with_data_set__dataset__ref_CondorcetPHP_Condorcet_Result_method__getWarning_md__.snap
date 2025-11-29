@@ -1,0 +1,25 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Method getWarning()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Result.php#L368)
+
+```php
+public function Result->getWarning( [ ?int $type = null ] ): array
+```
+
+## Description
+From native methods: only Kemeny-Young use it to inform about a conflict during the computation process.
+
+## Parameters
+
+### **type:**
+```php
+?int $type = null
+```
+**Type:** `?int`
+
+Filter on a specific warning type code.
+
+## Return
+**Type:** `array`
+
+Warnings provided by the by the method that generated the warning. Empty array if there is not.

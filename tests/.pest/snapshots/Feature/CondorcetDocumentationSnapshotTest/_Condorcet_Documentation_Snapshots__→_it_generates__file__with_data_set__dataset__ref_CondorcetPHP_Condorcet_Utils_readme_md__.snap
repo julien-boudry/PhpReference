@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Condorcet](../readme.md) \ **Utils**
+# Namespace: CondorcetPHP\Condorcet\Utils
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [CondorcetUtil](CondorcetUtil/class_CondorcetUtil.md) | _Utility class for Condorcet operations like JSON validation and parsing._ |
+

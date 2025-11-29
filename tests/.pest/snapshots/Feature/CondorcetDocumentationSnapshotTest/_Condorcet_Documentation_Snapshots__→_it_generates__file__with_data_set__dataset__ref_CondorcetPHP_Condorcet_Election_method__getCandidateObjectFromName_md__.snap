@@ -1,0 +1,25 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getCandidateObjectFromName()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L131)
+
+```php
+public function Election->getCandidateObjectFromName( string $candidateName ): ?CondorcetPHP\Condorcet\Candidate
+```
+
+## Description
+Find the candidate object from its name and return it.
+
+## Parameters
+
+### **candidateName:**
+```php
+string $candidateName
+```
+**Type:** `string`
+
+Name of the candidate.
+
+## Return
+**Type:** [`?CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md)
+
+Candidate object

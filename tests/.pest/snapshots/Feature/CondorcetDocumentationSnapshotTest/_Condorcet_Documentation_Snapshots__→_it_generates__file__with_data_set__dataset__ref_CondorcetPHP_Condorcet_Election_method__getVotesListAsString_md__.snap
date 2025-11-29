@@ -1,0 +1,30 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getVotesListAsString()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/VotesProcess.php#L166)
+
+```php
+public function Election->getVotesListAsString( [ bool $withContext = true ] ): string
+```
+
+## Description
+Get registered votes list as string.
+
+## Parameters
+
+### **withContext:**
+```php
+bool $withContext = true
+```
+**Type:** `bool`
+
+Depending on the implicit ranking rule of the election, will complete or not the ranking. If $withContext is false, rankings are never adapted to the context.
+
+## Return
+**Type:** `string`
+
+Return a string like:
+A > B > C * 3
+A = B > C * 6
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::parseVotes()](method_parseVotes.md)**

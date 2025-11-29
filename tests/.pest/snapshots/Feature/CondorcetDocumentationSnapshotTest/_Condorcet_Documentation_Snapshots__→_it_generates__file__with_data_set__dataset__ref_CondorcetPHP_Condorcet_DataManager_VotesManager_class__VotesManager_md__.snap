@@ -1,0 +1,60 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **VotesManager**
+# Class VotesManager
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/DataManager/VotesManager.php#L22)
+
+## Description
+Manages vote storage with optional external data handler support.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess
+{
+
+    // Inherited Properties
+    final public private(set) string VotesManager->buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Methods
+    public function VotesManager->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condorcet\DataManager\ArrayManager implements Traversable, Iterator, Countable, ArrayAccess
+{
+
+    // Static Inherited Properties
+    public static int VotesManager->CacheSize = 2000;
+    public static int VotesManager->MaxContainerLength = 2000;
+
+    // Inherited Properties
+    final public private(set) string VotesManager->buildByCondorcetVersion = '5.0.3';
+    protected array VotesManager->Cache = [];
+    protected int VotesManager->CacheMaxKey = 0;
+    protected int VotesManager->CacheMinKey = 0;
+    protected array VotesManager->Container = [];
+    protected int VotesManager->counter = 0;
+    protected ?int VotesManager->cursor = null;
+    protected ?CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface VotesManager->DataHandler = null;
+    protected int VotesManager->maxKey = -1;
+    protected WeakReference VotesManager->selfElection;
+    protected bool VotesManager->valid = true;
+
+    // Inherited Methods
+    public function VotesManager->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

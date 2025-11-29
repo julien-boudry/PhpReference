@@ -1,0 +1,13 @@
+> CondorcetPHP \ **Condorcet**
+# Namespace: CondorcetPHP\Condorcet
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [Candidate](Candidate/class_Candidate.md) | _Represents a candidate in an election._ |
+| [Condorcet](Condorcet/class_Condorcet.md) | _Main Condorcet class for managing voting methods and global configurations._ |
+| [Election](Election/class_Election.md) | _Represents an election with candidates, votes, and result computation._ |
+| [Result](Result/class_Result.md) | _Contains election results for a specific voting method._ |
+| [Vote](Vote/class_Vote.md) | _Represents a ranked vote in an election._ |
+

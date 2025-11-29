@@ -1,0 +1,25 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method implicitRankingRule()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L370)
+
+```php
+public function Election->implicitRankingRule( bool $rule ): static
+```
+
+## Description
+Act like public property Election->implicitRankingRule, but return the election object.
+
+## Parameters
+
+### **rule:**
+```php
+bool $rule
+```
+**Type:** `bool`
+
+New rule.
+
+## Return
+**Type:** `static`
+
+

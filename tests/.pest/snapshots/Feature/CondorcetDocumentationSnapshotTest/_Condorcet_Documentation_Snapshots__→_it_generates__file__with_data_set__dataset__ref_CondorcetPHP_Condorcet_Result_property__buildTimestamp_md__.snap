@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property buildTimestamp
+```php
+final public private(set) readonly float $buildTimestamp
+```
+
+## Description
+The timestamp of this result at build time.

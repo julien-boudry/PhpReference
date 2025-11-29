@@ -1,0 +1,12 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Property statsVerbosity
+```php
+public protected(set) CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity = \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD
+```
+
+## Description
+The current level of stats verbosity for this election object. Look at Election->setStatsVerbosity method for more informations.
+
+## Value
+
+The current verbosity level for this election object.

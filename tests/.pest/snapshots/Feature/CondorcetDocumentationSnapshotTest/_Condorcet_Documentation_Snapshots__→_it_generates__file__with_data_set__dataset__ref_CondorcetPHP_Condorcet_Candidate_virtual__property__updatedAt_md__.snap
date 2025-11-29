@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Candidate](class_Candidate.md)
+# Property updatedAt
+```php
+virtual public float $updatedAt
+```
+
+## Description
+The timestamp corresponding of the last naming change.

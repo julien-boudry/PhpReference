@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Condorcet](../readme.md) \ **DataManager**
+# Namespace: CondorcetPHP\Condorcet\DataManager
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [VotesManager](VotesManager/class_VotesManager.md) | _Manages vote storage with optional external data handler support._ |
+

@@ -1,0 +1,52 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **StvQuotaNotImplementedException**
+# Class StvQuotaNotImplementedException
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/StvQuotaNotImplementedException.php#L15)
+
+## Description
+Exception thrown when a requested STV quota is not implemented.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](../CondorcetPublicApiException/property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](../CondorcetPublicApiException/method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\StvQuotaNotImplementedException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Properties
+    protected  $message = 'This STV quota is not implemented';
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    protected  StvQuotaNotImplementedException->code = 0;
+    protected string StvQuotaNotImplementedException->file = '';
+    protected int StvQuotaNotImplementedException->line = 0;
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Condorcet](class_Condorcet.md)
+# Method isAuthMethod()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Condorcet.php#L203)
+
+```php
+public static function Condorcet::isAuthMethod( string $method ): bool
+```
+
+## Description
+Test if a method is in the result set of Condorcet::getAuthMethods.
+
+## Parameters
+
+### **method:**
+```php
+string $method
+```
+**Type:** `string`
+
+A valid method name or class.
+
+## Return
+**Type:** `bool`
+
+True / False
+
+## Related
+- **[\CondorcetPHP\Condorcet\Condorcet::getMethodClass()](method_getMethodClass.md)**
+- **[\CondorcetPHP\Condorcet\Condorcet::getAuthMethods()](method_getAuthMethods.md)**

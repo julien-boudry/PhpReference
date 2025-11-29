@@ -1,0 +1,36 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method getRankingAsString()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L477)
+
+```php
+public function Vote->getRankingAsString( [ ?CondorcetPHP\Condorcet\Election $context = null, bool $displayWeight = true ] ): string
+```
+
+## Description
+Get the current ranking as a string format. Optionally with an election context.
+
+## Parameters
+
+### **context:**
+```php
+?CondorcetPHP\Condorcet\Election $context = null
+```
+**Type:** [`?CondorcetPHP\Condorcet\Election`](../Election/class_Election.md)
+
+An election already linked to the Vote.
+
+### **displayWeight:**
+```php
+bool $displayWeight = true
+```
+**Type:** `bool`
+
+Include or not the weight symbol and value.
+
+## Return
+**Type:** `string`
+
+String like 'A>D=C>B'
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::getRanking()](method_getRanking.md)**

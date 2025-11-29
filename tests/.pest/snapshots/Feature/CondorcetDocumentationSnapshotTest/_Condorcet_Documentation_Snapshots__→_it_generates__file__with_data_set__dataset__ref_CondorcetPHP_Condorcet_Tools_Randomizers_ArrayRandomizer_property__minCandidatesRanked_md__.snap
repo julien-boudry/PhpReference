@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [ArrayRandomizer](class_ArrayRandomizer.md)
+# Property minCandidatesRanked
+```php
+public int|false $minCandidatesRanked = false
+```

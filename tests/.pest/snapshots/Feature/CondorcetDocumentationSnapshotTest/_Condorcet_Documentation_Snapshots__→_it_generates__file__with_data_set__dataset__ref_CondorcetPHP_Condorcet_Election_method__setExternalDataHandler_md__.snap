@@ -1,0 +1,34 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method setExternalDataHandler()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L513)
+
+```php
+public function Election->setExternalDataHandler( CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver ): static
+```
+
+## Description
+Import and enable an external driver to store vote on very large election.
+
+## Parameters
+
+### **driver:**
+```php
+CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface $driver
+```
+**Type:** `CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\DataHandlerDriverInterface`
+
+Driver object.
+
+## Return
+**Type:** `static`
+
+
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\DataHandlerException](../Throwable/DataHandlerException/class_DataHandlerException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::removeExternalDataHandler()](method_removeExternalDataHandler.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/8.GoFurther/5.GetStartedToHandleMillionsOfVotes)**

@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [ArrayRandomizer](class_ArrayRandomizer.md)
+# Property tiesProbability
+```php
+public int|float $tiesProbability = 0
+```
+
+## Description
+Per vote. Max decimal precision is 3.

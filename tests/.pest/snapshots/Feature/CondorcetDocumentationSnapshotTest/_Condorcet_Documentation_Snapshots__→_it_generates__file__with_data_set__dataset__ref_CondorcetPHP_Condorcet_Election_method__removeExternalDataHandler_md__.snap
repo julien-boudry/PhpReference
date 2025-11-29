@@ -1,0 +1,21 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method removeExternalDataHandler()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L536)
+
+```php
+public function Election->removeExternalDataHandler( ): bool
+```
+
+## Description
+Remove an external driver to store vote on very large election. And import his data into classical memory.
+
+## Return
+**Type:** `bool`
+
+True if success. Else throw an Exception.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\DataHandlerException](../Throwable/DataHandlerException/class_DataHandlerException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::setExternalDataHandler()](method_setExternalDataHandler.md)**

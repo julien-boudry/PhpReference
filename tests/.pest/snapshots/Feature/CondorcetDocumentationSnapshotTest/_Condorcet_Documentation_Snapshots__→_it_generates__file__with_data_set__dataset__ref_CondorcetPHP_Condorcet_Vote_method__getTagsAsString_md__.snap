@@ -1,0 +1,20 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method getTagsAsString()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L300)
+
+```php
+public function Vote->getTagsAsString( ): string
+```
+
+## Description
+Get the registered tags for this Vote.
+
+## Return
+**Type:** `string`
+
+List of registered tag as string separated by commas.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::tags](property_tags.md)**
+- **[\CondorcetPHP\Condorcet\Vote::addTags()](method_addTags.md)**
+- **[\CondorcetPHP\Condorcet\Vote::removeTags()](method_removeTags.md)**

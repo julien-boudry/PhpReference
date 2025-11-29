@@ -1,0 +1,31 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method setSeatsToElect()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L491)
+
+```php
+public function Election->setSeatsToElect( int $seats ): static
+```
+
+## Description
+Set count of seats to elects for STV methods.
+
+## Parameters
+
+### **seats:**
+```php
+int $seats
+```
+**Type:** `int`
+
+The count of seats to elect for proportional methods.
+
+## Return
+**Type:** `static`
+
+
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\NoSeatsException](../Throwable/NoSeatsException/class_NoSeatsException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::seatsToElect](property_seatsToElect.md)**

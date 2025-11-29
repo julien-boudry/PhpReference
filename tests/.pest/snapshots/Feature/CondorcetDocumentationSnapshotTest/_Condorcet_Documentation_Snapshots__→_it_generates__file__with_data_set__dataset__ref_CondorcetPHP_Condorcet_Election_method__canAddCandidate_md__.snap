@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method canAddCandidate()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L214)
+
+```php
+public function Election->canAddCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate ): bool
+```
+
+## Description
+Check if a candidate is already registered. Equivalent of `!$election->hasCandidate($candidate, false)`.
+
+## Parameters
+
+### **candidate:**
+```php
+CondorcetPHP\Condorcet\Candidate|string $candidate
+```
+**Type:** [`CondorcetPHP\Condorcet\Candidate`](../Candidate/class_Candidate.md) | `string`
+
+String or Condorcet/Vote object.
+
+## Return
+**Type:** `bool`
+
+True if your candidate is available, false otherwise.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**
+- **[\CondorcetPHP\Condorcet\Election::hasCandidate()](method_hasCandidate.md)**

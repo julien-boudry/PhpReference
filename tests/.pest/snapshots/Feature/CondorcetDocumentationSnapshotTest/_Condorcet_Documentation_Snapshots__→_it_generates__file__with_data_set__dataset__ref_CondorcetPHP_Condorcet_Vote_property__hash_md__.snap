@@ -1,0 +1,8 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Property hash
+```php
+final public private(set) string $hash = ''
+```
+
+## Description
+Get Object sha-224 hash (cryptographic).

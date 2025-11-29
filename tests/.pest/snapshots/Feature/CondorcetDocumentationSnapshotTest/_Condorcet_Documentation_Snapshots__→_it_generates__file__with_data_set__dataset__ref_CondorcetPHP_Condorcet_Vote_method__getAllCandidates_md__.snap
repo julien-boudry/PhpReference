@@ -1,0 +1,29 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method getAllCandidates()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L329)
+
+```php
+public function Vote->getAllCandidates( [ ?CondorcetPHP\Condorcet\Election $context = null ] ): array
+```
+
+## Description
+Get all the candidates object set in the last ranking of this Vote.
+
+## Parameters
+
+### **context:**
+```php
+?CondorcetPHP\Condorcet\Election $context = null
+```
+**Type:** [`?CondorcetPHP\Condorcet\Election`](../Election/class_Election.md)
+
+An election already linked to the Vote.
+
+## Return
+**Type:** `array`
+
+Candidates list.
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::getRanking()](method_getRanking.md)**
+- **[\CondorcetPHP\Condorcet\Vote::countCandidates](property_countCandidates.md)**

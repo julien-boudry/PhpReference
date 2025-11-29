@@ -1,0 +1,5 @@
+> CondorcetPHP \ [Result](class_Result.md)
+# Property statsVerbosity
+```php
+final public private(set) readonly CondorcetPHP\Condorcet\Algo\StatsVerbosity $statsVerbosity
+```

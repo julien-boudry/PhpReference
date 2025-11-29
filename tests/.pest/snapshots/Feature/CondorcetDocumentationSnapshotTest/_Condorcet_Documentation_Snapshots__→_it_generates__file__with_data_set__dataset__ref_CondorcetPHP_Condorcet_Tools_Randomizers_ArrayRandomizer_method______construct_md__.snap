@@ -1,0 +1,28 @@
+> CondorcetPHP \ [Condorcet](../../../readme.md) \ Tools \ [ArrayRandomizer](class_ArrayRandomizer.md)
+# Method __construct()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Randomizers/ArrayRandomizer.php#L53)
+
+```php
+public function ArrayRandomizer->__construct( array $candidates, [ Random\Randomizer|string|null $seed = null ] )
+```
+
+## Description
+Create a new VotesRandomGenerator instance.
+
+## Parameters
+
+### **candidates:**
+```php
+array $candidates
+```
+**Type:** `array`
+
+List of candidates as string, candidates objects or sub-array.
+
+### **seed:**
+```php
+Random\Randomizer|string|null $seed = null
+```
+**Type:** `Random\Randomizer` | `string` | `?null`
+
+If null, will use a cryptographically secure randomizer.

@@ -1,0 +1,21 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getGlobalTimer()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Election.php#L251)
+
+```php
+public function Election->getGlobalTimer( ): float
+```
+
+## Description
+Returns the cumulated computation runtime of this object. Include only computation related methods.
+
+## Return
+**Type:** `float`
+
+Timer
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getLastTimer()](method_getLastTimer.md)**
+
+## Manual
+- **[Manual page](https://docs.condorcet.io/book/3.AsPhpLibrary/8.GoFurther/3.TimerBenchMarking)**

@@ -1,0 +1,31 @@
+> CondorcetPHP \ [Vote](class_Vote.md)
+# Method setWeight()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Vote.php#L782)
+
+```php
+public function Vote->setWeight( int $newWeight ): int
+```
+
+## Description
+Set a vote weight. The vote weight capacity must be active at the election level for producing effect on the result.
+
+## Parameters
+
+### **newWeight:**
+```php
+int $newWeight
+```
+**Type:** `int`
+
+The new vote weight.
+
+## Return
+**Type:** `int`
+
+New weight.
+
+## Throws
+- **[\CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException](../Throwable/VoteInvalidFormatException/class_VoteInvalidFormatException.md)** __
+
+## Related
+- **[\CondorcetPHP\Condorcet\Vote::getWeight()](method_getWeight.md)**

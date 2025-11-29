@@ -1,0 +1,52 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **CondorcetPublicApiException**
+# Class CondorcetPublicApiException
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/CondorcetPublicApiException.php#L17)
+
+## Description
+Base exception class for all Condorcet public API exceptions.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+abstract class CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Stringable, Throwable
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+abstract class CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException extends Exception implements Stringable, Throwable
+{
+
+    // Properties
+    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Properties
+    protected  CondorcetPublicApiException->code = 0;
+    protected string CondorcetPublicApiException->file = '';
+    protected int CondorcetPublicApiException->line = 0;
+    protected  CondorcetPublicApiException->message = '';
+
+    // Methods
+    public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

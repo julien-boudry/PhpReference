@@ -1,0 +1,9 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ [Throwable](../readme.md) \ **Internal**
+# Namespace: CondorcetPHP\Condorcet\Throwable\Internal
+
+## Classes
+
+| Class Name | Description |
+| ------------- | ------------- |
+| [CondorcetInternalError](CondorcetInternalError/class_CondorcetInternalError.md) | _Base error class for internal Condorcet library errors._ |
+

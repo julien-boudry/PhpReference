@@ -1,0 +1,194 @@
+> CondorcetPHP \ [Condorcet](../../../../readme.md) \ Tools \ [Converters](../../readme.md) \ **CondorcetElectionFormat**
+# Class CondorcetElectionFormat
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Tools/Converters/CEF/CondorcetElectionFormat.php#L20)
+
+## Description
+Converts election data to and from Condorcet Election Format (CEF).
+## Elements
+
+### Public Constants
+| Constant Name | Signature | Description |
+| ------------- | ------------- | ------------- |
+| SPECIAL_KEYWORD_EMPTY_RANKING | `public const string SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/'` | __ |
+
+### Public Static Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [createFromElection(...)](method_createFromElection.md) | _Create a CondorcetElectionFormat file from an Election object._ |
+| [createFromString(...)](method_createFromString.md) | _Create a CondorcetElectionFormat object from string._ |
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [candidates(...)](property_candidates.md) | __ |
+| [CandidatesParsedFromVotes(...)](property_CandidatesParsedFromVotes.md) | __ |
+| [implicitRanking(...)](property_implicitRanking.md) | __ |
+| [invalidBlocksCount(...)](property_invalidBlocksCount.md) | __ |
+| [parameters(...)](property_parameters.md) | __ |
+| [seatsToElect(...)](property_seatsToElect.md) | __ |
+| [voteWeight(...)](property_voteWeight.md) | __ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [__construct(...)](method___construct.md) | _Read a Condorcet format file, usually using .cvotes file extension._ |
+| [setDataToAnElection(...)](method_setDataToAnElection.md) | _Add the data to an election object._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport
+{
+
+    // Properties
+    final public private(set) readonly array $candidates;
+    final public private(set) readonly bool $CandidatesParsedFromVotes;
+    final public private(set) readonly bool $implicitRanking;
+    final public private(set) readonly int $invalidBlocksCount;
+    final public private(set) readonly array $parameters;
+    final public private(set) readonly int $seatsToElect;
+    final public private(set) readonly bool $voteWeight;
+
+    // Static Methods
+    public static function createFromElection( CondorcetPHP\Condorcet\Election $election, [ bool $aggregateVotes = true, bool $includeSeatsToElect = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null ] ): ?string;
+    public static function createFromString( string $input ): self;
+
+    // Methods
+    public function __construct( SplFileInfo|string $input );
+    public function setDataToAnElection( [ CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__set_state(array(
+   'state' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\ElectionState::CANDIDATES_REGISTRATION,
+   'timer' => 
+  \CondorcetPHP\Condorcet\Timer\Manager::__set_state(array(
+     'globalTimer' => 0.0,
+     'lastTimer' => null,
+     'lastChronoTimestamp' => null,
+     'startDeclare' => null,
+     'history' => 
+    array (
+    ),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'authorizeVoteWeight' => false,
+   'seatsToElect' => 100,
+   'votesConstraints' => 
+  array (
+  ),
+   'hash' => 'a19a1584344c1f3783bff51524a5a4b86f2cc09356c9dbfb6af9cd236e314362',
+   'implicitRankingRule' => true,
+   'buildByCondorcetVersion' => '5.0.3',
+   'candidates' => 
+  array (
+  ),
+   'nextAutomaticCandidateName' => 'A',
+   'Votes' => 
+  \CondorcetPHP\Condorcet\DataManager\VotesManager::__set_state(array(
+     'Container' => 
+    array (
+    ),
+     'DataHandler' => null,
+     'Cache' => 
+    array (
+    ),
+     'CacheMaxKey' => 0,
+     'CacheMinKey' => 0,
+     'cursor' => null,
+     'counter' => 0,
+     'maxKey' => -1,
+     'valid' => true,
+     'selfElection' => 
+    \WeakReference::__set_state(array(
+    )),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'votesFastMode' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE,
+   'Pairwise' => null,
+   'MethodsComputation' => null,
+   'statsVerbosity' => 
+  \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD,
+)), ?Closure $callBack = null ] ): CondorcetPHP\Condorcet\Election;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Tools\Converters\CEF\CondorcetElectionFormat implements CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterExport, CondorcetPHP\Condorcet\Tools\Converters\Interface\ConverterImport
+{
+    // Constants
+    public const string SPECIAL_KEYWORD_EMPTY_RANKING = '/EMPTY_RANKING/';
+
+    // Properties
+    final public private(set) readonly array $candidates;
+    final public private(set) readonly bool $CandidatesParsedFromVotes;
+    final public private(set) readonly bool $implicitRanking;
+    final public private(set) readonly int $invalidBlocksCount;
+    final public private(set) readonly array $parameters;
+    final public private(set) readonly int $seatsToElect;
+    final public private(set) readonly bool $voteWeight;
+    protected SplFileObject $file;
+
+    // Static Methods
+    public static function boolParser( string $parse ): bool;
+    public static function createFromElection( CondorcetPHP\Condorcet\Election $election, [ bool $aggregateVotes = true, bool $includeSeatsToElect = true, bool $includeTags = true, bool $inContext = false, ?SplFileObject $file = null ] ): ?string;
+    public static function createFromString( string $input ): self;
+
+    // Methods
+    public function __construct( SplFileInfo|string $input );
+    public function setDataToAnElection( [ CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__set_state(array(
+   'state' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\ElectionState::CANDIDATES_REGISTRATION,
+   'timer' => 
+  \CondorcetPHP\Condorcet\Timer\Manager::__set_state(array(
+     'globalTimer' => 0.0,
+     'lastTimer' => null,
+     'lastChronoTimestamp' => null,
+     'startDeclare' => null,
+     'history' => 
+    array (
+    ),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'authorizeVoteWeight' => false,
+   'seatsToElect' => 100,
+   'votesConstraints' => 
+  array (
+  ),
+   'hash' => 'a19a1584344c1f3783bff51524a5a4b86f2cc09356c9dbfb6af9cd236e314362',
+   'implicitRankingRule' => true,
+   'buildByCondorcetVersion' => '5.0.3',
+   'candidates' => 
+  array (
+  ),
+   'nextAutomaticCandidateName' => 'A',
+   'Votes' => 
+  \CondorcetPHP\Condorcet\DataManager\VotesManager::__set_state(array(
+     'Container' => 
+    array (
+    ),
+     'DataHandler' => null,
+     'Cache' => 
+    array (
+    ),
+     'CacheMaxKey' => 0,
+     'CacheMinKey' => 0,
+     'cursor' => null,
+     'counter' => 0,
+     'maxKey' => -1,
+     'valid' => true,
+     'selfElection' => 
+    \WeakReference::__set_state(array(
+    )),
+     'buildByCondorcetVersion' => '5.0.3',
+  )),
+   'votesFastMode' => 
+  \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE,
+   'Pairwise' => null,
+   'MethodsComputation' => null,
+   'statsVerbosity' => 
+  \CondorcetPHP\Condorcet\Algo\StatsVerbosity::STD,
+)), ?Closure $callBack = null ] ): CondorcetPHP\Condorcet\Election;
+
+}
+```

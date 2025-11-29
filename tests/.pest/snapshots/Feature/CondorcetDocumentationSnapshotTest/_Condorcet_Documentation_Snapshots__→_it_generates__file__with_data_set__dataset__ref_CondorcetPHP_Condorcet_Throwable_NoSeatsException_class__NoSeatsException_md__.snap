@@ -1,0 +1,52 @@
+> CondorcetPHP \ [Condorcet](../../readme.md) \ **NoSeatsException**
+# Class NoSeatsException
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Throwable/NoSeatsException.php#L15)
+
+## Description
+Exception thrown when seats are not defined for a proportional method.
+## Elements
+
+### Public Properties
+| Property Name | Description |
+| ------------- | ------------- |
+| [buildByCondorcetVersion(...)](../CondorcetPublicApiException/property_buildByCondorcetVersion.md) | _The Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+### Public Methods
+| Method Name | Description |
+| ------------- | ------------- |
+| [getCondorcetBuilderVersion(...)](../CondorcetPublicApiException/method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
+
+
+## Public Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```
+
+## Full Representation
+```php
+class CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Condorcet\Throwable\CondorcetPublicApiException implements Throwable, Stringable
+{
+
+    // Properties
+    protected  $message = 'No seats defined';
+
+    // Inherited Properties
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    protected  NoSeatsException->code = 0;
+    protected string NoSeatsException->file = '';
+    protected int NoSeatsException->line = 0;
+
+    // Inherited Methods
+    public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
+
+}
+```

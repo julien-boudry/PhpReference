@@ -1,0 +1,36 @@
+> CondorcetPHP \ [Election](class_Election.md)
+# Method getExplicitFilteredPairwiseByTags()
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L296)
+
+```php
+public function Election->getExplicitFilteredPairwiseByTags( array|string $tags, [ int|bool $with = 1 ] ): array
+```
+
+## Description
+Get a pairwise filtered by tags.
+
+## Parameters
+
+### **tags:**
+```php
+array|string $tags
+```
+**Type:** `array` | `string`
+
+Tags as string separated by commas or array.
+
+### **with:**
+```php
+int|bool $with = 1
+```
+**Type:** `int` | `bool`
+
+Minimum number of specified tags that votes must include, or 0 for only votes without any specified tags.
+
+## Return
+**Type:** `array`
+
+Return a Pairwise filtered by tags
+
+## Related
+- **[\CondorcetPHP\Condorcet\Election::getPairwise()](method_getPairwise.md)**
