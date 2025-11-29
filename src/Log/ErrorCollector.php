@@ -41,11 +41,11 @@ class ErrorCollector
     /**
      * Adds an error to the collection.
      *
-     * @param string              $message   Human-readable error message
-     * @param ErrorLevel          $level     Severity level of the error
-     * @param string|null         $context   Additional context about where/why the error occurred
-     * @param ReflectionWrapper|null $element The element being processed when the error occurred
-     * @param \Throwable|null     $exception The underlying exception if any
+     * @param $message   Human-readable error message
+     * @param $level     Severity level of the error
+     * @param $context   Additional context about where/why the error occurred
+     * @param $element The element being processed when the error occurred
+     * @param $exception The underlying exception if any
      */
     public function addError(
         string $message,
@@ -75,9 +75,9 @@ class ErrorCollector
      *
      * Convenience method for the most common error type.
      *
-     * @param string                 $message Human-readable warning message
-     * @param string|null            $context Additional context
-     * @param ReflectionWrapper|null $element The element being processed
+     * @param $message Human-readable warning message
+     * @param $context Additional context
+     * @param $element The element being processed
      */
     public function addWarning(string $message, ?string $context = null, ?ReflectionWrapper $element = null): void
     {
@@ -89,9 +89,9 @@ class ErrorCollector
      *
      * Notices are less severe than warnings and typically informational.
      *
-     * @param string                 $message Human-readable notice message
-     * @param string|null            $context Additional context
-     * @param ReflectionWrapper|null $element The element being processed
+     * @param $message Human-readable notice message
+     * @param $context Additional context
+     * @param $element The element being processed
      */
     public function addNotice(string $message, ?string $context = null, ?ReflectionWrapper $element = null): void
     {
@@ -101,7 +101,7 @@ class ErrorCollector
     /**
      * Retrieves collected errors, optionally filtered by level.
      *
-     * @param ErrorLevel|null $filterByLevel Only return errors of this level, or null for all
+     * @param $filterByLevel Only return errors of this level, or null for all
      *
      * @return array<int, CollectedError>
      */
@@ -120,9 +120,9 @@ class ErrorCollector
     /**
      * Checks if any errors have been collected.
      *
-     * @param ErrorLevel|null $level Check only for errors of this level, or null for any
+     * @param $level Check only for errors of this level, or null for any
      *
-     * @return bool True if errors exist
+     * @return True if errors exist
      */
     public function hasErrors(?ErrorLevel $level = null): bool
     {
@@ -136,7 +136,7 @@ class ErrorCollector
     /**
      * Returns the count of collected errors.
      *
-     * @param ErrorLevel|null $level Count only errors of this level, or null for total
+     * @param $level Count only errors of this level, or null for total
      */
     public function getErrorCount(?ErrorLevel $level = null): int
     {
@@ -174,7 +174,7 @@ class ErrorCollector
      * Produces a human-readable report organized by error level,
      * including timestamps, element names, and context where available.
      *
-     * @return string Formatted error report
+     * @return Formatted error report
      */
     public function formatForConsole(): string
     {

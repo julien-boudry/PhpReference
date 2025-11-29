@@ -18,7 +18,7 @@ class FunctionPageInput extends AbstractElementInput
     /**
      * Creates a new function page input.
      *
-     * @param FunctionWrapper $function The function wrapper to document
+     * @param $function The function wrapper to document
      */
     public function __construct(
         public readonly FunctionWrapper $function,

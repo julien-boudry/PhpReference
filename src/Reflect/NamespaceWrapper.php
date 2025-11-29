@@ -99,9 +99,9 @@ class NamespaceWrapper implements WritableInterface
     /**
      * Creates a new namespace wrapper.
      *
-     * @param string                        $namespace The fully qualified namespace
-     * @param array<string, ClassWrapper>   $classes   Classes in this namespace
-     * @param array<string, FunctionWrapper> $functions Functions in this namespace
+     * @param $namespace The fully qualified namespace
+     * @param $classes   Classes in this namespace
+     * @param $functions Functions in this namespace
      */
     public function __construct(
         public readonly string $namespace,
@@ -116,7 +116,7 @@ class NamespaceWrapper implements WritableInterface
      *
      * Can only be set once (first call wins).
      *
-     * @param array<int, NamespaceWrapper|string> $hierarchy Parent namespaces
+     * @param $hierarchy Parent namespaces
      */
     public function setHierarchy(array $hierarchy): void
     {

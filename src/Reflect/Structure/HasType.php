@@ -23,7 +23,7 @@ trait HasType
      *
      * For union or intersection types, returns the full composite type string.
      *
-     * @return string|null The type name, or null if no type is declared
+     * @return The type name, or null if no type is declared
      */
     public function getType(): ?string
     {
@@ -38,9 +38,9 @@ trait HasType
      * Types that reference classes in the code index are converted to
      * clickable links to their documentation pages.
      *
-     * @param UrlLinker $urlLinker The linker for generating relative URLs
+     * @param $urlLinker The linker for generating relative URLs
      *
-     * @return string|null Markdown-formatted type, or null if no type declared
+     * @return Markdown-formatted type, or null if no type declared
      */
     public function getTypeMd(UrlLinker $urlLinker): ?string
     {

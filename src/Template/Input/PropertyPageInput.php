@@ -18,7 +18,7 @@ class PropertyPageInput extends AbstractElementInput
     /**
      * Creates a new property page input.
      *
-     * @param PropertyWrapper $property The property wrapper to document
+     * @param $property The property wrapper to document
      */
     public function __construct(
         public readonly PropertyWrapper $property,

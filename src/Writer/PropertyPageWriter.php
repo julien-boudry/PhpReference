@@ -27,7 +27,7 @@ class PropertyPageWriter extends AbstractWriter
     /**
      * Creates a new property page writer.
      *
-     * @param PropertyWrapper $property The property wrapper to generate documentation for
+     * @param $property The property wrapper to generate documentation for
      */
     public function __construct(public readonly PropertyWrapper $property)
     {

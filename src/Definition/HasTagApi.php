@@ -28,9 +28,9 @@ class HasTagApi extends Base implements PublicApiDefinitionInterface
     /**
      * Determines if an element is part of the public API based on @api tag presence.
      *
-     * @param ReflectionWrapper $reflectionWrapper The element to check
+     * @param $reflectionWrapper The element to check
      *
-     * @return bool True if the element has @api tag and meets other criteria
+     * @return True if the element has @api tag and meets other criteria
      */
     public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool
     {

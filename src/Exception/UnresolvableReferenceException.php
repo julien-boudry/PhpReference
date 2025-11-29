@@ -24,9 +24,9 @@ class UnresolvableReferenceException extends PhpReferenceException
     /**
      * Creates a new exception for an unresolvable reference.
      *
-     * @param string          $reference The reference that could not be resolved
-     * @param string          $message   Optional custom message (defaults to generic message)
-     * @param \Throwable|null $previous  Previous exception for chaining
+     * @param $reference The reference that could not be resolved
+     * @param $message   Optional custom message (defaults to generic message)
+     * @param $previous  Previous exception for chaining
      */
     public function __construct(
         public readonly string $reference,

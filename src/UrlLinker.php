@@ -23,7 +23,7 @@ class UrlLinker
     /**
      * Creates a new UrlLinker for generating links from the source page.
      *
-     * @param WritableInterface $sourcePage The page from which links will be generated
+     * @param $sourcePage The page from which links will be generated
      */
     public function __construct(
         public readonly WritableInterface $sourcePage,
@@ -37,9 +37,9 @@ class UrlLinker
      * directory structures automatically, ensuring links work correctly regardless of where
      * files are located in the output directory tree.
      *
-     * @param WritableInterface $page The destination page to link to
+     * @param $page The destination page to link to
      *
-     * @return string The relative path from source to destination (e.g., '../ClassB/ClassB.md')
+     * @return The relative path from source to destination (e.g., '../ClassB/ClassB.md')
      *
      * @example
      * // Linking from /ref/Namespace/ClassA/ to /ref/Namespace/ClassB/ClassB.md
@@ -73,10 +73,10 @@ class UrlLinker
      * 4. Calculate how many '../' are needed to reach the common ancestor
      * 5. Append the remaining path to the destination
      *
-     * @param string $from The source directory path (where we're linking FROM)
-     * @param string $to   The destination file path (where we're linking TO)
+     * @param $from The source directory path (where we're linking FROM)
+     * @param $to   The destination file path (where we're linking TO)
      *
-     * @return string The relative path with appropriate '../' prefixes
+     * @return The relative path with appropriate '../' prefixes
      *
      * @example
      * // Same directory: '/ref/Namespace' -> '/ref/Namespace/file.md' = 'file.md'

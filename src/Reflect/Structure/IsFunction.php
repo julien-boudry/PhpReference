@@ -74,7 +74,7 @@ trait IsFunction
     /**
      * Returns the return type as Markdown with automatic cross-linking.
      *
-     * @param UrlLinker $urlLinker The linker for generating relative URLs
+     * @param $urlLinker The linker for generating relative URLs
      */
     public function getReturnTypeMd(UrlLinker $urlLinker): string
     {
@@ -86,7 +86,7 @@ trait IsFunction
     /**
      * Returns the description for the return value from @return tag.
      *
-     * @return string|null The return description, or null if not documented
+     * @return The return description, or null if not documented
      */
     public function getReturnDescription(): ?string
     {

@@ -59,7 +59,7 @@ class PropertyWrapper extends ClassElementWrapper implements SignatureInterface,
      * Includes visibility modifiers, asymmetric set visibility (PHP 8.4+),
      * type, name, and default value.
      *
-     * @param bool $withClassName Whether to include the class name prefix
+     * @param $withClassName Whether to include the class name prefix
      */
     public function getSignature(bool $withClassName = false): string
     {

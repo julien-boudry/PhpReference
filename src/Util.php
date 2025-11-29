@@ -63,10 +63,10 @@ class Util
      * handling nested arrays, associative arrays, and various value types.
      * It intelligently omits keys for sequential 0-indexed arrays.
      *
-     * @param array<int|string, mixed> $array The array to convert
-     * @param int                       $depth Current nesting depth (used internally for recursion)
+     * @param $array The array to convert
+     * @param $depth Current nesting depth (used internally for recursion)
      *
-     * @return string The string representation (e.g., "['a', 'b']" or "['key' => 'value']")
+     * @return The string representation (e.g., "['a', 'b']" or "['key' => 'value']")
      */
     public static function arrayToString(array $array, int $depth = 0): string
     {
@@ -122,10 +122,10 @@ class Util
      * - Union types (A|B)
      * - Intersection types (A&B)
      *
-     * @param ReflectionType|null $type      The type to convert
-     * @param UrlLinker           $urlLinker The linker for generating relative URLs
+     * @param $type      The type to convert
+     * @param $urlLinker The linker for generating relative URLs
      *
-     * @return string|null Markdown representation of the type, or null if no type
+     * @return Markdown representation of the type, or null if no type
      */
     public static function getTypeMd(?ReflectionType $type, UrlLinker $urlLinker): ?string
     {
@@ -143,10 +143,10 @@ class Util
      * types, converting each component type and joining them with the appropriate
      * operator.
      *
-     * @param ReflectionType $type      The type to process
-     * @param UrlLinker      $urlLinker The linker for generating relative URLs
+     * @param $type      The type to process
+     * @param $urlLinker The linker for generating relative URLs
      *
-     * @return string Markdown representation of the type
+     * @return Markdown representation of the type
      */
     private static function processReflectionType(ReflectionType $type, UrlLinker $urlLinker): string
     {

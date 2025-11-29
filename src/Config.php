@@ -39,7 +39,7 @@ class Config
      *
      * If no path is provided, looks for 'reference.php' in the current working directory.
      *
-     * @param string|null $configPath Path to the configuration file, or null to use default
+     * @param $configPath Path to the configuration file, or null to use default
      */
     public function __construct(?string $configPath = null)
     {
@@ -53,10 +53,10 @@ class Config
     /**
      * Retrieves a configuration value.
      *
-     * @param string $key     The configuration key to retrieve
-     * @param mixed  $default Value to return if the key doesn't exist
+     * @param $key     The configuration key to retrieve
+     * @param $default Value to return if the key doesn't exist
      *
-     * @return mixed The configuration value or the default
+     * @return The configuration value or the default
      */
     public function get(string $key, mixed $default = null): mixed
     {
@@ -68,8 +68,8 @@ class Config
      *
      * Typically used for CLI argument overrides.
      *
-     * @param string $key   The configuration key to set
-     * @param mixed  $value The value to set
+     * @param $key   The configuration key to set
+     * @param $value The value to set
      */
     public function set(string $key, mixed $value): void
     {
@@ -79,9 +79,9 @@ class Config
     /**
      * Checks if a configuration key exists.
      *
-     * @param string $key The configuration key to check
+     * @param $key The configuration key to check
      *
-     * @return bool True if the key exists (even if null), false otherwise
+     * @return True if the key exists (even if null), false otherwise
      */
     public function has(string $key): bool
     {
@@ -104,7 +104,7 @@ class Config
      * CLI arguments take priority over file-based configuration.
      * Only non-null values are merged.
      *
-     * @param array<string, string|bool|null> $cliArgs Associative array of CLI arguments
+     * @param $cliArgs Associative array of CLI arguments
      */
     public function mergeWithCliArgs(array $cliArgs): void
     {
@@ -126,11 +126,11 @@ class Config
      * - 'IsPubliclyAccessible': Includes all public elements
      * - 'HasTagApi': Requires explicit @api tags (strictest)
      *
-     * @param PublicApiDefinitionInterface|null $default Default definition if none configured
+     * @param $default Default definition if none configured
      *
      * @throws InvalidConfigurationException If the string value doesn't match a known definition
      *
-     * @return PublicApiDefinitionInterface|null The resolved API definition
+     * @return The resolved API definition
      */
     public function getApiDefinition(?PublicApiDefinitionInterface $default = null): ?PublicApiDefinitionInterface
     {
@@ -158,7 +158,7 @@ class Config
      * is used to generate links like "View source on GitHub" in the
      * documentation.
      *
-     * @return string|null The source URL base, or null if not configured
+     * @return The source URL base, or null if not configured
      */
     public function getSourceUrlBase(): ?string
     {

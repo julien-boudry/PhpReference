@@ -88,9 +88,9 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
     /**
      * Creates a new class element wrapper.
      *
-     * @param ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass The PHP reflector
-     * @param ClassWrapper                                                  $classWrapper     The containing class
-     * @param ClassWrapper|null                                             $declaringClass   The declaring class (for inherited elements)
+     * @param $reflectorInClass The PHP reflector
+     * @param $classWrapper     The containing class
+     * @param $declaringClass   The declaring class (for inherited elements)
      */
     public function __construct(
         ReflectionMethod|ReflectionProperty|ReflectionClassConstant $reflectorInClass,

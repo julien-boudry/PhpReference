@@ -18,7 +18,7 @@ class MethodPageInput extends AbstractElementInput
     /**
      * Creates a new method page input.
      *
-     * @param MethodWrapper $method The method wrapper to document
+     * @param $method The method wrapper to document
      */
     public function __construct(
         public readonly MethodWrapper $method,

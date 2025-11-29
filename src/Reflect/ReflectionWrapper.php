@@ -53,7 +53,7 @@ abstract class ReflectionWrapper
      * Handles arrays (converting to readable string representation),
      * and converts NULL to lowercase 'null'.
      *
-     * @param mixed $defaultValue The value to format
+     * @param $defaultValue The value to format
      */
     protected static function formatValue(mixed $defaultValue): string
     {
@@ -74,8 +74,8 @@ abstract class ReflectionWrapper
      *
      * @template T of ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction
      *
-     * @param array<T>     $reflectors   Array of PHP reflectors to wrap
-     * @param ClassWrapper $classWrapper The parent class wrapper for context
+     * @param $reflectors   Array of PHP reflectors to wrap
+     * @param $classWrapper The parent class wrapper for context
      *
      * @throws LogicException If an unsupported reflector type is provided
      *
@@ -151,7 +151,7 @@ abstract class ReflectionWrapper
      *
      * Parses the PHPDoc comment (if present) and extracts @api and @internal tags.
      *
-     * @param Reflector $reflector The PHP reflector to wrap
+     * @param $reflector The PHP reflector to wrap
      */
     public function __construct(protected readonly Reflector $reflector)
     {
@@ -256,8 +256,8 @@ abstract class ReflectionWrapper
     /**
      * Get all tags of a specific type from the DocBlock.
      *
-     * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
-     * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
+     * @param  $tag  The tag name to filter by (e.g., 'param', 'return').
+     * @param  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
      *
      * @return ?array<int, DocBlock\Tags\BaseTag> Array of tags matching the criteria.
      */
@@ -321,7 +321,7 @@ abstract class ReflectionWrapper
      * Converts tag references to either ReflectionWrapper instances
      * (for documented elements) or strings (for URLs or external elements).
      *
-     * @param DocBlock\Tags\See[]|DocBlock\Tags\Throws[]|null $tags The tags to resolve
+     * @param $tags The tags to resolve
      *
      * @throws LogicException If an unsupported reference type is encountered
      *
@@ -491,10 +491,10 @@ abstract class ReflectionWrapper
      *
      * Returns the rendered description from the first matching tag.
      *
-     * @param string      $tag                 The tag name (e.g., 'return', 'param')
-     * @param string|null $variableNameFilter  For @param tags, filter by variable name
+     * @param $tag                 The tag name (e.g., 'return', 'param')
+     * @param $variableNameFilter  For @param tags, filter by variable name
      *
-     * @return string|null The tag description, or null if not found
+     * @return The tag description, or null if not found
      */
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
     {
@@ -549,7 +549,7 @@ abstract class ReflectionWrapper
      *
      * @throws LogicException If the reflection doesn't support file/line info
      *
-     * @return string|null The source URL, or null if not configured/available
+     * @return The source URL, or null if not configured/available
      */
     public function getSourceLink(): ?string
     {

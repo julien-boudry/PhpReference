@@ -49,8 +49,8 @@ class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, 
     /**
      * Creates a new parameter wrapper.
      *
-     * @param ReflectionParameter       $reflectionParameter The PHP reflection parameter
-     * @param MethodWrapper|FunctionWrapper $functionWrapper     The parent function wrapper
+     * @param $reflectionParameter The PHP reflection parameter
+     * @param $functionWrapper     The parent function wrapper
      */
     public function __construct(ReflectionParameter $reflectionParameter, MethodWrapper|FunctionWrapper $functionWrapper)
     {

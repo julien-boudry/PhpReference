@@ -28,7 +28,7 @@ class MethodPageWriter extends AbstractWriter
     /**
      * Creates a new method page writer.
      *
-     * @param MethodWrapper $method The method wrapper to generate documentation for
+     * @param $method The method wrapper to generate documentation for
      */
     public function __construct(public readonly MethodWrapper $method)
     {

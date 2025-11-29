@@ -26,9 +26,9 @@ class Navigation
      *
      * Example output: "JulienBoudry \ [PhpReference](../readme.md) \ **MyClass**"
      *
-     * @param ReflectionWrapper|NamespaceWrapper $element The element to generate breadcrumbs for
+     * @param $element The element to generate breadcrumbs for
      *
-     * @return string|null Markdown-formatted breadcrumb string, or null if unavailable
+     * @return Markdown-formatted breadcrumb string, or null if unavailable
      */
     public static function getBreadcrumb(ReflectionWrapper|NamespaceWrapper $element): ?string
     {

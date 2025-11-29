@@ -31,7 +31,7 @@ class FunctionDiscovery
      * 3. Extracting function declarations using FunctionVisitor
      * 4. Filtering to only include functions in the target namespace
      *
-     * @param string $namespace The namespace to search for functions
+     * @param $namespace The namespace to search for functions
      *
      * @return array<string> Array of fully qualified function names
      */
@@ -88,7 +88,7 @@ class FunctionDiscovery
      * This method reads composer.json to find the directory mapping for the
      * given namespace, then recursively scans that directory for PHP files.
      *
-     * @param string $namespace The namespace to find files for
+     * @param $namespace The namespace to find files for
      *
      * @return array<string> Array of absolute file paths
      */
@@ -156,7 +156,7 @@ class FunctionDiscovery
     /**
      * Recursively scans a directory for PHP files.
      *
-     * @param string $directory The directory to scan
+     * @param $directory The directory to scan
      *
      * @return array<string> Array of absolute file paths
      */
@@ -204,7 +204,7 @@ class FunctionVisitor extends NodeVisitorAbstract
     /**
      * Processes each node in the AST to find namespace and function declarations.
      *
-     * @param Node $node The current AST node being visited
+     * @param $node The current AST node being visited
      *
      * @return int|Node|array<Node>|null Visitor return value
      */
@@ -236,7 +236,7 @@ class FunctionVisitor extends NodeVisitorAbstract
     /**
      * Returns the namespace declared in the file.
      *
-     * @return string|null The namespace, or null if the file is in global scope
+     * @return The namespace, or null if the file is in global scope
      */
     public function getNamespace(): ?string
     {

@@ -27,7 +27,7 @@ class ClassPageWriter extends AbstractWriter
     /**
      * Creates a new class page writer.
      *
-     * @param ClassWrapper $class The class wrapper to generate documentation for
+     * @param $class The class wrapper to generate documentation for
      */
     public function __construct(public readonly ClassWrapper $class)
     {

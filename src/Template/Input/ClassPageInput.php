@@ -24,7 +24,7 @@ class ClassPageInput extends AbstractElementInput
     /**
      * Creates a new class page input.
      *
-     * @param ClassWrapper $class The class wrapper to document
+     * @param $class The class wrapper to document
      */
     public function __construct(
         public readonly ClassWrapper $class,

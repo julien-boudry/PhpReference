@@ -43,7 +43,7 @@ class MethodWrapper extends ClassElementWrapper implements SignatureInterface, W
     /**
      * Generates the method signature for documentation.
      *
-     * @param bool $withClassName Whether to include the class name prefix
+     * @param $withClassName Whether to include the class name prefix
      */
     public function getSignature(bool $withClassName = false): string
     {

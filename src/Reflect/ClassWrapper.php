@@ -105,14 +105,14 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     /**
      * Filters class elements by visibility, static status, and locality.
      *
-     * @param array<string, ClassElementWrapper> $list      Elements to filter
-     * @param bool                                $public    Include public elements
-     * @param bool                                $protected Include protected elements
-     * @param bool                                $private   Include private elements
-     * @param bool                                $static    Include static elements
-     * @param bool                                $nonStatic Include non-static elements
-     * @param bool                                $local     Include elements declared in this class
-     * @param bool                                $nonLocal  Include inherited elements
+     * @param $list      Elements to filter
+     * @param $public    Include public elements
+     * @param $protected Include protected elements
+     * @param $private   Include private elements
+     * @param $static    Include static elements
+     * @param $nonStatic Include non-static elements
+     * @param $local     Include elements declared in this class
+     * @param $nonLocal  Include inherited elements
      *
      * @return array<string, ClassElementWrapper> Filtered and sorted elements
      */
@@ -290,7 +290,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     /**
      * Filters elements to only those in the public API.
      *
-     * @param array<string, ClassElementWrapper> $list Elements to filter
+     * @param $list Elements to filter
      *
      * @return array<string, ClassElementWrapper>
      */
@@ -367,7 +367,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     /**
      * Generates the full class signature including members.
      *
-     * @param bool $onlyApi Whether to include only API elements in the signature
+     * @param $onlyApi Whether to include only API elements in the signature
      */
     public function getSignature(bool $onlyApi = false): string
     {
@@ -416,7 +416,7 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     /**
      * Generates the inside-class portion of the signature (members).
      *
-     * @param bool $onlyApi Whether to include only API elements
+     * @param $onlyApi Whether to include only API elements
      */
     protected function getInsideClassSignature(bool $onlyApi): string
     {

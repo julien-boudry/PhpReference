@@ -29,9 +29,9 @@ class IsPubliclyAccessible extends Base implements PublicApiDefinitionInterface
     /**
      * Determines if an element is part of the public API based on visibility.
      *
-     * @param ReflectionWrapper $reflectionWrapper The element to check
+     * @param $reflectionWrapper The element to check
      *
-     * @return bool True if the element is public (or is a class/function)
+     * @return True if the element is public (or is a class/function)
      */
     public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool
     {

@@ -26,9 +26,9 @@ interface PublicApiDefinitionInterface
     /**
      * Determines whether an element should be included in the public API documentation.
      *
-     * @param ReflectionWrapper $reflectionWrapper The wrapped reflection element to check
+     * @param $reflectionWrapper The wrapped reflection element to check
      *
-     * @return bool True if the element should be documented, false to exclude it
+     * @return True if the element should be documented, false to exclude it
      */
     public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool;
 }

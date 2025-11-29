@@ -34,9 +34,9 @@ abstract class Base
      * 2. Non-user-defined classes/methods/functions are excluded
      * 3. Class elements whose parent has @internal tag are excluded
      *
-     * @param ReflectionWrapper $reflectionWrapper The element to check
+     * @param $reflectionWrapper The element to check
      *
-     * @return bool True if the element passes base exclusion (not excluded),
+     * @return True if the element passes base exclusion (not excluded),
      *              false if it should be excluded
      */
     protected function baseExclusion(ReflectionWrapper $reflectionWrapper): bool

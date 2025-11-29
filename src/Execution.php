@@ -64,9 +64,9 @@ final class Execution
     /**
      * Creates a new Execution instance and sets it as the global singleton.
      *
-     * @param CodeIndex $codeIndex The indexed namespace containing elements to document
-     * @param string    $outputDir The directory where documentation will be written
-     * @param Config    $config    The configuration for this execution
+     * @param $codeIndex The indexed namespace containing elements to document
+     * @param $outputDir The directory where documentation will be written
+     * @param $config    The configuration for this execution
      */
     public function __construct(
         public readonly CodeIndex $codeIndex,
@@ -87,9 +87,9 @@ final class Execution
      * This generates the root documentation file (typically readme.md) that
      * provides an overview of all documented elements.
      *
-     * @param string $fileName The name for the index file (without extension)
+     * @param $fileName The name for the index file (without extension)
      *
-     * @return static Returns self for method chaining
+     * @return Returns self for method chaining
      */
     public function buildIndex(string $fileName): static
     {
@@ -105,10 +105,10 @@ final class Execution
      * Each namespace gets its own directory with an index file listing
      * all classes and functions within that namespace.
      *
-     * @param string        $indexFileName         The name for namespace index files
-     * @param callable|null $afterElementCallback  Optional callback invoked after each namespace is processed
+     * @param $indexFileName         The name for namespace index files
+     * @param $afterElementCallback  Optional callback invoked after each namespace is processed
      *
-     * @return static Returns self for method chaining
+     * @return Returns self for method chaining
      */
     public function buildNamespacePages(string $indexFileName, ?callable $afterElementCallback = null): static
     {
@@ -134,11 +134,11 @@ final class Execution
      *
      * For each function in the public API, this generates a function page.
      *
-     * @param callable|null $afterElementCallback Optional callback invoked after each element is processed
+     * @param $afterElementCallback Optional callback invoked after each element is processed
      *
      * @throws \LogicException If an unsupported element type is encountered
      *
-     * @return static Returns self for method chaining
+     * @return Returns self for method chaining
      */
     public function buildPages(?callable $afterElementCallback = null): static
     {
@@ -177,7 +177,7 @@ final class Execution
      * Tracks written paths to prevent duplicate writes. A page is only
      * written if its path hasn't been written before in this execution.
      *
-     * @param AbstractWriter $writer The writer responsible for generating and writing the page
+     * @param $writer The writer responsible for generating and writing the page
      */
     protected function writePage(AbstractWriter $writer): void
     {

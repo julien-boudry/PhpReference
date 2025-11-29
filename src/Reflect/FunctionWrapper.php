@@ -46,7 +46,7 @@ class FunctionWrapper extends ReflectionWrapper implements SignatureInterface, W
     /**
      * Generates the function signature for documentation.
      *
-     * @param bool $withClassName Ignored for functions (maintained for interface compatibility)
+     * @param $withClassName Ignored for functions (maintained for interface compatibility)
      */
     public function getSignature(bool $withClassName = false): string
     {

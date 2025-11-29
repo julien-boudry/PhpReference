@@ -28,7 +28,7 @@ class FunctionPageWriter extends AbstractWriter
     /**
      * Creates a new function page writer.
      *
-     * @param FunctionWrapper $function The function wrapper to generate documentation for
+     * @param $function The function wrapper to generate documentation for
      */
     public function __construct(public readonly FunctionWrapper $function)
     {

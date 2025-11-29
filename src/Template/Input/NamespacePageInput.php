@@ -35,7 +35,7 @@ class NamespacePageInput
      *
      * Organizes API elements into classes and enums.
      *
-     * @param NamespaceWrapper $namespaceWrapper The namespace wrapper to document
+     * @param $namespaceWrapper The namespace wrapper to document
      */
     public function __construct(
         public readonly NamespaceWrapper $namespaceWrapper,

@@ -33,7 +33,7 @@ class ApiSummaryInput
      *
      * Filters the code index to only include namespaces with API elements.
      *
-     * @param CodeIndex $codeIndex The code index containing all elements
+     * @param $codeIndex The code index containing all elements
      */
     public function __construct(
         CodeIndex $codeIndex,

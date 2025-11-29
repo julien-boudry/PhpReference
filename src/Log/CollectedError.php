@@ -19,12 +19,12 @@ readonly class CollectedError
     /**
      * Creates a new collected error instance.
      *
-     * @param string             $message     Human-readable error message
-     * @param ErrorLevel         $level       Severity level of the error
-     * @param string|null        $context     Additional context about where/why the error occurred
-     * @param string|null        $elementName Name of the element being processed when error occurred
-     * @param \Throwable|null    $exception   The underlying exception if any
-     * @param \DateTimeImmutable $timestamp   When the error was collected
+     * @param $message     Human-readable error message
+     * @param $level       Severity level of the error
+     * @param $context     Additional context about where/why the error occurred
+     * @param $elementName Name of the element being processed when error occurred
+     * @param $exception   The underlying exception if any
+     * @param $timestamp   When the error was collected
      */
     public function __construct(
         public string $message,
