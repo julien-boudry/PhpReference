@@ -65,14 +65,6 @@ class PropertyWrapper extends ClassElementWrapper implements SignatureInterface,
     {
         $type = ' ' . $this->getType() . ' ';
 
-        $setVisibility = '';
-
-        if ($this->reflection->isProtectedSet()) {
-            $setVisibility = ' protected(set)';
-        } elseif ($this->reflection->isPrivateSet()) {
-            $setVisibility = ' private(set)';
-        }
-
         $defaultValue = $this->reflection->hasDefaultValue() ? ' = ' . self::formatValue($this->reflection->getDefaultValue()) : '';
 
         $name = $this->name;
@@ -83,6 +75,6 @@ class PropertyWrapper extends ClassElementWrapper implements SignatureInterface,
             $name = '$' . $name;
         }
 
-        return "{$this->getModifierNames()}{$setVisibility}{$type}{$name}{$defaultValue}";
+        return "{$this->getModifierNames()}{$type}{$name}{$defaultValue}";
     }
 }
