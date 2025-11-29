@@ -6,14 +6,37 @@ namespace JulienBoudry\PhpReference\Template\Input;
 
 use JulienBoudry\PhpReference\Reflect\{ClassWrapper, NamespaceWrapper};
 
+/**
+ * Template input for namespace index documentation pages.
+ *
+ * Prepares namespace data for the namespace_page.latte template, organizing
+ * classes and enums into separate arrays for display.
+ *
+ * @see NamespacePageWriter For where this input is used
+ */
 class NamespacePageInput
 {
-    /** @var array<string, ClassWrapper> */
+    /**
+     * Classes in this namespace (excludes enums), keyed by short name.
+     *
+     * @var array<string, ClassWrapper>
+     */
     public readonly array $classes;
 
-    /** @var array<string, ClassWrapper> */
+    /**
+     * Enums in this namespace, keyed by short name.
+     *
+     * @var array<string, ClassWrapper>
+     */
     public readonly array $enums;
 
+    /**
+     * Creates a new namespace page input.
+     *
+     * Organizes API elements into classes and enums.
+     *
+     * @param NamespaceWrapper $namespaceWrapper The namespace wrapper to document
+     */
     public function __construct(
         public readonly NamespaceWrapper $namespaceWrapper,
     ) {

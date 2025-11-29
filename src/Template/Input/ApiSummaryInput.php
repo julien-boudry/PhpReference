@@ -6,15 +6,35 @@ namespace JulienBoudry\PhpReference\Template\Input;
 
 use JulienBoudry\PhpReference\{ApiSummaryPage, CodeIndex};
 
+/**
+ * Template input for the main API summary page.
+ *
+ * Prepares namespace data for the api_summary.latte template, filtering
+ * to only include namespaces that contain public API elements.
+ *
+ * @see PublicApiSummaryWriter For where this input is used
+ */
 class ApiSummaryInput
 {
     /**
+     * Namespaces containing API elements, keyed by namespace name.
+     *
      * @var array<string, NamespacePageInput>
      */
     public readonly array $namespaces;
 
+    /**
+     * The summary page wrapper for URL linking.
+     */
     public readonly ApiSummaryPage $summaryPage;
 
+    /**
+     * Creates a new API summary input.
+     *
+     * Filters the code index to only include namespaces with API elements.
+     *
+     * @param CodeIndex $codeIndex The code index containing all elements
+     */
     public function __construct(
         CodeIndex $codeIndex,
     ) {
