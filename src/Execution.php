@@ -89,7 +89,7 @@ final class Execution
      *
      * @param $fileName The name for the index file (without extension)
      *
-     * @return Returns self for method chaining
+     * @return static Returns self for method chaining
      */
     public function buildIndex(string $fileName): static
     {
@@ -108,7 +108,7 @@ final class Execution
      * @param $indexFileName         The name for namespace index files
      * @param $afterElementCallback  Optional callback invoked after each namespace is processed
      *
-     * @return Returns self for method chaining
+     * @return static Returns self for method chaining
      */
     public function buildNamespacePages(string $indexFileName, ?callable $afterElementCallback = null): static
     {
@@ -138,7 +138,7 @@ final class Execution
      *
      * @throws \LogicException If an unsupported element type is encountered
      *
-     * @return Returns self for method chaining
+     * @return static Returns self for method chaining
      */
     public function buildPages(?callable $afterElementCallback = null): static
     {

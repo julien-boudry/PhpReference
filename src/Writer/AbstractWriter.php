@@ -98,14 +98,14 @@ abstract class AbstractWriter
      * Concrete writers implement this method to render their specific
      * Latte template with the appropriate input data.
      *
-     * @return The generated Markdown content
+     * @return string The generated Markdown content
      */
     abstract public function makeContent(): string;
 
     /**
      * Writes the generated content to the output file.
      *
-     * @return The path that was written to
+     * @return string The path that was written to
      */
     public function write(): string
     {

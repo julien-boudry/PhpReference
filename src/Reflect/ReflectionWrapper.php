@@ -494,7 +494,7 @@ abstract class ReflectionWrapper
      * @param $tag                 The tag name (e.g., 'return', 'param')
      * @param $variableNameFilter  For @param tags, filter by variable name
      *
-     * @return The tag description, or null if not found
+     * @return string|null The tag description, or null if not found
      */
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
     {
@@ -549,7 +549,7 @@ abstract class ReflectionWrapper
      *
      * @throws LogicException If the reflection doesn't support file/line info
      *
-     * @return The source URL, or null if not configured/available
+     * @return string|null The source URL, or null if not configured/available
      */
     public function getSourceLink(): ?string
     {

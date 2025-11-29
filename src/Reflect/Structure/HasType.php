@@ -23,7 +23,7 @@ trait HasType
      *
      * For union or intersection types, returns the full composite type string.
      *
-     * @return The type name, or null if no type is declared
+     * @return string|null The type name, or null if no type is declared
      */
     public function getType(): ?string
     {
@@ -40,7 +40,7 @@ trait HasType
      *
      * @param $urlLinker The linker for generating relative URLs
      *
-     * @return Markdown-formatted type, or null if no type declared
+     * @return string|null Markdown-formatted type, or null if no type declared
      */
     public function getTypeMd(UrlLinker $urlLinker): ?string
     {

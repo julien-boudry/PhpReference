@@ -56,7 +56,7 @@ class Config
      * @param $key     The configuration key to retrieve
      * @param $default Value to return if the key doesn't exist
      *
-     * @return The configuration value or the default
+     * @return mixed The configuration value or the default
      */
     public function get(string $key, mixed $default = null): mixed
     {
@@ -81,7 +81,7 @@ class Config
      *
      * @param $key The configuration key to check
      *
-     * @return True if the key exists (even if null), false otherwise
+     * @return bool True if the key exists (even if null), false otherwise
      */
     public function has(string $key): bool
     {
@@ -130,7 +130,7 @@ class Config
      *
      * @throws InvalidConfigurationException If the string value doesn't match a known definition
      *
-     * @return The resolved API definition
+     * @return PublicApiDefinitionInterface|null The resolved API definition
      */
     public function getApiDefinition(?PublicApiDefinitionInterface $default = null): ?PublicApiDefinitionInterface
     {
@@ -158,7 +158,7 @@ class Config
      * is used to generate links like "View source on GitHub" in the
      * documentation.
      *
-     * @return The source URL base, or null if not configured
+     * @return string|null The source URL base, or null if not configured
      */
     public function getSourceUrlBase(): ?string
     {

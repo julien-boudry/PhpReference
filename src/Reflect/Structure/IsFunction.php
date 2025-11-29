@@ -86,7 +86,7 @@ trait IsFunction
     /**
      * Returns the description for the return value from @return tag.
      *
-     * @return The return description, or null if not documented
+     * @return string|null The return description, or null if not documented
      */
     public function getReturnDescription(): ?string
     {

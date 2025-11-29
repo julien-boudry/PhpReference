@@ -226,7 +226,7 @@ class GenerateDocumentationCommand extends Command
      * 5. Generates individual class, method, and property pages
      * 6. Reports any errors or warnings collected during generation
      *
-     * @return Command::SUCCESS on success, Command::FAILURE or Command::INVALID on error
+     * @return int Command::SUCCESS on success, Command::FAILURE or Command::INVALID on error
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

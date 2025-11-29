@@ -36,7 +36,7 @@ abstract class Base
      *
      * @param $reflectionWrapper The element to check
      *
-     * @return True if the element passes base exclusion (not excluded),
+     * @return bool True if the element passes base exclusion (not excluded),
      *              false if it should be excluded
      */
     protected function baseExclusion(ReflectionWrapper $reflectionWrapper): bool

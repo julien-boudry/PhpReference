@@ -242,7 +242,7 @@ class CodeIndex
      *
      * @param $className The fully qualified class name to look up
      *
-     * @return The wrapper if found, null otherwise
+     * @return ClassWrapper|null The wrapper if found, null otherwise
      */
     public function getClassWrapper(string $className): ?ClassWrapper
     {

@@ -236,7 +236,7 @@ class FunctionVisitor extends NodeVisitorAbstract
     /**
      * Returns the namespace declared in the file.
      *
-     * @return The namespace, or null if the file is in global scope
+     * @return string|null The namespace, or null if the file is in global scope
      */
     public function getNamespace(): ?string
     {

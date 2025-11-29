@@ -49,7 +49,7 @@ class PublicApiSummaryWriter extends AbstractWriter
     /**
      * Renders the API summary using the api_summary template.
      *
-     * @return The generated Markdown content
+     * @return string The generated Markdown content
      */
     public function getBuildIndex(): string
     {

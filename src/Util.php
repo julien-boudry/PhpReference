@@ -66,7 +66,7 @@ class Util
      * @param $array The array to convert
      * @param $depth Current nesting depth (used internally for recursion)
      *
-     * @return The string representation (e.g., "['a', 'b']" or "['key' => 'value']")
+     * @return string The string representation (e.g., "['a', 'b']" or "['key' => 'value']")
      */
     public static function arrayToString(array $array, int $depth = 0): string
     {
@@ -125,7 +125,7 @@ class Util
      * @param $type      The type to convert
      * @param $urlLinker The linker for generating relative URLs
      *
-     * @return Markdown representation of the type, or null if no type
+     * @return string|null Markdown representation of the type, or null if no type
      */
     public static function getTypeMd(?ReflectionType $type, UrlLinker $urlLinker): ?string
     {
@@ -146,7 +146,7 @@ class Util
      * @param $type      The type to process
      * @param $urlLinker The linker for generating relative URLs
      *
-     * @return Markdown representation of the type
+     * @return string Markdown representation of the type
      */
     private static function processReflectionType(ReflectionType $type, UrlLinker $urlLinker): string
     {

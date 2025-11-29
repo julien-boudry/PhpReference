@@ -122,7 +122,7 @@ class ErrorCollector
      *
      * @param $level Check only for errors of this level, or null for any
      *
-     * @return True if errors exist
+     * @return bool True if errors exist
      */
     public function hasErrors(?ErrorLevel $level = null): bool
     {
@@ -174,7 +174,7 @@ class ErrorCollector
      * Produces a human-readable report organized by error level,
      * including timestamps, element names, and context where available.
      *
-     * @return Formatted error report
+     * @return string Formatted error report
      */
     public function formatForConsole(): string
     {

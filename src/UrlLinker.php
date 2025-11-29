@@ -39,7 +39,7 @@ class UrlLinker
      *
      * @param $page The destination page to link to
      *
-     * @return The relative path from source to destination (e.g., '../ClassB/ClassB.md')
+     * @return string The relative path from source to destination (e.g., '../ClassB/ClassB.md')
      *
      * @example
      * // Linking from /ref/Namespace/ClassA/ to /ref/Namespace/ClassB/ClassB.md
@@ -76,7 +76,7 @@ class UrlLinker
      * @param $from The source directory path (where we're linking FROM)
      * @param $to   The destination file path (where we're linking TO)
      *
-     * @return The relative path with appropriate '../' prefixes
+     * @return string The relative path with appropriate '../' prefixes
      *
      * @example
      * // Same directory: '/ref/Namespace' -> '/ref/Namespace/file.md' = 'file.md'

@@ -28,7 +28,7 @@ interface PublicApiDefinitionInterface
      *
      * @param $reflectionWrapper The wrapped reflection element to check
      *
-     * @return True if the element should be documented, false to exclude it
+     * @return bool True if the element should be documented, false to exclude it
      */
     public function isPartOfPublicApi(ReflectionWrapper $reflectionWrapper): bool;
 }

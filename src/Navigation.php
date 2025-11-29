@@ -28,7 +28,7 @@ class Navigation
      *
      * @param $element The element to generate breadcrumbs for
      *
-     * @return Markdown-formatted breadcrumb string, or null if unavailable
+     * @return string|null Markdown-formatted breadcrumb string, or null if unavailable
      */
     public static function getBreadcrumb(ReflectionWrapper|NamespaceWrapper $element): ?string
     {
