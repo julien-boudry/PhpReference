@@ -6,6 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\{HasParentInterface, SignatureInterface};
 use JulienBoudry\PhpReference\Reflect\Structure\HasType;
+use JulienBoudry\PhpReference\Util;
 use ReflectionParameter;
 use WeakReference;
 
@@ -70,14 +71,19 @@ class ParameterWrapper extends ReflectionWrapper implements HasParentInterface, 
     /**
      * Generates the parameter signature for documentation.
      *
-     * Includes type, pass-by-reference indicator, name, and default value.
+     * Includes type, variadic indicator, pass-by-reference indicator, name, and default value.
+     * Normalizes 'self' and 'parent' types that PHP 8.5+ resolves to FQCN.
      */
     public function getSignature(): string
     {
         $refl = $this->reflection;
 
-        $str = (string) $refl->getType();
-        $str .= ' ';
+        // Get the declaring class for type normalization (self/parent)
+        $declaringClass = $refl->getDeclaringClass();
+
+        $str = Util::normalizeTypeName($refl->getType(), $declaringClass) ?? '';
+        $str .= $str !== '' ? ' ' : '';
+        $str .= $refl->isVariadic() ? '...' : '';
         $str .= $refl->isPassedByReference() ? '&' : '';
         $str .= '$' . $this->name;
         $str .= $refl->isDefaultValueAvailable() ? ' = ' . self::formatValue($refl->getDefaultValue()) : '';

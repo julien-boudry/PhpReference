@@ -6,7 +6,11 @@ namespace JulienBoudry\PhpReference;
 
 use phpDocumentor\Reflection\{DocBlockFactory, DocBlockFactoryInterface};
 use phpDocumentor\Reflection\Types\ContextFactory;
+use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionType;
+use ReflectionUnionType;
+use ReflectionIntersectionType;
 
 /**
  * Utility class providing helper functions for documentation generation.
@@ -54,6 +58,79 @@ class Util
         self::$docBlockContextFactory ??= new ContextFactory;
 
         return self::$docBlockContextFactory;
+    }
+
+    /**
+     * Normalizes a type string, converting FQCN back to 'self' when appropriate.
+     *
+     * PHP 8.5 resolves 'self' to the actual class FQCN in reflection.
+     * This method converts it back to 'self' for cleaner documentation output.
+     *
+     * @param ReflectionType|null $type The reflection type to normalize
+     * @param ReflectionClass|null $declaringClass The class where the type is declared
+     *
+     * @return string|null The normalized type string, or null if no type
+     */
+    public static function normalizeTypeName(?ReflectionType $type, ?ReflectionClass $declaringClass = null): ?string
+    {
+        if ($type === null) {
+            return null;
+        }
+
+        return self::processTypeForNormalization($type, $declaringClass);
+    }
+
+    /**
+     * Recursively processes a ReflectionType to normalize type names.
+     *
+     * @param ReflectionType $type The type to process
+     * @param ReflectionClass|null $declaringClass The class where the type is declared
+     *
+     * @return string The normalized type string
+     */
+    private static function processTypeForNormalization(ReflectionType $type, ?ReflectionClass $declaringClass): string
+    {
+        // Handle Union types (|)
+        if ($type instanceof ReflectionUnionType) {
+            $types = array_map(
+                fn(ReflectionType $t) => self::processTypeForNormalization($t, $declaringClass),
+                $type->getTypes()
+            );
+
+            return implode('|', $types);
+        }
+
+        // Handle Intersection types (&)
+        if ($type instanceof ReflectionIntersectionType) {
+            $types = array_map(
+                fn(ReflectionType $t) => self::processTypeForNormalization($t, $declaringClass),
+                $type->getTypes()
+            );
+
+            return implode('&', $types);
+        }
+
+        // Handle Named types
+        if ($type instanceof ReflectionNamedType) {
+            $typeName = $type->getName();
+            $nullable = $type->allowsNull() && $typeName !== 'mixed' && $typeName !== 'null';
+
+            // Check if the type matches the declaring class (PHP 8.5 resolves 'self' to FQCN)
+            if ($declaringClass !== null && $typeName === $declaringClass->getName()) {
+                return ($nullable ? '?' : '') . 'self';
+            }
+
+            // Check if the type matches a parent class (PHP 8.5 may resolve 'parent' to FQCN)
+            if ($declaringClass !== null && $declaringClass->getParentClass() !== false
+                && $typeName === $declaringClass->getParentClass()->getName()) {
+                return ($nullable ? '?' : '') . 'parent';
+            }
+
+            return ($nullable ? '?' : '') . $typeName;
+        }
+
+        // Fallback
+        return (string) $type;
     }
 
     /**

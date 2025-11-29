@@ -6,6 +6,7 @@ namespace JulienBoudry\PhpReference\Reflect\Structure;
 
 use JulienBoudry\PhpReference\Reflect\ParameterWrapper;
 use JulienBoudry\PhpReference\{UrlLinker, Util};
+use ReflectionClass;
 use ReflectionParameter;
 
 /**
@@ -58,6 +59,8 @@ trait IsFunction
     /**
      * Returns the declared return type as a string.
      *
+     * For methods, normalizes 'self' and 'parent' types that PHP 8.5+ resolves to FQCN.
+     *
      * @throws \RuntimeException If no return type is declared
      */
     public function getReturnType(): string
@@ -68,7 +71,14 @@ trait IsFunction
             );
         }
 
-        return (string) $this->reflection->getReturnType();
+        // For methods, get the declaring class to normalize self/parent types
+        // FunctionWrapper doesn't have getDeclaringClass, only MethodWrapper does
+        // @phpstan-ignore instanceof.alwaysFalse, instanceof.alwaysTrue
+        $declaringClass = $this->reflection instanceof \ReflectionMethod
+            ? $this->reflection->getDeclaringClass()
+            : null;
+
+        return Util::normalizeTypeName($this->reflection->getReturnType(), $declaringClass) ?? '';
     }
 
     /**
