@@ -9,57 +9,112 @@ use ReflectionClass;
 use ReflectionClassConstant;
 use ReflectionFunctionAbstract;
 
+/**
+ * Wrapper for PHP class, interface, and trait reflection with enhanced capabilities.
+ *
+ * This wrapper provides access to all class members (methods, properties, constants)
+ * with filtering options and API visibility support. It also generates code signatures
+ * suitable for documentation display.
+ *
+ * Extended by:
+ * - EnumWrapper for PHP enums
+ * - InterfaceWrapper for interfaces
+ * - TraitWrapper for traits
+ *
+ * @see ReflectionWrapper For base functionality
+ * @see WritableInterface For page generation capabilities
+ */
 class ClassWrapper extends ReflectionWrapper implements SignatureInterface, WritableInterface
 {
+    /**
+     * The element type identifier for output paths.
+     */
     public const string TYPE = 'class';
 
+    /**
+     * Indentation used in signature generation.
+     */
     protected const string TAB = '    ';
 
+    /**
+     * The fully qualified class name.
+     */
     public string $name {
         get => $this->reflection->name;
     }
 
+    /**
+     * The short class name (without namespace).
+     */
     public string $shortName {
         get => $this->reflection->getShortName();
     }
 
-    /** @var array<string, MethodWrapper> */
+    /**
+     * All methods in this class, keyed by name.
+     *
+     * @var array<string, MethodWrapper>
+     */
     public array $methods {
         get => $this->methods ??= ReflectionWrapper::toWrapper($this->reflection->getMethods(), $this);
     }
 
     /**
+     * All properties in this class, keyed by name.
+     *
      * @var array<string, PropertyWrapper>
      */
     public array $properties {
         get => $this->properties ??= ReflectionWrapper::toWrapper($this->reflection->getProperties(), $this);
     }
 
-    /** @var array<string, ClassConstantWrapper> */
+    /**
+     * All constants in this class, keyed by name.
+     *
+     * @var array<string, ClassConstantWrapper>
+     */
     public array $constants {
         get => $this->constants ??= ReflectionWrapper::toWrapper($this->reflection->getReflectionConstants(), $this);
     }
 
+    /**
+     * The underlying ReflectionClass.
+     */
     public ReflectionClass $reflection {
         get {
             return $this->reflector; // @phpstan-ignore return.type
         }
     }
 
+    /**
+     * Returns the directory for this class's documentation page.
+     */
     public function getPageDirectory(): string
     {
         return str_replace('\\', '/', parent::getPageDirectory() . "/{$this->name}");
     }
 
+    /**
+     * Returns the full path for this class's documentation page.
+     */
     public function getPagePath(): string
     {
         return $this->getPageDirectory() . '/' . static::TYPE . "_{$this->shortName}.md";
     }
 
     /**
-     * @param  array<string, ClassElementWrapper>  $list
+     * Filters class elements by visibility, static status, and locality.
      *
-     * @return array<string, ClassElementWrapper>
+     * @param array<string, ClassElementWrapper> $list      Elements to filter
+     * @param bool                                $public    Include public elements
+     * @param bool                                $protected Include protected elements
+     * @param bool                                $private   Include private elements
+     * @param bool                                $static    Include static elements
+     * @param bool                                $nonStatic Include non-static elements
+     * @param bool                                $local     Include elements declared in this class
+     * @param bool                                $nonLocal  Include inherited elements
+     *
+     * @return array<string, ClassElementWrapper> Filtered and sorted elements
      */
     protected function filterReflection(
         array $list,
@@ -155,6 +210,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * Returns all user-defined methods with optional filtering.
+     *
      * @return array<string, MethodWrapper>
      */
     public function getAllUserDefinedMethods(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
@@ -173,6 +230,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * Returns all properties with optional filtering.
+     *
      * @return array<string, PropertyWrapper>
      */
     public function getAllProperties(bool $public = true, bool $protected = true, bool $private = true, bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
@@ -191,6 +250,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * Returns all constants with optional filtering.
+     *
      * @return array<string, ClassConstantWrapper>
      */
     public function getAllConstants(bool $public = true, bool $protected = true, bool $private = true, bool $local = true, bool $nonLocal = true): array
@@ -206,6 +267,9 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
         );
     }
 
+    /**
+     * Finds a class element by name (method, property, or constant).
+     */
     public function getElementByName(string $name): ?ClassElementWrapper
     {
         if (isset($this->methods[$name])) {
@@ -224,7 +288,9 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
-     * @param array<string, ClassElementWrapper> $list
+     * Filters elements to only those in the public API.
+     *
+     * @param array<string, ClassElementWrapper> $list Elements to filter
      *
      * @return array<string, ClassElementWrapper>
      */
@@ -239,6 +305,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * Returns all public API methods.
+     *
      * @return array<string, MethodWrapper>
      */
     public function getAllApiMethods(bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
@@ -255,6 +323,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * Returns all public API properties.
+     *
      * @return array<string, PropertyWrapper>
      */
     public function getAllApiProperties(bool $static = true, bool $nonStatic = true, bool $local = true, bool $nonLocal = true): array
@@ -271,6 +341,8 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
     }
 
     /**
+     * Returns all public API constants.
+     *
      * @return array<string, ClassConstantWrapper>
      */
     public function getAllApiConstants(bool $local = true, bool $nonLocal = true): array
@@ -284,11 +356,19 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
         ));
     }
 
+    /**
+     * Checks if this class is user-defined (not built-in).
+     */
     public function isUserDefined(): bool
     {
         return $this->reflection->isUserDefined();
     }
 
+    /**
+     * Generates the full class signature including members.
+     *
+     * @param bool $onlyApi Whether to include only API elements in the signature
+     */
     public function getSignature(bool $onlyApi = false): string
     {
         $signature = '';
@@ -319,6 +399,9 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
         return $signature . "\n}";
     }
 
+    /**
+     * Generates the extends/implements portion of the signature.
+     */
     protected function getHeritageHeadSignature(): string
     {
         $parentClass = $this->reflection->getParentClass();
@@ -330,6 +413,11 @@ class ClassWrapper extends ReflectionWrapper implements SignatureInterface, Writ
         return "{$extends}{$implements}";
     }
 
+    /**
+     * Generates the inside-class portion of the signature (members).
+     *
+     * @param bool $onlyApi Whether to include only API elements
+     */
     protected function getInsideClassSignature(bool $onlyApi): string
     {
         $signature = '';

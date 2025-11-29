@@ -25,8 +25,36 @@ use Reflector;
 
 use function Laravel\Prompts\warning;
 
+/**
+ * Abstract base class for all PHP reflection wrappers.
+ *
+ * This class provides the foundation for enhanced reflection capabilities,
+ * including PHPDoc parsing via phpDocumentor. All wrapper classes extend
+ * this base to gain common functionality.
+ *
+ * Key features:
+ * - PHPDoc parsing and caching
+ * - Detection of @api and @internal tags
+ * - Summary and description extraction
+ * - @see and @throws tag resolution
+ * - Source link generation
+ * - Modifier name generation
+ *
+ * @see ClassWrapper For class/interface/trait/enum wrappers
+ * @see ClassElementWrapper For class member wrappers
+ * @see FunctionWrapper For standalone function wrappers
+ * @see ParameterWrapper For function/method parameter wrappers
+ */
 abstract class ReflectionWrapper
 {
+    /**
+     * Formats a PHP value for display in documentation.
+     *
+     * Handles arrays (converting to readable string representation),
+     * and converts NULL to lowercase 'null'.
+     *
+     * @param mixed $defaultValue The value to format
+     */
     protected static function formatValue(mixed $defaultValue): string
     {
         if (\is_array($defaultValue)) {
@@ -39,9 +67,17 @@ abstract class ReflectionWrapper
     }
 
     /**
+     * Converts an array of PHP reflectors to their corresponding wrapper classes.
+     *
+     * This factory method creates the appropriate wrapper type based on the
+     * reflector type (method, property, constant, or function).
+     *
      * @template T of ReflectionMethod|ReflectionProperty|ReflectionClassConstant|ReflectionFunction
      *
-     * @param  array<T>  $reflectors
+     * @param array<T>     $reflectors   Array of PHP reflectors to wrap
+     * @param ClassWrapper $classWrapper The parent class wrapper for context
+     *
+     * @throws LogicException If an unsupported reflector type is provided
      *
      * @return array<string, (T is ReflectionMethod ? MethodWrapper : (T is ReflectionProperty ? PropertyWrapper : (T is ReflectionClassConstant ? ClassConstantWrapper : FunctionWrapper)))>
      */
@@ -63,18 +99,36 @@ abstract class ReflectionWrapper
         return $wrappers;
     }
 
+    /**
+     * The namespace wrapper this element belongs to.
+     */
     public NamespaceWrapper $declaringNamespace;
 
+    /**
+     * The parsed PHPDoc block, or null if no documentation exists.
+     */
     public readonly ?DocBlock $docBlock;
 
+    /**
+     * Whether this element has an @api tag in its PHPDoc.
+     */
     public readonly bool $hasApiTag;
 
+    /**
+     * Whether this element has an @internal tag in its PHPDoc.
+     */
     public readonly bool $hasInternalTag;
 
+    /**
+     * Whether this element is part of the public API (computed dynamically).
+     */
     public bool $willBeInPublicApi {
         get => Execution::$instance->publicApiDefinition->isPartOfPublicApi($this);
     }
 
+    /**
+     * The underlying PHP reflector.
+     */
     // @phpstan-ignore missingType.generics
     public ReflectionClass|ReflectionProperty|ReflectionFunctionAbstract|ReflectionClassConstant|ReflectionParameter $reflection {
         get {
@@ -82,9 +136,23 @@ abstract class ReflectionWrapper
         }
     }
 
+    /**
+     * Cached URL linker for this element.
+     */
     protected readonly UrlLinker $urlLinker;
+
+    /**
+     * The context for resolving type aliases in PHPDoc.
+     */
     public readonly Context $docBlockContext;
 
+    /**
+     * Creates a new reflection wrapper.
+     *
+     * Parses the PHPDoc comment (if present) and extracts @api and @internal tags.
+     *
+     * @param Reflector $reflector The PHP reflector to wrap
+     */
     public function __construct(protected readonly Reflector $reflector)
     {
         // Docblock
@@ -114,10 +182,18 @@ abstract class ReflectionWrapper
         }
     }
 
+    /**
+     * The name of this element.
+     */
     public ?string $name {
         get => $this->reflection->name ?? null;
     }
 
+    /**
+     * Returns the base directory for this element's documentation page.
+     *
+     * Override in subclasses to provide element-specific directories.
+     */
     public function getPageDirectory(): string
     {
         return '/ref';
@@ -211,7 +287,9 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @return ?array<int, DocBlock\Tags\See>
+     * Returns all @see tags from the DocBlock.
+     *
+     * @return DocBlock\Tags\See[]|null
      */
     public function getSeeTags(): ?array
     {
@@ -220,7 +298,11 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @return ?array<int, DocBlock\Tags\BaseTag>
+     * Returns all @book and @manual tags from the DocBlock.
+     *
+     * These custom tags are used for linking to external documentation.
+     *
+     * @return DocBlock\Tags\BaseTag[]|null
      */
     public function getManualTags(): ?array
     {
@@ -234,11 +316,16 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @param ?array<int, DocBlock\Tags\See|DocBlock\Tags\Throws> $tags
+     * Resolves @see or @throws tags to their referenced elements.
      *
-     * @throws LogicException
+     * Converts tag references to either ReflectionWrapper instances
+     * (for documented elements) or strings (for URLs or external elements).
      *
-     * @return ?array<int, array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>
+     * @param DocBlock\Tags\See[]|DocBlock\Tags\Throws[]|null $tags The tags to resolve
+     *
+     * @throws LogicException If an unsupported reference type is encountered
+     *
+     * @return array<int, array{destination: ReflectionWrapper|string, tag: DocBlock\Tags\See|DocBlock\Tags\BaseTag}>|null
      */
     protected function resolveTags(?array $tags): ?array
     {
@@ -339,9 +426,15 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @throws LogicException
+     * Returns resolved @see tags with linked destination elements.
      *
-     * @return ?array<int, array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>
+     * Filters out self-references and returns an array where each item
+     * contains the destination (ReflectionWrapper or URL string) and the
+     * original tag.
+     *
+     * @throws LogicException If tag resolution fails
+     *
+     * @return array<int, array{destination: ClassElementWrapper|string, tag: DocBlock\Tags\See}>|null
      */
     public function getResolvedSeeTags(): ?array
     {
@@ -358,7 +451,12 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * @return ?array<int, string>
+     * Returns resolved @manual and @book tags as URL strings.
+     *
+     * These tags reference constants that contain URL values for external
+     * documentation links.
+     *
+     * @return array<int, string>|null
      */
     public function getResolvedManualTags(): ?array
     {
@@ -388,6 +486,16 @@ abstract class ReflectionWrapper
         return $resolved;
     }
 
+    /**
+     * Returns the description text from a specific PHPDoc tag.
+     *
+     * Returns the rendered description from the first matching tag.
+     *
+     * @param string      $tag                 The tag name (e.g., 'return', 'param')
+     * @param string|null $variableNameFilter  For @param tags, filter by variable name
+     *
+     * @return string|null The tag description, or null if not found
+     */
     public function getDocBlockTagDescription(string $tag, ?string $variableNameFilter = null): ?string
     {
         $tags = $this->getDocBlockTags($tag, $variableNameFilter);
@@ -434,8 +542,14 @@ abstract class ReflectionWrapper
     }
 
     /**
-     * Get the URL link to the source code of this element.
-     * Returns null if source-url-base is not configured or if the file/line information is not available.
+     * Returns the URL link to the source code of this element.
+     *
+     * Generates a link to view the source code in a repository browser
+     * (e.g., GitHub). Requires source-url-base to be configured.
+     *
+     * @throws LogicException If the reflection doesn't support file/line info
+     *
+     * @return string|null The source URL, or null if not configured/available
      */
     public function getSourceLink(): ?string
     {
@@ -458,6 +572,13 @@ abstract class ReflectionWrapper
                 . '#L' . $this->reflection->getStartLine();
     }
 
+    /**
+     * Returns a URL linker configured for this element.
+     *
+     * Only available for elements that implement WritableInterface.
+     *
+     * @throws UnsupportedOperationException If this element doesn't support URL linking
+     */
     public function getUrlLinker(): UrlLinker
     {
         if ($this instanceof WritableInterface) {
@@ -472,6 +593,13 @@ abstract class ReflectionWrapper
         );
     }
 
+    /**
+     * Returns the visibility and other modifier names as a string.
+     *
+     * Returns modifiers like "public static", "protected final", etc.
+     *
+     * @throws UnsupportedOperationException If the underlying reflector doesn't support modifiers
+     */
     public function getModifierNames(): string
     {
         if (! method_exists($this->reflection, 'getModifiers')) {
