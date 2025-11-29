@@ -21,9 +21,9 @@ class UnsupportedOperationException extends PhpReferenceException
     /**
      * Creates a new exception for an unsupported operation.
      *
-     * @param string          $operation   The name of the unsupported operation
-     * @param string          $wrapperType The class name of the wrapper that doesn't support it
-     * @param \Throwable|null $previous    Previous exception for chaining
+     * @param $operation   The name of the unsupported operation
+     * @param $wrapperType The class name of the wrapper that doesn't support it
+     * @param $previous    Previous exception for chaining
      */
     public function __construct(
         public readonly string $operation,

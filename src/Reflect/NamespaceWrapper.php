@@ -99,7 +99,7 @@ class NamespaceWrapper implements WritableInterface
     /**
      * Creates a new namespace wrapper.
      *
-     * @param string                        $namespace The fully qualified namespace
+     * @param $namespace The fully qualified namespace
      * @param array<string, ClassWrapper>   $classes   Classes in this namespace
      * @param array<string, FunctionWrapper> $functions Functions in this namespace
      */

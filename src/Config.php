@@ -39,7 +39,7 @@ class Config
      *
      * If no path is provided, looks for 'reference.php' in the current working directory.
      *
-     * @param string|null $configPath Path to the configuration file, or null to use default
+     * @param $configPath Path to the configuration file, or null to use default
      */
     public function __construct(?string $configPath = null)
     {
@@ -53,8 +53,8 @@ class Config
     /**
      * Retrieves a configuration value.
      *
-     * @param string $key     The configuration key to retrieve
-     * @param mixed  $default Value to return if the key doesn't exist
+     * @param $key     The configuration key to retrieve
+     * @param $default Value to return if the key doesn't exist
      *
      * @return mixed The configuration value or the default
      */
@@ -68,8 +68,8 @@ class Config
      *
      * Typically used for CLI argument overrides.
      *
-     * @param string $key   The configuration key to set
-     * @param mixed  $value The value to set
+     * @param $key   The configuration key to set
+     * @param $value The value to set
      */
     public function set(string $key, mixed $value): void
     {
@@ -79,7 +79,7 @@ class Config
     /**
      * Checks if a configuration key exists.
      *
-     * @param string $key The configuration key to check
+     * @param $key The configuration key to check
      *
      * @return bool True if the key exists (even if null), false otherwise
      */

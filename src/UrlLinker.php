@@ -73,8 +73,8 @@ class UrlLinker
      * 4. Calculate how many '../' are needed to reach the common ancestor
      * 5. Append the remaining path to the destination
      *
-     * @param string $from The source directory path (where we're linking FROM)
-     * @param string $to   The destination file path (where we're linking TO)
+     * @param $from The source directory path (where we're linking FROM)
+     * @param $to   The destination file path (where we're linking TO)
      *
      * @return string The relative path with appropriate '../' prefixes
      *

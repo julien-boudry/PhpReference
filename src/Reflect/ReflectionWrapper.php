@@ -53,7 +53,7 @@ abstract class ReflectionWrapper
      * Handles arrays (converting to readable string representation),
      * and converts NULL to lowercase 'null'.
      *
-     * @param mixed $defaultValue The value to format
+     * @param $defaultValue The value to format
      */
     protected static function formatValue(mixed $defaultValue): string
     {
@@ -256,8 +256,8 @@ abstract class ReflectionWrapper
     /**
      * Get all tags of a specific type from the DocBlock.
      *
-     * @param  string  $tag  The tag name to filter by (e.g., 'param', 'return').
-     * @param  string|null  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
+     * @param  $tag  The tag name to filter by (e.g., 'param', 'return').
+     * @param  $variableNameFilter  Optional variable name to filter by (for 'param' tags).
      *
      * @return ?array<int, DocBlock\Tags\BaseTag> Array of tags matching the criteria.
      */
@@ -491,8 +491,8 @@ abstract class ReflectionWrapper
      *
      * Returns the rendered description from the first matching tag.
      *
-     * @param string      $tag                 The tag name (e.g., 'return', 'param')
-     * @param string|null $variableNameFilter  For @param tags, filter by variable name
+     * @param $tag                 The tag name (e.g., 'return', 'param')
+     * @param $variableNameFilter  For @param tags, filter by variable name
      *
      * @return string|null The tag description, or null if not found
      */

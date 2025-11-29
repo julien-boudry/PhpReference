@@ -41,11 +41,11 @@ class ErrorCollector
     /**
      * Adds an error to the collection.
      *
-     * @param string              $message   Human-readable error message
-     * @param ErrorLevel          $level     Severity level of the error
-     * @param string|null         $context   Additional context about where/why the error occurred
-     * @param ReflectionWrapper|null $element The element being processed when the error occurred
-     * @param \Throwable|null     $exception The underlying exception if any
+     * @param $message   Human-readable error message
+     * @param $level     Severity level of the error
+     * @param $context   Additional context about where/why the error occurred
+     * @param $element The element being processed when the error occurred
+     * @param $exception The underlying exception if any
      */
     public function addError(
         string $message,
@@ -75,9 +75,9 @@ class ErrorCollector
      *
      * Convenience method for the most common error type.
      *
-     * @param string                 $message Human-readable warning message
-     * @param string|null            $context Additional context
-     * @param ReflectionWrapper|null $element The element being processed
+     * @param $message Human-readable warning message
+     * @param $context Additional context
+     * @param $element The element being processed
      */
     public function addWarning(string $message, ?string $context = null, ?ReflectionWrapper $element = null): void
     {
@@ -89,9 +89,9 @@ class ErrorCollector
      *
      * Notices are less severe than warnings and typically informational.
      *
-     * @param string                 $message Human-readable notice message
-     * @param string|null            $context Additional context
-     * @param ReflectionWrapper|null $element The element being processed
+     * @param $message Human-readable notice message
+     * @param $context Additional context
+     * @param $element The element being processed
      */
     public function addNotice(string $message, ?string $context = null, ?ReflectionWrapper $element = null): void
     {

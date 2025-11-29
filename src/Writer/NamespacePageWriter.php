@@ -26,8 +26,8 @@ class NamespacePageWriter extends AbstractWriter
     /**
      * Creates a new namespace page writer.
      *
-     * @param NamespaceWrapper $namespaceWrapper The namespace wrapper to generate documentation for
-     * @param string           $indexFileName    The name for the index file (default: 'readme')
+     * @param $namespaceWrapper The namespace wrapper to generate documentation for
+     * @param $indexFileName    The name for the index file (default: 'readme')
      */
     public function __construct(
         public readonly NamespaceWrapper $namespaceWrapper,

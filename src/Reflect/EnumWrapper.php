@@ -72,7 +72,7 @@ class EnumWrapper extends ClassWrapper
     /**
      * Generates the inside-enum portion of the signature (cases and members).
      *
-     * @param bool $onlyApi Whether to include only API elements
+     * @param $onlyApi Whether to include only API elements
      */
     protected function getInsideClassSignature(bool $onlyApi): string
     {

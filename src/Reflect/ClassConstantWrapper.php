@@ -32,7 +32,7 @@ class ClassConstantWrapper extends ClassElementWrapper implements SignatureInter
      *
      * Includes visibility modifiers, type (if declared), name, and value.
      *
-     * @param bool $withClassName Whether to include the class name prefix
+     * @param $withClassName Whether to include the class name prefix
      */
     public function getSignature(bool $withClassName = false): string
     {

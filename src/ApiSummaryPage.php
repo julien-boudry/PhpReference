@@ -27,7 +27,7 @@ class ApiSummaryPage implements WritableInterface
     /**
      * Creates a new API summary page instance.
      *
-     * @param string $pagePath The path to the summary file relative to output root
+     * @param $pagePath The path to the summary file relative to output root
      */
     public function __construct(
         public readonly string $pagePath = '/readme.md',

@@ -26,8 +26,8 @@ class PublicApiSummaryWriter extends AbstractWriter
     /**
      * Creates a new API summary writer.
      *
-     * @param CodeIndex $codeIndex The code index containing all elements
-     * @param string    $filePath  The file path for the summary (e.g., '/readme')
+     * @param $codeIndex The code index containing all elements
+     * @param $filePath  The file path for the summary (e.g., '/readme')
      */
     public function __construct(public readonly CodeIndex $codeIndex, string $filePath)
     {

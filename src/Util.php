@@ -64,7 +64,7 @@ class Util
      * It intelligently omits keys for sequential 0-indexed arrays.
      *
      * @param array<int|string, mixed> $array The array to convert
-     * @param int                       $depth Current nesting depth (used internally for recursion)
+     * @param $depth Current nesting depth (used internally for recursion)
      *
      * @return string The string representation (e.g., "['a', 'b']" or "['key' => 'value']")
      */

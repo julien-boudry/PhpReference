@@ -129,7 +129,7 @@ class CodeIndex
      * 4. Organizes elements by namespace into NamespaceWrapper objects
      * 5. Builds the namespace hierarchy for breadcrumb navigation
      *
-     * @param string $namespace The root namespace to index (e.g., 'MyApp\\Domain')
+     * @param $namespace The root namespace to index (e.g., 'MyApp\\Domain')
      */
     public function __construct(
         public readonly string $namespace,
@@ -240,7 +240,7 @@ class CodeIndex
     /**
      * Retrieves a class wrapper by its fully qualified class name.
      *
-     * @param string $className The fully qualified class name to look up
+     * @param $className The fully qualified class name to look up
      *
      * @return ClassWrapper|null The wrapper if found, null otherwise
      */
@@ -255,7 +255,7 @@ class CodeIndex
      * The path format is 'ClassName::elementName' where elementName can include
      * special suffixes like '()' for methods or '$' prefix for properties.
      *
-     * @param string $path The element path (e.g., 'MyClass::myMethod()', 'MyClass::$property')
+     * @param $path The element path (e.g., 'MyClass::myMethod()', 'MyClass::$property')
      *
      * @throws UnresolvableReferenceException If the path format is invalid or element not found
      */
