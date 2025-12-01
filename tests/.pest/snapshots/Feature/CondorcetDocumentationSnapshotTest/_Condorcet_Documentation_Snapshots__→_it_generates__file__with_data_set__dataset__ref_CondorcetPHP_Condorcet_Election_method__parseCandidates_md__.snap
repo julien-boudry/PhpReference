@@ -33,8 +33,8 @@ If true, the input is evaluated as a path to a text file.
 List of newly registered candidate objects. Count to check if all candidates were correctly registered.
 
 ## Throws
-- **`\CondorcetPHP\Condorcet\CandidateExistsException`** __
-- **`\CondorcetPHP\Condorcet\VoteMaxNumberReachedException`** __
+- **[\CondorcetPHP\Condorcet\Throwable\CandidateExistsException](../Throwable/CandidateExistsException/class_CandidateExistsException.md)** __
+- **[\CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException](../Throwable/VoteMaxNumberReachedException/class_VoteMaxNumberReachedException.md)** __
 
 ## Related
 - **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**

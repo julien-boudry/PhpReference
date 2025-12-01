@@ -33,4 +33,4 @@ candidate to be compared with $a
 $a wins - $b wins. Negative if a lose, positive if he win or 0 in case of a tie.
 
 ## Throws
-- **`\CondorcetPHP\Condorcet\Algo\Pairwise\CandidateExistsException`** __
+- **[\CondorcetPHP\Condorcet\Throwable\CandidateExistsException](../../../Throwable/CandidateExistsException/class_CandidateExistsException.md)** __

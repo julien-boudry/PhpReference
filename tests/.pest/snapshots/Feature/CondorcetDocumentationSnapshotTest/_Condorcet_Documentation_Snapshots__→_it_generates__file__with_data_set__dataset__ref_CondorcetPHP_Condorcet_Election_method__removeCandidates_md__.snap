@@ -27,8 +27,8 @@ String corresponding to the candidate's name or CondorcetPHP\Condorcet\Candidate
 List of removed candidate objects.
 
 ## Throws
-- **`\CondorcetPHP\Condorcet\CandidateDoesNotExistException`** __
-- **`\CondorcetPHP\Condorcet\VotingHasStartedException`** __
+- **[\CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException](../Throwable/CandidateDoesNotExistException/class_CandidateDoesNotExistException.md)** __
+- **[\CondorcetPHP\Condorcet\Throwable\VotingHasStartedException](../Throwable/VotingHasStartedException/class_VotingHasStartedException.md)** __
 
 ## Related
 - **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace JulienBoudry\PhpReference\Reflect\Structure;
 
+use JulienBoudry\PhpReference\Reflect\ClassElementWrapper;
+use JulienBoudry\PhpReference\Util;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
 
@@ -40,6 +42,37 @@ trait CanThrow
     }
 
     /**
+     * Returns the @throws tags from the docblock, re-parsed with alternative context if available.
+     *
+     * For methods defined in traits, the exceptions are often imported in the trait file,
+     * not in the class using the trait. This method re-parses the @throws tags using
+     * the alternative context (from the trait file) when available.
+     *
+     * @return DocBlock\Tags\Throws[]|null Array of throws tags, or null if none
+     */
+    protected function getThrowsWithAlternativeContext(): ?array
+    {
+        // If we have an alternative context (trait/parent file), re-parse throws tags with it
+        if ($this instanceof ClassElementWrapper
+            && $this->alternativeDocBlockContext !== null
+            && $this->docBlock !== null
+        ) {
+            $docComment = $this->reflection->getDocComment();
+            if ($docComment !== false) {
+                // Re-parse the docblock with the alternative context
+                $alternativeDocBlock = Util::getDocBlocFactory()->create($docComment, $this->alternativeDocBlockContext);
+
+                /** @var ?DocBlock\Tags\Throws[] */
+                $throws = $alternativeDocBlock->getTagsByName('throws');
+
+                return empty($throws) ? null : $throws;
+            }
+        }
+
+        return $this->getThrows();
+    }
+
+    /**
      * Returns resolved @throws tags with linked exception classes.
      *
      * Each item in the returned array contains:
@@ -53,7 +86,8 @@ trait CanThrow
      */
     public function getResolvedThrowsTags(): ?array
     {
-        $throwsTags = $this->getThrows();
+        // Use alternative context for throws tags (for trait methods with locally imported exceptions)
+        $throwsTags = $this->getThrowsWithAlternativeContext();
 
         return $this->resolveTags($throwsTags); // @phpstan-ignore return.type
     }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\Reflect\Capabilities\HasParentInterface;
+use JulienBoudry\PhpReference\Util;
+use phpDocumentor\Reflection\Types\Context;
 use ReflectionClassConstant;
 use ReflectionMethod;
 use ReflectionProperty;
@@ -39,6 +41,12 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
      * @var WeakReference<ClassWrapper>|null
      */
     public readonly ?WeakReference $declaringClassReference;
+
+    /**
+     * Alternative DocBlock context from the trait/parent file where this method is defined.
+     * Used as fallback when resolving type references that can't be found with the main context.
+     */
+    public readonly ?Context $alternativeDocBlockContext;
 
     /**
      * The parent class wrapper (the class containing this element).
@@ -101,9 +109,88 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
 
         $this->declaringClassReference = $declaringClass ? WeakReference::create($declaringClass) : null;
 
-        $this->docBlockContext = $classWrapper->docBlockContext;
+        // For methods defined in traits or parent classes, we need both contexts:
+        // - The main context from the containing class (for @see references to sibling methods)
+        // - An alternative context from the trait/parent file (for @throws with locally imported exceptions)
+        //
+        // phpDocumentor's ContextFactory::createFromReflector() uses getDeclaringClass()
+        // which returns the class using the trait, not the trait itself.
+        if ($reflectorInClass instanceof ReflectionMethod) {
+            $methodFile = $reflectorInClass->getFileName();
+            $classFile = $classWrapper->reflection->getFileName();
+
+            // Always use the class context as main (preserves @see behavior)
+            $this->docBlockContext = $classWrapper->docBlockContext;
+
+            // If the method is defined in a different file (trait or parent class),
+            // create an alternative context from that file for fallback resolution
+            if ($methodFile !== false && $classFile !== false && $methodFile !== $classFile) {
+                $this->alternativeDocBlockContext = $this->createContextFromFile($methodFile);
+            } else {
+                $this->alternativeDocBlockContext = null;
+            }
+        } else {
+            // For properties and constants, use the class context only
+            $this->docBlockContext = $classWrapper->docBlockContext;
+            $this->alternativeDocBlockContext = null;
+        }
 
         parent::__construct($reflectorInClass);
+    }
+
+    /**
+     * Creates a DocBlock context from a PHP file by parsing its namespace and use statements.
+     *
+     * @param string $filePath Path to the PHP file
+     *
+     * @return \phpDocumentor\Reflection\Types\Context
+     */
+    private function createContextFromFile(string $filePath): \phpDocumentor\Reflection\Types\Context
+    {
+        $fileContents = file_get_contents($filePath);
+        if ($fileContents === false) {
+            // Fallback to parent class context
+            return $this->classReference->get()->docBlockContext;
+        }
+
+        $namespace = $this->extractNamespaceFromFile($fileContents);
+
+        return Util::getDocBlocContextFactory()->createForNamespace($namespace, $fileContents);
+    }
+
+    /**
+     * Extracts the namespace declaration from PHP file contents.
+     *
+     * @param string $fileContents The contents of the PHP file
+     *
+     * @return string The namespace, or empty string if no namespace
+     */
+    private function extractNamespaceFromFile(string $fileContents): string
+    {
+        $tokens = token_get_all($fileContents);
+
+        foreach ($tokens as $i => $token) {
+            if (\is_array($token) && $token[0] === T_NAMESPACE) {
+                // Find the namespace name after T_NAMESPACE
+                $namespace = '';
+                for ($j = $i + 1; $j < \count($tokens); $j++) {
+                    $nextToken = $tokens[$j];
+                    if (\is_array($nextToken)) {
+                        if (\in_array($nextToken[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED], true)) {
+                            $namespace .= $nextToken[1];
+                        } elseif ($nextToken[0] !== T_WHITESPACE) {
+                            break;
+                        }
+                    } elseif ($nextToken === ';' || $nextToken === '{') {
+                        break;
+                    }
+                }
+
+                return trim($namespace, '\\');
+            }
+        }
+
+        return '';
     }
 
     /**

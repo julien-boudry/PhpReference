@@ -33,7 +33,7 @@ String separated by commas or an array. Will add tags to the vote object for you
 The vote object.
 
 ## Throws
-- **`\CondorcetPHP\Condorcet\VoteMaxNumberReachedException`** __
+- **[\CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException](../Throwable/VoteMaxNumberReachedException/class_VoteMaxNumberReachedException.md)** __
 
 ## Related
 - **[\CondorcetPHP\Condorcet\Election::parseVotes()](method_parseVotes.md)**

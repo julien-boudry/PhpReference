@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace JulienBoudry\PhpReference\Reflect;
 
 use JulienBoudry\PhpReference\{Execution, UrlLinker, Util};
-use JulienBoudry\PhpReference\Exception\UnsupportedOperationException;
+use JulienBoudry\PhpReference\Exception\{UnresolvableReferenceException, UnsupportedOperationException};
 use JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface;
 use LogicException;
 use phpDocumentor\Reflection\DocBlock;
@@ -410,7 +410,7 @@ abstract class ReflectionWrapper
                     }
 
                     $element = Execution::$instance->codeIndex->getClassElement($reformatedString);
-                } catch (LogicException $e) {
+                } catch (LogicException|UnresolvableReferenceException $e) {
                     // Collect the error instead of throwing or displaying a warning
                     Execution::$instance->errorCollector->addWarning(
                         message: "Failed to resolve @see reference: {$referenceString}",
