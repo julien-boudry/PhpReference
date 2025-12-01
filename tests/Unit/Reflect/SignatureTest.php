@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Reflect\{ClassWrapper};
+use JulienBoudry\PhpReference\Reflect\ClassWrapper;
 use JulienBoudry\PhpReference\Tests\Fixtures\{
     ClassFixture,
     InterfaceFixture,

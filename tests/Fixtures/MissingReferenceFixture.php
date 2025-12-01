@@ -28,7 +28,7 @@ class MissingReferenceFixture
     /**
      * Method that throws a non-existent exception with full namespace path.
      *
-     * @throws \JulienBoudry\PhpReference\Tests\Fixtures\AnotherMissingException When another error occurs.
+     * @throws AnotherMissingException When another error occurs.
      */
     public function methodWithFullNamespaceMissingThrows(): void
     {

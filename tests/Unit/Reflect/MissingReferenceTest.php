@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 use JulienBoudry\PhpReference\Log\ErrorLevel;
-use JulienBoudry\PhpReference\Tests\Fixtures\MissingReferenceFixture;
-use JulienBoudry\PhpReference\Tests\Fixtures\ExternalDependencyFixture;
+use JulienBoudry\PhpReference\Tests\Fixtures\{ExternalDependencyFixture, MissingReferenceFixture};
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
 

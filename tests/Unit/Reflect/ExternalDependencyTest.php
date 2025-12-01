@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-use JulienBoudry\PhpReference\Execution;
+use JulienBoudry\PhpReference\Writer\{ClassPageWriter, MethodPageWriter};
 use JulienBoudry\PhpReference\Reflect\ClassWrapper;
-use JulienBoudry\PhpReference\Util;
 use JulienBoudry\PhpReference\Tests\Fixtures\ExternalDependencyFixture;
-use JulienBoudry\PhpReference\Writer\ClassPageWriter;
-use JulienBoudry\PhpReference\Writer\MethodPageWriter;
 
 use function JulienBoudry\PhpReference\Tests\createExecutionFixture;
 
