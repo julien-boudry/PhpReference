@@ -33,7 +33,7 @@ Array of option for some methods. Look at each method documentation.
 An Condorcet/Result Object (implementing ArrayAccess and Iterator, can be use like an array ordered by rank)
 
 ## Throws
-- **[\CondorcetPHP\Condorcet\VotingMethodIsNotImplemented]()** __
+- **`\CondorcetPHP\Condorcet\VotingMethodIsNotImplemented`** __
 
 ## Related
 - **[\CondorcetPHP\Condorcet\Election::getWinner()](method_getWinner.md)**

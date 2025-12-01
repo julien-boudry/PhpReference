@@ -1,4 +1,5 @@
 {define throws, $reflection}
+{var $WritableInterface = JulienBoudry\PhpReference\Reflect\Capabilities\WritableInterface::class}
 {* *}
 {if $throwsTags = $reflection->getResolvedThrowsTags()}
 {var $urlLinker = $reflection->getUrlLinker()}
@@ -6,9 +7,11 @@
 ## Throws
 {foreach $throwsTags as $resolved}
 {* *}
-{var $url = $resolved['destination'] ? $urlLinker->to(page: $resolved['destination'])}
-{* *}
-- **[{$resolved['tag']->getType()}]({$url})**{if $resolved['tag']->getDescription()} _{$resolved['tag']->getDescription()}_{/if}
+{if $resolved['destination'] instanceof $WritableInterface}
+- **[{$resolved['tag']->getType()}]({$urlLinker->to(page: $resolved['destination'])})**{if $resolved['tag']->getDescription()} _{$resolved['tag']->getDescription()}_{/if}
+{else}
+- **`{$resolved['tag']->getType()}`**{if $resolved['tag']->getDescription()} _{$resolved['tag']->getDescription()}_{/if}
+{/if}
 {/foreach}
 {/if}
 {/define}

@@ -25,7 +25,7 @@ JSON string.
 List of newly registered candidate objects.
 
 ## Throws
-- **[\CondorcetPHP\Condorcet\CandidateExistsException]()** __
+- **`\CondorcetPHP\Condorcet\CandidateExistsException`** __
 
 ## Related
 - **[\CondorcetPHP\Condorcet\Election::addCandidate()](method_addCandidate.md)**

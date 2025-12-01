@@ -25,8 +25,8 @@ Alphanumeric string or CondorcetPHP\Condorcet\Candidate object. The candidate na
 The newly created candidate object (yours or automatically generated). Throws an exception in case of error (existing candidate...).
 
 ## Throws
-- **[\CondorcetPHP\Condorcet\CandidateExistsException]()** __
-- **[\CondorcetPHP\Condorcet\VotingHasStartedException]()** __
+- **`\CondorcetPHP\Condorcet\CandidateExistsException`** __
+- **`\CondorcetPHP\Condorcet\VotingHasStartedException`** __
 
 ## Related
 - **[\CondorcetPHP\Condorcet\Election::parseCandidates()](method_parseCandidates.md)**

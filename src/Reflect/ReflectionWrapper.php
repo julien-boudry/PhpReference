@@ -360,6 +360,15 @@ abstract class ReflectionWrapper
                 }
                 $destination = Execution::$instance->codeIndex->getClassWrapper($fqsenPath);
 
+                // Log a warning if the class should exist in the configured namespace but doesn't
+                if ($destination === null && str_starts_with($fqsenPath, Execution::$instance->codeIndex->namespace)) {
+                    Execution::$instance->errorCollector->addWarning(
+                        message: "Referenced class `{$fqsenPath}` not found in indexed namespace",
+                        context: "Element: {$this->name}",
+                        element: $this,
+                    );
+                }
+
                 // If it's already a URL, just return it
                 $resolved[$key] = [
                     'destination' => $destination,
