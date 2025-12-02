@@ -62,7 +62,7 @@ trait CanThrow
                 // Re-parse the docblock with the alternative context
                 $alternativeDocBlock = Util::getDocBlocFactory()->create($docComment, $this->alternativeDocBlockContext);
 
-                /** @var ?DocBlock\Tags\Throws[] */
+                /** @var DocBlock\Tags\Throws[] $throws */
                 $throws = $alternativeDocBlock->getTagsByName('throws');
 
                 return empty($throws) ? null : $throws;
