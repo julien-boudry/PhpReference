@@ -15,7 +15,7 @@ Manages chronometers and tracks execution time.
 | Method Name | Description |
 | ------------- | ------------- |
 | [getCondorcetBuilderVersion(...)](method_getCondorcetBuilderVersion.md) | _Get the Condorcet PHP version who built this object. Usefull pour serializing Election._ |
-| [getHistory(...)](method_getHistory.md) | _Returns benchmarked actions history._ |
+| [getHistory(...)](method_getHistory.md) | _Returns the chronological history of all timed operations for this election._ |
 
 
 ## Public Representation
@@ -24,7 +24,7 @@ class CondorcetPHP\Condorcet\Timer\Manager
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
 
     // Methods
     public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -39,7 +39,7 @@ class CondorcetPHP\Condorcet\Timer\Manager
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     protected float $globalTimer = 0.0;
     protected array $history = [];
     protected ?float $lastChronoTimestamp = null;

@@ -46,7 +46,7 @@ class CondorcetPHP\Condorcet\Vote implements ArrayAccess, Iterator, Stringable, 
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     final public private(set) int $countCandidates;
     final public private(set) string $hash = '';
     final public private(set) array $rankingHistory = [];
@@ -86,7 +86,7 @@ class CondorcetPHP\Condorcet\Vote implements ArrayAccess, Iterator, Stringable, 
     protected static ?stdClass $cacheKey = null;
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     final public private(set) int $countCandidates;
     final public private(set) string $hash = '';
     public bool $notUpdate = false;

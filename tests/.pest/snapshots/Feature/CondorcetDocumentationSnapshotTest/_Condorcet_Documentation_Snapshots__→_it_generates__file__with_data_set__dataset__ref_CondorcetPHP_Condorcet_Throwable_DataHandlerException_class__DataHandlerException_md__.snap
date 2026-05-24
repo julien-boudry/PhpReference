@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\DataHandlerException extends CondorcetPHP
     protected  $message = 'Problem with data handler';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  DataHandlerException->code = 0;
     protected string DataHandlerException->file = '';
     protected int DataHandlerException->line = 0;

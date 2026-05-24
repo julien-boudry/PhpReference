@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException extends Con
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\StatsEntryDoNotExistException extends Con
     public protected(set) readonly string $entryName;
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  StatsEntryDoNotExistException->code = 0;
     protected string StatsEntryDoNotExistException->file = '';
     protected int StatsEntryDoNotExistException->line = 0;

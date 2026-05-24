@@ -1,6 +1,6 @@
 > CondorcetPHP \ [Condorcet](../../readme.md) \ [CondorcetUtil](class_CondorcetUtil.md)
 # Method format()
-> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L83)
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Utils/CondorcetUtil.php#L86)
 
 ```php
 public static function CondorcetUtil::format( mixed $input, [ bool $convertObject = true ] ): mixed

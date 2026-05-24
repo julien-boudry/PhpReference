@@ -23,6 +23,3 @@ true will return 2.0 and false will return 2.0.0.
 **Type:** `string`
 
 Condorcet PHP version.
-
-## Related
-- **[\CondorcetPHP\Condorcet\Condorcet::getVersion()](../../../Condorcet/method_getVersion.md)**

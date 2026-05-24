@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\ConsoleInputException extends CondorcetPH
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -37,7 +37,7 @@ class CondorcetPHP\Condorcet\Throwable\ConsoleInputException extends CondorcetPH
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  ConsoleInputException->code = 0;
     protected string ConsoleInputException->file = '';
     protected int ConsoleInputException->line = 0;

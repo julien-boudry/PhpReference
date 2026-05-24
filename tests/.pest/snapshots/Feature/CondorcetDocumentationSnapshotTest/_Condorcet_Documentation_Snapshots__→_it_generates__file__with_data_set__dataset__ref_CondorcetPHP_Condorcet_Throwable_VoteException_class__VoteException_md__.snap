@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condor
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteException extends CondorcetPHP\Condor
     protected  $message = 'Problem handling vote';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  VoteException->code = 0;
     protected string VoteException->file = '';
     protected int VoteException->line = 0;

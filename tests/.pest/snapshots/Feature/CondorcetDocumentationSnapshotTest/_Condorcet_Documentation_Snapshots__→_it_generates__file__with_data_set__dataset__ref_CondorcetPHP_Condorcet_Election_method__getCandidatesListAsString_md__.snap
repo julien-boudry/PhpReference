@@ -1,6 +1,6 @@
 > CondorcetPHP \ [Election](class_Election.md)
 # Method getCandidatesListAsString()
-> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L72)
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L74)
 
 ```php
 public function Election->getCandidatesListAsString( ): array

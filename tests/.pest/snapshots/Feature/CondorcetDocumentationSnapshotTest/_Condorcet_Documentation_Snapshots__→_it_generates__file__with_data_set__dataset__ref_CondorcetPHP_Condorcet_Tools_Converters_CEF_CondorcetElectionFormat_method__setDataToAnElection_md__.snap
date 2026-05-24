@@ -15,7 +15,7 @@ public function CondorcetElectionFormat->setDataToAnElection( [ CondorcetPHP\Con
      'history' => 
     array (
     ),
-     'buildByCondorcetVersion' => '5.0.3',
+     'buildByCondorcetVersion' => '5.0.7',
   )),
    'authorizeVoteWeight' => false,
    'seatsToElect' => 100,
@@ -24,7 +24,7 @@ public function CondorcetElectionFormat->setDataToAnElection( [ CondorcetPHP\Con
   ),
    'hash' => 'a19a1584344c1f3783bff51524a5a4b86f2cc09356c9dbfb6af9cd236e314362',
    'implicitRankingRule' => true,
-   'buildByCondorcetVersion' => '5.0.3',
+   'buildByCondorcetVersion' => '5.0.7',
    'candidates' => 
   array (
   ),
@@ -47,7 +47,7 @@ public function CondorcetElectionFormat->setDataToAnElection( [ CondorcetPHP\Con
      'selfElection' => 
     \WeakReference::__set_state(array(
     )),
-     'buildByCondorcetVersion' => '5.0.3',
+     'buildByCondorcetVersion' => '5.0.7',
   )),
    'votesFastMode' => 
   \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE,
@@ -77,7 +77,7 @@ CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__
      'history' => 
     array (
     ),
-     'buildByCondorcetVersion' => '5.0.3',
+     'buildByCondorcetVersion' => '5.0.7',
   )),
    'authorizeVoteWeight' => false,
    'seatsToElect' => 100,
@@ -86,7 +86,7 @@ CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__
   ),
    'hash' => 'a19a1584344c1f3783bff51524a5a4b86f2cc09356c9dbfb6af9cd236e314362',
    'implicitRankingRule' => true,
-   'buildByCondorcetVersion' => '5.0.3',
+   'buildByCondorcetVersion' => '5.0.7',
    'candidates' => 
   array (
   ),
@@ -109,7 +109,7 @@ CondorcetPHP\Condorcet\Election $election = \CondorcetPHP\Condorcet\Election::__
      'selfElection' => 
     \WeakReference::__set_state(array(
     )),
-     'buildByCondorcetVersion' => '5.0.3',
+     'buildByCondorcetVersion' => '5.0.7',
   )),
    'votesFastMode' => 
   \CondorcetPHP\Condorcet\ElectionProcess\VotesFastMode::NONE,

@@ -1,6 +1,6 @@
 > CondorcetPHP \ [Election](class_Election.md)
 # Method canAddCandidate()
-> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L214)
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L216)
 
 ```php
 public function Election->canAddCandidate( CondorcetPHP\Condorcet\Candidate|string $candidate ): bool

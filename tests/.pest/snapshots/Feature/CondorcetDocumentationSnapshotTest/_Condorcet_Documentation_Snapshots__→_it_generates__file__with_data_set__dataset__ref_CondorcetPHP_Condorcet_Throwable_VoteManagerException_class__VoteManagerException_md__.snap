@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteManagerException extends CondorcetPHP
     protected  $message = 'Value must be an instance of CondorcetPHP\\Vote';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  VoteManagerException->code = 0;
     protected string VoteManagerException->file = '';
     protected int VoteManagerException->line = 0;

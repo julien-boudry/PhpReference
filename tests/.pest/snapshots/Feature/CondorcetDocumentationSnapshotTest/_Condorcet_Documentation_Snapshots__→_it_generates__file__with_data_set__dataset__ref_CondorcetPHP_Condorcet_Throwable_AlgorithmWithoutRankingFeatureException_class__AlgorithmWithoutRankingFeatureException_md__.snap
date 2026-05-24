@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException e
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\AlgorithmWithoutRankingFeatureException e
     protected  $message = 'This algortihm can\'t provide a full ranking (but only Winner and Loser)';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  AlgorithmWithoutRankingFeatureException->code = 0;
     protected string AlgorithmWithoutRankingFeatureException->file = '';
     protected int AlgorithmWithoutRankingFeatureException->line = 0;

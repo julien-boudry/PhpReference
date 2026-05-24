@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condo
 {
 
     // Inherited Properties
-    final public private(set) string VotesManager->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string VotesManager->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function VotesManager->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -41,7 +41,7 @@ class CondorcetPHP\Condorcet\DataManager\VotesManager extends CondorcetPHP\Condo
     public static int VotesManager->MaxContainerLength = 2000;
 
     // Inherited Properties
-    final public private(set) string VotesManager->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string VotesManager->buildByCondorcetVersion = '5.0.7';
     protected array VotesManager->Cache = [];
     protected int VotesManager->CacheMaxKey = 0;
     protected int VotesManager->CacheMinKey = 0;

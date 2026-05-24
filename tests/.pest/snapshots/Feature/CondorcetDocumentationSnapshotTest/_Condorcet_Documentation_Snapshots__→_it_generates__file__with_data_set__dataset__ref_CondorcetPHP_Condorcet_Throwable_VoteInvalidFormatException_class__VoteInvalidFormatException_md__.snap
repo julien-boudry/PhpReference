@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends Condor
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteInvalidFormatException extends Condor
     protected  $message = 'The format of the vote is invalid';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  VoteInvalidFormatException->code = 0;
     protected string VoteInvalidFormatException->file = '';
     protected int VoteInvalidFormatException->line = 0;

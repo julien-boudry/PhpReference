@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends Con
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteMaxNumberReachedException extends Con
     protected  $message = 'The maximal number of votes for the method is reached';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  VoteMaxNumberReachedException->code = 0;
     protected string VoteMaxNumberReachedException->file = '';
     protected int VoteMaxNumberReachedException->line = 0;

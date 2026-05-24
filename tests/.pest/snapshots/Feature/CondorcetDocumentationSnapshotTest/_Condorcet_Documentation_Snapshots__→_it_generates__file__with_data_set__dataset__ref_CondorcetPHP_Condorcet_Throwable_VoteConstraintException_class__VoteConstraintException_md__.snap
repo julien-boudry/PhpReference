@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends Condorcet
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteConstraintException extends Condorcet
     protected  $message = 'The vote constraint could not be set up';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  VoteConstraintException->code = 0;
     protected string VoteConstraintException->file = '';
     protected int VoteConstraintException->line = 0;

@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Cond
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\ResultException extends CondorcetPHP\Cond
     protected  $message = 'Result cannot be changed';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  ResultException->code = 0;
     protected string ResultException->file = '';
     protected int ResultException->line = 0;
