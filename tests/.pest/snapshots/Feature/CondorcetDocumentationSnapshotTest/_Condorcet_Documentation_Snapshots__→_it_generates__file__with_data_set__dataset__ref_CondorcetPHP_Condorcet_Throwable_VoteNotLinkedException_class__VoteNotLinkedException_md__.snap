@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetP
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\VoteNotLinkedException extends CondorcetP
     protected  $message = 'The vote is not linked to an election';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  VoteNotLinkedException->code = 0;
     protected string VoteNotLinkedException->file = '';
     protected int VoteNotLinkedException->line = 0;

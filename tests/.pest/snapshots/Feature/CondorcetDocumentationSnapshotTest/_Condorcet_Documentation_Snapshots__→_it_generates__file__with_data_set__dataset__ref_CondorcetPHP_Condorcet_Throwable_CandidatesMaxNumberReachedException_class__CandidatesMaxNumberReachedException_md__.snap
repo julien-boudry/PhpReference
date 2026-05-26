@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException exten
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\CandidatesMaxNumberReachedException exten
     protected  $message = 'Maximum number of candidates reached';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     public protected(set) readonly string MethodLimitReachedException->method;
     protected  CandidatesMaxNumberReachedException->code = 0;
     protected string CandidatesMaxNumberReachedException->file = '';

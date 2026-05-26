@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException extends 
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -37,7 +37,7 @@ class CondorcetPHP\Condorcet\Throwable\ElectionFileFormatParseException extends 
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  ElectionFileFormatParseException->code = 0;
     protected string ElectionFileFormatParseException->file = '';
     protected int ElectionFileFormatParseException->line = 0;

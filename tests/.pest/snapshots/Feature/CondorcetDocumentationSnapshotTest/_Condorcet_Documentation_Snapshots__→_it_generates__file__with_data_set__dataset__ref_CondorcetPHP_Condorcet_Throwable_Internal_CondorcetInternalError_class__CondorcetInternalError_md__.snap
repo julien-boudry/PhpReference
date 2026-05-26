@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError extends E
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
 
     // Methods
     public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -37,7 +37,7 @@ class CondorcetPHP\Condorcet\Throwable\Internal\CondorcetInternalError extends E
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
 
     // Inherited Properties
     protected  CondorcetInternalError->code = 0;

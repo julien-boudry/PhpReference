@@ -38,7 +38,7 @@ class CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandler
     public static bool $preferBlobInsteadVarchar = true;
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
 
     // Methods
     public function getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -57,7 +57,7 @@ class CondorcetPHP\Condorcet\DataManager\DataHandlerDrivers\PdoDriver\PdoHandler
     public static bool $preferBlobInsteadVarchar = true;
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     protected readonly PDO $handler;
     protected array $prepare = [];
     protected bool $queryError = false;

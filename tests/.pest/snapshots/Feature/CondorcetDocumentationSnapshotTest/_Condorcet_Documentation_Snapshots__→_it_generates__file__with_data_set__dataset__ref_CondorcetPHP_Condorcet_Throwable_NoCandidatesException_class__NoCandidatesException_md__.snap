@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPH
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\NoCandidatesException extends CondorcetPH
     protected  $message = 'You need to specify one or more candidates before voting';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  NoCandidatesException->code = 0;
     protected string NoCandidatesException->file = '';
     protected int NoCandidatesException->line = 0;

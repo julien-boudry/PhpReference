@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Con
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\NoSeatsException extends CondorcetPHP\Con
     protected  $message = 'No seats defined';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  NoSeatsException->code = 0;
     protected string NoSeatsException->file = '';
     protected int NoSeatsException->line = 0;

@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException extends Condo
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -41,7 +41,7 @@ class CondorcetPHP\Condorcet\Throwable\MethodLimitReachedException extends Condo
     protected  $message = 'Method limit reached';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  MethodLimitReachedException->code = 0;
     protected string MethodLimitReachedException->file = '';
     protected int MethodLimitReachedException->line = 0;

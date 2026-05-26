@@ -26,7 +26,7 @@ class CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise extends CondorcetPHP
 {
 
     // Inherited Properties
-    final public private(set) string Pairwise->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string Pairwise->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function Pairwise->candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool;
@@ -48,7 +48,7 @@ class CondorcetPHP\Condorcet\Algo\Pairwise\FilteredPairwise extends CondorcetPHP
     protected readonly array $candidates;
 
     // Inherited Properties
-    final public private(set) string Pairwise->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string Pairwise->buildByCondorcetVersion = '5.0.7';
     protected ?array Pairwise->explicitPairwise = null;
     protected array Pairwise->Pairwise;
     protected readonly array Pairwise->Pairwise_Model;

@@ -143,9 +143,9 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
      *
      * @param string $filePath Path to the PHP file
      *
-     * @return \phpDocumentor\Reflection\Types\Context
+     * @return Context
      */
-    private function createContextFromFile(string $filePath): \phpDocumentor\Reflection\Types\Context
+    private function createContextFromFile(string $filePath): Context
     {
         $fileContents = file_get_contents($filePath);
         if ($fileContents === false) {
@@ -170,15 +170,15 @@ abstract class ClassElementWrapper extends ReflectionWrapper implements HasParen
         $tokens = token_get_all($fileContents);
 
         foreach ($tokens as $i => $token) {
-            if (\is_array($token) && $token[0] === T_NAMESPACE) {
+            if (\is_array($token) && $token[0] === \T_NAMESPACE) {
                 // Find the namespace name after T_NAMESPACE
                 $namespace = '';
                 for ($j = $i + 1; $j < \count($tokens); $j++) {
                     $nextToken = $tokens[$j];
                     if (\is_array($nextToken)) {
-                        if (\in_array($nextToken[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED], true)) {
+                        if (\in_array($nextToken[0], [\T_STRING, \T_NS_SEPARATOR, \T_NAME_QUALIFIED], true)) {
                             $namespace .= $nextToken[1];
-                        } elseif ($nextToken[0] !== T_WHITESPACE) {
+                        } elseif ($nextToken[0] !== \T_WHITESPACE) {
                             break;
                         }
                     } elseif ($nextToken === ';' || $nextToken === '{') {

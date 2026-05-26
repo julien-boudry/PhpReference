@@ -12,7 +12,7 @@ Main Condorcet class for managing voting methods and global configurations.
 | AUTHOR | `final public const AUTHOR = 'Julien Boudry and contributors'` | __ |
 | CONDORCET_BASIC_CLASS | `final public const CONDORCET_BASIC_CLASS = 'CondorcetPHP\\Condorcet\\Algo\\Methods\\CondorcetBasic'` | __ |
 | HOMEPAGE | `final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet'` | __ |
-| VERSION | `final public const VERSION = '5.0.3'` | __ |
+| VERSION | `final public const VERSION = '5.0.7'` | __ |
 
 ### Public Static Properties
 | Properties Name | Description |
@@ -37,7 +37,7 @@ abstract class CondorcetPHP\Condorcet\Condorcet
 {
     // Constants
     final public const CONDORCET_BASIC_CLASS = 'CondorcetPHP\\Condorcet\\Algo\\Methods\\CondorcetBasic';
-    final public const VERSION = '5.0.3';
+    final public const VERSION = '5.0.7';
 
     // Static Properties
     public static bool $UseTimer = false;
@@ -62,7 +62,7 @@ abstract class CondorcetPHP\Condorcet\Condorcet
     final public const AUTHOR = 'Julien Boudry and contributors';
     final public const CONDORCET_BASIC_CLASS = 'CondorcetPHP\\Condorcet\\Algo\\Methods\\CondorcetBasic';
     final public const HOMEPAGE = 'https://github.com/julien-boudry/Condorcet';
-    final public const VERSION = '5.0.3';
+    final public const VERSION = '5.0.7';
 
     // Static Properties
     public static bool $UseTimer = false;

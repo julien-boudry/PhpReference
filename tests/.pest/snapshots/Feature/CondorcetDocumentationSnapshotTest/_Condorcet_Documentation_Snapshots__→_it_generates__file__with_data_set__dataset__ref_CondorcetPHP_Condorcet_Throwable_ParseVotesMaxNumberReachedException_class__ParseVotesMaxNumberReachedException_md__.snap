@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException exten
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\ParseVotesMaxNumberReachedException exten
     protected  $message = 'The maximum number of votes in a single parse has been reached. Please refer to Election::maxParseIteration to increase it.';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  ParseVotesMaxNumberReachedException->code = 0;
     protected string ParseVotesMaxNumberReachedException->file = '';
     protected int ParseVotesMaxNumberReachedException->line = 0;

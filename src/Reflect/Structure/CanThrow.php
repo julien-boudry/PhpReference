@@ -62,7 +62,7 @@ trait CanThrow
                 // Re-parse the docblock with the alternative context
                 $alternativeDocBlock = Util::getDocBlocFactory()->create($docComment, $this->alternativeDocBlockContext);
 
-                /** @var ?DocBlock\Tags\Throws[] */
+                /** @var DocBlock\Tags\Throws[] */
                 $throws = $alternativeDocBlock->getTagsByName('throws');
 
                 return empty($throws) ? null : $throws;
@@ -82,7 +82,7 @@ trait CanThrow
      *
      * @throws LogicException If tag resolution encounters an unexpected type
      *
-     * @return array<int, array{destination: \JulienBoudry\PhpReference\Reflect\ClassElementWrapper|string, name: string, tag: DocBlock\Tags\Throws}>|null
+     * @return array<int, array{destination: ClassElementWrapper|string, name: string, tag: DocBlock\Tags\Throws}>|null
      */
     public function getResolvedThrowsTags(): ?array
     {

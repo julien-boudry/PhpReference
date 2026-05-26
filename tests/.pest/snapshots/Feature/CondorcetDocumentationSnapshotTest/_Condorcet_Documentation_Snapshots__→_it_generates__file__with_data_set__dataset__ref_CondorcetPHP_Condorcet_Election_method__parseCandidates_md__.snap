@@ -1,6 +1,6 @@
 > CondorcetPHP \ [Election](class_Election.md)
 # Method parseCandidates()
-> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L337)
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/CandidatesProcess.php#L339)
 
 ```php
 public function Election->parseCandidates( string $input, [ bool $isFile = false ] ): array

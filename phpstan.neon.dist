@@ -6,7 +6,6 @@ parameters:
     ignoreErrors:
         - identifier: argument.type
         - identifier: missingType.generics
-        - identifier: property.readOnlyAssignOutOfClass
         - '#Class .* has an uninitialized readonly property \$.* Assign it in the constructor.#'
         - '#Access to an uninitialized readonly property#'
         - '#Readonly property .* is assigned outside of the constructor.#'

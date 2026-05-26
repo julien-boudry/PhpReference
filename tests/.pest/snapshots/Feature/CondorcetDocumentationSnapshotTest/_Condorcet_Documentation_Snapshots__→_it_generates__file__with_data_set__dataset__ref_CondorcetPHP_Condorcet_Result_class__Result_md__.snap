@@ -43,7 +43,7 @@ class CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator,
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     final public private(set) readonly float $buildTimestamp;
     final public private(set) readonly string $byClass;
     final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetLoser;
@@ -77,7 +77,7 @@ class CondorcetPHP\Condorcet\Result implements ArrayAccess, Countable, Iterator,
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     final public private(set) readonly float $buildTimestamp;
     final public private(set) readonly string $byClass;
     final public private(set) readonly ?CondorcetPHP\Condorcet\Candidate $CondorcetLoser;

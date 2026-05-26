@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException extends Condorc
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\FileDoesNotExistException extends Condorc
     protected  $message = 'Specified input file does not exist';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  FileDoesNotExistException->code = 0;
     protected string FileDoesNotExistException->file = '';
     protected int FileDoesNotExistException->line = 0;

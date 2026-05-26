@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends Co
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\CandidateDoesNotExistException extends Co
     protected  $message = 'This candidate does not exist';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  CandidateDoesNotExistException->code = 0;
     protected string CandidateDoesNotExistException->file = '';
     protected int CandidateDoesNotExistException->line = 0;

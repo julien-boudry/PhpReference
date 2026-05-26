@@ -1,6 +1,6 @@
 > CondorcetPHP \ [Election](class_Election.md)
 # Method getPairwise()
-> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L241)
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/ElectionProcess/ResultsProcess.php#L237)
 
 ```php
 public function Election->getPairwise( ): CondorcetPHP\Condorcet\Algo\Pairwise\Pairwise

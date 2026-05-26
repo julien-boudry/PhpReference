@@ -1,6 +1,6 @@
 > CondorcetPHP \ [Condorcet](../../../readme.md) \ [Algo](../../readme.md) \ [FilteredPairwise](../FilteredPairwise/class_FilteredPairwise.md)
 # Method candidateWinVersus()
-> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L241)
+> [Read it at source](https://github.com/julien-boudry/Condorcet/blob/master/src/Algo/Pairwise/Pairwise.php#L242)
 
 ```php
 public function Pairwise->candidateWinVersus( CondorcetPHP\Condorcet\Candidate|string $candidate, CondorcetPHP\Condorcet\Candidate|string $opponent ): bool

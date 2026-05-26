@@ -23,7 +23,7 @@ class CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends Con
 {
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
 
     // Inherited Methods
     public function CondorcetPublicApiException->getCondorcetBuilderVersion( [ bool $major = false ] ): string;
@@ -40,7 +40,7 @@ class CondorcetPHP\Condorcet\Throwable\CandidateInvalidNameException extends Con
     protected  $message = 'This name is not valid';
 
     // Inherited Properties
-    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.3';
+    final public private(set) string CondorcetPublicApiException->buildByCondorcetVersion = '5.0.7';
     protected  CandidateInvalidNameException->code = 0;
     protected string CandidateInvalidNameException->file = '';
     protected int CandidateInvalidNameException->line = 0;

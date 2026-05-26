@@ -32,7 +32,7 @@ class CondorcetPHP\Condorcet\Candidate implements Stringable
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     public protected(set) array $nameHistory = [];
     virtual public float $createdAt;
     virtual public string $name;
@@ -55,7 +55,7 @@ class CondorcetPHP\Condorcet\Candidate implements Stringable
 {
 
     // Properties
-    final public private(set) string $buildByCondorcetVersion = '5.0.3';
+    final public private(set) string $buildByCondorcetVersion = '5.0.7';
     public protected(set) array $nameHistory = [];
     final public private(set) bool $provisionalState = false;
     virtual public float $createdAt;
