@@ -43,6 +43,20 @@
             "pestphp/pest-plugin": true
         }
     },
+    "archive": {
+        "exclude": [
+            "/tests",
+            "/output",
+            "/docs",
+            "/Dev",
+            "/.github",
+            "/phpunit.xml",
+            "/phpstan.neon.dist",
+            "/linter_rules.json",
+            "/reference.php",
+            "/CONTRIBUTING.md"
+        ]
+    },
     "scripts": {
         "test": "pest --parallel",
         "document": "php Dev/update-documentation.php",
