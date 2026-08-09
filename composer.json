@@ -9,11 +9,11 @@
         "league/flysystem": "^3.29",
         "symfony/console": "^8.0",
         "laravel/prompts": "^0.3",
-        "phpunit/php-timer": "^8.0",
+        "phpunit/php-timer": "^9.0",
         "nikic/php-parser": "^5.7"
     },
     "require-dev": {
-        "pestphp/pest": "^4.7",
+        "pestphp/pest": "^5.0",
         "phpstan/phpstan": "^2.1",
         "julien-boudry/condorcet": "5.0.7",
         "friendsofphp/php-cs-fixer": "^3.91"
